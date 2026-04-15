@@ -130,6 +130,8 @@ class CFUR extends CI_Controller
     public $firmaDigital        = "0";
     public $rechazadoCB         = false;
     public $quitarFirmaDelFur   = '0';
+    public $dominio = "";
+    public $ipdocker = "";
 
     public function index()
     {
@@ -140,6 +142,7 @@ class CFUR extends CI_Controller
             redirect('Cindex');
         }
         $this->sistemaOperativo = sistemaoperativo();
+        $this->dominio = file_get_contents('system/dominio.dat', true);
 
         $this->enpista      = false;
         $this->mostrarFecha = '0';
@@ -1446,6 +1449,9 @@ EOF;
                     if ($d['nombre'] == 'quitarFirmaDelFur') {
                         $this->quitarFirmaDelFur = $d['valor'];
                     }
+                    if ($d['nombre'] == 'ipdocker') {
+                        $this->ipdocker = $d['valor'];
+                    }
                     $this->software = substr($nomSoftware, 0, strlen($nomSoftware) - 2);
                 }
             } else {
@@ -2122,26 +2128,31 @@ EOF;
                 $alta_izquierda = $this->rdnr($this->getResultado($data, '1', 'alta_izquierda', $vehiculo->numero_placa, $data['idtipo_prueba']));
                 $alta_derecha   = $this->rdnr($this->getResultado($data, '1', 'alta_derecha', $vehiculo->numero_placa, $data['idtipo_prueba']));
                 //                $alta_derecha = $this->evalLuzMinBaja($this->rdnr($this->getResultado($data, '1', 'alta_derecha')), $min_luz_baja);
-                // $valorAD = $this->getResultado($data, '1', 'antis_derecha', $vehiculo->numero_placa, $data['idtipo_prueba']);
-                // $valorAI = $this->getResultado($data, '1', 'antis_izquierda', $vehiculo->numero_placa, $data['idtipo_prueba']);
-                $valor_antiniebla_derecha_1 = $this->rdnr($this->getResultado($data, '1', 'antis_derecha', $vehiculo->numero_placa, $data['idtipo_prueba']));
-                $valor_antiniebla_izquierda_1 = $this->rdnr($this->getResultado($data, '1', 'antis_izquierda', $vehiculo->numero_placa, $data['idtipo_prueba']));
-                // if ($valorAD !== '') {
-                //     $valor_antiniebla_derecha_1 = $this->evalLuzMinBaja($this->rdnr($valorAD), $min_luz_baja);
-                // } else {
-                //     $valor_antiniebla_derecha_1 = '';
-                // }
-                // if ($valorAI !== '') {
-                //     $valor_antiniebla_izquierda_1 = $this->evalLuzMinBaja($this->rdnr($valorAI), $min_luz_baja);
-                // } else {
-                //     $valor_antiniebla_izquierda_1 = '';
-                // }
-                if ($this->evalLucFullMotos == "0") {
-                    $alta_izquierda               = '';
-                    $alta_derecha                 = '';
-                    $valor_antiniebla_izquierda_1 = '';
-                    $valor_antiniebla_derecha_1   = '';
+                $valorAD = $this->getResultado($data, '1', 'antis_derecha', $vehiculo->numero_placa, $data['idtipo_prueba']);
+                $valorAI = $this->getResultado($data, '1', 'antis_izquierda', $vehiculo->numero_placa, $data['idtipo_prueba']);
+                if ($valorAD !== '') {
+                    $valor_antiniebla_derecha_1 = $this->evalLuzMinBaja($this->rdnr($valorAD), $min_luz_baja);
+                } else {
+                    $valor_antiniebla_derecha_1 = '';
                 }
+                if ($valorAI !== '') {
+                    $valor_antiniebla_izquierda_1 = $this->evalLuzMinBaja($this->rdnr($valorAI), $min_luz_baja);
+                } else {
+                    $valor_antiniebla_izquierda_1 = '';
+                }
+                if ($this->evalLucFullMotos == "0" ){
+                    // var_dump($this->fechaGlobal);
+                    // var_dump($this->dominio);
+                        if(!($this->fechaGlobal < '2026-03-24' && $this->dominio == 'cdalamesa.tecmmas.com' )) {
+                            // echo 'entre';
+                         $alta_izquierda               = '';
+                        $alta_derecha                 = '';
+                        $valor_antiniebla_izquierda_1 = '';
+                        $valor_antiniebla_derecha_1   = '';
+                    }
+                }
+                    
+                
             }
             
             if ($simultanea == '0') {
@@ -2885,19 +2896,9 @@ EOF;
                                 ]);
                             } elseif ($this->nombreClase->nombre == "REMOLQUE" || $this->nombreClase->nombre == "SEMIREMOLQUE") {
                                 $grupo = "SISTEMA DE FRENOS";
-                                array_push($this->defectosMB, (object) [
+                                array_push($this->defectosMA, (object) [
                                     "codigo"      => '5.4.4.3.2',
                                     "descripcion" => 'Desequilibrio de las fuerzas de frenado entre las ruedas de un mismo eje, en cualquiera de sus ejes, entre el 20% y 30%',
-                                    "grupo"       => $grupo,
-                                    "tipo"        => 'B',
-                                ]);
-                            } elseif ($this->nombreClase->nombre == "CUATRIMOTO") {
-                                if ($this->ajustarGrupos == "1") {
-                                    $grupo = "6.5 SISTEMA DE FRENOS";
-                                }
-                                array_push($this->defectosMB, (object) [
-                                    "codigo"      => '5.1.5.1.2',
-                                    "descripcion" => 'Cuando aplique, desequilibrio de las fuerzas de frenado entre las ruedas de un mismo eje, superior al 20% e inferior al 30%',
                                     "grupo"       => $grupo,
                                     "tipo"        => 'B',
                                 ]);
@@ -2932,16 +2933,6 @@ EOF;
                                 "grupo"       => $grupo,
                                 "tipo"        => 'B',
                             ]);
-                        } elseif ($this->nombreClase->nombre == "CUATRIMOTO") {
-                                if ($this->ajustarGrupos == "1") {
-                                    $grupo = "6.5 SISTEMA DE FRENOS";
-                                }
-                                array_push($this->defectosMB, (object) [
-                                    "codigo"      => '5.1.5.1.2',
-                                    "descripcion" => 'Cuando aplique, desequilibrio de las fuerzas de frenado entre las ruedas de un mismo eje, superior al 20% e inferior al 30%',
-                                    "grupo"       => $grupo,
-                                    "tipo"        => 'B',
-                                ]);
                         } else {
                             if ($this->ajustarGrupos == "1") {
                                 $grupo = "6.7 SISTEMA DE FRENOS";
@@ -2967,7 +2958,6 @@ EOF;
                                 "grupo"       => $grupo,
                                 "tipo"        => 'A',
                             ]);
-							
                         } elseif ($this->nombreClase->nombre == "REMOLQUE" || $this->nombreClase->nombre == "SEMIREMOLQUE") {
                             $grupo = "SISTEMA DE FRENOS";
                             array_push($this->defectosMA, (object) [
@@ -2976,16 +2966,6 @@ EOF;
                                 "grupo"       => $grupo,
                                 "tipo"        => 'A',
                             ]);
-                        } elseif ($this->nombreClase->nombre == "CUATRIMOTO") {
-                                if ($this->ajustarGrupos == "1") {
-                                    $grupo = "6.5 SISTEMA DE FRENOS";
-                                }
-                                array_push($this->defectosMB, (object) [
-                                    "codigo"      => '5.1.5.1.1',
-                                    "descripcion" => 'Cuando aplique, desequilibrio de las fuerzas de frenado entre las ruedas de un mismo eje, superior al 30%',
-                                    "grupo"       => $grupo,
-                                    "tipo"        => 'A',
-                                ]);
                         } else {
                             if ($this->ajustarGrupos == "1") {
                                 $grupo = "6.7 SISTEMA DE FRENOS";
@@ -3046,17 +3026,6 @@ EOF;
                         "tipo"        => 'A',
                     ]);
                     break;
-                case "CUATRIMOTO":
-                    if ($this->ajustarGrupos == "1") {
-                        $grupo = "6.5 SISTEMA DE FRENOS";
-                    }
-                    array_push($this->defectosMA, (object) [
-                        "codigo"      => '5.1.5.1.3',
-                        "descripcion" => 'Eficacia menor de 30%.',
-                        "grupo"       => $grupo,
-                        "tipo"        => 'A',
-                    ]);
-                    break;
                 case "REMOLQUE":
                 case "SEMIREMOLQUE":
                     $grupo = "SISTEMA DE FRENOS";
@@ -3103,17 +3072,6 @@ EOF;
                                 "tipo"        => 'B',
                             ]);
                             break;
-						case "CUATRIMOTO":
-							if ($this->ajustarGrupos == "1") {
-								$grupo = "6.5 SISTEMA DE FRENOS";
-							}
-							array_push($this->defectosMA, (object) [
-								"codigo"      => '5.1.5.1.4',
-								"descripcion" => 'Eficacia inferior al 18% en freno de estacionamiento.',
-								"grupo"       => $grupo,
-								"tipo"        => 'B',
-							]);
-							break;
                         default:
                             if ($this->ajustarGrupos == "1") {
                                 $grupo = "6.7 SISTEMA DE FRENOS";
@@ -7025,753 +6983,94 @@ EOF;
         //        $fotos = str_replace("\\", "", $fotos);
 
         $this->setDatCi2("p_foto", $fotos);
-
-		// var_dump($this->arrayCi2);
-		
-
         //______________________________________________________________________________ENVIAR A CI2
-        // $url = 'http://' . $this->ipSicov . '/ci2_cda_ws/sincrofur.asmx?wsdl';
+        //        $url = 'http://181.143.139.22/ci2_cda_ws/sincrofur.asmx?WSDL';
+        $url = 'http://' . $this->ipSicov . '/ci2_cda_ws/sincrofur.asmx?wsdl';
+        // $url = 'http://186.116.8.156/ci2_cda_ws/sincrofur.asmx?WSDL';
 
-        // $datos_conexion = explode(":", $this->ipSicov);
-        // if ($this->sicovModoAlternativo == '1') {
-        //     $url            = 'http://' . $this->ipSicovAlternativo . '/ci2_cda_ws/sincrofur.asmx?wsdl';
-        //     $datos_conexion = explode(":", $this->ipSicovAlternativo);
-        // }
-        // $host = $datos_conexion[0];
-        // if (count($datos_conexion) > 1) {
-        //     $port = $datos_conexion[1];
-        // } else {
-        //     $port = 80;
-        // }
-        // $waitTimeoutInSeconds = 9;
-        // error_reporting(0);
-        // if ($data['ocasion'] === 'true') {
-        //     $reins   = '1';
-        //     $ocasion = '2';
-        // } else {
-        //     $reins   = '0';
-        //     $ocasion = '1';
-        // }
-        // if ($fp = fsockopen($host, $port, $errCode, $errStr, $waitTimeoutInSeconds)) {
-        //     $client = new SoapClient($url);
-        //     $fur    = [
-        //         'fur' => $this->arrayCi2,
-        //     ];
-        //     $respuesta = $client->ingresar_fur_v3($fur);
-        //     $rtaCP = $respuesta->ingresar_fur_v3Result;
-        //     $tipo = 'f';
-        //     if ($rtaCP->CodigoRespuesta == '0000') {
-        //         $estado                 = 'exito';
-        //         $datos['idhojapruebas'] = $data['hojatrabajo']->idhojapruebas;
-        //         $datos['reinspeccion']  = $reins;
-        //         $datos['sicov']         = '1';
-        //         if (! $this->segundo_envio) {
-        //             if ($aprobado == 'NO') {
-        //                 $datos['estadototal'] = '3';
-        //             } else {
-        //                 $datos['estadototal'] = '2';
-        //             }
-        //         } else {
-        //             if ($aprobado == 'NO') {
-        //                 $datos['estadototal'] = '7';
-        //             } else {
-        //                 $datos['estadototal'] = '4';
-        //             }
-        //             $tipo = 'r';
-        //             if ($this->salaEspera2 == "1") {
-        //                 $sala['idhojaprueba']  = $data['hojatrabajo']->idhojapruebas;
-        //                 $sala['idtipo_prueba'] = "20";
-        //                 $sala['estado']        = "1";
-        //                 $sala['actualizado']   = "0";
-        //                 $this->Mcontrol_salae->insertar($sala);
-        //             }
-        //         }
-        //         $this->Mhojatrabajo->update_x($datos);
-        //     } else {
-        //         if ($this->segundo_envio) {
-        //             $tipo = 'r';
-        //         }
-        //         $estado = 'error';
-        //     }
-        //     $mensaje = $this->mensajesCI2($rtaCP->CodigoRespuesta, $rtaCP->CodigoRespuesta . '|' . $ocasion . '|' . $estado . '|' . $rtaCP->MensajeRespuesta);
-        //     $this->insertarEvento($data['vehiculo']->numero_placa, json_encode($fur), $tipo, '1', $mensaje);
-        // } else {
-        //     $mensaje = $this->mensajesCI2('1000', '1000' . '|' . $ocasion . '|1|No hay conexión con sicov');
-        //     $this->insertarEvento($data['vehiculo']->numero_placa, '', 'f', '1', $mensaje);
-        // }
+        $datos_conexion = explode(":", $this->ipSicov);
+        // echo $this->ipSicovAlternativo;
+        // echo $this->sicovModoAlternativo;
+        if ($this->sicovModoAlternativo == '1') {
+            $url            = 'http://' . $this->ipSicovAlternativo . '/ci2_cda_ws/sincrofur.asmx?wsdl';
+            $datos_conexion = explode(":", $this->ipSicovAlternativo);
+        }
+        $host = $datos_conexion[0];
+        if (count($datos_conexion) > 1) {
+            $port = $datos_conexion[1];
+        } else {
+            $port = 80;
+        }
+        $waitTimeoutInSeconds = 9;
+        error_reporting(0);
+        if ($data['ocasion'] === 'true') {
+            $reins   = '1';
+            $ocasion = '2';
+        } else {
+            $reins   = '0';
+            $ocasion = '1';
+        }
+        // echo "Conectando a $host en el puerto $port...<br>";
+        if ($fp = fsockopen($host, $port, $errCode, $errStr, $waitTimeoutInSeconds)) {
+            $client = new SoapClient($url);
+            $fur    = [
+                'fur' => $this->arrayCi2,
+            ];
+            //            $respuesta = $client->ingresar_fur_v2($fur);
+            $respuesta = $client->ingresar_fur_v3($fur);
+            //            $rtaCP = $respuesta->ingresar_fur_v2Result;
+            $rtaCP = $respuesta->ingresar_fur_v3Result;
+            //            var_dump($rtaCP);
+            $tipo = 'f';
+            if ($rtaCP->CodigoRespuesta == '0000') {
+                $estado                 = 'exito';
+                $datos['idhojapruebas'] = $data['hojatrabajo']->idhojapruebas;
+                $datos['reinspeccion']  = $reins;
+                $datos['sicov']         = '1';
+                if (! $this->segundo_envio) {
+                    if ($aprobado == 'NO') {
+                        $datos['estadototal'] = '3';
+                    } else {
+                        $datos['estadototal'] = '2';
+                    }
+                } else {
+                    if ($aprobado == 'NO') {
+                        $datos['estadototal'] = '7';
+                    } else {
+                        $datos['estadototal'] = '4';
+                    }
+                    $tipo = 'r';
+                    if ($this->salaEspera2 == "1") {
+                        $sala['idhojaprueba']  = $data['hojatrabajo']->idhojapruebas;
+                        $sala['idtipo_prueba'] = "20";
+                        $sala['estado']        = "1";
+                        $sala['actualizado']   = "0";
+                        $this->Mcontrol_salae->insertar($sala);
+                    }
+                    //                    if ($this->CARinformeActivo == "1") {
+                    //                        $rta = $this->Mambientales->getEnvioCar($this->idprueba_gases);
+                    //                        if (count($rta) == 0) {
+                    //                            $msgCAR = $this->getInformeCarNew($data['hojatrabajo']->idhojapruebas);
+                    //                            $mensaje = $mensaje . " - Respuesta CAR: " . $msgCAR;
+                    //                        }
+                    //                    }
+                }
+                $this->Mhojatrabajo->update_x($datos);
+            } else {
+                if ($this->segundo_envio) {
+                    $tipo = 'r';
+                }
+                $estado = 'error';
+            }
+            $mensaje = $this->mensajesCI2($rtaCP->CodigoRespuesta, $rtaCP->CodigoRespuesta . '|' . $ocasion . '|' . $estado . '|' . $rtaCP->MensajeRespuesta);
+            $this->insertarEvento($data['vehiculo']->numero_placa, json_encode($fur), $tipo, '1', $mensaje);
+        } else {
+            $mensaje = $this->mensajesCI2('1000', '1000' . '|' . $ocasion . '|1|No hay conexión con sicov');
+            $this->insertarEvento($data['vehiculo']->numero_placa, '', 'f', '1', $mensaje);
+        }
 
-        // echo $mensaje;
+        echo $mensaje;
     }
-    // private function buildCi2($data)
-    // {
-
-    //     //______________________________________________________________________DATOS DE VALIDACION
-    //     $this->setDatCi2("usuario", $this->usuarioSicov);
-    //     $this->setDatCi2("clave", $this->claveSicov);
-    //     $this->setDatCi2("p_pin", trim($data['hojatrabajo']->pin0, " \t\n\r\0\x0B"));
-    //     $this->setDatCi2("p_3_plac", $data['vehiculo']->numero_placa);
-    //     $this->setDatCi2("p_e_con_run", $data['numero_consecutivo']);
-    //     $this->setDatCi2("p_tw01", $data['numero_sustrato']);
-    //     if ($data['apro'] == 'APROBADO: SI__X__ NO_____') {
-    //         $aprobado = "SI";
-    //     } else {
-    //         $aprobado = "NO";
-    //     }
-    //     $this->setDatCi2("p_e_apr", $aprobado);
-    //     $this->setDatCi2("p_fur_num", $data['fur_aso']); //.......................PENDIENTE
-    //                                                      //______________________________________________________________________DATOS DEL CDA
-    //     $this->setDatCi2("p_fur_aso", $data['fur_aso']);
-    //     $this->setDatCi2("p_cda", $data['cda']->nombre_cda);
-    //     $this->setDatCi2("p_nit", $data['cda']->numero_cda);
-    //     $this->setDatCi2("p_dir", $data['sede']->direccion);
-    //     $this->setDatCi2("p_div", $data['sede']->cod_ciudad . '000');
-    //     $this->setDatCi2("p_ciu", $data['ciudadCDA']->nombre);
-    //     $this->setDatCi2("p_tel", $data['sede']->telefono_uno);
-    //     $this->setDatCi2("p_ema", $data['sede']->email);
-    //     //______________________________________________________________________FECHA PRUEBA
-    //     $fechaFur = date_format(date_create($data['fechafur']), 'd/m/Y H:i');
-    //     //        $fechaFur = date_format(date_create($data['fechafur']), 'd/m/Y H:i');
-    //     $this->setDatCi2("p_1_fec_pru", str_replace("/", "", $fechaFur));
-    //     //______________________________________________________________________DATOS DEL PROPIETARIO
-    //     $this->setDatCi2("p_2_nom_raz", $data['propietario']->nombre1 . " " .
-    //         $data['propietario']->nombre2 . " " .
-    //         $data['propietario']->apellido1 . " " .
-    //         $data['propietario']->apellido2);
-    //     if ($data['propietario']->tipo_identificacion == 6) {
-    //         $data['propietario']->tipo_identificacion = 5;
-    //     }
-    //     $this->setDatCi2("p_2_doc_tip", $data['propietario']->tipo_identificacion);
-    //     $this->setDatCi2("p_2_doc", $data['propietario']->numero_identificacion);
-    //     $this->setDatCi2("p_2_dir", $data['propietario']->direccion);
-    //     $this->setDatCi2("p_2_tel", $data['propietario']->telefono1);
-    //     $this->setDatCi2("p_2_ciu", $data['ciudadPropietario']->nombre);
-    //     $this->setDatCi2("p_2_dep", $data['departamentoPropietario']->nombre);
-    //     $this->setDatCi2("p_2_ema", $data['propietario']->correo);
-
-    //     if ($data['vehiculo']->kilometraje === 'NO FUNCIONAL') {
-    //         $data['vehiculo']->kilometraje = "0";
-    //     }
-
-    //     if ($data['vehiculo']->potencia_motor === 'No aplica') {
-    //         $data['vehiculo']->potencia_motor = "0";
-    //     }
-    //     //______________________________________________________________________DATOS DEL VEHICULO
-    //     $this->setDatCi2("p_3_mar", strtoupper($data['marca']->nombre));
-    //     $this->setDatCi2("p_3_lin", strtoupper($data['linea']->nombre));
-    //     $this->setDatCi2("p_3_cla", strtoupper($data['clase']->nombre));
-    //     $this->setDatCi2("p_3_mod", $data['vehiculo']->ano_modelo);
-    //     $this->setDatCi2("p_3_cil", $data['vehiculo']->cilindraje);
-    //     $this->setDatCi2("p_3_ser", strtoupper($data['servicio']->nombre));
-    //     $this->setDatCi2("p_3_vin", $data['vehiculo']->numero_vin);
-    //     $this->setDatCi2("p_3_mot", $data['vehiculo']->numero_motor);
-    //     $this->setDatCi2("p_3_lic", $data['vehiculo']->numero_tarjeta_propiedad);
-    //     $this->setDatCi2("p_3_com", strtoupper($data['combustible']->nombre));
-    //     $this->setDatCi2("p_3_col", strtoupper($data['color']->nombre));
-    //     $this->setDatCi2("p_3_nac", strtoupper($data['pais']->nombre));
-    //     $fechaMat = date_format(date_create($data['vehiculo']->fecha_matricula), 'd/m/Y');
-    //     $this->setDatCi2("p_3_fec_lic", str_replace("/", "", $fechaMat));
-    //     $this->setDatCi2("p_3_tip_mot", $data['vehiculo']->tiempos);
-    //     $this->setDatCi2("p_3_kil", $data['vehiculo']->kilometraje);
-    //     $this->setDatCi2("p_3_sil", $data['pasajeros']);
-    //     if ($data['vehiculo']->blindaje == "1") {
-    //         $blindaje = "SI";
-    //     } else {
-    //         $blindaje = "NO";
-    //     }
-    //     //       $data['vehiculo']->tipo_vehiculo
-    //     //       $data['gases']->idprueba
-    //     //       strtoupper($data['combustible']->nombre)
-    //     $this->setDatCi2("p_3_vid_pol", '');
-    //     $this->setDatCi2("p_3_bli", $blindaje);
-    //     $this->setDatCi2("p_3_pot", $data['vehiculo']->potencia_motor);
-    //     $this->setDatCi2("p_3_tip_car", $data['carroceria']->nombre);
-    //     //        $fechaSoat = "01/01/1999";
-    //     $fechaSoat = date_format(date_create($data['vehiculo']->fecha_vencimiento_soat), 'd/m/Y');
-    //     $this->setDatCi2("p_3_fec_ven_soa", str_replace("/", "", $fechaSoat));
-    //     switch ($data['vehiculo']->certificadoGas) {
-    //         case 'SI ( ) NO ( ) N/A (X)':
-    //             $dat = "NA";
-    //             break;
-    //         case 'SI ( ) NO (X) N/A ( )':
-    //             $dat = "NO";
-    //             break;
-    //         case 'SI (X) NO ( ) N/A ( )':
-    //             $dat = "SI";
-    //             break;
-    //         default:
-    //             $dat = "NA";
-    //             break;
-    //     }
-
-    //     $this->setDatCi2("p_3_con_gnv", $dat);
-
-    //     if ($dat == 'NA' || $dat == 'NO') {
-    //         $this->setDatCi2("p_3_fec_ven_gnv", "");
-    //     } else {
-    //         $fechaGNV = date_format(date_create($data['vehiculo']->fecha_final_certgas), 'd/m/Y');
-    //         $this->setDatCi2("p_3_fec_ven_gnv", str_replace("/", "", $fechaGNV));
-    //     }
-    //     //______________________________________________________________________SONOMETRO
-    //     $this->setDatCi2("p_4_rui_val", $data['sonometro']->valor_ruido_motor1);
-    //     $this->setDatCi2("p_4_rui_max", $data['sonometro']->maximo_ruido_motor);
-    //     //______________________________________________________________________LUCES BAJAS
-    //     $this->setDatCi2("p_5_der_int_b1", $data['luces']->valor_baja_derecha_1);
-    //     $this->setDatCi2("p_5_der_int_b2", $data['luces']->valor_baja_derecha_2);
-    //     $this->setDatCi2("p_5_der_int_b3", $data['luces']->valor_baja_derecha_3);
-    //     $this->setDatCi2("p_5_der_min", $data['luces']->intensidad_minima);
-    //     $this->setDatCi2("p_5_der_inc_b1", $data['luces']->inclinacion_baja_derecha_1);
-    //     $this->setDatCi2("p_5_der_inc_b2", $data['luces']->inclinacion_baja_derecha_2);
-    //     $this->setDatCi2("p_5_der_inc_b3", $data['luces']->inclinacion_baja_derecha_3);
-    //     $this->setDatCi2("p_5_der_ran", $data['luces']->inclinacion_rango);
-    //     $this->setDatCi2("p_5_sim_der_b", $data['luces']->simultaneaBaja);
-    //     $this->setDatCi2("p_5_izq_int_b1", $data['luces']->valor_baja_izquierda_1);
-    //     $this->setDatCi2("p_5_izq_int_b2", $data['luces']->valor_baja_izquierda_2);
-    //     $this->setDatCi2("p_5_izq_int_b3", $data['luces']->valor_baja_izquierda_3);
-    //     $this->setDatCi2("p_5_izq_min", $data['luces']->intensidad_minima);
-    //     $this->setDatCi2("p_5_izq_inc_b1", $data['luces']->inclinacion_baja_izquierda_1);
-    //     $this->setDatCi2("p_5_izq_inc_b2", $data['luces']->inclinacion_baja_izquierda_2);
-    //     $this->setDatCi2("p_5_izq_inc_b3", $data['luces']->inclinacion_baja_izquierda_3);
-    //     $this->setDatCi2("p_5_izq_ran", $data['luces']->inclinacion_rango);
-    //     $this->setDatCi2("p_5_sim_izq_b", $data['luces']->simultaneaBaja);
-    //     //______________________________________________________________________LUCES ALTAS
-    //     $this->setDatCi2("p_5_der_int_a1", $data['luces']->valor_alta_derecha_1);
-    //     $this->setDatCi2("p_5_der_int_a2", $data['luces']->valor_alta_derecha_2);
-    //     $this->setDatCi2("p_5_der_int_a3", $data['luces']->valor_alta_derecha_3);
-    //                                                                           //        $this->setDatCi2("p_5_der_min_a", ''); //..................................PENDIENTE
-    //     $this->setDatCi2("p_5_der_min_a", $data['luces']->intensidad_minima); //..................................PENDIENTE
-    //     $this->setDatCi2("p_5_sim_der_a", $data['luces']->simultaneaAlta);
-    //     $this->setDatCi2("p_5_izq_int_a1", $data['luces']->valor_alta_izquierda_1);
-    //     $this->setDatCi2("p_5_izq_int_a2", $data['luces']->valor_alta_izquierda_2);
-    //     $this->setDatCi2("p_5_izq_int_a3", $data['luces']->valor_alta_izquierda_3);
-    //                                                                           //        $this->setDatCi2("p_5_izq_min_a", ''); //..................................PENDIENTE
-    //     $this->setDatCi2("p_5_izq_min_a", $data['luces']->intensidad_minima); //..................................PENDIENTE
-    //     $this->setDatCi2("p_5_sim_izq_a", $data['luces']->simultaneaAlta);
-    //     //______________________________________________________________________LUCES ANTINIEBLAS
-    //     $this->setDatCi2("p_5_der_int_e1  ", $data['luces']->valor_antiniebla_derecha_1);
-    //     $this->setDatCi2("p_5_der_int_e2", $data['luces']->valor_antiniebla_derecha_2);
-    //     $this->setDatCi2("p_5_der_int_e3", $data['luces']->valor_antiniebla_derecha_3);
-    //                                                                           //        $this->setDatCi2("p_5_der_min_e", ''); //..................................PENDIENTE
-    //     $this->setDatCi2("p_5_der_min_e", $data['luces']->intensidad_minima); //..................................PENDIENTE
-    //     $this->setDatCi2("p_5_sim_der_e", $data['luces']->simultaneaAntiniebla);
-    //     $this->setDatCi2("p_5_izq_int_e1", $data['luces']->valor_antiniebla_izquierda_1);
-    //     $this->setDatCi2("p_5_izq_int_e2", $data['luces']->valor_antiniebla_izquierda_2);
-    //     $this->setDatCi2("p_5_izq_int_e3", $data['luces']->valor_antiniebla_izquierda_3);
-    //                                                                           //        $this->setDatCi2("p_5_izq_min_e", ''); //..................................PENDIENTE
-    //     $this->setDatCi2("p_5_izq_min_e", $data['luces']->intensidad_minima); //..................................PENDIENTE
-    //     $this->setDatCi2("p_5_sim_izq_e", $data['luces']->simultaneaAntiniebla);
-    //     //______________________________________________________________________SUMA LUCES
-    //     $this->setDatCi2("p_6_int", $data['luces']->intensidad_total);
-    //     $this->setDatCi2("p_6_max", $data['luces']->intensidad_maxima);
-    //     //______________________________________________________________________SUSPENSION
-    //     $this->setDatCi2("p_7_del_der_val", $data['suspension']->delantera_derecha);
-    //     $this->setDatCi2("p_7_del_izq_val", $data['suspension']->delantera_izquierda);
-    //     $this->setDatCi2("p_7_tra_der_val", $data['suspension']->trasera_derecha);
-    //     $this->setDatCi2("p_7_tra_izq_val", $data['suspension']->trasera_izquierda);
-    //     $this->setDatCi2("p_7_min", $data['suspension']->minima);
-    //     //______________________________________________________________________FRENO
-    //     $this->setDatCi2("p_8_efi_tot", $data['frenos']->eficacia_total);
-    //     $this->setDatCi2("p_8_efi_tot_min", $data['frenos']->n_eficacia_total);
-    //     $this->setDatCi2("p_8_ej1_izq_fue", $data['frenos']->freno_1_izquierdo);
-    //     $this->setDatCi2("p_8_ej1_izq_pes", $data['frenos']->peso_1_izquierdo);
-    //     $this->setDatCi2("p_8_ej1_der_fue", $data['frenos']->freno_1_derecho);
-    //     $this->setDatCi2("p_8_ej1_der_pes", $data['frenos']->peso_1_derecho);
-    //     $this->setDatCi2("p_8_ej1_des", $data['frenos']->desequilibrio_1);
-    //     $this->setDatCi2("p_8_ej1_ran", $data['frenos']->n_desequilibrio_B);
-    //     $this->setDatCi2("p_8_ej1_max", $data['frenos']->n_desequilibrio_A);
-    //     $this->setDatCi2("p_8_ej2_izq_fue", $data['frenos']->freno_2_izquierdo);
-    //     $this->setDatCi2("p_8_ej2_izq_pes", $data['frenos']->peso_2_izquierdo);
-    //     $this->setDatCi2("p_8_ej2_der_fue", $data['frenos']->freno_2_derecho);
-    //     $this->setDatCi2("p_8_ej2_der_pes", $data['frenos']->peso_2_derecho);
-    //     $this->setDatCi2("p_8_ej2_des", $data['frenos']->desequilibrio_2);
-    //     $this->setDatCi2("p_8_ej2_ran", $data['frenos']->n_desequilibrio_B);
-    //     $this->setDatCi2("p_8_ej2_max", $data['frenos']->n_desequilibrio_A);
-    //     $this->setDatCi2("p_8_ej3_izq_fue", $data['frenos']->freno_3_izquierdo);
-    //     $this->setDatCi2("p_8_ej3_izq_pes", $data['frenos']->peso_3_izquierdo);
-    //     $this->setDatCi2("p_8_ej3_der_fue", $data['frenos']->freno_3_derecho);
-    //     $this->setDatCi2("p_8_ej3_der_pes", $data['frenos']->peso_3_derecho);
-    //     $this->setDatCi2("p_8_ej3_des", $data['frenos']->desequilibrio_3);
-    //     $this->setDatCi2("p_8_ej3_ran", $data['frenos']->n_desequilibrio_B);
-    //     $this->setDatCi2("p_8_ej3_max", $data['frenos']->n_desequilibrio_A);
-    //     $this->setDatCi2("p_8_ej4_izq_fue", $data['frenos']->freno_4_izquierdo);
-    //     $this->setDatCi2("p_8_ej4_izq_pes", $data['frenos']->peso_4_izquierdo);
-    //     $this->setDatCi2("p_8_ej4_der_fue", $data['frenos']->freno_4_derecho);
-    //     $this->setDatCi2("p_8_ej4_der_pes", $data['frenos']->peso_4_derecho);
-    //     $this->setDatCi2("p_8_ej4_des", $data['frenos']->desequilibrio_4);
-    //     $this->setDatCi2("p_8_ej4_ran", $data['frenos']->n_desequilibrio_B);
-    //     $this->setDatCi2("p_8_ej4_max", $data['frenos']->n_desequilibrio_A);
-    //     $this->setDatCi2("p_8_ej5_izq_fue", $data['frenos']->freno_5_izquierdo);
-    //     $this->setDatCi2("p_8_ej5_izq_pes", $data['frenos']->peso_5_izquierdo);
-    //     $this->setDatCi2("p_8_ej5_der_fue", $data['frenos']->freno_5_derecho);
-    //     $this->setDatCi2("p_8_ej5_der_pes", $data['frenos']->peso_5_derecho);
-    //     $this->setDatCi2("p_8_ej5_des", $data['frenos']->desequilibrio_5);
-    //     $this->setDatCi2("p_8_ej5_ran", $data['frenos']->n_desequilibrio_B);
-    //     $this->setDatCi2("p_8_ej5_max", $data['frenos']->n_desequilibrio_A);
-    //     //______________________________________________________________________FRENO AUXILIAR
-    //     $this->setDatCi2("p_8_efi_aux", $data['frenos']->eficacia_auxiliar);
-    //     $this->setDatCi2("p_8_efi_aux_min", $data['frenos']->n_eficacia_auxiliar);
-    //     $this->setDatCi2("p_8_sum_izq_aux_fue", $data['frenos']->sum_freno_aux_izquierdo);
-    //     $this->setDatCi2("p_8_sum_izq_aux_pes", $data['frenos']->sum_peso_izquierdo);
-    //     $this->setDatCi2("p_8_sum_der_aux_fue", $data['frenos']->sum_freno_aux_derecho);
-    //     $this->setDatCi2("p_8_sum_der_aux_pes", $data['frenos']->sum_peso_derecho);
-    //     //______________________________________________________________________DESVIACION LATERAL
-    //     $this->setDatCi2("p_9_ej1", $data['alineacion']->alineacion_1);
-    //     $this->setDatCi2("p_9_ej2", $data['alineacion']->alineacion_2);
-    //     $this->setDatCi2("p_9_ej3", $data['alineacion']->alineacion_3);
-    //     $this->setDatCi2("p_9_ej4", $data['alineacion']->alineacion_4);
-    //     $this->setDatCi2("p_9_ej5", $data['alineacion']->alineacion_5);
-    //     $this->setDatCi2("p_9_max", $data['alineacion']->minmax);
-    //     //______________________________________________________________________DISPOSITIVOS DE COBRO
-    //     $this->setDatCi2("p_10_ref_com_lla", $data['taximetro']->r_llanta);
-    //     $this->setDatCi2("p_10_err_dis", $data['taximetro']->distancia);
-    //     $this->setDatCi2("p_10_err_tie", $data['taximetro']->tiempo);
-    //     $this->setDatCi2("p_10_max", $data['taximetro']->minmax);
-    //     //______________________________________________________________________GASES
-    //     $this->setDatCi2("p_11_co_ral_val", $data['gases']->co_ralenti);
-    //     $this->setDatCi2("p_11_co_ral_nor", $data['gases']->CoFlag_);
-    //     $this->setDatCi2("p_11_co2_ral_val", $data['gases']->co2_ralenti);
-    //     $this->setDatCi2("p_11_co2_ral_nor", $data['gases']->Co2Flag_);
-    //     $this->setDatCi2("p_11_o2_ral_val", $data['gases']->o2_ralenti);
-    //     $this->setDatCi2("p_11_o2_ral_nor", $data['gases']->O2Flag_);
-    //     $this->setDatCi2("p_11_hc_ral_val", $data['gases']->hc_ralenti);
-    //     $this->setDatCi2("p_11_hc_ral_nor", $data['gases']->HcFlag_);
-    //     $this->setDatCi2("p_11_co_cru_val", $data['gases']->co_crucero);
-    //     $this->setDatCi2("p_11_co_cru_nor", $data['gases']->CoFlag_);
-    //     $this->setDatCi2("p_11_co2_cru_val", $data['gases']->co2_crucero);
-    //     $this->setDatCi2("p_11_co2_cru_nor", $data['gases']->Co2Flag_);
-    //     $this->setDatCi2("p_11_o2_cru_val", $data['gases']->o2_crucero);
-    //     $this->setDatCi2("p_11_o2_cru_nor", $data['gases']->O2Flag_);
-    //     $this->setDatCi2("p_11_hc_cru_val", $data['gases']->hc_crucero);
-    //     $this->setDatCi2("p_11_hc_cru_nor", $data['gases']->HcFlag_);
-    //     if ($data['gases']->temperatura == "") {
-    //         $data['gases']->temperatura = "0";
-    //     }
-    //     $this->setDatCi2("p_11_tem_ral", $data['gases']->temperatura);
-    //     $this->setDatCi2("p_11_rpm_ral", $data['gases']->rpm_ralenti);
-    //     $this->setDatCi2("p_11_tem_cru", $data['gases']->temperatura);
-    //     $this->setDatCi2("p_11_rpm_cru", $data['gases']->rpm_crucero);
-    //     $this->setDatCi2("p_11_no_ral_val", '');
-    //     $this->setDatCi2("p_11_no_ral_nor", '');
-    //     $this->setDatCi2("p_11_no_cru_val", '');
-    //     $this->setDatCi2("p_11_no_cru_nor", '');
-    //     $this->setDatCi2("p_11_cat", $data['vehiculo']->convertidorCat);
-    //     $this->setDatCi2("p_11_hum_amb", $data['gases']->temperatura_ambiente);
-    //     $this->setDatCi2("p_11_hum_rel", $data['gases']->humedad);
-    //     //______________________________________________________________________OPACIDAD
-    //     $this->setDatCi2("p_11_b_ci1", $data['opacidad']->op_ciclo1N);
-    //     $this->setDatCi2("p_11_b_ci2", $data['opacidad']->op_ciclo2N);
-    //     $this->setDatCi2("p_11_b_ci3", $data['opacidad']->op_ciclo3N);
-    //     $this->setDatCi2("p_11_b_ci4", $data['opacidad']->op_ciclo4N);
-    //     $this->setDatCi2("p_11_b_ci1_d", $data['opacidad']->op_ciclo1);
-    //     $this->setDatCi2("p_11_b_ci2_d", $data['opacidad']->op_ciclo2);
-    //     $this->setDatCi2("p_11_b_ci3_d", $data['opacidad']->op_ciclo3);
-    //     $this->setDatCi2("p_11_b_ci4_d", $data['opacidad']->op_ciclo4);
-    //     $this->setDatCi2("p_11_b_res_val_d", $data['opacidad']->opacidad_total);
-    //     $this->setDatCi2("p_11_b_res_nor_d", $data['opacidad']->max);
-    //     $this->setDatCi2("p_11_b_res_nor_d_CC", $data['vehiculo']->cilindraje);
-    //     $this->setDatCi2("p_11_b_c1_gob", $data['opacidad']->rpm_ciclo1);
-    //     $this->setDatCi2("p_11_b_c2_gob", $data['opacidad']->rpm_ciclo2);
-    //     $this->setDatCi2("p_11_b_c3_gob", $data['opacidad']->rpm_ciclo3);
-    //     $this->setDatCi2("p_11_b_c4_gob", $data['opacidad']->rpm_ciclo4);
-    //     $this->setDatCi2("p_11_b_res_val", $data['opacidad']->opacidad_totalN);
-    //     $this->setDatCi2("p_11_b_res_nor", $data['opacidad']->maxN);
-    //     $this->setDatCi2("p_11_b_rpm", $data['opacidad']->rpm_ralenti);
-    //     $this->setDatCi2("p_11_b_tem_ini", $data['opacidad']->temp_final);
-    //     $this->setDatCi2("p_11_b_tem_fin", $data['opacidad']->temp_inicial);
-    //     $this->setDatCi2("p_11_b_tem_amb", $data['opacidad']->temp_ambiente);
-    //     $this->setDatCi2("p_11_b_hum", $data['opacidad']->humedad);
-    //     $this->setDatCi2("p_11_b_lot", $data['vehiculo']->diametro_escape);
-    //     //        if ($this->fechares762_Tabla31 >= $this->fecha_inicialG)
-    //     //            $this->setDatCi2("11_b_ci1_d", $data['opacidad']->op_ciclo1);
-    //     //
-    //     //        }
-
-    //     $this->setDatCi2("p_v01", '');
-    //     $this->setDatCi2("p_v02", '');
-    //     $this->setDatCi2("p_v03", '');
-    //     //______________________________________________________________________DEFECTOS MECANIZADOS
-    //     $c_cod           = "";
-    //     $c_des           = "";
-    //     $c_gru           = "";
-    //     $c_tip_def_a     = "";
-    //     $c_tip_def_b     = "";
-    //     $c_tip_def_a_tot = "0";
-    //     $c_tip_def_b_tot = "0";
-    //     if (count($data['defectosMecanizadosA']) > 0) {
-    //         $c_tip_def_a_tot = count($data['defectosMecanizadosA']);
-    //         foreach ($data['defectosMecanizadosA'] as $def) {
-    //             $c_cod       = $c_cod . $def->codigo . ";";
-    //             $c_des       = $c_des . $def->descripcion . ";";
-    //             $c_gru       = $c_gru . $def->grupo . ";";
-    //             $c_tip_def_a = $c_tip_def_a . "X;";
-    //             $c_tip_def_b = $c_tip_def_b . ";";
-    //         }
-    //     }
-    //     if (count($data['defectosMecanizadosB']) > 0) {
-    //         $c_tip_def_b_tot = count($data['defectosMecanizadosB']);
-    //         foreach ($data['defectosMecanizadosB'] as $def) {
-    //             $c_cod       = $c_cod . $def->codigo . ";";
-    //             $c_des       = $c_des . $def->descripcion . ";";
-    //             $c_gru       = $c_gru . $def->grupo . ";";
-    //             $c_tip_def_a = $c_tip_def_a . ";";
-    //             $c_tip_def_b = $c_tip_def_b . "X;";
-    //         }
-    //     }
-    //     $this->setDatCi2("p_c_cod", $c_cod);
-    //     $this->setDatCi2("p_c_des", $c_des);
-    //     $this->setDatCi2("p_c_gru", $c_gru);
-    //     $this->setDatCi2("p_c_tip_def_a", $c_tip_def_a);
-    //     $this->setDatCi2("p_c_tip_def_b", $c_tip_def_b);
-    //     $this->setDatCi2("p_c_tip_def_a_tot", $c_tip_def_a_tot);
-    //     $this->setDatCi2("p_c_tip_def_b_tot", $c_tip_def_b_tot);
-    //     //______________________________________________________________________DEFECTOS SENSORIALES
-    //     $d_cod           = "";
-    //     $d_des           = "";
-    //     $d_gru           = "";
-    //     $d_tip_def_a     = "";
-    //     $d_tip_def_b     = "";
-    //     $d_tip_def_a_tot = "0";
-    //     $d_tip_def_b_tot = "0";
-    //     if (count($data['defectosSensorialesA']) > 0) {
-    //         $d_tip_def_a_tot = count($data['defectosSensorialesA']);
-    //         foreach ($data['defectosSensorialesA'] as $def) {
-    //             $d_cod       = $d_cod . $def->codigo . ";";
-    //             $d_des       = $d_des . $def->descripcion . ";";
-    //             $d_gru       = $d_gru . $def->grupo . ";";
-    //             $d_tip_def_a = $d_tip_def_a . "X;";
-    //             $d_tip_def_b = $d_tip_def_b . ";";
-    //         }
-    //     }
-    //     if (count($data['defectosSensorialesB']) > 0) {
-    //         $d_tip_def_b_tot = count($data['defectosSensorialesB']);
-    //         foreach ($data['defectosSensorialesB'] as $def) {
-    //             $d_cod       = $d_cod . $def->codigo . ";";
-    //             $d_des       = $d_des . $def->descripcion . ";";
-    //             $d_gru       = $d_gru . $def->grupo . ";";
-    //             $d_tip_def_a = $d_tip_def_a . ";";
-    //             $d_tip_def_b = $d_tip_def_b . "X;";
-    //         }
-    //     }
-    //     $this->setDatCi2("p_d_cod", $d_cod);
-    //     $this->setDatCi2("p_d_des", $d_des);
-    //     $this->setDatCi2("p_d_gru", $d_gru);
-    //     $this->setDatCi2("p_d_tip_def_a", $d_tip_def_a);
-    //     $this->setDatCi2("p_d_tip_def_b", $d_tip_def_b);
-    //     $this->setDatCi2("p_d_tip_def_a_tot", $d_tip_def_a_tot);
-    //     $this->setDatCi2("p_d_tip_def_b_tot", $d_tip_def_b_tot);
-    //     //______________________________________________________________________DEFECTOS ENSENANZA
-    //     $d1_cod           = "";
-    //     $d1_des           = "";
-    //     $d1_gru           = "";
-    //     $d1_tip_def_a     = "";
-    //     $d1_tip_def_b     = "";
-    //     $d1_tip_def_a_tot = "0";
-    //     $d1_tip_def_b_tot = "0";
-    //     if (count($data['defectosEnsenanzaA']) > 0) {
-    //         $d1_tip_def_a_tot = count($data['defectosEnsenanzaA']);
-    //         foreach ($data['defectosEnsenanzaA'] as $def) {
-    //             $d1_cod       = $d1_cod . $def->codigo . ";";
-    //             $d1_des       = $d1_des . $def->descripcion . ";";
-    //             $d1_gru       = $d1_gru . $def->grupo . ";";
-    //             $d1_tip_def_a = $d1_tip_def_a . "X;";
-    //             $d1_tip_def_b = $d1_tip_def_b . ";";
-    //         }
-    //     }
-    //     if (count($data['defectosEnsenanzaB']) > 0) {
-    //         $d1_tip_def_b_tot = count($data['defectosEnsenanzaB']);
-    //         foreach ($data['defectosEnsenanzaB'] as $def) {
-    //             $d1_cod       = $d1_cod . $def->codigo . ";";
-    //             $d1_des       = $d1_des . $def->descripcion . ";";
-    //             $d1_gru       = $d1_gru . $def->grupo . ";";
-    //             $d1_tip_def_a = $d1_tip_def_a . ";";
-    //             $d1_tip_def_b = $d1_tip_def_b . "X;";
-    //         }
-    //     }
-    //     $this->setDatCi2("p_d1_cod", $d1_cod);
-    //     $this->setDatCi2("p_d1_des", $d1_des);
-    //     $this->setDatCi2("p_d1_gru", $d1_gru);
-    //     $this->setDatCi2("p_d1_tip_def_a", $d1_tip_def_a);
-    //     $this->setDatCi2("p_d1_tip_def_b", $d1_tip_def_b);
-    //     $this->setDatCi2("p_d1_tip_def_a_tot", $d1_tip_def_a_tot);
-    //     $this->setDatCi2("p_d1_tip_def_b_tot", $d1_tip_def_b_tot);
-    //     //______________________________________________________________________PROFUNDIDAD DE LABRADO
-    //     $this->setDatCi2("p_d2_ej1_izq", $data['labrado']->eje1_izquierdo);
-    //     $this->setDatCi2("p_d2_ej2_izq_r1", $data['labrado']->eje2_izquierdo);
-    //     $this->setDatCi2("p_d2_ej2_izq_r2", $data['labrado']->eje2_izquierdo_interior);
-    //     $this->setDatCi2("p_d2_ej3_izq_r1", $data['labrado']->eje3_izquierdo);
-    //     $this->setDatCi2("p_d2_ej3_izq_r2", $data['labrado']->eje3_izquierdo_interior);
-    //     $this->setDatCi2("p_d2_ej4_izq_r1", $data['labrado']->eje4_izquierdo);
-    //     $this->setDatCi2("p_d2_ej4_izq_r2", $data['labrado']->eje4_izquierdo_interior);
-    //     $this->setDatCi2("p_d2_ej5_izq_r1", $data['labrado']->eje5_izquierdo);
-    //     $this->setDatCi2("p_d2_ej5_izq_r2", $data['labrado']->eje5_izquierdo_interior);
-    //     $this->setDatCi2("p_d2_ej1_der", $data['labrado']->eje1_derecho);
-    //     $this->setDatCi2("p_d2_ej2_der_r1", $data['labrado']->eje2_derecho);
-    //     $this->setDatCi2("p_d2_ej2_der_r2", $data['labrado']->eje2_derecho_interior);
-    //     $this->setDatCi2("p_d2_ej3_der_r1", $data['labrado']->eje3_derecho);
-    //     $this->setDatCi2("p_d2_ej3_der_r2", $data['labrado']->eje3_derecho_interior);
-    //     $this->setDatCi2("p_d2_ej4_der_r1", $data['labrado']->eje4_derecho);
-    //     $this->setDatCi2("p_d2_ej4_der_r2", $data['labrado']->eje4_derecho_interior);
-    //     $this->setDatCi2("p_d2_ej5_der_r1", $data['labrado']->eje5_derecho);
-    //     $this->setDatCi2("p_d2_ej5_der_r2", $data['labrado']->eje5_derecho_interior);
-    //     $this->setDatCi2("p_d2_rep_r1", $data['labrado']->repuesto);
-    //     $this->setDatCi2("p_d2_rep_r2", $data['labrado']->repuesto2);
-    //     //______________________________________________________________________PRESION DE LLANTAS
-    //     $this->setDatCi2("p_d2_p_ej1_der", $this->llanta_1_D);
-    //     $this->setDatCi2("p_d2_p_ej1_izq", $this->llanta_1_I);
-    //     $this->setDatCi2("p_d2_p_ej2_der_r1", $this->llanta_2_DE);
-    //     $this->setDatCi2("p_d2_p_ej2_der_r2", $this->llanta_2_DI);
-    //     $this->setDatCi2("p_d2_p_ej2_izq_r1", $this->llanta_2_IE);
-    //     $this->setDatCi2("p_d2_p_ej2_izq_r2", $this->llanta_2_II);
-    //     $this->setDatCi2("p_d2_p_ej3_der_r1", $this->llanta_3_DE);
-    //     $this->setDatCi2("p_d2_p_ej3_der_r2", $this->llanta_3_DI);
-    //     $this->setDatCi2("p_d2_p_ej3_izq_r1", $this->llanta_3_IE);
-    //     $this->setDatCi2("p_d2_p_ej3_izq_r2", $this->llanta_3_II);
-    //     $this->setDatCi2("p_d2_p_ej4_der_r1", $this->llanta_4_DE);
-    //     $this->setDatCi2("p_d2_p_ej4_der_r2", $this->llanta_4_DI);
-    //     $this->setDatCi2("p_d2_p_ej4_izq_r1", $this->llanta_4_IE);
-    //     $this->setDatCi2("p_d2_p_ej4_izq_r2", $this->llanta_4_II);
-    //     $this->setDatCi2("p_d2_p_ej5_der_r1", $this->llanta_5_DE);
-    //     $this->setDatCi2("p_d2_p_ej5_der_r2", $this->llanta_5_DI);
-    //     $this->setDatCi2("p_d2_p_ej5_izq_r1", $this->llanta_5_IE);
-    //     $this->setDatCi2("p_d2_p_ej5_izq_r2", $this->llanta_5_II);
-    //     $this->setDatCi2("p_d2_p_rep_r1", $this->llanta_R);
-    //     $this->setDatCi2("p_d2_p_rep_r2", $this->llanta_R2);
-
-    //     //______________________________________________________________________ENSENANZA RESUL
-    //     if ($data['vehiculo']->ensenanza == '1') {
-    //         if ($data['aproE'] == 'APROBADO: SI__X__ NO_____') {
-    //             $aprobadoE = "SI";
-    //         } else {
-    //             $aprobadoE = "NO";
-    //         }
-    //     } else {
-    //         $aprobadoE = "";
-    //     }
-    //     $this->setDatCi2("p_e1_apr", $aprobadoE);
-    //     //______________________________________________________________________OBSERVACIONES
-    //     $obs = '';
-    //     if (count($data['observaciones']) > 0) {
-    //         foreach ($data['observaciones'] as $o) {
-    //             $obs = $obs . "$o->codigo: $o->descripcion;";
-    //         }
-    //     }
-    //     $this->setDatCi2("p_f_com_obs", $obs);
-
-    //     $luxometro         = explode("$", $data['maquinas']->nombreLuxometro);
-    //     $luxometroOperario = '';
-    //     if (count($luxometro) > 1) {
-    //         $luxometroOperario = $luxometro[0] . "_" . str_replace('^', '', $luxometro[8]) . ";";
-    //         $luxometro         = $luxometro[0] . "_" . $luxometro[1] . "_" . $luxometro[2] . "_" . $luxometro[3] . "_" . $luxometro[4] . "_" . $luxometro[5] . ";";
-    //     } else {
-    //         $luxometro = '';
-    //     }
-    //     $opacimetro         = explode("$", $data['maquinas']->nombreOpacimetro);
-    //     $opacimetroOperario = '';
-    //     //        var_dump($opacimetro);
-    //     if (count($opacimetro) > 1) {
-    //         $opacimetroOperario = $opacimetro[0] . "_" . str_replace('^', '', $opacimetro[8]) . ";";
-    //         $opacimetro         = $opacimetro[0] . "_" . $opacimetro[1] . "_" . $opacimetro[2] . "_" . $opacimetro[3] . "_" . $opacimetro[4] . "_" . $opacimetro[5] . ";";
-    //     } else {
-    //         $opacimetro = '';
-    //     }
-    //     $gases         = explode("$", $data['maquinas']->nombreGases);
-    //     $gasesOperario = '';
-    //     if (count($gases) > 1) {
-    //         $gasesOperario = $gases[0] . "_" . str_replace('^', '', $gases[8]) . ";";
-    //         $gases         = $gases[0] . "_" . $gases[1] . "_" . $gases[2] . "_" . $gases[3] . "_" . $gases[4] . "_" . $gases[5] . ";";
-    //     } else {
-    //         $gases = '';
-    //     }
-    //     $fotos         = explode("$", $data['maquinas']->nombreFotos);
-    //     $fotosOperario = '';
-    //     if (count($fotos) > 1) {
-    //         $fotosOperario = $fotos[0] . "_" . str_replace('^', '', $fotos[8]) . ";";
-    //         $fotos         = $fotos[0] . "_" . $fotos[1] . "_" . $fotos[2] . "_" . $fotos[3] . "_" . $fotos[4] . "_" . $fotos[5] . ";";
-    //     } else {
-    //         $fotos = '';
-    //     }
-    //     $taximetro         = explode("$", $data['maquinas']->nombreTaximetro);
-    //     $taximetroOperario = '';
-    //     if (count($taximetro) > 1) {
-    //         $taximetroOperario = $taximetro[0] . "_" . str_replace('^', '', $taximetro[8]) . ";";
-    //         $taximetro         = $taximetro[0] . "_" . $taximetro[1] . "_" . $taximetro[2] . "_" . $taximetro[3] . "_" . $taximetro[4] . "_" . $taximetro[5] . ";";
-    //     } else {
-    //         $taximetro = '';
-    //     }
-    //     $frenos         = explode("$", $data['maquinas']->nombreFrenos);
-    //     $frenosOperario = '';
-    //     if (count($frenos) > 1) {
-    //         $frenosOperario = $frenos[0] . "_" . str_replace('^', '', $frenos[8]) . ";";
-    //         $frenos         = $frenos[0] . "_" . $frenos[1] . "_" . $frenos[2] . "_" . $frenos[3] . "_" . $frenos[4] . "_" . $frenos[5] . ";";
-    //     } else {
-    //         $frenos = '';
-    //     }
-    //     $bascula = explode("$", $data['maquinas']->nombreBascula);
-    //     if (count($bascula) > 1) {
-    //         $bascula = $bascula[0] . "_" . $bascula[1] . "_" . $bascula[2] . "_" . $bascula[3] . "_" . $bascula[4] . "_" . $bascula[5] . ";";
-    //     } else {
-    //         $bascula = '';
-    //     }
-    //     $visual         = explode("$", $data['maquinas']->nombreVisual);
-    //     $visualOperario = '';
-    //     if (count($visual) > 1) {
-    //         $visualOperario = $visual[0] . "_" . str_replace('^', '', $visual[8]) . ";";
-    //         $visual         = $visual[0] . "_" . $visual[1] . "_" . $visual[2] . "_" . $visual[3] . "_" . $visual[4] . "_" . $visual[5] . ";";
-    //     } else {
-    //         $visual = '';
-    //     }
-    //     $suspension         = explode("$", $data['maquinas']->nombreSuspension);
-    //     $suspensionOperario = '';
-    //     if (count($suspension) > 1) {
-    //         $suspensionOperario = $suspension[0] . "_" . str_replace('^', '', $suspension[8]) . ";";
-    //         $suspension         = $suspension[0] . "_" . $suspension[1] . "_" . $suspension[2] . "_" . $suspension[3] . "_" . $suspension[4] . "_" . $suspension[5] . ";";
-    //     } else {
-    //         $suspension = '';
-    //     }
-    //     $alineador         = explode("$", $data['maquinas']->nombreAlineador);
-    //     $alineadorOperario = '';
-    //     if (count($alineador) > 1) {
-    //         $alineadorOperario = $alineador[0] . "_" . str_replace('^', '', $alineador[8]) . ";";
-    //         $alineador         = $alineador[0] . "_" . $alineador[1] . "_" . $alineador[2] . "_" . $alineador[3] . "_" . $alineador[4] . "_" . $alineador[5] . ";";
-    //     } else {
-    //         $alineador = '';
-    //     }
-    //     $th = explode("$", $data['maquinas']->nombreTermohigrometro);
-    //     if (count($th) > 1) {
-    //         $th = $th[0] . "_" . $th[1] . "_" . $th[2] . "_" . $th[3] . "_" . $th[4] . "_" . $th[5] . ";";
-    //     } else {
-    //         $th = '';
-    //     }
-    //     $profundimetro = explode("$", $data['maquinas']->nombreProfundimetro);
-    //     if (count($profundimetro) > 1) {
-    //         $profundimetro = $profundimetro[0] . "_" . $profundimetro[1] . "_" . $profundimetro[2] . "_" . $profundimetro[3] . "_" . $profundimetro[4] . "_" . $profundimetro[5] . ";";
-    //     } else {
-    //         $profundimetro = '';
-    //     }
-    //     $captador = explode("$", $data['maquinas']->nombreCaptador);
-    //     if (count($captador) > 1) {
-    //         $captador = $captador[0] . "_" . $captador[1] . "_" . $captador[2] . "_" . $captador[3] . "_" . $captador[4] . "_" . $captador[5] . ";";
-    //     } else {
-    //         $captador = '';
-    //     }
-    //     $piederey = explode("$", $data['maquinas']->nombrePiederey);
-    //     if (count($piederey) > 1) {
-    //         $piederey = $piederey[0] . "_" . $piederey[1] . "_" . $piederey[2] . "_" . $piederey[3] . "_" . $piederey[4] . "_" . $piederey[5] . ";";
-    //     } else {
-    //         $piederey = '';
-    //     }
-    //     $sensorRPM = explode("$", $data['maquinas']->nombreSensorRPM);
-    //     if (count($sensorRPM) > 1) {
-    //         $sensorRPM = $sensorRPM[0] . "_" . $sensorRPM[1] . "_" . $sensorRPM[2] . "_" . $sensorRPM[3] . "_" . $sensorRPM[4] . "_" . $sensorRPM[5] . ";";
-    //     } else {
-    //         $sensorRPM = '';
-    //     }
-    //     $sondaTMP = explode("$", $data['maquinas']->nombreSensorRPM);
-    //     if (count($sondaTMP) > 1) {
-    //         $sondaTMP = $sondaTMP[0] . "_" . $sondaTMP[1] . "_" . $sondaTMP[2] . "_" . $sondaTMP[3] . "_" . $sondaTMP[4] . "_" . $sondaTMP[5] . ";";
-    //     } else {
-    //         $sondaTMP = '';
-    //     }
-
-    //     $operarios = $luxometroOperario . $opacimetroOperario . $gasesOperario . $fotosOperario . $taximetroOperario . $frenosOperario . $visualOperario . $suspensionOperario . $alineadorOperario;
-    //     //        $this->setDatCi2("h_nom_ope_rea_rev_tec", str_replace("<br>", ";", $data['inspectores']));
-    //     $this->setDatCi2("p_h_nom_ope_rea_rev_tec", $operarios);
-    //     //______________________________________________________________________PERISFERICOS
-
-    //     $maquinas = $luxometro . $opacimetro . $gases . $taximetro . $frenos . $bascula . $suspension . $alineador . $th . $profundimetro . $captador . $piederey;
-    //     //        $maquinas = $luxometro . $opacimetro . $gases . $fotos . $taximetro . $frenos . $visualOperario . $suspension . $alineador . $th . $profundimetro . $captador . $piederey;
-    //     $this->setDatCi2("p_h_equ_rev", $maquinas);
-    //     //______________________________________________________________________SOFTWARE
-    //     $this->setDatCi2("p_i_sof_rev", $data["software"]);
-    //     //______________________________________________________________________JEFE DE PISTA
-    //     $this->setDatCi2("p_g_nom_fir_dir_tec", $data['hojatrabajo']->jefelinea);
-    //     //______________________________________________________________________CAUSA RECHAZO
-    //     if ($aprobado == 'NO') {
-    //         $this->setDatCi2("p_causa_rechazo", $c_cod . $d_cod . $d1_cod);
-    //     } else {
-    //         $this->setDatCi2("p_causa_rechazo", '');
-    //     }
-    //     //______________________________________________________________________FOTO
-    //     $fotos = str_replace("@", "", $data['fotografia']->imagen1) . ";" . str_replace("@", "", $data['fotografia']->imagen2);
-    //     //        $fotos = str_replace("\\", "", $fotos);
-
-    //     $this->setDatCi2("p_foto", $fotos);
-
-
-
-
-    //     //______________________________________________________________________________ENVIAR A CI2
-    //     $url = 'http://' . $this->ipSicov . '/ci2_cda_ws/sincrofur.asmx?wsdl';
-
-    //     $datos_conexion = explode(":", $this->ipSicov);
-    //     if ($this->sicovModoAlternativo == '1') {
-    //         $url            = 'http://' . $this->ipSicovAlternativo . '/ci2_cda_ws/sincrofur.asmx?wsdl';
-    //         $datos_conexion = explode(":", $this->ipSicovAlternativo);
-    //     }
-    //     $host = $datos_conexion[0];
-    //     if (count($datos_conexion) > 1) {
-    //         $port = $datos_conexion[1];
-    //     } else {
-    //         $port = 80;
-    //     }
-    //     $waitTimeoutInSeconds = 9;
-    //     error_reporting(0);
-    //     if ($data['ocasion'] === 'true') {
-    //         $reins   = '1';
-    //         $ocasion = '2';
-    //     } else {
-    //         $reins   = '0';
-    //         $ocasion = '1';
-    //     }
-    //     if ($fp = fsockopen($host, $port, $errCode, $errStr, $waitTimeoutInSeconds)) {
-    //         $client = new SoapClient($url);
-    //         $fur    = [
-    //             'fur' => $this->arrayCi2,
-    //         ];
-    //         $respuesta = $client->ingresar_fur_v3($fur);
-    //         $rtaCP = $respuesta->ingresar_fur_v3Result;
-    //         $tipo = 'f';
-    //         if ($rtaCP->CodigoRespuesta == '0000') {
-    //             $estado                 = 'exito';
-    //             $datos['idhojapruebas'] = $data['hojatrabajo']->idhojapruebas;
-    //             $datos['reinspeccion']  = $reins;
-    //             $datos['sicov']         = '1';
-    //             if (! $this->segundo_envio) {
-    //                 if ($aprobado == 'NO') {
-    //                     $datos['estadototal'] = '3';
-    //                 } else {
-    //                     $datos['estadototal'] = '2';
-    //                 }
-    //             } else {
-    //                 if ($aprobado == 'NO') {
-    //                     $datos['estadototal'] = '7';
-    //                 } else {
-    //                     $datos['estadototal'] = '4';
-    //                 }
-    //                 $tipo = 'r';
-    //                 if ($this->salaEspera2 == "1") {
-    //                     $sala['idhojaprueba']  = $data['hojatrabajo']->idhojapruebas;
-    //                     $sala['idtipo_prueba'] = "20";
-    //                     $sala['estado']        = "1";
-    //                     $sala['actualizado']   = "0";
-    //                     $this->Mcontrol_salae->insertar($sala);
-    //                 }
-    //             }
-    //             $this->Mhojatrabajo->update_x($datos);
-    //         } else {
-    //             if ($this->segundo_envio) {
-    //                 $tipo = 'r';
-    //             }
-    //             $estado = 'error';
-    //         }
-    //         $mensaje = $this->mensajesCI2($rtaCP->CodigoRespuesta, $rtaCP->CodigoRespuesta . '|' . $ocasion . '|' . $estado . '|' . $rtaCP->MensajeRespuesta);
-    //         $this->insertarEvento($data['vehiculo']->numero_placa, json_encode($fur), $tipo, '1', $mensaje);
-    //     } else {
-    //         $mensaje = $this->mensajesCI2('1000', '1000' . '|' . $ocasion . '|1|No hay conexión con sicov');
-    //         $this->insertarEvento($data['vehiculo']->numero_placa, '', 'f', '1', $mensaje);
-    //     }
-
-    //     echo $mensaje;
-    // }
 
     private function insertarEvento($idelemento, $cadena, $tipo, $enviado, $respuesta)
     {
@@ -8599,7 +7898,10 @@ EOF;
         $software . "|" .
         $jefeLinea . "|" .
         $data['fur_aso'] . ";" . trim(date_format(date_create($data['fechafur']), 'Y-m-d H:i:s'));
-        //  var_dump('vehiculo: ' . $vehiculo);
+        //   $vehiculo_array = explode(';', $vehiculo);
+
+// Imprimir como array
+// var_dump($vehiculo_array);
 
         if ($data['ocasion'] === 'true') {
             $reins   = '1';
@@ -8609,7 +7911,7 @@ EOF;
             $ocasion = '1';
         }
 
-            // var_dump( preg_replace('/[\n\r\t]+/', '', $this->formato_texto($taxonomia)));
+            //  var_dump( preg_replace('/[\n\r\t]+/', '', $this->formato_texto($taxonomia)));
 
 
         $url            = 'http://' . $this->ipSicov . '/sicov.asmx?WSDL';
@@ -8668,7 +7970,7 @@ EOF;
                     // $url = 'http://localhost:8093/enc/encFur.php' . '?fur=' . "1";
                     // $eve = file_get_contents($url);
 
-                   $url = 'http://localhost:49000/fur-indra';
+                    $url = 'http://' . $this->ipdocker . ':49000/fur-indra';
                     $ch = curl_init($url);
 
                     $fur = ['fur' => preg_replace('/[\n\r\t]+/', '', $this->formato_texto($taxonomia))]; // Cambiar 'cadena' a 'fur'
