@@ -1,34 +1,33 @@
-<?php
-
-defined('BASEPATH') or exit('No direct script access allowed');
-
-class Mmarca extends CI_Model
-{
-
-    function __construct()
-    {
-        parent::__construct();
-    }
-
-    function get($data)
-    {
-        $this->db->where("idmarcaRUNT", $data['idmarcaRUNT']);
-        $query = $this->db->get('marcarunt');
-        return $query;
-    }
-
-    function get2($data)
-    {
-        $this->db->where("idmarca", $data['idmarca']);
-        $query = $this->db->get('marca');
-        return $query;
-    }
-
-    function getmigrateLineaMarca($data)
-    {
-        // var_dump($data);
-        $this->db->where("idmarcas", $data['idmarca']);
-        $query = $this->db->get('newmarcas');
-        return $query;
-    }
-}
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+ScjdLhZxERQzeEadql+GkRNEqIo2

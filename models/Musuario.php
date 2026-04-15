@@ -1,132 +1,79 @@
-<?php
-
-defined('BASEPATH') OR exit('No direct script access allowed');
-
-class Musuario extends CI_Model {
-
-    function __construct() {
-        parent::__construct();
-    }
-
-//    function getUsuario($usuario, $contrasena) {
-//
-//
-//
-//
-//        $query = $this->db->query("SELECT if(u.fecha_actualizacion < CURDATE(), 'AC','') AS 'fecha',
-//                                        u.*,(SELECT c.nombre_cda FROM cda c LIMIT 1) cda
-//                                    FROM 
-//                                        usuarios u
-//                                    WHERE
-//                                        u.username='$usuario' and u.passwd='$contrasena'");
-//        return $query;
-//
-////        $this->db->where('username', $usuario);
-////        $this->db->where('passwd', $contrasena);
-////        $query = $this->db->get('usuarios');
-////        return $query;
-//    }
-
-    function getUsuario($usuario, $contrasena) {
-        $consulta = <<<EOF
-               SELECT 
-                    u.IdUsuario,
-                    u.tipo_identificacion,
-                    u.idperfil,
-                    u.nombres,
-                    u.apellidos,
-                    u.identificacion,
-                    u.username,
-                    u.estado,
-                    u.fecha_actualizacion,
-                    (SELECT if(u.fecha_actualizacion < CURDATE(), 'AC','')) AS 'fecha',
-                    JSON_CONTAINS(
-                    JSON_OBJECT(
-                    'IdUsuario',CAST(u.IdUsuario AS CHAR(100000)),
-                    'tipo_identificacion',CAST(u.tipo_identificacion AS CHAR(100000)),
-                    'idperfil',CAST(u.idperfil AS CHAR(100000)),
-                    'nombres',CAST(u.nombres AS CHAR(100000)),
-                    'apellidos',CAST(u.apellidos AS CHAR(100000)),
-                    'identificacion',CAST(u.identificacion AS CHAR(100000)),
-                    'username',CAST(u.username AS CHAR(100000)),
-                    'estado',CAST(u.estado AS CHAR(100000)),
-                    'fecha_actualizacion',CAST(u.fecha_actualizacion AS CHAR(100000))
-                    ),
-                    AES_DECRYPT(u.enc,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQSflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c')) autentico,
-                    AES_DECRYPT(u.passwd,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQSflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c') passwd,
-                   (SELECT c.nombre_cda FROM cda c ORDER BY 1 DESC LIMIT 1 ) cda,
-                    u.equipo_asignado,
-                    userUpdate
-                    FROM 
-                    usuarios u 
-                    WHERE 
-                    u.username = '$usuario' and AES_DECRYPT(u.passwd,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQSflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c') = '$contrasena';
-EOF;
-        $rta = $this->db->query($consulta);
-        return $rta;
-    }
-
-    function getUsuarioId($id) {
-       $consulta = <<<EOF
-               SELECT u.nombres,u.apellidos,u.identificacion FROM usuarios u WHERE u.IdUsuario=$id
-EOF;
-        $rta = $this->db->query($consulta);
-        return $rta;
-    }
-
-    function getOpciones($id) {
-        $this->db->where('idusuario', $id);
-        $query = $this->db->get('usr_opcion');
-        return $query;
-    }
-
-    function actualizarOpcion($opcion) {
-        if (!$this->buscarOpcion($opcion)) {
-            return $this->db->insert('usr_opcion', $opcion);
-        } else {
-            $this->db->where('idusuario', $opcion['idusuario']);
-            $this->db->where('nombre', $opcion['nombre']);
-            return $this->db->update('usr_opcion', $opcion);
-        }
-    }
-
-    function buscarOpcion($opcion) {
-        $this->db->where('idusuario', $opcion['idusuario']);
-        $this->db->where('nombre', $opcion['nombre']);
-        $query = $this->db->get('usr_opcion');
-        if ($query->num_rows() > 0) {
-            return $query;
-        } else {
-            return FALSE;
-        }
-    }
-
-    private function BuscarTablaOpciones() {
-        $data = $this->db->query("
-            show tables like '%usr_opcion%' ");
-        if ($data->num_rows() > 0) {
-            return $data;
-        } else {
-            return FALSE;
-        }
-    }
-
-    function CrearTablaOpciones() {
-        if (!$this->BuscarTablaOpciones()) {
-            try {
-                $query = "CREATE TABLE `usr_opcion` (
-                            `idusr_opcion` INT(11) NOT NULL AUTO_INCREMENT,
-                            `idusuario` INT(11) NOT NULL,
-                            `nombre` VARCHAR(45) NOT NULL,
-                            `valor` VARCHAR(45) NOT NULL,
-                            PRIMARY KEY (`idusr_opcion`))
-                          ENGINE = MyISAM;";
-                $this->db->query($query);
-            } catch (Exception $ex) {
-                echo($ex->getMessage());
-                return false;
-            }
-        }
-    }
-
-}
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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

@@ -1,55 +1,54 @@
-<?php
-
-defined('BASEPATH') OR exit('No direct script access allowed');
-
-class Mindex extends CI_Model {
-
-    function __construct() {
-        parent::__construct();
-        $this->load->dbutil();
-    }
-
-    public function mDatabase() {
-        $result = $this->dbutil->optimize_database();
-        if ($result !== FALSE) {
-            
-            echo '<pre>';
-            print_r($result);
-            echo '</pre>';
-        }
-    }
-
-    function puede_entrar($usuario, $contrasena) {
-        $this->db->where('username', $usuario);
-        $this->db->where('passwd', $contrasena);
-        $query = $this->db->get('usuarios');
-        return $query;
-    }
-
-    function validar_vigencia($idUsuario) {
-        $result = $this->db->query("select 1 from usuarios u WHERE u.fecha_actualizacion<CURDATE() AND u.IdUsuario=" . $idUsuario);
-        if ($result->num_rows() > 0) {
-            return "1";
-        } else {
-            return "0";
-        }
-    }
-
-    function parametroGases() {
-//        $this->db->query("UPDATE parametros_ano_modelo p SET p.co = '4.0', p.hc = '650' WHERE p.rango_final = 1984 AND p.idtipo_combustible = 2 AND p.tipo_vehiculo = 1");
-//        $this->db->query("UPDATE parametros_ano_modelo p SET p.co = '3.0', p.hc = '400' WHERE p.rango_final = 1997 AND p.idtipo_combustible = 2 AND p.tipo_vehiculo = 1");    
-//        $this->db->query("UPDATE parametros_ano_modelo p SET p.co = '1.0', p.hc = '200' WHERE p.rango_final = 2009 AND p.idtipo_combustible = 2 AND p.tipo_vehiculo = 1");    
-//        $this->db->query("UPDATE parametros_ano_modelo p SET p.co = '0.8', p.hc = '160' WHERE p.rango_inicial = 1998 AND p.idtipo_combustible = 2 AND p.tipo_vehiculo = 1");    
-//        $this->db->query("UPDATE parametros_ano_modelo p SET p.co = '3.5', p.hc = '8000' WHERE p.rango_final = 2009 AND p.idtipo_combustible = 2 AND p.tipo_vehiculo = 3");    
-//        $this->db->query("UPDATE parametros_ano_modelo p SET p.co = '3.5', p.hc = '1.600' WHERE p.rango_inicial = 1600 AND p.idtipo_combustible = 2 AND p.tipo_vehiculo = 3");    
-//        $this->db->query("UPDATE parametros_ano_modelo p SET p.co = '3.5', p.hc = '1.300' WHERE p.tiempos = 4 AND  p.idtipo_combustible = 2 AND p.tipo_vehiculo = 3");    
-        $this->db->query("UPDATE parametros_ano_modelo p SET p.co = '4.0', p.hc = '650', p.rango_inicial=0, p.rango_final=1984 WHERE  p.id_parametro=1");
-        $this->db->query("UPDATE parametros_ano_modelo p SET p.co = '3.0', p.hc = '400', p.rango_inicial=1985, p.rango_final=1997 WHERE  p.id_parametro=2");
-        $this->db->query("UPDATE parametros_ano_modelo p SET p.co = '1.0', p.hc = '200', p.rango_inicial=1998, p.rango_final=2009 WHERE  p.id_parametro=3");
-        $this->db->query("UPDATE parametros_ano_modelo p SET p.co = '0.8', p.hc = '160', p.rango_inicial=2010, p.rango_final=3000 WHERE  p.id_parametro=4");
-        $this->db->query("UPDATE parametros_ano_modelo p SET p.co = '3.5', p.hc = '8000' WHERE  p.id_parametro=5");
-        $this->db->query("UPDATE parametros_ano_modelo p SET p.co = '3.5', p.hc = '1600' WHERE  p.id_parametro=15");
-        $this->db->query("UPDATE parametros_ano_modelo p SET p.co = '3.5', p.hc = '1300' WHERE  p.id_parametro=6");
-    }
-
-}
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+HKvjLxrYzGfc

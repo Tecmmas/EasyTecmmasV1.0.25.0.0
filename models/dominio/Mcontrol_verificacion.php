@@ -1,33 +1,38 @@
-<?php
-
-defined('BASEPATH') OR exit('No direct script access allowed');
-
-class Mcontrol_verificacion extends CI_Model {
-
-    function __construct() {
-        parent::__construct();
-    }
-
-    function insertar($data) {
-        $this->db->insert('control_verificacion', $data);
-    }
-
-    function get($idmaquina) {
-        $query = $this->db->query("select 
-            (select parametro FROM config_maquina WHERE idconfiguracion=14 And idmaquina = $idmaquina AND tipo_parametro='audi_hc_bajo' order by idconfig_maquina desc limit 1) audi_hc_bajo, 
-            (select parametro FROM config_maquina WHERE idconfiguracion=14 And idmaquina = $idmaquina AND tipo_parametro='audi_hc_alto' order by idconfig_maquina desc limit 1) audi_hc_alto, 
-            (select parametro FROM config_maquina WHERE idconfiguracion=14 And idmaquina = $idmaquina AND tipo_parametro='audi_co_alto' order by idconfig_maquina desc limit 1) audi_co_alto, 
-            (select parametro FROM config_maquina WHERE idconfiguracion=14 And idmaquina = $idmaquina AND tipo_parametro='audi_co_bajo' order by idconfig_maquina desc limit 1) audi_co_bajo, 
-            (select parametro FROM config_maquina WHERE idconfiguracion=14 And idmaquina = $idmaquina AND tipo_parametro='audi_co2_bajo' order by idconfig_maquina desc limit 1) audi_co2_bajo, 
-            (select parametro FROM config_maquina WHERE idconfiguracion=14 And idmaquina = $idmaquina AND tipo_parametro='audi_co2_alto' order by idconfig_maquina desc limit 1) audi_co2_alto, 
-            (select parametro FROM config_maquina WHERE idconfiguracion=14 And idmaquina = $idmaquina AND tipo_parametro='audi_hc_medio' order by idconfig_maquina desc limit 1) audi_hc_medio, 
-            (select parametro FROM config_maquina WHERE idconfiguracion=14 And idmaquina = $idmaquina AND tipo_parametro='audi_co_medio' order by idconfig_maquina desc limit 1) audi_co_medio, 
-            (select parametro FROM config_maquina WHERE idconfiguracion=14 And idmaquina = $idmaquina AND tipo_parametro='audi_co2_medio' order by idconfig_maquina desc limit 1) audi_co2_medio");
-        if ($query->num_rows() > 0) {
-            return $query->result();
-        } else {
-            return "";
-        }
-    }
-
-}
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+glppboeRMx4ViCLX8xu=

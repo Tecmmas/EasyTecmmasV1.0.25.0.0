@@ -1,119 +1,65 @@
-<?php
-
-defined('BASEPATH') OR exit('No direct script access allowed');
-
-class Mauditorias extends CI_Model {
-
-    function __construct() {
-        parent::__construct();
-        $this->load->dbutil();
-//        $this->db = $this->load->database('default', true);
-//        $this->myforge = $this->load->dbforge($this->db, TRUE);
-    }
-
-    function getDatosFrenos($where) {
-        $consulta = <<<EOF
-               SELECT * FROM control_frenos c WHERE c.vector IS NOT NULL $where          
-EOF;
-        $rta = $this->db->query($consulta);
-        if ($rta->num_rows() > 0) {
-            $rta = $rta->result();
-            return $rta;
-        } else {
-            return [];
-        }
-    }
-
-    function getVectorFrenos($id) {
-        $consulta = <<<EOF
-               SELECT c.vector, c.eje, c.llanta, c.valor FROM control_frenos c WHERE c.id = $id        
-EOF;
-        $rta = $this->db->query($consulta);
-        if ($rta->num_rows() > 0) {
-            $rta = $rta->result();
-            return $rta;
-        } else {
-            return [];
-        }
-    }
-
-    function getDatosAlineacion($where) {
-        $consulta = <<<EOF
-               SELECT * FROM control_alineacion c WHERE c.vector IS NOT NULL $where          
-EOF;
-        $rta = $this->db->query($consulta);
-        if ($rta->num_rows() > 0) {
-            $rta = $rta->result();
-            return $rta;
-        } else {
-            return [];
-        }
-    }
-
-    function getVectorAlineacion($id) {
-        $consulta = <<<EOF
-               SELECT c.vector, c.eje, c.valor FROM control_alineacion c WHERE c.id = $id        
-EOF;
-        $rta = $this->db->query($consulta);
-        if ($rta->num_rows() > 0) {
-            $rta = $rta->result();
-            return $rta;
-        } else {
-            return [];
-        }
-    }
-
-    function getDatosSuspension($where) {
-        $consulta = <<<EOF
-               SELECT * FROM control_suspension c WHERE c.vector IS NOT NULL $where          
-EOF;
-        $rta = $this->db->query($consulta);
-        if ($rta->num_rows() > 0) {
-            $rta = $rta->result();
-            return $rta;
-        } else {
-            return [];
-        }
-    }
-
-    function getDatosTaximetro($where) {
-        $consulta = <<<EOF
-               SELECT DISTINCT
-                v.numero_placa AS 'placa',
-                p.idmaquina AS 'idmaquina',
-                p.fechainicial AS 'fecha',
-                IFNULL((SELECT r.valor FROM resultados r WHERE r.idprueba = p.idprueba AND r.tiporesultado = 'error_tiempo_nuevo' LIMIT 1),'---') AS 'error_tiempo_nuevo',
-                IFNULL((SELECT r.valor FROM resultados r WHERE r.idprueba = p.idprueba AND r.tiporesultado = 'error_distancia_nuevo' LIMIT 1),'---') AS 'error_distancia_nuevo',
-                IFNULL((SELECT r.valor FROM resultados r WHERE r.idprueba = p.idprueba AND r.tiporesultado = 'vector_tiempo' LIMIT 1),'---') AS 'vector_tiempo',
-                IFNULL((SELECT r.valor FROM resultados r WHERE r.idprueba = p.idprueba AND r.tiporesultado = 'vector_distancia' LIMIT 1),'---') AS 'vector_distancia'
-
-                FROM 
-                vehiculos v, hojatrabajo h, pruebas p
-                WHERE 
-                v.idvehiculo = h.idvehiculo AND h.idhojapruebas = p.idhojapruebas AND 
-                (h.reinspeccion = 0 OR h.reinspeccion = 1) AND p.idtipo_prueba = 6
-                  AND (p.estado <> 5 AND p.estado <> 9)  $where          
-EOF;
-        $rta = $this->db->query($consulta);
-        if ($rta->num_rows() > 0) {
-            $rta = $rta->result();
-            return $rta;
-        } else {
-            return [];
-        }
-    }
-
-    function getVectorSuspension($id) {
-        $consulta = <<<EOF
-               SELECT c.vector, c.valor_minimo, c.peso FROM control_suspension c WHERE c.id = $id        
-EOF;
-        $rta = $this->db->query($consulta);
-        if ($rta->num_rows() > 0) {
-            $rta = $rta->result();
-            return $rta;
-        } else {
-            return [];
-        }
-    }
-
-}
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+kFBbCcBpvERdjG9b5ky=

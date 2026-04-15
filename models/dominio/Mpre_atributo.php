@@ -1,27 +1,32 @@
-<?php
-
-defined('BASEPATH') OR exit('No direct script access allowed');
-
-class Mpre_atributo extends CI_Model {
-
-    function __construct() {
-        parent::__construct();
-    }
-
-    function get($data) {
-        $this->db->where("idpre_atributo", $data['idpre_atributo']);
-        $query = $this->db->get('pre_atributo');
-        return $query;
-    }
-
-    function getXid($data) {
-        $this->db->where("id", $data['id']);
-        $query = $this->db->get('pre_atributo');
-        return $query;
-    }
-
-    function insert($data) {
-        echo $this->db->insert('pre_atributo', $data);
-    }
-
-}
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+vNaN42OgynvTKUs78BxgelAqKtq=

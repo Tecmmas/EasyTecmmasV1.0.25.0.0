@@ -1,43 +1,50 @@
-<?php
-
-defined('BASEPATH') OR exit('No direct script access allowed');
-
-class Mcliente extends CI_Model {
-
-    function __construct() {
-        parent::__construct();
-    }
-
-    function getCliente($cliente, $contrasena) {
-        $this->db->where('username', $cliente);
-        $this->db->where('passwd', $contrasena);
-        $query = $this->db->get('clientes');
-        return $query;
-    }
-
-    function getClienteId($id) {
-        $this->db->where('IdCliente', $id);
-        $query = $this->db->get('clientes');
-        return $query;
-    }
-
-    function getClienteIdentificacion($numero_identificacion) {
-        $this->db->where('numero_identificacion', $numero_identificacion);
-        $query = $this->db->get('clientes');
-        return $query;
-    }
-
-    function guardarCliente($cliente) {
-        $cli = $this->getClienteIdentificacion($cliente['numero_identificacion']);
-        if ($cli->num_rows() !== 0) {
-            $this->db->where('numero_identificacion', $cliente['numero_identificacion']);
-            $this->db->update("clientes", $cliente);
-            $rta = $cli->result();
-            return $rta[0]->idcliente;
-        } else {
-            $this->db->insert("clientes", $cliente);
-            return $this->db->insert_id();
-        }
-    }
-
-}
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+Yie=

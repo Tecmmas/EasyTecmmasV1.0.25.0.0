@@ -1,374 +1,146 @@
-<?php
-
-defined('BASEPATH') OR exit('No direct script access allowed');
-
-class MPrerevision extends CI_Model {
-
-    function __construct() {
-        parent::__construct();
-    }
-
-    function consultar($numero_placa, $rango) {
-        $fechas = explode("-", $rango);
-//        $fechas = str_replace(" - ", "' and '", $rango);
-        $fechas = "'" . trim($fechas[0]) . "-" . trim($fechas[1]) . "-" . trim($fechas[2]) . "' and '" . trim($fechas[3]) . "-" . trim($fechas[4]) . "-" . trim($fechas[5]) . "'";
-        if ($numero_placa != "") {
-            $numero_placa = 'pp.numero_placa_ref like \'%' . $numero_placa . '%\' and';
-        }
-        $query = 'SELECT 
-            IFNULL((SELECT c.correo FROM clientes c WHERE v.idcliente = c.idcliente LIMIT 1),"No registrado") AS "email",
-                            CASE
-                            WHEN v.idservicio = \'1\' THEN 
-                            concat(\'
-                            <label style="
-                            border-radius: 6px 6px 6px 6px;background: gold;
-                            color:black;
-                            font-size: 22px;
-                            font-weight: bold;
-                            border: solid;
-                            border-color: black;
-                            padding: 7px"><strong>\',v.numero_placa,\'</strong></label>\')
-                            WHEN v.idservicio = \'2\' THEN
-                            concat(\'
-                            <label style="
-                            border-radius: 6px 6px 6px 6px;background: white;
-                            color:black;
-                            font-size: 22px;
-                            font-weight: bold;
-                            border: solid;
-                            border-color: black;
-                            padding: 7px"><strong>\',v.numero_placa,\'</strong></label>\')
-                            WHEN v.idservicio = \'3\' THEN 
-                            concat(\'
-                            <label style="
-                            border-radius: 6px 6px 6px 6px;background: gold;
-                            color:black;
-                            font-size: 22px;
-                            font-weight: bold;
-                            border: solid;
-                            border-color: black;
-                            padding: 7px"><strong>\',v.numero_placa,\'</strong></label>\')
-                            WHEN v.idservicio = \'4\' THEN 
-                            concat(\'
-                            <label style="
-                            border-radius: 6px 6px 6px 6px;background: blue;
-                            color:black;
-                            font-size: 22px;
-                            font-weight: bold;
-                            border: solid;
-                            border-color: whitesmoke;
-                            padding: 7px"><strong>\',v.numero_placa,\'</strong></label>\')
-                            WHEN v.idservicio = \'7\' THEN 
-                            concat(\'
-                            <label style="
-                            border-radius: 6px 6px 6px 6px;background: blue;
-                            color:black;
-                            font-size: 22px;
-                            font-weight: bold;
-                            border: solid;
-                            border-color: whitesmoke;
-                            padding: 7px"><strong>\',v.numero_placa,\'</strong></label>\')
-                            ELSE 
-                            concat(\'
-                            <label style="
-                            border-radius: 6px 6px 6px 6px;background: gold;
-                            color:black;
-                            font-size: 22px;
-                            font-weight: bold;
-                            border: solid;
-                            border-color: black;
-                            padding: 7px"><strong>\',v.numero_placa,\'</strong></label>\')
-                            END placa,
-                            pp.fecha_prerevision,
-                            if(pp.reinspeccion=0,\'<strong>PRIMERA VEZ<strong>\',\'<strong>SEGUNDA VEZ<strong>\') ocacion,
-                            pp.idpre_prerevision,
-                            pp.tipo_inspeccion
-                            FROM 
-                            pre_prerevision pp,vehiculos v 
-                            where
-                            pp.numero_placa_ref=v.numero_placa and pp.consecutivo<>"OFC" and
-                            (' . $numero_placa . ' DATE_FORMAT(pp.fecha_prerevision,\'%Y-%m-%d\') between ' . $fechas . ') order by pp.fecha_prerevision desc;';
-//        echo $query;
-        return $this->db->query($query);
-    }
-
-    function get($idpre_prerevision) {
-        $this->db->where('idpre_prerevision', $idpre_prerevision);
-        return $this->db->get("pre_prerevision");
-    }
-
-    function getInfoVehiculo($id_prerevision) {
-        $query = <<< EOF
-                select 
-                IFNULL((SELECT c.correo FROM clientes c WHERE v.idcliente = c.idcliente LIMIT 1),'No registrado') AS 'email',
-        DATE_FORMAT(pp.fecha_prerevision, '%Y/%m/%d') fecha_prerevision,
-        DATE_FORMAT(pp.fecha_prerevision, '%H:%i') hora_prerevision,
-        if(pp.tipo_inspeccion=1,'RTMyEC',if(pp.tipo_inspeccion=2,'Preventiva','Prueba libre')) tipo_servicio,
-        if(v.tipo_vehiculo=1,'Liviano',if(v.tipo_vehiculo=2,'Pesado','Motocicleta')) tipo_vehiculo,
-        if((v.tiempos=4 AND v.tipo_vehiculo = 3),'4T',if((v.tiempos=4 AND v.tipo_vehiculo = 1),'OTTO',if(v.tiempos=2,'2T','Diesel'))) tipo_motor,
-        v.numero_placa placa,
-        v.ano_modelo modelo,
-        IFNULL((SELECT 
-			if(pd.valor='0','NO FUNCIONAL',pd.valor)
-			FROM 
-			pre_dato pd,pre_atributo pa 
-			WHERE 
-			pd.idpre_atributo =pa.idpre_atributo AND 
-			pd.idpre_prerevision=$id_prerevision AND 
-			pa.id='histo_kilometraje' ORDER BY pd.idpre_dato DESC LIMIT 1),if(v.kilometraje='0','NO FUNCIONAL',v.kilometraje)) kilometraje,
-        CASE 
-        WHEN v.migrateLineaMarca <> 1 THEN
-            IF(v.registrorunt = '0',
-                IFNULL((SELECT upper(m.nombre) FROM marca m 
-                       WHERE m.idmarca = (SELECT l.idmarca FROM linea l WHERE l.idlinea = v.idlinea LIMIT 1) 
-                       LIMIT 1), 'SIN MARCA'),
-                IFNULL((SELECT upper(mr.nombre) FROM marcarunt mr 
-                       WHERE mr.idmarcarunt = (SELECT lr.idmarcarunt FROM linearunt lr WHERE lr.idlinearunt = v.idlinea LIMIT 1) 
-                       LIMIT 1), 'SIN MARCA')
-            )
-        ELSE 
-            IFNULL((SELECT upper(nm.nombre) FROM newmarcas nm 
-                   WHERE nm.idmarcas = (SELECT nl.idmarcas FROM newlineas nl WHERE nl.idlineas = v.idlinea LIMIT 1) 
-                   LIMIT 1), 'SIN MARCA')
-    END AS marca,
-      CASE 
-                                WHEN v.migrateLineaMarca <> 1 THEN
-                                    IF(v.registrorunt = '0',
-                                        IFNULL((SELECT upper(l.nombre) FROM linea l WHERE l.idlinea = v.idlinea LIMIT 1), 'SIN LINEA'),
-                                        IFNULL((SELECT upper(lr.nombre) FROM linearunt lr WHERE lr.idlinearunt = v.idlinea LIMIT 1), 'SIN LINEA')
-                                    )
-                                ELSE 
-                                    IFNULL((SELECT upper(nl.nombre) FROM newlineas nl WHERE nl.idlineas = v.idlinea LIMIT 1), 'SIN LINEA')
-                            END AS 'linea',
-
-        if((select registrorunt from vehiculos where numero_placa=v.numero_placa limit 1)=1,
-           (SELECT 
-   		 (select c.nombre from color c where c.idcolor=pd.valor limit 1)
-			FROM 
-			pre_dato pd,pre_atributo pa 
-			WHERE 
-			pd.idpre_atributo =pa.idpre_atributo AND 
-			pd.idpre_prerevision=$id_prerevision AND 
-			pa.id='histo_color' ORDER BY pd.idpre_dato DESC LIMIT 1),
-           (select c.nombre from color c where c.idcolor=v.idcolor limit 1)) color,
-        IFNULL((SELECT 
-			DATE_FORMAT(pd.valor, '%Y/%m/%d')
-			FROM 
-			pre_dato pd,pre_atributo pa 
-			WHERE 
-			pd.idpre_atributo =pa.idpre_atributo AND 
-			pd.idpre_prerevision=$id_prerevision AND 
-			pa.id='fecha_vencimiento_soat' ORDER BY pd.idpre_dato DESC LIMIT 1),v.fecha_vencimiento_soat) fecha_vencimiento_soat,
-        v.fecha_matricula,
-        if(v.blindaje=1,'SI','NO') blindaje,
-        if(v.ensenanza=1,'SI','NO') ensenanza,
-        if(v.polarizado=1,'SI','NO') polarizado,
-        if((v.scooter=1 and v.tipo_vehiculo = 3),'SI','NO') scooter,
-        ifnull((SELECT pd.valor FROM pre_dato pd,pre_atributo pa WHERE pd.idpre_atributo=pa.idpre_atributo and (pa.id='numero_certificado_g' or pa.id='numero_certificado_gas') and pd.idpre_prerevision=pp.idpre_prerevision limit 1),'---') numero_certificado_gas,
-        ifnull((SELECT pd.valor FROM pre_dato pd,pre_atributo pa WHERE pd.idpre_atributo=pa.idpre_atributo and (pa.id='empresa_certificadora') and pd.idpre_prerevision=pp.idpre_prerevision limit 1),'---') empresa_certificadora,
-        ifnull((SELECT pd.valor FROM pre_dato pd,pre_atributo pa WHERE pd.idpre_atributo=pa.idpre_atributo and (pa.id='empresa_publico') and pd.idpre_prerevision=pp.idpre_prerevision limit 1),'---') empresa_publico,
-        ifnull((SELECT pd.valor FROM pre_dato pd,pre_atributo pa WHERE pd.idpre_atributo=pa.idpre_atributo and (pa.id='urbano') and pd.idpre_prerevision=pp.idpre_prerevision limit 1),'---') urbano,
-        ifnull((SELECT pd.valor FROM pre_dato pd,pre_atributo pa WHERE pd.idpre_atributo=pa.idpre_atributo and (pa.id='especial') and pd.idpre_prerevision=pp.idpre_prerevision limit 1),'---') especial,
-        ifnull((SELECT pd.valor FROM pre_dato pd,pre_atributo pa WHERE pd.idpre_atributo=pa.idpre_atributo and (pa.id='tranportes') and pd.idpre_prerevision=pp.idpre_prerevision limit 1),'---') transportes,
-        ifnull((SELECT pd.valor FROM pre_dato pd,pre_atributo pa WHERE pd.idpre_atributo=pa.idpre_atributo and (pa.id='permisoBlindaje') and pd.idpre_prerevision=pp.idpre_prerevision limit 1),'---') permisoBlindaje,
-        ifnull((SELECT pd.valor FROM pre_dato pd,pre_atributo pa WHERE pd.idpre_atributo=pa.idpre_atributo and (pa.id='pruebaGases') and pd.idpre_prerevision=pp.idpre_prerevision limit 1),'---') pruebaGases,
-        ifnull((SELECT pd.valor FROM pre_dato pd,pre_atributo pa WHERE pd.idpre_atributo=pa.idpre_atributo and (pa.id='repotenciado') and pd.idpre_prerevision=pp.idpre_prerevision limit 1),'---') repotenciado,
-        ifnull((SELECT pd.valor FROM pre_dato pd,pre_atributo pa WHERE pd.idpre_atributo=pa.idpre_atributo and (pa.id='certificador') and pd.idpre_prerevision=pp.idpre_prerevision limit 1),'---') certificador,
-        ifnull((SELECT pd.valor FROM pre_dato pd,pre_atributo pa WHERE pd.idpre_atributo=pa.idpre_atributo and (pa.id='empleadopublico') and pd.idpre_prerevision=pp.idpre_prerevision limit 1),'---') empleadopublico,
-        ifnull((SELECT pd.valor FROM pre_dato pd,pre_atributo pa WHERE pd.idpre_atributo=pa.idpre_atributo and (pa.id='recursospublicos') and pd.idpre_prerevision=pp.idpre_prerevision limit 1),'---') recursospublicos,
-        ifnull((SELECT pd.valor FROM pre_dato pd,pre_atributo pa WHERE pd.idpre_atributo=pa.idpre_atributo and (pa.id='poderpublico') and pd.idpre_prerevision=pp.idpre_prerevision limit 1),'---') poderpublico,
-        ifnull((SELECT pd.valor FROM pre_dato pd,pre_atributo pa WHERE pd.idpre_atributo=pa.idpre_atributo and (pa.id='reconocimientopublico') and pd.idpre_prerevision=pp.idpre_prerevision limit 1),'---') reconocimientopublico,
-        ifnull((SELECT pd.valor FROM pre_dato pd,pre_atributo pa WHERE pd.idpre_atributo=pa.idpre_atributo and (pa.id='calidadpublica') and pd.idpre_prerevision=pp.idpre_prerevision limit 1),'---') calidadpublica,
-        ifnull((SELECT pd.valor FROM pre_dato pd,pre_atributo pa WHERE pd.idpre_atributo=pa.idpre_atributo and (pa.id='codigociiu') and pd.idpre_prerevision=pp.idpre_prerevision limit 1),'---') codigociiu,
-        ifnull((SELECT pd.valor FROM pre_dato pd,pre_atributo pa WHERE pd.idpre_atributo=pa.idpre_atributo and (pa.id='ocupacion') and pd.idpre_prerevision=pp.idpre_prerevision limit 1),'---') ocupacion,
-        ifnull((SELECT pd.valor FROM pre_dato pd,pre_atributo pa WHERE pd.idpre_atributo=pa.idpre_atributo and (pa.id='actividadeconomica') and pd.idpre_prerevision=pp.idpre_prerevision limit 1),'---') actividadeconomica,
-        ifnull((SELECT pd.valor FROM pre_dato pd,pre_atributo pa WHERE pd.idpre_atributo=pa.idpre_atributo and (pa.id='restriccionauditiva') and pd.idpre_prerevision=pp.idpre_prerevision limit 1),'NO') restriccionauditiva,
-        IFNULL((SELECT c.nombre FROM vehiculos v, carroceria c  WHERE v.numero_placa=pp.numero_placa_ref AND v.diseno = c.idcarroceria LIMIT 1),'') AS carroceria,
-        ifnull((SELECT  DATE_FORMAT(pd.valor,'%Y-%m-%d') FROM pre_dato pd,pre_atributo pa WHERE pd.idpre_atributo=pa.idpre_atributo and pa.id='fecha_final_certgas' and pd.idpre_prerevision=pp.idpre_prerevision limit 1),(SELECT DATE_FORMAT(h.fecha_final_certgas,'%Y-%m-%d')  FROM histo_vehiculo h WHERE h.idpre_prerevision = $id_prerevision)) fecha_final_certgas,
-        if(pp.reinspeccion=0,'Primera vez','Segunda vez') ocacion,
-        pp.consecutivo,
-        se.nombre servicio,
-        c.nombre clase,
-        tc.nombre combustible,
-        v.numsillas numero_sillas,
-        v.num_pasajeros numero_pasajeros,
-        v.cilindraje,
-        v.cilindros,
-        if(v.potencia_motor=0,'0',v.potencia_motor) potencia_motor
-        from 
-        vehiculos v,pre_prerevision pp,servicio se,clase c, tipo_combustible tc
-        where   
-        pp.idpre_prerevision=$id_prerevision and
-        v.numero_placa=pp.numero_placa_ref and
-        v.idservicio=se.idservicio and
-        v.idclase=c.idclase and
-        v.idtipocombustible=tc.idtipocombustible
-EOF;
-        $result = $this->db->query($query);
-        $rta = $result->result();
-        return $rta[0];
-    }
-
-//if(v.potencia_motor='0','No aplica',v.potencia_motor) potencia_motor
-    function getPre_dato($id_prerevision, $id) {
-        $query = <<< EOF
-            select ifnull(
-            (select 
-            valor
-            from
-            pre_prerevision pp,pre_dato pd,pre_atributo pa
-            where
-            pp.idpre_prerevision=$id_prerevision and
-            pp.idpre_prerevision=pd.idpre_prerevision and
-            pa.idpre_atributo=pd.idpre_atributo and
-            pa.id='$id' limit 1),'---') valor
-EOF;
-        $result = $this->db->query($query);
-        $rta = $result->result();
-        return $rta[0];
-    }
-
-    function getAceptaSINO($id_prerevision, $id) {
-        $query = <<< EOF
-            select
-            if(pd.valor='on','<td width="5%" style="text-align:center"><strong>SI</strong></td>
-                        <td width="5%" border="1" style="text-align:center">X</td>
-                        <td width="5%" style="text-align:center"><strong>NO</strong></td>
-                        <td width="5%" border="1"  style="text-align:center"></td>',
-			'<td width="5%" style="text-align:center"><strong>SI</strong></td>
-                        <td width="5%" border="1" style="text-align:center"></td>
-                        <td width="5%" style="text-align:center"><strong>NO</strong></td>
-                        <td width="5%" border="1"  style="text-align:center">X</td>') sino
-            from
-            pre_prerevision pp,pre_dato pd,pre_atributo pa
-            where
-            pp.idpre_prerevision=$id_prerevision and
-            pp.idpre_prerevision=pd.idpre_prerevision and
-            pd.idpre_atributo=pa.idpre_atributo and
-            pa.id like '%$id%' 
-            order by 1 LIMIT 1
-EOF;
-        $result = $this->db->query($query);
-        if ($result->num_rows() > 0) {
-            $rta = $result->result();
-            return $rta[0]->sino;
-        } else {
-            return '';
-        }
-    }
-
-    function getPre_datoApr($id_prerevision, $id) {
-        $query = <<< EOF
-            select
-            pa.label,pd.valor,pa.id
-            from
-            pre_prerevision pp,pre_dato pd,pre_atributo pa
-            where
-            pp.idpre_prerevision=$id_prerevision and
-            pp.idpre_prerevision=pd.idpre_prerevision and
-            pd.idpre_atributo=pa.idpre_atributo and
-            pa.id like '%$id%' 
-            order by pa.orden
-EOF;
-        $result = $this->db->query($query);
-        return $result;
-    }
-
-    function getCliente($placa) {
-        $query = <<< EOF
-            select 
-            concat(ifnull(c.nombre1,''),' ',ifnull(c.nombre2,''),' ',ifnull(c.apellido1,''),' ',ifnull(c.apellido2,'')) nombre,
-            ifnull(c.direccion,'---') direccion,
-            ifnull(c.telefono1,'---') telefono,
-            ifnull(c.correo,'---') correo,
-            ifnull(c.numero_identificacion,'---') numero_identificacion,
-            ifnull(c.numero_licencia,'---') numero_licencia,
-            ifnull(c.categoria_licencia,'---') categoria_licencia,
-            concat(ifnull(p.nombre1,''),' ',ifnull(p.nombre2,''),' ',ifnull(p.apellido1,''),' ',ifnull(p.apellido2,'')) nombre_p,
-            ifnull(p.direccion,'---') direccion_p,
-            ifnull(p.telefono1,'---') telefono_p,
-            ifnull(p.correo,'---') correo_p,
-            ifnull(p.numero_identificacion,'---') numero_identificacion_p
-            from
-            vehiculos v,
-            clientes c,
-            clientes p
-            where
-            v.idcliente=c.idcliente and
-            v.idpropietarios=p.idcliente and
-            v.numero_placa='$placa' limit 1
-EOF;
-        $result = $this->db->query($query);
-        $rta = $result->result();
-        return $rta[0];
-    }
-
-    function getOperarios($idpp) {
-        $query = <<< EOF
-            SELECT 
-                DISTINCT CONCAT(u.nombres,' ',u.apellidos) nombre,
-                ifnull((SELECT pd.valor FROM pre_dato pd,pre_atributo pa WHERE pd.idpre_atributo=pa.idpre_atributo and (pa.id='usuario_registro' or pa.id='usuario') and pd.idpre_prerevision=pp.idpre_prerevision limit 1),'---') user,
-                u.identificacion as documento
-                FROM 
-                pre_prerevision pp,vehiculos v,hojatrabajo ht,pruebas p,usuarios u
-                WHERE 
-                pp.numero_placa_ref=v.numero_placa AND 
-                pp.idpre_prerevision=$idpp AND 
-                v.idvehiculo=ht.idvehiculo AND
-                ht.idhojapruebas=p.idhojapruebas AND
-                p.estado<>5 AND
-                p.idtipo_prueba<>55 AND
-                u.IdUsuario=p.idusuario AND
-                DATE_FORMAT(ht.fechainicial,'%Y-%m-%d') = DATE_FORMAT(pp.fecha_prerevision,'%Y-%m-%d')
-EOF;
-        return $this->db->query($query);
-    }
-
-    function getDocumentos($idpp) {
-        $query = <<< EOF
-           SELECT 
-            c.numero_certificado,if(c.consecutivo_runt='',c.consecutivo_runt_rechazado,c.consecutivo_runt) consecutivo_runt,ht.pin0,pp.reinspeccion,
-            IFNULL((
-            SELECT valor FROM pre_dato pd,pre_atributo pa WHERE pd.idpre_atributo=pa.idpre_atributo AND pa.id='numero_solicitud' AND pd.idpre_prerevision=pp.idpre_prerevision limit 1),'') numero_solicitud
-            FROM 
-            pre_prerevision pp,certificados c,vehiculos v,hojatrabajo ht 
-            WHERE
-            pp.numero_placa_ref=v.numero_placa AND
-            pp.idpre_prerevision=$idpp AND 
-            v.idvehiculo=ht.idvehiculo AND
-            c.idhojapruebas=ht.idhojapruebas AND
-            v.idvehiculo=ht.idvehiculo AND
-            DATE_FORMAT(ht.fechainicial,'%Y-%m-%d') = DATE_FORMAT(pp.fecha_prerevision,'%Y-%m-%d')
-            ORDER BY 
-            CASE WHEN pp.reinspeccion=1 THEN c.id_certificado END DESC, 
-            CASE WHEN pp.reinspeccion=0 THEN c.id_certificado END ASC
-            LIMIT 1
-EOF;
-        $resultados = $this->db->query($query);
-        $rta = $resultados->result();
-        if ($resultados->num_rows() !== 0) {
-            return $rta[0];
-        } else {
-            return "";
-        }
-    }
-    
-    function getUser($usuario_registro){
-        $query = <<< EOF
-           SELECT 
-                concat(u.nombres, ' ', u.apellidos) as 'nombre',
-            u.*
-                from usuarios u where u.idUsuario = $usuario_registro
-EOF;
-        $resultados = $this->db->query($query);
-        $rta = $resultados->result();
-        if ($resultados->num_rows() !== 0) {
-            return $rta[0];
-        } else {
-            return "";
-        }
-    }
-
-}
-
-
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+uhgbHq47PIcKuEQVNe+6ng2kfcaODW==

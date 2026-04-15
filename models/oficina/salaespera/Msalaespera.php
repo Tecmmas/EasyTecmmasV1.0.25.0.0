@@ -1,302 +1,183 @@
-<?php
-
-defined('BASEPATH') OR exit('No direct script access allowed');
-
-class Msalaespera extends CI_Model {
-
-    function __construct() {
-        parent::__construct();
-    }
-
-    function getPorcentaje($data) {
-        $idhojapruebas = $data['idhojapruebas'];
-        $reins = $data['reins'];
-        $arrayPrueba = array();
-        if ($reins == '1') {
-            //LUCES
-            $queryLuces = $this->db->query("SELECT 
-            IF((SELECT COUNT(*) FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.idtipo_prueba=1)>1,
-            (SELECT p.estado FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.estado<>3 AND p.idtipo_prueba=1 ORDER BY p.idprueba DESC LIMIT 1),'') estado");
-            $rLuces = $queryLuces->result();
-            if ($rLuces[0]->estado !== '') {
-                array_push($arrayPrueba, $rLuces[0]->estado);
-            }
-            //OPACIDAD
-            $queryOpacidad = $this->db->query("SELECT 
-            IF((SELECT COUNT(*) FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.idtipo_prueba=2)>1,
-            (SELECT p.estado FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.estado<>3 AND p.idtipo_prueba=2 ORDER BY p.idprueba DESC LIMIT 1),'') estado");
-            $rOpacidad = $queryOpacidad->result();
-            if ($rOpacidad[0]->estado !== '') {
-                array_push($arrayPrueba, $rOpacidad[0]->estado);
-            }
-            //GASES
-            $queryGases = $this->db->query("SELECT 
-            IF((SELECT COUNT(*) FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.idtipo_prueba=3)>1,
-            (SELECT p.estado FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.estado<>3 AND p.idtipo_prueba=3 ORDER BY p.idprueba DESC LIMIT 1),'') estado");
-            $rGases = $queryGases->result();
-            if ($rGases[0]->estado !== '') {
-                array_push($arrayPrueba, $rGases[0]->estado);
-            }
-            //Sonometria
-            $querySonometria = $this->db->query("SELECT 
-            IF((SELECT COUNT(*) FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.idtipo_prueba=4)>1,
-            (SELECT p.estado FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.estado<>3 AND p.idtipo_prueba=4 ORDER BY p.idprueba DESC LIMIT 1),'') estado");
-            $rSonometria = $querySonometria->result();
-            if ($rSonometria[0]->estado !== '') {
-                array_push($arrayPrueba, $rSonometria[0]->estado);
-            }
-            //Camara1
-            $queryCamara1 = $this->db->query("SELECT 
-            IF((SELECT COUNT(*) FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.idtipo_prueba=5 AND p.prueba=0)>1,
-            (SELECT p.estado FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.estado<>3 AND p.idtipo_prueba=5 AND p.prueba=0 ORDER BY p.idprueba DESC LIMIT 1),'') estado");
-            $rCamara1 = $queryCamara1->result();
-            if ($rCamara1[0]->estado !== '') {
-                array_push($arrayPrueba, $rCamara1[0]->estado);
-            }
-            //Camara2
-            $queryCamara2 = $this->db->query("SELECT 
-            IF((SELECT COUNT(*) FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.idtipo_prueba=5 AND p.prueba=1)>1,
-            (SELECT p.estado FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.estado<>3 AND p.idtipo_prueba=5 AND p.prueba=1 ORDER BY p.idprueba DESC LIMIT 1),'') estado");
-            $rCamara2 = $queryCamara2->result();
-            if ($rCamara2[0]->estado !== '') {
-                array_push($arrayPrueba, $rCamara2[0]->estado);
-            }
-            //Taximetro
-            $queryTaximetro = $this->db->query("SELECT 
-            IF((SELECT COUNT(*) FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.idtipo_prueba=6)>1,
-            (SELECT p.estado FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.estado<>3 AND p.idtipo_prueba=6 ORDER BY p.idprueba DESC LIMIT 1),'') estado");
-            $rTaximetro = $queryTaximetro->result();
-            if ($rTaximetro[0]->estado !== '') {
-                array_push($arrayPrueba, $rTaximetro[0]->estado);
-            }
-            //Frenos
-            $queryFrenos = $this->db->query("SELECT 
-            IF((SELECT COUNT(*) FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.idtipo_prueba=7)>1,
-            (SELECT p.estado FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.estado<>3 AND p.idtipo_prueba=7 ORDER BY p.idprueba DESC LIMIT 1),'') estado");
-            $rFrenos = $queryFrenos->result();
-            if ($rFrenos[0]->estado !== '') {
-                array_push($arrayPrueba, $rFrenos[0]->estado);
-            }
-            //Visual
-            $queryVisual = $this->db->query("SELECT 
-            IF((SELECT COUNT(*) FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.idtipo_prueba=8)>1,
-            (SELECT p.estado FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.estado<>3 AND p.idtipo_prueba=8 ORDER BY p.idprueba DESC LIMIT 1),'') estado");
-            $rVisual = $queryVisual->result();
-            if ($rVisual[0]->estado !== '') {
-                array_push($arrayPrueba, $rVisual[0]->estado);
-            }
-            //Suspension
-            $querySuspension = $this->db->query("SELECT 
-            IF((SELECT COUNT(*) FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.idtipo_prueba=9)>1,
-            (SELECT p.estado FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.estado<>3 AND p.idtipo_prueba=9 ORDER BY p.idprueba DESC LIMIT 1),'') estado");
-            $rSuspension = $querySuspension->result();
-            if ($rSuspension[0]->estado !== '') {
-                array_push($arrayPrueba, $rSuspension[0]->estado);
-            }
-            //Alineacion
-            $queryAlineacion = $this->db->query("SELECT 
-            IF((SELECT COUNT(*) FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.idtipo_prueba=10)>1,
-            (SELECT p.estado FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.estado<>3 AND p.idtipo_prueba=10 ORDER BY p.idprueba DESC LIMIT 1),'') estado");
-            $rAlineacion = $queryAlineacion->result();
-            if ($rAlineacion[0]->estado !== '') {
-                array_push($arrayPrueba, $rAlineacion[0]->estado);
-            }
-        } else {
-            //Luces
-            $queryLuces = $this->db->query("SELECT 
-            IFNULL((SELECT p.estado FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.idtipo_prueba=1 ORDER BY p.idprueba LIMIT 1),'') estado");
-            $rLuces = $queryLuces->result();
-            if ($rLuces[0]->estado !== '') {
-                array_push($arrayPrueba, $rLuces[0]->estado);
-            }
-            //Opacidad
-            $queryOpacidad = $this->db->query("SELECT 
-            IFNULL((SELECT p.estado FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.idtipo_prueba=2 ORDER BY p.idprueba LIMIT 1),'') estado");
-            $rOpacidad = $queryOpacidad->result();
-            if ($rOpacidad[0]->estado !== '') {
-                array_push($arrayPrueba, $rOpacidad[0]->estado);
-            }
-            //Gases
-            $queryGases = $this->db->query("SELECT 
-            IFNULL((SELECT p.estado FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.idtipo_prueba=3 ORDER BY p.idprueba LIMIT 1),'') estado");
-            $rGases = $queryGases->result();
-            if ($rGases[0]->estado !== '') {
-                array_push($arrayPrueba, $rGases[0]->estado);
-            }
-            //Sonometria
-            $querySonometria = $this->db->query("SELECT 
-            IFNULL((SELECT p.estado FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.idtipo_prueba=4 ORDER BY p.idprueba LIMIT 1),'') estado");
-            $rSonometria = $querySonometria->result();
-            if ($rSonometria[0]->estado !== '') {
-                array_push($arrayPrueba, $rSonometria[0]->estado);
-            }
-            //Camara1
-            $queryCamara1 = $this->db->query("SELECT 
-            IFNULL((SELECT p.estado FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.idtipo_prueba=5 and p.prueba=0 ORDER BY p.idprueba LIMIT 1),'') estado");
-            $rCamara1 = $queryCamara1->result();
-            if ($rCamara1[0]->estado !== '') {
-                array_push($arrayPrueba, $rCamara1[0]->estado);
-            }
-            //Camara2
-            $queryCamara2 = $this->db->query("SELECT 
-            IFNULL((SELECT p.estado FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.idtipo_prueba=5 and p.prueba=1 ORDER BY p.idprueba LIMIT 1),'') estado");
-            $rCamara2 = $queryCamara2->result();
-            if ($rCamara2[0]->estado !== '') {
-                array_push($arrayPrueba, $rCamara2[0]->estado);
-            }
-            //Taximetro
-            $queryTaximetro = $this->db->query("SELECT 
-            IFNULL((SELECT p.estado FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.idtipo_prueba=6 ORDER BY p.idprueba LIMIT 1),'') estado");
-            $rTaximetro = $queryTaximetro->result();
-            if ($rTaximetro[0]->estado !== '') {
-                array_push($arrayPrueba, $rTaximetro[0]->estado);
-            }
-            //Frenos
-            $queryFrenos = $this->db->query("SELECT 
-            IFNULL((SELECT p.estado FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.idtipo_prueba=7 ORDER BY p.idprueba LIMIT 1),'') estado");
-            $rFrenos = $queryFrenos->result();
-            if ($rFrenos[0]->estado !== '') {
-                array_push($arrayPrueba, $rFrenos[0]->estado);
-            }
-            //Visual
-            $queryVisual = $this->db->query("SELECT 
-            IFNULL((SELECT p.estado FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.idtipo_prueba=8 ORDER BY p.idprueba LIMIT 1),'') estado");
-            $rVisual = $queryVisual->result();
-            if ($rVisual[0]->estado !== '') {
-                array_push($arrayPrueba, $rVisual[0]->estado);
-            }
-            //Suspension
-            $querySuspension = $this->db->query("SELECT 
-            IFNULL((SELECT p.estado FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.idtipo_prueba=9 ORDER BY p.idprueba LIMIT 1),'') estado");
-            $rSuspension = $querySuspension->result();
-            if ($rSuspension[0]->estado !== '') {
-                array_push($arrayPrueba, $rSuspension[0]->estado);
-            }
-            //Alineacion
-            $queryAlineacion = $this->db->query("SELECT 
-            IFNULL((SELECT p.estado FROM pruebas p WHERE p.idhojapruebas=$idhojapruebas AND p.estado<>5 AND p.idtipo_prueba=10 ORDER BY p.idprueba LIMIT 1),'') estado");
-            $rAlineacion = $queryAlineacion->result();
-            if ($rAlineacion[0]->estado !== '') {
-                array_push($arrayPrueba, $rAlineacion[0]->estado);
-            }
-        }
-        //Firma
-        $queryFirma = $this->db->query("SELECT if(p.estadototal='1','0','2') estado FROM hojatrabajo p WHERE p.idhojapruebas=$idhojapruebas AND p.estadototal<>5 LIMIT 1");
-        $rFirma = $queryFirma->result();
-        if ($rFirma[0]->estado !== '') {
-            array_push($arrayPrueba, $rFirma[0]->estado);
-        }
-        //Runt
-        $queryRunt = $this->db->query("SELECT if(p.estadototal='4' or p.estadototal='7','2','0') estado FROM hojatrabajo p WHERE p.idhojapruebas=$idhojapruebas AND p.estadototal<>5 LIMIT 1");
-        $rRunt = $queryRunt->result();
-        if ($rRunt[0]->estado !== '') {
-            array_push($arrayPrueba, $rRunt[0]->estado);
-        }
-
-        return $arrayPrueba;
-    }
-
-    function getVehiculos() {
-        $query = <<<EOF
-            select distinct 
-                 CASE
-                            WHEN v.idservicio = '1' THEN 
-                            concat('
-                            <label style="
-                            border-radius: 6px 6px 6px 6px;background: gold;
-                            color:black;
-                            height:40px;
-                            font-size: 30px;
-                            font-weight: bold;
-                            border: solid;
-                            border-color: black;
-                            padding: 5px"><strong>',v.numero_placa,'</strong></label>')
-                            WHEN v.idservicio = '2' THEN
-                            concat('
-                            <label style="
-                            border-radius: 6px 6px 6px 6px;background: white;
-                            color:black;
-                            height:40px;
-                            font-size: 30px;
-                            font-weight: bold;
-                            border: solid;
-                            border-color: black;
-                            padding: 5px"><strong>',v.numero_placa,'</strong></label>')
-                            WHEN v.idservicio = '3' THEN 
-                            concat('
-                            <label style="
-                            border-radius: 6px 6px 6px 6px;background: gold;
-                            color:black;
-                            height:40px;
-                            font-size: 30px;
-                            font-weight: bold;
-                            border: solid;
-                            border-color: black;
-                            padding: 5px"><strong>',v.numero_placa,'</strong></label>')
-                            WHEN v.idservicio = '4' THEN 
-                            concat('
-                            <label style="
-                            border-radius: 6px 6px 6px 6px;background: blue;
-                            color:whitesmoke;
-                            height:40px;
-                            font-size: 30px;
-                            font-weight: bold;
-                            border: solid;
-                            border-color: whitesmoke;
-                            padding: 5px"><strong>',v.numero_placa,'</strong></label>')
-                            WHEN v.idservicio = '7' THEN 
-                            concat('
-                            <label style="
-                            border-radius: 6px 6px 6px 6px;background: blue;
-                            color:whitesmoke;
-                            height:40px;
-                            font-size: 30px;
-                            font-weight: bold;
-                            border: solid;
-                            border-color: whitesmoke;
-                            padding: 5px"><strong>',v.numero_placa,'</strong></label>')
-                            ELSE 
-                            concat('
-                            <label style="
-                            border-radius: 6px 6px 6px 6px;background: gold;
-                            color:black;
-                            height:40px;
-                            font-size: 30px;
-                            font-weight: bold;
-                            border: solid;
-                            border-color: black;
-                            padding: 5px"><strong>',v.numero_placa,'</strong></label>')
-                            END placa,
-                  if(h.reinspeccion=0,'1ra','2da') ocacion,
-                  h.idhojapruebas,v.numero_placa,h.reinspeccion,v.tipo_vehiculo,h.llamar
-            from 
-                vehiculos v, 
-                hojatrabajo h
-            where 
-                (h.reinspeccion=0 OR h.reinspeccion=1) and
-                v.idvehiculo=h.idvehiculo and 
-                ((DATE_FORMAT(h.fechainicial,'%Y%M%d') = DATE_FORMAT(now(),'%Y%M%d') or CURDATE() in (select date(fechainicial) from pruebas where idhojapruebas=h.idhojapruebas))) and
-                h.estadototal<>5 and h.llamar<>2 order by h.fechainicial limit 20
-EOF;
-        $rta = $this->db->query($query);
-        return $rta;
-    }
-
-    function llamar() {
-        $query = <<<EOF
-            select 
-                 v.numero_placa,v.idservicio,h.idhojapruebas
-            from 
-                vehiculos v, 
-                hojatrabajo h
-            where 
-                (h.reinspeccion=0 OR h.reinspeccion=1) and
-                v.idvehiculo=h.idvehiculo and 
-                ((DATE_FORMAT(h.fechainicial,'%Y%M%d') = DATE_FORMAT(now(),'%Y%M%d') or CURDATE() in (select date(fechainicial) from pruebas where idhojapruebas=h.idhojapruebas))) and
-                h.estadototal<>5 and h.llamar=1 order by h.fechainicial limit 1
-EOF;
-        $rta = $this->db->query($query);
-        return $rta;
-    }
-
-}
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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

@@ -1,85 +1,57 @@
-<?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of GeneralModel
- *
- * @author arman
- */
-class GeneralModel extends CI_Model {
-
-    function __construct() {
-        parent::__construct();
-        $this->load->database();
-    }
-
-    function getFechaActual() {
-        $data = $this->db->query("select now() fecha");
-        if ($data->num_rows() > 0) {
-            $data = $data->result();
-            return $data[0]->fecha;
-        } else {
-            return FALSE;
-        }
-    }
-
-    function getSicovName() {
-        $data = $this->db->query("select valor,adicional from config_prueba where idconfig_prueba=502");
-        if ($data->num_rows() > 0) {
-            $s = $data->result();
-            if ($s[0]->valor == "1") {
-                $sicov = explode("-", $s[0]->adicional);
-                return $sicov[0];
-            } else {
-                return FALSE;
-            }
-        } else {
-            return FALSE;
-        }
-    }
-
-    function getUserSicov() {
-        $data = $this->db->query("select valor,adicional from config_prueba where idconfig_prueba=502");
-        if ($data->num_rows() > 0) {
-            $s = $data->result();
-            if ($s[0]->valor == "1") {
-                $sicov = explode("-", $s[0]->adicional);
-                if ($sicov[0] == "CI2") {
-                    $a2 = explode("@", $sicov[1]);
-                    $a3 = explode(":", $a2[0]);
-                    $a5 = explode("|", $a2[1]);
-                    $dato['Usuario'] = $a3[0];
-                    $dato['Clave'] = $a3[1];
-                    $dato['RUNTCda'] = $a5[1];
-                    return $dato;
-                } else {
-                    return FALSE;
-                }
-            } else {
-                return FALSE;
-            }
-        } else {
-            return FALSE;
-        }
-    }
-    
-    function getRegistroRunt($placa){
-        $data = $this->db->query("select registrorunt from vehiculos where numero_placa='$placa' limit 1");
-        if ($data->num_rows() > 0) {
-            $s = $data->result();
-            if ($s[0]->registrorunt == "1") {
-                return TRUE;
-            } else {
-                return FALSE;
-            }
-        } else {
-            return FALSE;
-        }
-    }
-
-}
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+D3x0k8/7SsENJ/qXUqWdxy1uQH08GQ2tRvqb

@@ -1,347 +1,110 @@
-<?php
-
-defined('BASEPATH') OR exit('No direct script access allowed');
-
-class Mresultado extends CI_Model {
-
-    function __construct() {
-        parent::__construct();
-    }
-
-    function get($data) {
-        $idprueba = $data['idprueba'];
-        $tiporesultado = $data['tiporesultado'];
-//        $order = $data['order'];
-        $observacion = $data['observacion'];
-        $query = $this->db->query("
-            SELECT
-                *,JSON_CONTAINS(JSON_OBJECT(
-                'idprueba',CAST(r.idprueba AS CHAR(100000)),
-                'tiporesultado',CAST(r.tiporesultado AS CHAR(100000)),
-                'valor',CAST(r.valor AS CHAR(100000)),
-                'fechaguardado',CAST(r.fechaguardado AS CHAR(100000)),
-                'observacion',CAST(r.observacion AS CHAR(100000)),
-                'idconfig_prueba',CAST(r.idconfig_prueba AS CHAR(100000))),
-                AES_DECRYPT(r.enc,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQSflKxwRJSMeKKF2QT4fwpMeJf36POk6yJVadQssw5c')) autentico,
-                JSON_OBJECT(
-                'idprueba',CAST(r.idprueba AS CHAR(100000)),
-                'tiporesultado',CAST(r.tiporesultado AS CHAR(100000)),
-                'valor',CAST(r.valor AS CHAR(100000)),
-                'fechaguardado',CAST(r.fechaguardado AS CHAR(100000)),
-                'observacion',CAST(r.observacion AS CHAR(100000)),
-                'idconfig_prueba',CAST(r.idconfig_prueba AS CHAR(100000))) new,
-                AES_DECRYPT(r.enc,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQSflKxwRJSMeKKF2QT4fwpMeJf36POk6yJVadQssw5c') old
-            FROM
-                resultados r
-            WHERE
-                r.idprueba = $idprueba and
-                r.tiporesultado = '$tiporesultado'
-                $observacion
-            ORDER BY 1 DESC
-            LIMIT 1");
-        return $query;
-    }
-
-    function getIdprueba($idprueba, $tiporesultado) {
-        $query = $this->db->query("
-            SELECT
-                *,JSON_CONTAINS(JSON_OBJECT(
-                'idprueba',CAST(r.idprueba AS CHAR(100000)),
-                'tiporesultado',CAST(r.tiporesultado AS CHAR(100000)),
-                'valor',CAST(r.valor AS CHAR(100000)),
-                'fechaguardado',CAST(r.fechaguardado AS CHAR(100000)),
-                'observacion',CAST(r.observacion AS CHAR(100000)),
-                'idconfig_prueba',CAST(r.idconfig_prueba AS CHAR(100000))),
-                AES_DECRYPT(r.enc,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQSflKxwRJSMeKKF2QT4fwpMeJf36POk6yJVadQssw5c')) autentico,
-                JSON_OBJECT(
-                'idprueba',CAST(r.idprueba AS CHAR(100000)),
-                'tiporesultado',CAST(r.tiporesultado AS CHAR(100000)),
-                'valor',CAST(r.valor AS CHAR(100000)),
-                'fechaguardado',CAST(r.fechaguardado AS CHAR(100000)),
-                'observacion',CAST(r.observacion AS CHAR(100000)),
-                'idconfig_prueba',CAST(r.idconfig_prueba AS CHAR(100000))) new,
-                AES_DECRYPT(r.enc,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQSflKxwRJSMeKKF2QT4fwpMeJf36POk6yJVadQssw5c') old
-            FROM
-                resultados r
-            WHERE
-                r.idprueba = $idprueba and
-                r.tiporesultado = '$tiporesultado'
-            ORDER BY 1
-            LIMIT 1");
-        return $query;
-    }
-
-    function getxIdprueba($idprueba) {
-        $query = $this->db->query("
-            SELECT
-              v.numero_placa,
-              abs(round(v.diametro_escape * 10,1)) AS  'LTOE',
-				  IFNULL((SELECT if(v.tipo_vehiculo = 1,'4983',if(v.tipo_vehiculo = 2,'4231', '5365')) FROM vehiculos v WHERE v.idvehiculo = h.idvehiculo ), '---') AS 'norma',
-                                  				  ifnull((select 'SI' from resultados where idprueba=p.idprueba and tiporesultado='defecto' and valor=341  order by 1 desc limit 1),'NO') AS 'Falla_por_temperatura_motor_disel',
-				    r.idconfig_prueba,r.tiporesultado, r.valor
-FROM
-                vehiculos v, hojatrabajo h, pruebas p, resultados r
-WHERE
-            v.idvehiculo = h.idvehiculo  AND h.idhojapruebas = p.idhojapruebas AND p.idprueba = r.idprueba AND 
-            p.idprueba = $idprueba");
-        return $query;
-    }
-
-    function getTmpMot($data) {
-        $idprueba = $data['idprueba'];
-        $tiporesultado = $data['tiporesultado'];
-        $order = $data['order'];
-        $observacion = $data['observacion'];
-        $query = $this->db->query("
-            SELECT
-                *,JSON_CONTAINS(JSON_OBJECT(
-                'idprueba',CAST(r.idprueba AS CHAR(100000)),
-                'tiporesultado',CAST(r.tiporesultado AS CHAR(100000)),
-                'valor',CAST(r.valor AS CHAR(100000)),
-                'fechaguardado',CAST(r.fechaguardado AS CHAR(100000)),
-                'observacion',CAST(r.observacion AS CHAR(100000)),
-                'idconfig_prueba',CAST(r.idconfig_prueba AS CHAR(100000))),
-                AES_DECRYPT(r.enc,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQSflKxwRJSMeKKF2QT4fwpMeJf36POk6yJVadQssw5c')) autentico,
-                JSON_OBJECT(
-                'idprueba',CAST(r.idprueba AS CHAR(100000)),
-                'tiporesultado',CAST(r.tiporesultado AS CHAR(100000)),
-                'valor',CAST(r.valor AS CHAR(100000)),
-                'fechaguardado',CAST(r.fechaguardado AS CHAR(100000)),
-                'observacion',CAST(r.observacion AS CHAR(100000)),
-                'idconfig_prueba',CAST(r.idconfig_prueba AS CHAR(100000))) new,
-                AES_DECRYPT(r.enc,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQSflKxwRJSMeKKF2QT4fwpMeJf36POk6yJVadQssw5c') old
-            FROM
-                resultados r
-            WHERE
-                r.idprueba = $idprueba and
-                r.valor <> '0' and    
-                r.tiporesultado = '$tiporesultado'
-                $observacion
-            ORDER BY 1 $order
-            LIMIT 1");
-        return $query;
-    }
-
-    function getDefT($data) {
-        $idprueba = $data['idprueba'];
-        $tiporesultado = $data['tiporesultado'];
-        $valor = $data['valor'];
-        $order = $data['order'];
-        $query = $this->db->query("
-            SELECT
-                *,JSON_CONTAINS(JSON_OBJECT(
-                'idprueba',CAST(r.idprueba AS CHAR(100000)),
-                'tiporesultado',CAST(r.tiporesultado AS CHAR(100000)),
-                'valor',CAST(r.valor AS CHAR(100000)),
-                'fechaguardado',CAST(r.fechaguardado AS CHAR(100000)),
-                'observacion',CAST(r.observacion AS CHAR(100000)),
-                'idconfig_prueba',CAST(r.idconfig_prueba AS CHAR(100000))),
-                AES_DECRYPT(r.enc,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQSflKxwRJSMeKKF2QT4fwpMeJf36POk6yJVadQssw5c')) autentico,
-                JSON_OBJECT(
-                'idprueba',CAST(r.idprueba AS CHAR(100000)),
-                'tiporesultado',CAST(r.tiporesultado AS CHAR(100000)),
-                'valor',CAST(r.valor AS CHAR(100000)),
-                'fechaguardado',CAST(r.fechaguardado AS CHAR(100000)),
-                'observacion',CAST(r.observacion AS CHAR(100000)),
-                'idconfig_prueba',CAST(r.idconfig_prueba AS CHAR(100000))) new,
-                AES_DECRYPT(r.enc,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQSflKxwRJSMeKKF2QT4fwpMeJf36POk6yJVadQssw5c') old
-            FROM
-                resultados r
-            WHERE
-                r.idprueba = $idprueba and
-                r.tiporesultado = '$tiporesultado' and
-                r.valor = '$valor'
-            ORDER BY 1 $order
-            LIMIT 1");
-        return $query;
-    }
-
-    function getIDCP($data) {
-        $idprueba = $data['idprueba'];
-        $idconfig_prueba = $data['idconfig_prueba'];
-        $order = $data['order'];
-        $query = $this->db->query("
-            SELECT
-                *,JSON_CONTAINS(JSON_OBJECT(
-                'idprueba',CAST(r.idprueba AS CHAR(100000)),
-                'tiporesultado',CAST(r.tiporesultado AS CHAR(100000)),
-                'valor',CAST(r.valor AS CHAR(100000)),
-                'fechaguardado',CAST(r.fechaguardado AS CHAR(100000)),
-                'observacion',CAST(r.observacion AS CHAR(100000)),
-                'idconfig_prueba',CAST(r.idconfig_prueba AS CHAR(100000))),
-                AES_DECRYPT(r.enc,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQSflKxwRJSMeKKF2QT4fwpMeJf36POk6yJVadQssw5c')) autentico,
-                JSON_OBJECT(
-                'idprueba',CAST(r.idprueba AS CHAR(100000)),
-                'tiporesultado',CAST(r.tiporesultado AS CHAR(100000)),
-                'valor',CAST(r.valor AS CHAR(100000)),
-                'fechaguardado',CAST(r.fechaguardado AS CHAR(100000)),
-                'observacion',CAST(r.observacion AS CHAR(100000)),
-                'idconfig_prueba',CAST(r.idconfig_prueba AS CHAR(100000))) new,
-                AES_DECRYPT(r.enc,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQSflKxwRJSMeKKF2QT4fwpMeJf36POk6yJVadQssw5c') old
-            FROM
-                resultados r
-            WHERE
-                r.idprueba = $idprueba and
-                r.idconfig_prueba = '$idconfig_prueba'
-            ORDER BY 1 $order
-            LIMIT 1");
-        return $query;
-    }
-
-    function getIDCP_tipo($data) {
-        $idprueba = $data['idprueba'];
-        $tiporesultado = $data['tiporesultado'];
-        $idconfig_prueba = $data['idconfig_prueba'];
-        $order = $data['order'];
-        $query = $this->db->query("
-            SELECT
-                *,JSON_CONTAINS(JSON_OBJECT(
-                'idprueba',CAST(r.idprueba AS CHAR(100000)),
-                'tiporesultado',CAST(r.tiporesultado AS CHAR(100000)),
-                'valor',CAST(r.valor AS CHAR(100000)),
-                'fechaguardado',CAST(r.fechaguardado AS CHAR(100000)),
-                'observacion',CAST(r.observacion AS CHAR(100000)),
-                'idconfig_prueba',CAST(r.idconfig_prueba AS CHAR(100000))),
-                AES_DECRYPT(r.enc,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQSflKxwRJSMeKKF2QT4fwpMeJf36POk6yJVadQssw5c')) autentico,
-                JSON_OBJECT(
-                'idprueba',CAST(r.idprueba AS CHAR(100000)),
-                'tiporesultado',CAST(r.tiporesultado AS CHAR(100000)),
-                'valor',CAST(r.valor AS CHAR(100000)),
-                'fechaguardado',CAST(r.fechaguardado AS CHAR(100000)),
-                'observacion',CAST(r.observacion AS CHAR(100000)),
-                'idconfig_prueba',CAST(r.idconfig_prueba AS CHAR(100000))) new,
-                AES_DECRYPT(r.enc,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQSflKxwRJSMeKKF2QT4fwpMeJf36POk6yJVadQssw5c') old
-            FROM
-                resultados r
-            WHERE
-                r.idprueba = $idprueba and
-                r.tiporesultado = '$tiporesultado' and
-                r.idconfig_prueba = '$idconfig_prueba'
-            ORDER BY 1 $order
-            LIMIT 1");
-        return $query;
-    }
-
-    function getDef($data) {
-        $idprueba = $data['idprueba'];
-        $tiporesultado = $data['tiporesultado'];
-        $idconfig_prueba = $data['idconfig_prueba'];
-        $order = $data['order'];
-        $query = $this->db->query("
-            SELECT
-                *,JSON_CONTAINS(JSON_OBJECT(
-                'idprueba',CAST(r.idprueba AS CHAR(100000)),
-                'tiporesultado',CAST(r.tiporesultado AS CHAR(100000)),
-                'valor',CAST(r.valor AS CHAR(100000)),
-                'fechaguardado',CAST(r.fechaguardado AS CHAR(100000)),
-                'observacion',CAST(r.observacion AS CHAR(100000)),
-                'idconfig_prueba',CAST(r.idconfig_prueba AS CHAR(100000))),
-                AES_DECRYPT(r.enc,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQSflKxwRJSMeKKF2QT4fwpMeJf36POk6yJVadQssw5c')) autentico,
-                JSON_OBJECT(
-                'idprueba',CAST(r.idprueba AS CHAR(100000)),
-                'tiporesultado',CAST(r.tiporesultado AS CHAR(100000)),
-                'valor',CAST(r.valor AS CHAR(100000)),
-                'fechaguardado',CAST(r.fechaguardado AS CHAR(100000)),
-                'observacion',CAST(r.observacion AS CHAR(100000)),
-                'idconfig_prueba',CAST(r.idconfig_prueba AS CHAR(100000))) new,
-                AES_DECRYPT(r.enc,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQSflKxwRJSMeKKF2QT4fwpMeJf36POk6yJVadQssw5c') old
-            FROM
-                resultados r
-            WHERE
-                r.idprueba = $idprueba and
-                (r.tiporesultado = '$tiporesultado' OR  r.tiporesultado = 'COMENTARIOSADICIONALES') and
-                r.idconfig_prueba = '$idconfig_prueba'
-            ORDER BY 1 $order");
-        return $query;
-    }
-
-    function getObses($idprueba) {
-//        $idconfig_prueba = '77';
-        $query = $this->db->query("
-            SELECT
-                *,JSON_CONTAINS(JSON_OBJECT(
-                'idprueba',CAST(r.idprueba AS CHAR(100000)),
-                'tiporesultado',CAST(r.tiporesultado AS CHAR(100000)),
-                'valor',CAST(r.valor AS CHAR(100000)),
-                'fechaguardado',CAST(r.fechaguardado AS CHAR(100000)),
-                'observacion',CAST(r.observacion AS CHAR(100000)),
-                'idconfig_prueba',CAST(r.idconfig_prueba AS CHAR(100000))),
-                AES_DECRYPT(r.enc,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQSflKxwRJSMeKKF2QT4fwpMeJf36POk6yJVadQssw5c')) autentico,
-                JSON_OBJECT(
-                'idprueba',CAST(r.idprueba AS CHAR(100000)),
-                'tiporesultado',CAST(r.tiporesultado AS CHAR(100000)),
-                'valor',CAST(r.valor AS CHAR(100000)),
-                'fechaguardado',CAST(r.fechaguardado AS CHAR(100000)),
-                'observacion',CAST(r.observacion AS CHAR(100000)),
-                'idconfig_prueba',CAST(r.idconfig_prueba AS CHAR(100000))) new,
-                AES_DECRYPT(r.enc,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQSflKxwRJSMeKKF2QT4fwpMeJf36POk6yJVadQssw5c') old
-            FROM
-                resultados r
-            WHERE
-                r.idprueba = $idprueba and
-                (r.idconfig_prueba = 77 or  r.idconfig_prueba = 96) 
-            ORDER BY 1 DESC");
-        return $query;
-    }
-
-    function getSumFuerzaAux($data) {
-        $idprueba = $data['idprueba'];
-        $tiporesultado = $data['tiporesultado'];
-        $idconfig_prueba = $data['idconfig_prueba'];
-        $order = $data['order'];
-        $query = $this->db->query("
-            SELECT 
-                sum(r.valor) valor
-                FROM 
-                resultados r 
-                WHERE 
-                r.tiporesultado>$tiporesultado AND 
-                r.idprueba=$idprueba AND 
-                r.idconfig_prueba=$idconfig_prueba 
-                GROUP BY r.idconfig_prueba
-                ORDER BY 1 $order");
-        return $query;
-    }
-
-    function getMaxGases($data) {
-        $idprueba = $data['idprueba'];
-        $idhojapruebas = $data['idhojapruebas'];
-        $tiporesultado = $data['tiporesultado'];
-//        $order = $data['order'];
-//        $observacion = $data['observacion'];
-        
-        $query = $this->db->query("
-            SELECT 
-                max(cast(r.valor AS decimal(20, 2))) valor
-                FROM 
-                resultados r, 
-                pruebas p 
-                WHERE 
-                r.tiporesultado='$tiporesultado' AND 
-                p.prueba=$idprueba AND 
-                r.idprueba=p.idprueba AND 
-                p.idhojapruebas=$idhojapruebas
-                order by r.fechaguardado desc limit 1");
-        return $query;
-    }
-
-    function getMaxRpmGases($data) {
-        $idprueba = $data['idprueba'];
-        $idhojapruebas = $data['idhojapruebas'];
-        $query = $this->db->query("
-            SELECT 
-                max(cast(r.valor AS decimal(20, 2))) valor
-                FROM 
-                resultados r, 
-                pruebas p 
-                WHERE 
-                r.tiporesultado='T' AND 
-                r.valor='332' AND 
-                p.prueba=$idprueba AND 
-                r.idprueba=p.idprueba AND 
-                p.idhojapruebas=$idhojapruebas
-                order by r.fechaguardado desc limit 1");
-        return $query;
-    }
-
-}
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+SInkB9/doqTs0k/GhGOsyMC=

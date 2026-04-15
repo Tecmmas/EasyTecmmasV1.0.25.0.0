@@ -1,32 +1,30 @@
-<?php
-
-class VehiculoModel extends CI_Model {
-
-    function __construct() {
-        parent::__construct();
-        $this->load->database();
-    }
-
-    public function get($numero_placa) {
-        $data = $this->db->query("
-            SELECT
-                *
-            FROM
-                vehiculos v
-            WHERE
-                v.numero_placa='" . $numero_placa . "'
-            LIMIT
-                1 ");
-        if ($data->num_rows() > 0) {
-            return $data;
-        } else {
-            return FALSE;
-        }
-    }
-
-    public function update($data) {
-        $this->db->where("numero_placa", $data['numero_placa']);
-        $this->db->update('vehiculos', $data);
-    }
-
-}
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
