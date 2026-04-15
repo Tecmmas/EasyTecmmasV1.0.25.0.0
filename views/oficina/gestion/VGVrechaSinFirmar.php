@@ -1240,7 +1240,7 @@
                         <div class="card-body">\n\
                             <h5 class="card-title">Detalles del Evento</h5>\n\
                             <p><strong>Descripción:</strong> ' + (detalles[0] || 'N/A') + '</p>\n\
-                            <p><strong>Información adicional:</strong> ' + (detalles[1] || 'N/A') + '</p>\n\
+                            <p><strong>Información adicional:</strong> ' + (detalles[4] || 'N/A') + '</p>\n\
                             <p><strong>Código:</strong> ' + (detalles[2] || 'N/A') + '</p>\n\
                             <p><strong>Tipo:</strong> ' + (detalles[3] || 'N/A') + '</p>\n\
                         </div>\n\
@@ -1541,6 +1541,7 @@
                         data: data,
                         async: false,
                         success: function(rta) {
+                             document.getElementById('btnAsignar').disabled = 'false';
                             var dat = rta.split('|');
                             if (dat[1] === '0000' || dat[1] === '1') {
                                 var segundos = 3;
@@ -1551,9 +1552,9 @@
                                         'green';
                                     if (segundos === 0) {
                                         clearInterval(proceso);
-                                        window.location.replace(
-                                            "<?php echo base_url(); ?>index.php/oficina/CGestion"
-                                        );
+                                        // window.location.replace(
+                                        //     "<?php echo base_url(); ?>index.php/oficina/CGestion"
+                                        // );
                                     }
                                     segundos--;
                                 }, 1000);
@@ -1561,13 +1562,14 @@
                                 $('#mensajeSicov').text("Mensaje de SICOV: " + dat[0] +
                                     ". Detalles en el visor.");
                                 document.getElementById('mensajeSicov').style.color = 'salmon';
+                                 document.getElementById('btnAsignar').disabled = 'false';
                                 var segundos = 3;
                                 var proceso = setInterval(function() {
                                     if (segundos === 0) {
                                         clearInterval(proceso);
-                                        window.location.replace(
-                                            "<?php echo base_url(); ?>index.php/oficina/CGestion"
-                                        );
+                                        // window.location.replace(
+                                        //     "<?php echo base_url(); ?>index.php/oficina/CGestion"
+                                        // );
                                     }
                                     segundos--;
                                 }, 1000);
