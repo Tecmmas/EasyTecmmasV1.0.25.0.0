@@ -1,470 +1,301 @@
-<?php
-
-require APPPATH . 'libraries/REST_Controller.php';
-//header("Access-Control-Allow-Origin: *");
-//header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-header('Access-Control-Allow-Origin: *');
-header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Authorization");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-
-class CRanalizador extends REST_Controller {
-
-    //..................................VARIABLES GLOBALES PARA MOTORSCAN.......
-    var $path;
-    //datos: Archivo de datos del analizador estado|mensaje|
-    var $datos;
-    //puerto: Numero del puerto del analizador
-    var $ip;
-    //puerto: Numero del puerto del analizador
-    var $puerto;
-    //comandos: Comandos del analizador.........................................
-    //bomba: 1 on 0 off
-    var $bomba;
-    //sol1: 1 on 0 off
-    var $sol1;
-    //sol2: 1 on 0 off
-    var $sol2;
-
-    //..................................VARIABLES GLOBALES PARA MOTORSCAN.......
-
-
-    public function __construct() {
-        parent::__construct();
-        $method = $_SERVER['REQUEST_METHOD'];
-        if ($method == "OPTIONS") {
-            die();
-        }
-        $this->load->helper(['jwt', 'authorization']);
-        $this->load->model("pruebas/analizador/Manalizador");
-        $this->load->model("domain/VehiculoModel");
-        $this->load->library('Encry');
-        espejoDatabase();
-    }
-
-    public function index_get() {
-//        $tokenData = '896sdbwfe87vcsdaf984ng8fgh24o1290r';
-//        $token = AUTHORIZATION::generateToken($tokenData);
-        // echo $token;
-        $rta = $this->verify_request();
-        if ($rta == parent::HTTP_OK) {
-            $funcion = $this->input->get("funcion");
-            $marca = $this->input->get("marca");
-            if ($marca == "MOTORSCAN") {
-                $this->path = $_SERVER['DOCUMENT_ROOT'] . "et/motorscan/cmd/";
-            } else {
-                $this->path = $_SERVER['DOCUMENT_ROOT'] . "et/data/";
-            }
-            $puertoCOM = $this->input->get("puertoCOM");
-            $puerto = $this->input->get("puerto");
-            $ip = $this->input->get("ip");
-            $comando = $this->input->get("comando");
-            $cmd = $this->input->get("cmd");
-            $core = $this->input->get("core");
-            $sim = $this->input->get("simulacion");
-            $idmaquina = $this->input->get("idmaquina");
-            $vehiculo['numero_placa'] = $this->input->get("numero_placa");
-            $vehiculo['scooter'] = $this->input->get("scooter");
-            $vehiculo['numero_exostos'] = $this->input->get("numero_exostos");
-            $vehiculo['convertidor'] = $this->input->get("convertidor");
-            switch ($funcion) {
-//                case 'AbrirCore':
-//                    //  $this->AbrirCore();
-//                    break;
-//                case 'CerrarCore':
-//                    //   $this->CerrarCore();
-//                    break;
-                case 'pumpOn':
-                    $this->prenderBomba($marca, $ip, $puerto);
-                    break;
-                case 'pumpOff':
-                    $this->apagarBomba($marca, $ip, $puerto);
-                    break;
-                case 'sol1On':
-                    $this->prenderSol1($marca, $ip, $puerto);
-                    break;
-                case 'sol1Off':
-                    $this->apagarSol1($marca, $ip, $puerto);
-                    break;
-                case 'sol2On':
-                    $this->prenderSol2($marca, $ip, $puerto);
-                    break;
-                case 'sol2Off':
-                    $this->apagarSol2($marca, $ip, $puerto);
-                    break;
-                case 'sol3On':
-                    $this->prenderSol3($marca, $ip, $puerto);
-                    break;
-                case 'sol3Off':
-                    $this->apagarSol3($marca, $ip, $puerto);
-                    break;
-                case 'getdat':
-                    $rta = $this->getdat($ip, $puerto, $marca, $sim);
-                    break;
-                case 'set0':
-                    $rta = $this->set0($marca);
-                    break;
-                case 'init':
-                    $rta = $this->init($ip, $puerto, "analizador", $marca, $puertoCOM, $core);
-                    break;
-                case 'cmd':
-                    $rta = $this->cmd($ip, $comando);
-                    break;
-                case 'getAnalizador':
-                    $rta = $this->getGases($this->input->get("idprueba"));
-                    break;
-                case 'ejecutarCMD':
-                    $rta = $this->ejecutarCMD($marca, $ip, $puerto, $cmd);
-                    break;
-                case 'getMensaje':
-                    $rta = $this->getMensaje($ip, $puerto);
-                    break;
-                case 'getConteo':
-                    $rta = $this->getConteo($ip, $puerto);
-                    break;
-                case 'updateVeh':
-                    $rta = $this->updateVeh($vehiculo);
-                    break;
-                case 'getHojaPruebas':
-                    $rta = $this->getHojaPruebas($this->input->get("idprueba"));
-                    break;
-                case 'get1024':
-                    $rta = $this->get1024();
-                    break;
-                case 'get1025':
-                    $rta = $this->get1025();
-                    break;
-                case 'update1024':
-                    $rta = $this->update1024();
-                    break;
-                case 'getDatosGenerales':
-                    $rta = $this->getDatosGenerales($idmaquina);
-                    break;
-                default:
-                    break;
-            }
-            $status = parent::HTTP_OK;
-            $response = ['status' => $status, 'data' => $rta];
-            $this->response($response, $status);
-        } else {
-            $status = parent::HTTP_UNAUTHORIZED;
-            $response = ['status' => $status, 'data' => 'Acceso no autorizado'];
-            $this->response($response, $status);
-        }
-    }
-
-    public function index_post() {
-        echo 'post';
-    }
-
-    public function index_put() {
-        echo 'put';
-    }
-
-    public function index_delete() {
-        echo 'delete';
-    }
-
-    protected function verify_request() {
-        $headers = $this->input->request_headers();
-        $token = $headers['Authorization'];
-        try {
-            $data = AUTHORIZATION::validateToken($token);
-            if ($data === false) {
-                $status = parent::HTTP_UNAUTHORIZED;
-                $response = ['status' => $status, 'msg' => 'Acceso no autorizado'];
-                $this->response($response, $status);
-                exit();
-            } else {
-                return parent::HTTP_OK;
-            }
-        } catch (Exception $e) {
-            $status = parent::HTTP_UNAUTHORIZED;
-            $response = ['status' => $status, 'msg' => 'Acceso no autorizado'];
-            $this->response($response, $status);
-        }
-    }
-
-    public function init($ip, $puerto, $maquina, $marca, $puertoCOM, $core) {
-        $enc = new Encry();
-        if ($marca == "MOTORSCAN") {
-            //$arc = "motorscan/cmd/" . $enc->encrypt("finit") . ".dat";
-            $arc = "motorscan/cmd/" . $core . ".dat";
-            $this->WarchivoMtr($arc, "w+", "open|" . $maquina . "|" . $marca . "|" . $ip . "|" . $puerto . "|" . $puertoCOM);
-        } else {
-            $arc = "data/" . $enc->encrypt("finit") . ".dat";
-            //  echo "open|" . $maquina . "|" . $marca . "|" . $ip . "|" . $puerto . "|" . $puertoCOM;
-            $this->Warchivo($arc, "w+", "open|" . $maquina . "|" . $marca . "|" . $ip . "|" . $puerto . "|" . $puertoCOM);
-        }
-    }
-
-    public function cmd($ip, $comando) {
-        $enc = new Encry();
-        $arc = "data/" . $enc->encrypt("finit") . ".dat";
-        $this->Warchivo($arc, "w+", $comando . "|virtual||" . $ip . "|10");
-    }
-
-    private function prenderBomba($marca, $ip, $puerto) {
-        $enc = new Encry();
-        $arch = str_replace(".", "", $ip) . $puerto . "pump";
-        switch ($marca) {
-            case 'motorscan':
-                $this->set($arch, $enc->encrypt("1"));
-                break;
-            default:
-                break;
-        }
-    }
-
-    private function ejecutarCMD($marca, $ip, $puerto, $cmd) {
-        switch ($marca) {
-            case 'motorscan':
-                $arch = str_replace(".", "", $ip) . $puerto . "comando";
-                file_put_contents("motorscan/cmd/" . $arch . ".dat", $cmd);
-                break;
-            case 'capelec':
-                $enc = new Encry();
-                $fileName = $enc->encrypt(str_replace(".", "", $ip) . $puerto . "r");
-                $this->Warchivo($this->path . $fileName . ".dat", "w+", $cmd);
-                break;
-            default:
-                break;
-        }
-    }
-
-    private function apagarBomba($marca, $ip, $puerto) {
-        $enc = new Encry();
-        $arch = str_replace(".", "", $ip) . $puerto . "pump";
-        switch ($marca) {
-            case 'motorscan':
-                $this->set($arch, $enc->encrypt("0"));
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    private function prenderSol1($marca, $ip, $puerto) {
-        $enc = new Encry();
-        $arch = str_replace(".", "", $ip) . $puerto . "sol1";
-        switch ($marca) {
-            case 'motorscan':
-                $this->set($arch, $enc->encrypt("1"));
-                break;
-            default:
-                break;
-        }
-    }
-
-    private function apagarSol1($marca, $ip, $puerto) {
-        $enc = new Encry();
-        $arch = str_replace(".", "", $ip) . $puerto . "sol1";
-        switch ($marca) {
-            case 'motorscan':
-                $this->set($arch, $enc->encrypt("0"));
-                break;
-            default:
-                break;
-        }
-    }
-
-    private function prenderSol2($marca, $ip, $puerto) {
-        $enc = new Encry();
-        $arch = str_replace(".", "", $ip) . $puerto . "sol2";
-        switch ($marca) {
-            case 'motorscan':
-                $this->set($arch, $enc->encrypt("1"));
-                break;
-            default:
-                break;
-        }
-    }
-
-    private function apagarSol2($marca, $ip, $puerto) {
-        $enc = new Encry();
-        $arch = str_replace(".", "", $ip) . $puerto . "sol2";
-        switch ($marca) {
-            case 'motorscan':
-                $this->set($arch, $enc->encrypt("0"));
-                break;
-            default:
-                break;
-        }
-    }
-
-    private function prenderSol3($marca, $ip, $puerto) {
-        $enc = new Encry();
-        $arch = str_replace(".", "", $ip) . $puerto . "sol3";
-        switch ($marca) {
-            case 'motorscan':
-                $this->set($arch, $enc->encrypt("0"));
-                break;
-            default:
-                break;
-        }
-    }
-
-    private function apagarSol3($marca, $ip, $puerto) {
-        $enc = new Encry();
-        $arch = str_replace(".", "", $ip) . $puerto . "sol3";
-        switch ($marca) {
-            case 'motorscan':
-                $this->set($arch, $enc->encrypt("0"));
-                break;
-            default:
-                break;
-        }
-    }
-
-    private function set0($marca, $ip, $puerto) {
-        $enc = new Encry();
-        $arch = str_replace(".", "", $ip) . $puerto . "estado";
-        switch ($marca) {
-            case 'motorscan':
-                $this->set($arch, $enc->encrypt("0"));
-                break;
-            default:
-                break;
-        }
-    }
-
-    private function getGases($idprueba) {
-        return $this->Manalizador->getGases($idprueba);
-    }
-
-    //--------------------------------------------------------------------------CoreMotorScan INICIO
-
-    public function AbrirCore() {
-        try {
-            $this->CerrarCore();
-            sleep(2);
-            $WshShell = new COM("WScript.Shell");
-            $WshShell->Run($this->path . "open.bat", 7, false);
-        } catch (Exception $ex) {
-            $this->AbrirCore();
-        }
-    }
-
-    public function CerrarCore() {
-        $WshShell = new COM("WScript.Shell");
-        $WshShell->Run($this->path . "close.bat", 7, false);
-    }
-
-    public function getdat($ip, $puerto, $marca, $sim) {
-        switch ($marca) {
-            case 'motorscan':
-                $datos = file_get_contents($this->path . str_replace(".", "", $ip) . $puerto . "datos.dat", true);
-                if ($datos == "") {
-                    $datos = "||||||||||||";
-                }
-                $dat = explode("|", $datos);
-                break;
-            case 'CAPELEC':
-                $enc = new Encry();
-                if ($sim !== '0') {
-                    $fileName = $enc->encrypt("12700110w");
-                } else {
-                    $fileName = $enc->encrypt(str_replace(".", "", $ip) . $puerto . "w");
-                }
-                $datos = $enc->decrypt(file_get_contents($this->path . $fileName . ".dat", true));
-                if ($datos == "") {
-                    $datos = "||||||||||||";
-                }
-                $dat = explode("|", $datos);
-                if ($sim === '0') {
-                    $this->setDesconnect($fileName);
-                }
-
-                break;
-            default:
-                break;
-        }
-        try {
-            $data = array(
-                'tipoDispositivo' => 'ana',
-                'estado' => $dat[0],
-                'mensaje' => $dat[1],
-                'co' => $dat[2],
-                'co2' => $dat[3],
-                'o2' => $dat[4],
-                'hc' => $dat[5],
-                'temp' => $dat[6],
-                'rpm' => $dat[7],
-                'presion' => $dat[8],
-                'mensajeG' => $dat[9],
-                'conteo' => $dat[10],
-                'wu' => $dat[11],
-                'serial' => $dat[12]
-            );
-
-            return $data;
-        } catch (Exception $exc) {
-            return "";
-        }
-    }
-
-    public function setDesconnect($archivo) {
-        $arc = "data/" . $archivo . ".dat";
-        $this->Warchivo($arc, "w+", "1|Desconectado|---|---|---|---|---|---|---|---|---|---|---|");
-    }
-
-    public function getMensaje($ip, $puerto) {
-        return file_get_contents("motorscan/cmd/" . str_replace(".", "", $ip) . $puerto . "mensaje.dat", true);
-    }
-
-    public function getConteo($ip, $puerto) {
-        return file_get_contents("motorscan/cmd/" . str_replace(".", "", $ip) . $puerto . "conteo.dat", true);
-    }
-
-    private function Warchivo($archivo, $tipo, $conten) {
-        $enc = new Encry();
-        $content = $enc->encrypt($conten);
-        try {
-            $file = fopen($archivo, $tipo);
-            fwrite($file, $content);
-            fclose($file);
-            usleep(500);
-            //  throw new Exception;
-        } catch (Exception $exc) {
-            $this->Warchivo($archivo, $tipo, $content);
-        }
-    }
-
-    private function WarchivoMtr($archivo, $tipo, $conten) {
-        try {
-            $file = fopen($archivo, $tipo);
-            fwrite($file, $conten);
-            fclose($file);
-            usleep(500);
-            //  throw new Exception;
-        } catch (Exception $exc) {
-            $this->Warchivo($archivo, $tipo, $content);
-        }
-    }
-
-    private function updateVeh($v) {
-        $this->VehiculoModel->update($v);
-    }
-
-    private function getHojaPruebas($idprueba) {
-        return $this->Manalizador->getHojaPruebas($idprueba);
-    }
-
-    private function get1024() {
-        return $this->Manalizador->get1024();
-    }
-
-    private function get1025() {
-        return $this->Manalizador->get1025();
-    }
-
-    private function update1024() {
-        return $this->Manalizador->update1024();
-    }
-
-    private function getDatosGenerales($idmaquina){
-        return $this->Manalizador->getDatosGenerales($idmaquina);
-    }
-
-    //--------------------------------------------------------------------------CoreMotorScan FINAL
-}
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+i8U7xOi=

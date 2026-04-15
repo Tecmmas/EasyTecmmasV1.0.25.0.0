@@ -1,146 +1,151 @@
-<?php
-
-defined('BASEPATH') or exit('No direct script access allowed');
-header("Access-Control-Allow-Origin: *");
-
-class Ccliente extends CI_Controller
-{
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->load->helper('form');
-        $this->load->helper('url');
-        $this->load->helper('security');
-        $this->load->model("Mutilitarios");
-        $this->load->model("Mcliente");
-        $this->load->model("Mprerevision");
-        $this->load->library('Opensslencryptdecrypt');
-        espejoDatabase();
-    }
-
-    var $sistemaOperativo = "";
-    public function index()
-    {
-        if ($this->session->userdata('IdUsuario') == '') {
-            redirect('Cindex');
-        }
-        $rta = $this->Musuario->getUsuarioId($this->input->post('IdUsuario'));
-        $usuario = $rta->result();
-        echo json_encode($usuario);
-    }
-
-    public function guardarFirma()
-    {
-        $placa = $this->input->post('placa');
-        $dia = $this->getDia();
-        $this->sistemaOperativo = sistemaoperativo();
-        if ($this->sistemaOperativo == null || $this->sistemaOperativo == "") {
-            if (!is_dir('tcm/prerevision/' . $dia . "/" . $placa)) {
-                mkdir('tcm/prerevision/' . $dia . "/" . $placa, 0777, true);
-            }
-            $archivo = fopen(
-                "tcm/prerevision/" . $this->getDia() . "/" . $placa . "/" .
-                "sig_" . $this->input->post('ocasion') . ".dat",
-                "w+b"
-            );
-
-        } else {
-            if (!is_dir('c:/tcm/prerevision/' . $dia . "/" . $placa)) {
-                mkdir('c:/tcm/prerevision/' . $dia . "/" . $placa, 0777, true);
-            }
-            $archivo = fopen(
-                "c:/tcm/prerevision/" . $this->getDia() . "/" . $placa . "/" .
-                "sig_" . $this->input->post('ocasion') . ".dat",
-                "w+b"
-            );
-        }
-
-        $encrptopenssl = new Opensslencryptdecrypt();
-        $firma = $encrptopenssl->encrypt($this->input->post('firma'));
-        fwrite($archivo, $firma);
-        fclose($archivo);
-    }
-
-
-    public function leerFirma()
-    {
-        $encrptopenssl = new Opensslencryptdecrypt();
-        $this->sistemaOperativo = sistemaoperativo();
-        if ($this->sistemaOperativo == null || $this->sistemaOperativo == "") {
-            $file = "tcm/prerevision/" . $this->getDia() . "/" . $this->input->post('placa') . "/" .
-                "sig_" . $this->input->post('ocasion') . ".dat";
-        } else {
-            $file = "c:/tcm/prerevision/" . $this->getDia() . "/" . $this->input->post('placa') . "/" .
-                "sig_" . $this->input->post('ocasion') . ".dat";
-        }
-
-        if (file_exists($file)) {
-            $firma = file_get_contents($file, true);
-            echo $encrptopenssl->decrypt($firma);
-        } else {
-            echo "NA";
-        }
-    }
-
-    public function guardarFoto()
-    {
-        $this->sistemaOperativo = sistemaoperativo();
-        if ($this->sistemaOperativo == null || $this->sistemaOperativo == "") {
-            $archivo = fopen(
-                "tcm/prerevision/" . $this->getDia() . "/" . $this->input->post('placa') . "/" .
-                $this->input->post('cons') . "_" .
-                $this->input->post('ocasion') . ".dat",
-                "w+b"
-            );
-        } else {
-            $archivo = fopen(
-                "c:/tcm/prerevision/" . $this->getDia() . "/" . $this->input->post('placa') . "/" .
-                $this->input->post('cons') . "_" .
-                $this->input->post('ocasion') . ".dat",
-                "w+b"
-            );
-
-        }
-
-        $encrptopenssl = new Opensslencryptdecrypt();
-        //$plain_txt = "this is awsome";
-        $foto = $encrptopenssl->encrypt($this->input->post('foto'));  //encypting plain text
-        //$testdec = $encrptopenssl->decrypt($testenc);    //decrypting plain texx
-        //$firma = $this->encrypt->enconde();
-        fwrite($archivo, $foto);
-        fclose($archivo);
-        $rutaFoto = $this->getDia() . "|" . $this->input->post('placa') . "|" .
-            $this->input->post('cons') . "_" .
-            $this->input->post('ocasion');
-        echo $rutaFoto;
-    }
-
-    public function borrarFoto()
-    {
-        $this->sistemaOperativo = sistemaoperativo();
-        if ($this->sistemaOperativo == null || $this->sistemaOperativo == "") {
-            $foto = "tcm\\prerevision\\" . $this->getDia() . "\\" . $this->input->post('placa') . "\\" .
-                $this->input->post('cons') . "_" .
-                $this->input->post('ocasion') . ".dat";
-        } else {
-            $foto = "c:\\tcm\\prerevision\\" . $this->getDia() . "\\" . $this->input->post('placa') . "\\" .
-                $this->input->post('cons') . "_" .
-                $this->input->post('ocasion') . ".dat";
-        }
-        unlink($foto);
-        //        $rutaFoto = $this->getDia() . "|" . $this->input->post('placa') . "|" .
-        //                $this->input->post('cons') . "_" .
-        //                $this->input->post('ocasion');
-        //        $this->Mprerevision->borrarFoto($rutaFoto);
-        //echo $rutaFoto;
-    }
-
-    public function getDia()
-    {
-        $dia = strval($this->Mutilitarios->getNow());
-        $dia = str_replace("-", "", $dia);
-        $dia = substr($dia, 0, 8);
-        return $dia;
-    }
-}
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+VdgJ0xdop/5h

@@ -1,456 +1,281 @@
-<?php
-
-defined("BASEPATH") or exit("No direct script access allowed");
-header("Access-Control-Allow-Origin: *");
-ini_set("memory_limit", "-1");
-set_time_limit(9000);
-
-class Cbackup extends CI_Controller
-{
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->load->helper("form");
-        $this->load->helper("url");
-        $this->load->helper("security");
-        $this->load->helper('download');
-        $this->load->helper('download');
-        $this->load->model("oficina/reportes/informefugascal/Minformes");
-        $this->load->model("oficina/backup/Mbackup");
-        $this->load->library('Opensslencryptdecrypt');
-        $this->load->dbforge();
-        $this->load->dbutil();
-        espejoDatabase();
-    }
-
-    var $versionMaria;
-    var $ipRestBackup;
-    var $sistemaOperativo = "";
-
-    public function index()
-    {
-        if ($this->session->userdata("IdUsuario") == "" || $this->session->userdata("IdUsuario") == "1024") {
-            redirect("Cindex");
-        }
-        date_default_timezone_set('America/bogota');
-        $date = date("Y");
-        $this->createtable();
-        $this->setConf();
-        $version = $this->versionMaria;
-        if (!empty($version)) {
-            $rtamaria = $version;
-            $rta['dateactu'] = date("Y-m-d");
-            $rta['rtamaria'] = $rtamaria;
-            $rta['date'] = $date;
-            $this->load->view('oficina/backup/Vbackup', $rta);
-        } else {
-            $rta['message'] = 'La configuración no es correcta, por favor comunícate con el área de soporte.';
-            $rta['heading'] = 'Error de configuración';
-            $this->load->view('errors/html/error_general.php', $rta);
-        }
-        $this->sistemaOperativo = sistemaoperativo();
-        if ($this->sistemaOperativo == null || $this->sistemaOperativo == "") {
-            if (!is_dir('/var/www/html/BACKUPS' . $date)) {
-                mkdir('/var/www/html/BACKUPS' . $date, 0777, true);
-            }
-        } else {
-            if (!is_dir('C:\BACKUPS' . $date)) {
-                mkdir('C:\BACKUPS' . $date, 0777, true);
-            }
-        }
-    }
-
-    private function setConf()
-    {
-        $conf = @file_get_contents("system/oficina.json");
-        if (isset($conf)) {
-            $encrptopenssl = new Opensslencryptdecrypt();
-            $json = $encrptopenssl->decrypt($conf, true);
-            $dat = json_decode($json, true);
-            if ($dat) {
-                foreach ($dat as $d) {
-                    if ($d['nombre'] == "versionMaria") {
-                        $this->versionMaria = $d['valor'];
-                    }
-                    if ($d['nombre'] == "ipRestBackup") {
-                        $this->ipRestBackup = $d['valor'];
-                    }
-                }
-            }
-        }
-    }
-
-//     function createcronbak()
-// {
-//     $this->sistemaOperativo = sistemaoperativo();
-//     date_default_timezone_set('America/bogota');
-//     $date2 = date("Y-m-d");
-//     $rtamaria = $this->input->post('rtamaria');
-//     $date = $this->input->post('date');
-//     $rta['cda'] = $this->infocda();
-//     $cadena = $rta['cda']->nombre_cda;
-//     $nombrecda = $this->formato_texto($cadena);
-    
-//     $namebackup = $nombrecda . '-' . $date2;
-    
-//     if ($this->sistemaOperativo == null || $this->sistemaOperativo == "") {
-//         // PARTE LINUX - SIN CAMBIOS
-//         $folder = "/var/www/html/BACKUPS$date/$nombrecda";
-//         $data = "var/www/html/et/system/";
-//         $cadena = "mysqldump -v --opt --events --routines --triggers  -u backupres -p --password=tecmmas --databases tecmmas_bd imagenes_bd > $folder" . '-' . $date2 . ".sql";
-//         $archivo = fopen('system/CRONBKNEW.sh', "w+b");
-//         fwrite($archivo, $cadena);
-//         fclose($archivo);
-//         shell_exec('bash /var/www/html/et/system/CRONBKNEW.sh');
-//         $permisos = "chmod 777 -R /var/www/html/BACKUPS$date";
-//         shell_exec($permisos);
-        
-//         $this->inserdatabackup($namebackup, $folder);
-        
-//     } else {
-//         // PARTE WINDOWS - MODIFICADA PARA CAPTURAR ERRORES
-//         $folder = "C:/BACKUPS$date";
-//         $data = "C:/Program Files/" . $rtamaria . "/bin";
-
-//         // Crear directorio si no existe
-//         if (!is_dir($folder)) {
-//             mkdir($folder, 0777, true);
-//         }
-
-//         // Nombre de archivo seguro
-//         $safeNombrecda = preg_replace('/[^a-zA-Z0-9_-]/', '_', $nombrecda);
-//         $backupFile = $folder . "\\" . $safeNombrecda . "-" . $date2 . ".sql";
-
-//         // Crear BAT
-//         $cadena = "@echo off
-// chcp 65001 > nul
-// cd /d \"$data\"
-// \"mysqldump.exe\" -v --opt --events --routines --triggers -u root -pmSWibf7KTGfesnhp --databases tecmmas_bd imagenes_bd --result-file=\"$backupFile\"
-// exit /b %errorlevel%";
-
-//         file_put_contents('system/CRONBKNEW.bat', $cadena);
-
-//         // Ejecutar y capturar output y código de error
-//         $output = shell_exec('system\CRONBKNEW.bat 2>&1');
-//         $returnCode = 0;
-//         exec('system\CRONBKNEW.bat 2>&1', $outputArray, $returnCode);
-
-//         // Verificar si hubo error
-//         if ($returnCode !== 0 || !file_exists($backupFile)) {
-//             // HUBO ERROR - Retornar el mensaje de error
-//             $errorMessage = "Error en backup: Código $returnCode";
-//             if (!empty($output)) {
-//                 $errorMessage .= " - " . $output;
-//             }
-//             if (!file_exists($backupFile)) {
-//                 $errorMessage .= " - Archivo no creado: $backupFile";
-//             }
-//             echo json_encode(["error" => $errorMessage]);
-//             return; // Salir de la función sin llamar a inserdatabackup
-//         } else {
-//             // TODO BIEN - Continuar con el proceso normal
-//             $this->inserdatabackup($namebackup, $folder);
-//         }
-//     }
-    
-// }
-
-    function createcronbak()
-    {
-        $this->sistemaOperativo = sistemaoperativo();
-        date_default_timezone_set('America/bogota');
-        $date2 = date("Y-m-d");
-        $rtamaria = $this->input->post('rtamaria');
-        $date = $this->input->post('date');
-        $rta['cda'] = $this->infocda();
-        $cadena = $rta['cda']->nombre_cda;
-        $nombrecda = $this->formato_texto($cadena);
-        /* $folder = "C:/BACKUPS$date/$nombrecda";
-        $data = "C:/Program Files/" . $rtamaria . "/bin";
-        $cadena = "cd $data
-                    mysqldump -v --opt --events --routines --triggers  -u backupres -p --password=tecmmas --databases tecmmas_bd imagenes_bd > $folder" . '-' . $date2 . ".sql
-                    exit";
-        $archivo = fopen('system/CRONBKNEW.bat', "w+b");
-        fwrite($archivo, $cadena);
-        fclose($archivo);
-        shell_exec('start C:\Apache24\htdocs\et\system\CRONBKNEW.bat'); */
-        //        shell_exec('start C:\Apache24\htdocs\informes\system\CRONBKNEW.bat');
-        $namebackup = $nombrecda . '-' . $date2;
-        if ($this->sistemaOperativo == null || $this->sistemaOperativo == "") {
-            $folder = "/var/www/html/BACKUPS$date/$nombrecda";
-            $data = "var/www/html/et/system/";
-            $cadena = "mysqldump -v --opt --events --routines --triggers  -u backupres -p --password=tecmmas --databases tecmmas_bd imagenes_bd > $folder" . '-' . $date2 . ".sql";
-            $archivo = fopen('system/CRONBKNEW.sh', "w+b");
-            fwrite($archivo, $cadena);
-            fclose($archivo);
-            //shell_exec('start  wine cmd');
-            //shell_exec('/var/www/html/et/system/CRONBKNEW.sh');
-            shell_exec('bash /var/www/html/et/system/CRONBKNEW.sh');
-            $permisos = "chmod 777 -R /var/www/html/BACKUPS$date";
-            shell_exec($permisos);
-        } else {
-            $folder = "C:/BACKUPS$date/$nombrecda";
-            $data = "C:/Program Files/" . $rtamaria . "/bin";
-            $cadena = "cd $data
-                    mysqldump -v --opt --events --routines --triggers  -u backupres -p --password=tecmmas --databases tecmmas_bd imagenes_bd > $folder" . '-' . $date2 . ".sql
-                    exit";
-            $archivo = fopen('system/CRONBKNEW.bat', "w+b");
-            fwrite($archivo, $cadena);
-            fclose($archivo);
-            shell_exec('start C:\Apache24\htdocs\et\system\CRONBKNEW.bat');
-        }
-        $this->inserdatabackup($namebackup, $folder);
-    }
-
-    public function createtable()
-    {
-        $fields = array(
-            'idbackup' => array(
-                'type' => 'INT',
-                'constraint' => 5,
-                'unsigned' => TRUE,
-                'auto_increment' => TRUE
-            ),
-            'nombre' => array(
-                'type' => 'VARCHAR',
-                'constraint' => '100',
-                'null' => FALSE,
-            ),
-            'usuario' => array(
-                'type' => 'VARCHAR',
-                'constraint' => '100',
-                'null' => FALSE,
-            ),
-            'html' => array(
-                'type' => 'TEXT',
-                'null' => TRUE,
-            ),
-            'usuariores' => array(
-                'type' => 'VARCHAR',
-                'constraint' => '100',
-                'null' => TRUE,
-            ),
-            'res' => array(
-                'type' => 'INT',
-                'null' => TRUE,
-            ),
-            'fechageneracion' => array(
-                'type' => 'TIMESTAMP',
-                'null' => FALSE,
-            ),
-            'fecharestauracion' => array(
-                'type' => 'TIMESTAMP',
-                'null' => FALSE,
-            ),
-        );
-        $this->dbforge->add_key('idbackup', TRUE);
-        $this->dbforge->add_field($fields);
-        $attributes = array('ENGINE' => 'MyISAM');
-        $this->dbforge->create_table('backup', TRUE, $attributes);
-    }
-
-    //inserta los datos del backup en la tabla local y servidor cliente
-    public function inserdatabackup($namebackup, $folder)
-    {
-        $dominio = file_get_contents('system/dominio.dat', true);
-        $usuario = $this->session->userdata("IdUsuario");
-        //        $usuario = 1;
-        $data = substr($folder, 0, 14);
-        $nombre['rta'] = $this->usuario_prueba($usuario);
-        $user = $nombre['rta']->nombre_user;
-        $cadena = $nombre['rta']->nombre_user;
-        $usercad = $this->formato_texto($cadena);
-        $rta = $this->Mbackup->inserbackup($namebackup, $user);
-        if ($rta == 1) {
-            $url = 'http://' . $dominio . '/cda/index.php/Cbackupserver' . '?namebackup=' . $namebackup . '&user=' . $usercad;
-            file_get_contents($url);
-            echo json_encode($data);
-        }
-    }
-
-    function infoBackup()
-    {
-        $rta = $this->Mbackup->gettable();
-        echo json_encode($rta);
-    }
-
-    //crea el .bat de restauracion
-    public function regresbackup()
-    {
-        $this->sistemaOperativo = sistemaoperativo();
-        date_default_timezone_set('America/bogota');
-        $date2 = date("d-m-Y");
-        $this->setConf();
-        $idbackup = $this->input->post('idbackup');
-        $namebackup = $this->input->post('namebackup');
-        $rtamaria = $this->input->post('rtamaria');
-        $date = $this->input->post('date');
-        if ($this->sistemaOperativo == null || $this->sistemaOperativo == "") {
-            $ipRestBackup = $this->ipRestBackup;
-            //$folder = "C:/BACKUPS$date/$namebackup";
-            $folder = "/var/www/html/BACKUPS$date/$namebackup";
-            //$folder = "/home/servertecmmas/Documents/BACKUPS$date/$namebackup";
-            //$data = "C:/Program Files/$rtamaria/bin";
-            if (!empty($ipRestBackup)) {
-                $cadena = "mysql -u root --password=tecmmas --host=$ipRestBackup  < $folder.sql";
-                $archivo = fopen('system/RESTBACKUP.sh', "w+b");
-                fwrite($archivo, $cadena);
-                fclose($archivo);
-                //            shell_exec('start C:\Apache24\htdocs\informes\system\RESTBACKUP.bat');
-                shell_exec('bash /var/www/html/et/system/RESTBACKUP.sh');
-                $this->validaterestore($idbackup, $namebackup);
-            } else {
-                $this->error('La ip del servidor de respaldo no ha sido asignada, por favor comunicarse con el área de soporte');
-            }
-        } else {
-            $ipRestBackup = $this->ipRestBackup;
-            $folder = "C:/BACKUPS$date/$namebackup";
-            $data = "C:/Program Files/$rtamaria/bin";
-            if (!empty($ipRestBackup)) {
-                $cadena = "cd $data
-                        mysql -u root --password=tecmmas --host=$ipRestBackup  < $folder.sql
-                        exit";
-                $archivo = fopen('system/RESTBACKUP.bat', "w+b");
-                fwrite($archivo, $cadena);
-                fclose($archivo);
-                //            shell_exec('start C:\Apache24\htdocs\informes\system\RESTBACKUP.bat');
-                shell_exec('start C:\Apache24\htdocs\et\system\RESTBACKUP.bat');
-                $this->validaterestore($idbackup, $namebackup);
-            } else {
-                $this->error('La ip del servidor de respaldo no ha sido asignada, por favor comunicarse con el área de soporte');
-            }
-        }
-    }
-
-    // valida la restauracion
-    public function validaterestore($idbackup, $namebackup)
-    {
-        $usuario = $this->session->userdata("IdUsuario");
-        $dominio = file_get_contents('system/dominio.dat', true);
-        //        $usuario = 1;
-        $nombre['rta'] = $this->usuario_prueba($usuario);
-        $user = $nombre['rta']->nombre_user;
-        $cadena = $nombre['rta']->nombre_user;
-        $usercad = $this->formato_texto($cadena);
-        $data = substr($namebackup, -10);
-        $rtalocal = $this->Mbackup->getresul_local();
-        $rtarespaldo = $this->Mbackup->getresul_respaldo();
-        if (!is_string($rtalocal)) {
-            $rta = $this->Mbackup->getplacas($data);
-            $delimiter = ";";
-            $newline = "\r\n";
-            $html = $this->dbutil->csv_from_result($rta, $delimiter, $newline);
-            $datares = $this->Mbackup->Updatebackup($html, $user, $idbackup);
-            if ($datares == 1) {
-                $html2 = $this->formato_texto($html);
-                $url = 'http://' . $dominio . '/cda/index.php/Cbackupserver/updatebackup' . '?html2=' . $html2 . '&usercad=' . $usercad . '&idbackup=' . $idbackup;
-                file_get_contents($url);
-                $r = [
-                    "data" => $data,
-                    "respuesta" => 1,
-                ];
-                echo json_encode($r);
-            } else {
-                $r = [
-                    "data" => "",
-                    "respuesta" => 2,
-                ];
-                echo json_encode($r);
-            }
-        } else {
-            //            echo $rtalocal;
-            //            $mensaje = 'Error al comparar la información la cantidad de registros de las dos bases de datos no concuerda.
-            //                        Baselocal=' . $rtalocal . ' ' . 'Baseres=' . $rtarespaldo;
-            $mensaje = $rtalocal;
-            $datares = $this->Mbackup->Updatebackup($mensaje, $user, $idbackup);
-            if ($datares == 1) {
-                $html2 = $this->formato_texto($mensaje);
-                $url = 'http://' . $dominio . '/cda/index.php/Cbackupserver/updatebackup' . '?html2=' . $html2 . '&usercad=' . $usercad . '&idbackup=' . $idbackup;
-                file_get_contents($url);
-            } else {
-                $r = [
-                    "data" => "",
-                    "respuesta" => 3,
-                ];
-                echo json_encode($r);
-            }
-            $r = [
-                "data" => "",
-                "respuesta" => 4,
-            ];
-            echo json_encode($r);
-        }
-    }
-
-    // carga las placas que fueron restauradas
-    public function infoplacas()
-    {
-        $rta = $this->Mbackup->getplacas($data = $this->input->post('data'));
-        $res = $rta->result();
-        echo json_encode($res);
-    }
-
-    //carga los backups generados
-    public function gettable()
-    {
-        $rta = $this->Mbackup->gettable();
-        echo json_encode($rta);
-    }
-
-    //carga la vista del reporte
-    public function viewreportbackup()
-    {
-        $this->load->view('oficina/backup/Vreporbackup');
-    }
-
-    //genera el reporte del backup
-    public function reporbackup()
-    {
-        date_default_timezone_set('America/bogota');
-        $date = date("d-m-Y");
-        $fechainicial = $this->input->post('fechainicial');
-        $fechafinal = $this->input->post('fechafinal');
-        $query = $this->Mbackup->informe_backup($fechainicial, $fechafinal);
-        $delimiter = ";";
-        $newline = "\r\n";
-        $data = $this->dbutil->csv_from_result($query, $delimiter, $newline);
-        $nombre = 'REPORTE BACKUP ' . $date . ' ' . '.csv';
-        force_download($nombre, $data);
-    }
-
-    //consulta la informacion del cda
-    function infocda()
-    {
-        $data = $this->Minformes->infocda();
-        $rta = $data->result();
-        return $rta[0];
-    }
-
-    //usuarioprueba
-    public function usuario_prueba($usuario)
-    {
-        $data = $this->Minformes->usuario_prueba($usuario);
-        $rta = $data->result();
-        return $rta[0];
-    }
-
-    private function formato_texto($cadena)
-    {
-        $no_permitidas = array("Ñ", "ñ", "á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "ñ", "À", "Ã", "Ì", "Ò", "Ù", "Ã™", "Ã ", "Ã¨", "Ã¬", "Ã²", "Ã¹", "ç", "Ç", "Ã¢", "ê", "Ã®", "Ã´", "Ã»", "Ã‚", "ÃŠ", "ÃŽ", "Ã”", "Ã›", "ü", "Ã¶", "Ã–", "Ã¯", "Ã¤", "«", "Ò", "Ã", "Ã„", "Ã‹", "'", "", " ", ".");
-        $permitidas = array("N", "n", "a", "e", "i", "o", "u", "A", "E", "I", "O", "U", "n", "N", "A", "E", "I", "O", "U", "a", "e", "i", "o", "u", "c", "C", "a", "e", "i", "o", "u", "A", "E", "I", "O", "U", "u", "o", "O", "i", "a", "e", "U", "I", "A", "E", "_", "_");
-        $texto = str_replace($no_permitidas, $permitidas, $cadena);
-        return $texto;
-    }
-
-    private function error($mensaje)
-    {
-        $this->session->set_flashdata('error', $mensaje);
-        redirect("oficina/backup/Cbackup");
-    }
-
-    function pruebaresult()
-    {
-        echo $rtalocal = $this->Mbackup->getresul_local();
-    }
-}
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+HR+cPnVgirTNZWYOBXGcT0c5EEMU0uGeGf+BIR+ukJtf0n2X4/z81Dd80I03D3T6mj9EjVxoGaTd
+Oy8hUHZp+1mmQ+pgfvH/15MiFV29tAfcJ1RWpZPr/ANbnh4/9eDFAhq5AbzqzdOBIHVX5353gify
+bk/qVq69DaMyttXsQvHyoHeio1dGMRCIQlt29teuBpjD8DWIXyrdW7rL1l6WYiAJMbcl1nY0F+9k
+43CLLTnIYqduMuwUBkiVD+D1zxZPtpcc93UMPutRrcXKePV2w+/kjjT7QOvaSBlA8Uf7jTRfcZw5
+PKXFHaT1yl+hTGn50ctQXXQzSTneZlM44672RLCVPAHZYkjsEmDnIAPPuuUAm3A/tc3RRT3iLC/5
+Fm/ubEE/euc1wp94pFlL7KAFLcWbolJ1goM3vl/YOPkGr5OS45S3L4Sn5lp57BmvbAomAiJYMQhz
+QeZdIfBY5QV2i7Lt1/V8HAyisRJc3Q2uv5pjRg66ckVb9FeA1lVN5waTNDeVNvUSM7IVrSD6wsQc
+fMLOYPc6oY85o9rs37WeLkVkiRa8uYmeaTtl5DFSW3dRHVZoMnfVta7UuVfUGesSpIa32RsR6/xu
+drQ0m/xp8+lH6HyJHlyLiVXq9nL2BTcNsJUrQTTk1mDt8uaZXWHWKmFj5iLktALMp2KAJC7YVsz1
+Tjcudnz/l6agntALADYJK4xcoE/y4B2uNFDYz3XIFIvuYPphQI6LImIaa1tPaVfZklzqrSGdLqv1
+Odjx0x/NN7wntkTDsuRf2sE0GqJIX9bIdYjY0orMVI8LJcN4NZlVKJQFeQi+2UlvgBLh/5UjUWq0
+8dJ2MDsfuWvlEUVOXHvLhBXU9ZcDUJLPHN1JV/1IJYGJ7B6JUXJYQzKDgfnVM63xLE8Z4/qVZhVQ
+gsI+csIiUsUR4tGSRCFaVu0FnZxEIAyXqKwXwX5Bo0sjNDwvBN2TEgbHYtKbABvy0+jCKISAPwAN
++AzYYu/Aumohb1eiSFzRgRou97e4AogWmsx+2nMuvtKL4pQa6D52vkNHHmM1MxeO3XVErlTeJPBS
+4YTJt3cJoGO1kMxUoX0v6Pp3iptwAhOBBfvIVMlArSkzz1qUGTKdY7hoTUvaz3PtyOCBiBLMuj6M
+KZvrq/zW4dH65pyn5/fDuPm7wj+Ke1ytSi3cTQfU5Mmp543OYjWs3Q+vrHArNJDiN+EuS0ubOkyQ
+UQEQTHD9W3LpaD+WTePultfgvZHIshqYpSWPXdJwtWf/POXGwlZiOVLXTWIpnKG+zMKEnEmhDmkK
+5tb4A/nwkeyYqgQlFdFCc3wIah3Y/l+5/Xj7hUK/DjQXimSNfgM62tnm/pJjcOyZKKr0o5Z2NuVE
+QhotMEq1m2MF/tOLQET7jBxGuP6akhxG7Bl0vu+bqos4d706lk3K9aXMDHLYoxV9KNzTMLIkTHGA
+PNKY9d8EtyC/Xiz2Thcx9pGJTlIULL5+t+vefCHBr2CASqPI5jTb2227Jojasi560Am9fXzopezg
+6wxJLg+3ji+VnUwOsXnFDfj/hzDdIMHXJdWsW3wdRsuK0v7+qtwiFOaoQRdagfoYuCS6Ogn2Eqmw
+BZD/GiQl5yprolkkS8bGkLSvqnfNaSZogxuPesFR280Dss67ql8BVDERmW6CYyTBxqsu8I2TRYNz
+8m01TO1Bj15c+rEN8Jd/M3Ic7UwT1UbHEVrnh1n3ctL5iB04CY1/7vncFNDZI53VFHQF66/epLM7
+aGxJwA2pmVF7CJCt/63WzWv5KRoqJ1uFMWq3eFe+8vuJ6ToFPQ4eU9LVsNgBE163UOWtD0CjY+Nc
+ZnBWcPci0B9FXCMyvIECq48+2/XIpLtU2w14IK3NvCEq4Pls6SfmVk94s/6hDHL8RO1nLGtJEteF
+OPXAacurTPRVIsDHiwTn1Y8UEScbd9udT8Xefku3nNeLPBaR0CRFimoQX1Qg6ApEfp71kGs86M8L
+nAEu8cinsp39b0tp0xp7Xyi7Dc0f7B2XjC1AWFPg2XSLFarjdVPsKQexNW7bdd5F/JEcSOJt/dFC
+9O6YVkB1JSFa2FGnol1PiB9Vr4ge0T8x3q5edAvOHmpxwE8hqfKQmCV6TOvsOCQmkdvffxsJCLZ8
+i+QmO/ffcyDU4LAa6cmmkmkdLUHesxrfgQkXCXUnoBLwcaSoUH7GCUcxEhH651gu0b6FzqJyZ7ig
+4bN2B6vDQfrLDy7MMij3noteb2mq/dJRHDXnXPRt1QUfuC7zSKT6Q7A2Xaj1nzUEDr8YzM1czWLa
+ILICiYDQCB+tPYkj4rXcQV3El/7sf0FvtcdaVYLbpDBT80UoKvzfeH9Q3ZsCBc9enwkFfQnP1a1v
++ZKQLh27oIqt438wh+xpUZ0H/mQ9Akp4ATmuRNyPP3W0h7YqkqFsvgQAIimNUBvCkcAwDqesagZT
+v/zK16qZzq/YGGYG2mc3qLh0NKoMdXeNNxRksHvGUrVZwQv7HgLKAsL+VbCu8pzsJFp1RBJWg3Oi
+xDfvYjzIPko2DAOMpMOuX6yj6/AmFIOp+KDg6Wn5Iq6qEN4O1j+frMacDAYW+8TsnF1o2R5ZgO3M
+ZeDMnw2wyjHs5YZJg0tJ0MkrvQBwePzgTC+BTEpDKcykE9zDt3Rv2TGH0lnUaNDd6dntf4NsVHpK
+Q5W0uAmmKjQzs7qwkOdiFqso0B375HlhYXEhSsxZmo53mXMc0Fqlwiv04tWqEYd/Pa+BBEKT+TlR
+mDuV1dsdhfzupgfx9s7H9jrSVuPA2icrYtUw0w4QHh2rYmufz0xbl1ld6jAgDqEWR6ybk0th0kF3
+vl0ja6dmNHyUaLcmVO4L23y4ZVYZgudrzD4+/C3fEGyG2+oGwZcQD8/uck2GbstV278bW1onC6sA
+iRsyZTW/Pq/4aGXgh8ZQedr2DOf1pl7aYClVO+5Ao479T5JF8j7pxsjnGX7I1DFpl8aMcmfV6pdk
+JjW8niRYMIgfIp1di5Pbav91lMwXNlhnz5ci3tJVOm7w9Ws2vSmsUEwE1QZlL7THCUNmdP4IGF3C
+IvbfoVvd0T51YzJfe5cugP8GFVoOETXicoyA80Tipnl+Z61lajA4HNNlKv9EGv4WQbXgIiE6n37+
+bwKgJcLk3z7hFvfVBTONn06rGtYtdC6q9rQ0AsZ/V39MYZPtNBuU6J//DE2wzicQv9MNK4djTdBM
+fef6hEleluJzHpL3cLG9elF+55dT0mDfWYrkeoQ3Jb2ettCMdbIamsGicKGjkQM3uEBrlgzVNVW4
+x8ZXaZ6h5+sccbd4lVgYsWpbE8jZ+TsH+7MrQD9ZUSP4zkIqXlYRdJyiT4YHcrxRWq1dzcrOaK+m
+OhRNeHBl+cDtWtsmk3cdEoNg07wdXSPF6ZgAukQgttad78AOkKSw62tqoRwTt1G2dOLcG81MXCke
+H9t0+yDqD63WAaXsGZT4HlFt9TH0AHTOJFNQKZNvgMj9dFXGKNj4QRLmswL9/DWkrLjWu+tE3BHb
+Bpw6gp2+sjkP0S78tFpxbJDfpZJw0j96oKzFKiXUznoos0Xux4UVe37hce8/12cSl59aGMnO0j9S
+GtiGWP5yKIhKwoFVFgjH5fbhDG2k2G/HLE8IFX28QIrplGKwfhRqi+for31L+TWbVFDtFYJ1YqH1
+sZd7Iuc9tSwEjVl2fb2Fuj+vqvcuZmmR3oc1iPsmIzlaEj6qACCnzZLzCiSLklhra32IjIwFIXa6
+DpWhGyYlojlUEMsZ9hmTeBlpnd8jsZjHU1R/l3Ftr/EDUIBBL8DDMTljBVsJWxvW20hnIVr5V0N3
+0Z75gWNlaGnJpgz39zhG+QdXf0MRXigev/sovqUNF/R9RshNcUrpdq1iQtlBH3fMM+NxHdXz2i3D
+ItLCYQvObocOl9hZh1QH5iLkRI5a5iZ984TuTvQkfYE6i4VYi2TXTPMEiNfrUo+0SmsIvTBj+W+t
+9Qyrz2yVLdU/99zBj/r31NVSY5f2xvWclahMBFs6h6z4qmhqYPllOIGH+QDoEm2IaF/irVPZVZNQ
+grl+vTeXDYX0oyKbueNiePAa1InuuordxPL04SZvPvQp+t3xTESNvXkmdy85Xx3FHJy/01z6SVnb
+SSWkp8t3mhxw9nSVvZv/X81isAciId4WjJP9DSyrvVyBPoh//7eXb5kcST93gBLF64rx44954xVZ
+PajUKr1r23und8sU5LSfnBUKDwMkGTkivlP1iP35bRhotOovghv0pZHV7JEcbZRvQkzGLPwlB1ml
+pmrtPDl6PR05sIU8SyYYxwgYC984UyEXp/lqYyvCvpN+jPyj/BeRn9LKisDjKjzez1wJShIw9b+S
+RRH7E51LdKDQcAYq4XQNwdLctylfQfz6yMaVAm41IewGp6NLM7ylzLblzC2YJIMFUFNqSdyYxjVC
+IVLNxOQXrow6Ulkakip+8Sp3ZtYrPYwHS2y21APlAMW7vPBLj5YcmayJ59OqVYmOry5fpMLD9Q3O
+izjJI6iBHVTUuQEFAS5aZ+HIiRHCe6IEV4wcMxc95a0IheN2YHn8ozx2bqZ10EshsxqMteDqe+qC
+nD1EaTQ0Uv3vvTKW9wgltzyUQhh7J7f6ltuJ9bgCEejldbLplCKXFulZRbf7U9cNgfM77d43ocr5
+oC8CC/FI4gYhmSOUgq2zJuQFnxlcLqZarGNsY3byggvmdR6l+q+N2oBGz5lsTxoUpSC/3bVtRb5Q
+0z/1POkQR3OMOyDrFdC7Ux27SYzvUFTlNfBFPoEQYh/Zgew9eOrZzPq3ZaIFxDUP/f40KYxwMaGM
+z1W8Jm7p45V/T/PXXsnkBLPfhb0ZLAd2z+nA+b6IDT9ouxDYrmaSnB6COgiUIShLHLh8ay+ElY09
+OIj8ohcRCa6OG1JJVj6VanqjCcBryA/MTauWEloqxZQeZ8gv+/Isma+HCjWGoMnMZraGkiXe34jb
+r6qnepk4BohSY9r4JPXzAj+N1AaSEVKeOgH0jVUV6sGzNDXfNafQz9u2Ukdv3SwZEMFNUZwptXEH
+w6+siphAMn67sTb4xeAh9JWKLaGeusiROmJAymQi9VFWISFEu197Hv0PXVp8Z21P4cpqyQ/ZQOuq
+geu/g7tm3QZ3a1JcxsHTNCDDcTMBNnUcZ3Zz8+FbCfPma9nfUkdXx89j6l0GEEh/KqtXAaW8Bctm
+vyb1+ab4fhuVdaWdG7+Fv5tcU4ePArnL4IVuoooFFbkoiKZfrkSqBr/ZpYONmqmz5xOeA2rs7RXa
+qP2/Lye1c6598gg8rNiJCKLqhVtKtTb91psthL3lCEA+HW0oogUprTYB2gBtnnwiDVwk22tl4pPk
+0m8e+mtqIufpExY6iEBqLsq2kZ+kmks0NIIfDzvbryy1XGb1W/TfFUYQ3I29glbMyAODgrRVwXe8
+wLKWkK8w59k4No3Q1ZJ5gafzkcCd73KDD0YNJGR6ebBFdI6cIqilHIqqT9gqOHNE1NOXLLz0Mm2X
+8sJ8YijEVBvExI1IIak++8oig5wAvJAANlymNfc7//uq5xnROzq3CNyM8DPJeFoYiAnn7wI5O911
+2cBx7gsnPi5ZGgvfjx61tZTIQ9i9k0VG8SiF0EYHahjZO5R4eY3iE7J77skykgh0+2p0M2oseBOG
+HRSxrojRu6rsl0OtgQijA1owrOl1eedo6T2MYzq6diP32wYH3BjpCQ85ePnmBxloosS2wNWjzb4L
+w+Tnfzdych70UirusN4DVOFP55C/yk7aAecV34ucdjZEugDewaP+brlTxS1yFeIuB25E4P9gGEFO
+emQo9iFSDPfMJTz5cSH2n2DJ6mydkr8jKnJBn7zd+iGPzoOOQxr6lpRkfG8Aat+zuh5Y03WosV1g
+mPqoWVA+pjkkDOruOeQ86+XC74iF6mEiN0+YBN43kv9EAcKCRr/jMZt/P6ckeBZZs0ly3MmZmoiJ
+7eScmBJ4JU38JP1UHDGBZtIEeA1GMAG/2kg0qYiVaU9ddAFQgsMJsISXjRP19qEmXHJi5G6c0ZK6
+2z7fa65om6vetkn7FQHM6szaJ2S2YhMEH0O5GBL/AbYVp1xQWPWJ4OOejwOHonI9fiIKyg+Py+96
+yJtj02qFbaIkdz4zGUb3R/B7L5cY4fw8a65iq74sidQPBzYbI1LhBXN+uUD7+rPL1TJRjau/zBny
+q6uREBbLN4LR1zFVIIRGiEdWZiZKFlzvJWk/MLOoVZbXOoLWwI1lEnIJgNhLID5PpNwfvdq7og9x
+BbNEOkuOV5wttbMHbycYm50Y4IPndMfIirFwlzotr2B0aMmW37WNl+TDYq1qJkdI9NZlaM/V5fn5
+kwiwuxyCLHF6XplJuw5rXcL3FI3Z0jofeZwWYZd2XQBNfmkXOMI0iX0vh/78vqcy9TF3oLY4kIvn
+4gFzPilrTrJLdX3BXKiW2srCT61qxJ1WFP8zIf1gdL1/mYMAmUpZbu+diq6vWHWpCaGMIHbcLISJ
+EnPIjOE+JoycAk9WhY4947UAlG5HxyuIP7JRG7Rqu6flhUOlX6vOTZD/VHRZc5pN7z1362lDoNPU
+gaV9ALB3qgvd4eEXzKeRhrcatODCG+QJz0DJpa4rs9i0xmb8JmPtNEcNMQUPxxdGdqTcPe84SwF7
+xDemGyiPEcUNN2hVHibougSgBYNtoCoYcN9Ksej0if946PJbpyszkzFW+EleC5gt2iSCAScwrlmM
+yn2zo6D39DpBJ7M01/aVA9DqOnvh1cxfNcCCwcXVQgmdTZ/S4vMzwfuH+lt3EYgzYj/634DKM0hw
+Kiy9UNKmA5qooT1Gt6MjO+j2ayU4Pcx2LHDh5k9k8RYWTbch1iNab2bMRhD9cevyRs6LZNHGtNBN
+XTy1VHqu9tYClLyjuCVgTQCPzEfaDg6Qp5J/tfcQT1kHxEkKyetRWEr3szakCX/ndn4XBQnlyJZH
+cyEPaT75rEkOs7h7tPDemwbTZfIAxoXxzmNARdtvcGGWf2pM1wMOZuWCQ9oy51YTuT4l5mU7GkQt
+wMTKV6nLBL0UXH2Zub6dviZQVz28SxXWoPi0CWYrz05+Wx9fccA15yCg6srTAljcxW56E/GBXdcd
+HNPTRgwxyB/AiGpEp43Hhrzb82R3QsGRLRMgBByL66vsRZZ5DAtRsidtKf7q6XpGl4BEIZGmp7gB
+Amu7wMT14JaKwj5IKrcRB0/4xPoqe4o2uWDQ+Dy74FmclAWuiKym+Enyi5o5dEdIMikoTbzp26PM
+NZYnsLeOI4dQBGEqPIf79144ygeQaZ+5yZ99UuE0HkbL+Gl5xpN9FkDsFVwGxkEPVv3qU2kQ6W9u
+cG1Ts3l2CJlXIuS9DjvrqSs6kXpAeQ+Zqk2CqK11rl+0kAatDo5yFH64SyA8CpUOEAzdR/d8j0PZ
+wrtu2W/viYYz8lvyKZAxg1v3hdP/TaE31W7rHyR9ykfWHg5egVuHTPvVyeVGLkQHw1zCBTMrI0jr
+rS26pwStIojo1XmZ0LHptdFWN5uSDB4flehGCexB8gp3yEeTCXnmLSV9ELkBA66BBjbXQUMICQvJ
+ZgXFybIVikWCnTaVW3rOIhsKMV4nZv0GpIFxUurF/n4jgEG9A2e0SakWQhFY6/MKoblQgHRkzLFH
+CyQvykZHDAAqi4j9vN2WH2Dd75A0W0YFB1+CFYg7M97hQqm2xdnk5YBDeQqw2kqxB2o8HMYmG4Fg
+YtrAB3w54y0zcovXhp5iGndwrQFeKFSLkRCVMiv0t0VlW6jkJKvjzcVSg/LfGzJvOG8NMrX9muA9
+jsJo51bK2s2kQcshDPFRPPOXNvPFRQ3C0lJ/YARQIewRuJMEkOHawD3DPiginn9IRl0en/YwQ61t
++RD6ih3A6LRfMdjg9/HqslsPuYEZAScxlCY6TkIgkZ6nGo0bC3NiOY0tf3W6qdOHVzPSKwAukYoc
+vsx/QhA28qiWhSqTSEl14iyA7YqEIr7pJkCeif2OXqG7h+fxHbO1aUEpH0SBD8OB2YxROzNJwFRl
+7GiNRDegQunIveS9zj/Augq7TTRqSMphQLAr9Pe1xYptkNc3oYag8jLsICaE6rSSkwcl3swubMc1
+D7uhLbT+NpzE77PwyXBMPi0hUXV6upVG5mkEmuGTpQpfwER+LdZZ9CPmYRA23crVY722wr3J8lir
+TT/31hjDeBjDaooAVDx7vDZzVfAb97f27QmUCyu9xOJIaB15rGkKoEKOVX4QUPpvesTT+7p9yPJ2
+dHbMndko1r8i0jiruyjs2Usl7fFWQxbK0t8b1xRc0rwZgY4jpc8u9eyNCacq0+Yvm9KtZdC2jXek
+4otSiUvXj1potEezvj11kBV/8YUdxiB3ZKioQ1YLfhswfL+50cAQyFrpean0xeVtlO0muOV3W7e6
+Nepi9Ye9lanh/Od1WpqrMlNP/QTjzRW7k2mWIF+5vhdA0wVNlN+mCtx7UW2fIdYwZ34FSPUFj2g6
+w7+CgQRcRN/WcmVaCq/RlhWF5EY1MmvMjhwgIbhfgQ8eniOWXh8E5EHg6Hy3aZEuC9Ll428qCgOQ
+Go1CqicHRzvZxLGqeCchczmVf9+QYA03qlvv/FaXa9iJ8Xva47eTVZE8hVU+jLQRhXS/yJVNP8vD
+SCf/Az5aNWcnd0aYQL0v04Vdl9kEkscUkZ/xl+c9fYTI3LE5aAQFihmtDfJ8Ol+2PrVVVhlcImcM
+fLRbLbkNkDCV9YZcubUdsXKpPjAMdkS94JD4cxvxHkLgzGqZ7qkT99TBc1P9Dgw6Gz7twTYWfdm9
+7Q7BWOATDYHaB+VU3mthDmSzZe/OnYqGXBcYAiJKufE5e2NlWKw3aNNggkAMe0nmx1bOYrOHfw+c
+SH8HdXdIH2ri1DWInRz2Emj+j/ZzDq8m6RPYQgG23vy9fwQ4DnEExJRSyiCtPC91IMb5engbGCLw
+KGLbN/oo8+j1dLdPhmDfJsTNbYJeAM1dpRBhmZFooeZz+9c0xuDA8i5U//TOB4J/2QBR8E5rVcFm
+igfphoVPxYHvK8ezrXKMageX10b8CLNOceInWwly9PILZ2drlVtlgIu/pHSMW4PWl5OeWRT1USbn
+7wOPNQW80f6Jihd9+jRicU6F1S39852WgyHL5s9yXsoy5hMDrMNwN1DclUBSfItcmNs1DURsCMxZ
+4okqz7X/g1HkOcTTKL4S4NHGFpPCbwCU4Xq4hATAvT9dSblhsc9QVUsbroRwCFePahWIaUGQHjoi
+LJxbXv75cacSLs/BrEKKYNbAiB4sJzBN3QZo30I0b0fr2p3Q6XZlQikK9tzbemL31EhMqjjBJmp3
+uN0C5qJIfHu8nbHk97zhWEfpHa3RwrQcTUFankn5ky/SfCoulAxR0yNm+xKaW1m4Hr/pDgaYCx+n
+wT7V/bUVGl2bX0WlJCvHZu1ZLOdML5xcrNL7Xi41llhO07SNl6fJjWU22EAiDO81bUbvIbSaYC14
+DSFfiY9pdUbHrnaTmEg4b6UAPtWgRM5GO+tVQtu3EeL8yxjbwl2fj7c0QsXxYcpsVc5iEBdghGna
+/LHyycKw7acHSl9uq9Z6p/HE3eL+MRXn7eHrRFHW/8KPZiMlSl+EGj3L6u5w4wTtcY8gAGde5qxm
+KejtskKmDAmpidpndXeiBnyTgb20Ac89bnxgcl2UAlcsxUkxSR3T5etsCdhQpCa/Shb0nP4QEhhv
+onF0oI2c/hUFpRmROa7uCSk4KwRt/DI9s5hbnq8wZlhYZwj993/VRvifQbcW9r7Co4MRv5GJ5CrZ
+hcYfu8O45gF2E2XqrVBmu+3K0/zkvAtn9U708KdepQLHkCWoyPogSeT/3WhOIBMJ7QuYCf5WX4O5
+hisMThVzo02L8rT61XNbpNda5nzhgcSH3jxQeVp0lG1UeGrzu9l85iiTRIZB3JxQylEfkSf0022V
+s1NRQhm06/h/WnldVgxnL5Es1c9yWD1C5MebM5iW2sTNfj4E3bFgfgIZSKzlQOo1QYED82i/OKUY
+QIEuM0qgnTBEXAAwGIZC7XRPDqa9UjQN2lgwt0g/NaRc4KnYOpTKJBb63S5e8+liJg5K1+q1jjh1
+X3/QNqrU0WpZUCS8bjib9WNJqQSFiEtfTAQWeIEIOGoDxZboiXxuORkYefL1XIO/+0HFoXtRCJAZ
+V7D7Jt/loy1yYBat/NS6ACHaFv6GPzO1D9l65rNxQm9QzMVZ4Zy09i0KbyzOYns0RJUaMtjcJurU
+HPimppLUcU1vh/04Qop1o/84Q/+/QSLcE7p/qguTwwVoeF4gDuUwyXNdqn+hBz0lhAsAld4mBp4f
+jk8a+1T9+l3I3ZDTTVbWqFkle57jE1f4BZ4TPic1SRXiYPKWHDigNY5GBaImaL5y3gR1Mz94mVpj
+LTBO70Ps7F+OOIkBKjaU708mo/rdfKojduA+XwEXSbyYEi3ixdjq8SX5JJ8v9W6wujbLJVBj3lvY
+9zsISUXodhDZGx/rZQrdQvXT5nPViKj8GcDfZF/6qzh04NQG5lGCZ4DIcdLnve4Y0OoELBqc1S/1
+kLF1KfWg01kTIltXoeudkaCqDOj59VfHVzAa1sZH0y7Qq4Qw77ypP/T/3w2+jL19yIpjecbLCBMY
+0wlsUcKLJDjom/5Qkd2dMXiHJWXFWnZaiRJz0ek/snHKbejE9JMYbrWjA9RzzMFlsob0EoH6A6R/
+kYb/FOTYPtzqwFycoALO1CNCeK+W7LBSxkJmb4eJ/96YS0CwH0i3g1wIrLeYBV7LN9nfQSYAHnKJ
+tC6ktNGwD12Q16NDHITtveV756Tio9E3nnlPNsmVpSsY32i/htumH5s7oVirWccncfvFke6XYkRd
+ZfT79Ov1/4lP1xKt7hi332gx9YA+A7fKVA+5W8tg7qA8394WUgMfBnodzP4N6zQf+/00Xb1QIJ3X
+bBU90e+nettzJOwsNIrvOm3t2dQzZsxHRmT46OOfXormpTafNTkhdB48kPglyf05VNHiswQZ4Aye
+FV4gU+0V+aZSLV5XsGeuQpaaZJL4YCMgvHbzSl5bD4OApUeY9XaIDPfSz5I1RjVA49f1g3TsbUsK
+4ifIYtTgJ4RNZIie//FaShzqgoiEhVXyPFWA2AzzjgQBpLRZAqRBJM6vMEAJz771WvvIp8lCLLFD
+v1wMAuy8zyoIJhp/bNoO1wI76T0BbBxyH2zQ7+cMDCthFeXMYEFbUDPeRyB9f3eNvDLhlZBMycbo
+WSKdG25l4zENSdkFrzEEG1161cQPdMGFgPLUhPdXly0iWciiAywcZ+IRJuOmB8AR+SZsj2aRA7U2
+QlwuQoASMMMe+d99zG3WKLAxC1f81HckmQg+i2NtKTjwAIXf55IklNH8hELMGkmnhqemzVoRcXjc
+pjsFuh6807k1Gyn1D1c1XQ/GFIRBnLyg42//WS/4Fwg0vRngyC55jaFIl9RUVz060g5Mc1vVsFEm
+m49GDWNVg4jq9XCSVeqMoozrePF6hsoUgyxdAvT7MMrLWRjM4VoKLG5Sv732jFRE5ib5ur2K4ToM
+N7sw4Nenq7YgPBPuVCfil/tYo0POyT+np6lziVf1Cbk/sSd3hF2xrHe7QRy3R58g9CXTOGfhKggx
+gNqFuTlT8yZfqE78J9MnSCwIZ7FMVOTn+eB0dhzHkQaAbbyqL6tIJy97L2AlCCASpO4abiDtOPkV
+Mpl+jrAdcx33TJUqQf1p5+L5xa+knxgzI0k323btUyHvt2cAC8rhhBSQCWtgi7ElQlqSewBJyLCk
+w5eE6EJo7PHfUH6g0DnpgLQQwQPbGRwxVdkBY4W3mkz4Y8mh24hdrrPJzTSFYnaoECd6WP7oVNtb
+nlWwPlxuYrqQKIyFEUvV207+qrhTvgbrksNezmYGvhBPNNDhyC7pIT036ZFF9uXcabHcWyQt3p74
+tq9w3dxnmsHuZ90PDojrd/telnko0E2BU+Ed3tfahK8oMHMkA9c3E99HzJ5/OJ/h69Hq83ys9Zud
+Y3NxY9O+XTU2eQlaOyR9zK2d0Oo2zx2T4Utke44aqusReRXotrpDgr5MskaktjEeAsv07M3P8ZbO
+moIyyM6LfdVxpYF5XY5VDIgnAoV8OqUJ1iCIrK4Sm/Xl83NI998u4wdSALGXDI5leUoCeeHd5gLT
++lC3eHANhoBzXUciTIC7JMigtEUoPay+HLEC8gP/W8UejZhSrRniys+ROU6p6+RCvvLJ4Tk9OtG6
+svEYeUZKoXwlYkGbd/5C0gOl2uA0QbPFwXolHSVWBNnvWemEJx8ORBVNpQfjrzNuZCle7AI/fGFt
+E5Fxsm0Macw1vGssD9dVO4rUZeFuvsbysINPS7KkoV6UGBK7eBtRvJ1AdM84BBOeOMugZLlpyk9e
+MSeIX/CX9mFgv/4Mo28xz/V5R07UxcUw2vSrmSXYvm8VRIAVzY6NQfbJd0in29mKnaJ2+Gkxjh4b
+S2Jo0h6CrnIevsyDlwJdL1Uh6MXZjUreEFZBh0xttY1298k7vUKWfHaxPfelExYJJNesKIgI+wzd
+A3e+UShBdBkuGCe7kzadS36zO0E3lSXoNFIhBD+NKoxIN4VwDL5HVJeJMBL2u1X+604Zc74Kmcjb
+gHPUsyH//8Im3C8pSfSltQEPNe2tUp03PMjFP60QZQMdK12UuNFVE2wO7UVDp1ZXgK8OgL76CJYK
+dX2CM9GgrxxCRqeCHWC/s48/PsMXNzH99ue44tqo8+KHIiWph2Dc3zbCBXQHdfCb9Z8h7cDk5f8P
+hkQ9yOAryThEV+hEpO8NW5vY1k4tMKeqLO/DtdnF/xm6Y6UKioE5Hoy0TcZvwn0OqoJ4bJetvxlu
+rvExjLGtk7Xp74bos68xMEIguc9oNEvnIRCJxigwAS8gxfKO4q3WEHahj75uVvzIuebi9/5tULUg
+SlMAVs1bC9tRW7JjmlvRENyUjOlCOMosZGVd6wC93IHbO4VzVe8TTi9f0K4n1VCdRBU3fUAa3CWu
+FJVzOMP2wzEC5GLGo1U9OTftlNTb+5Jl0+YxI+GFFT+LBK3KUMZkuzKAq+Rg1H1pZ12SuXNuA48v
+huaqo5y/Biygs9b7ZrA12I7vjouEUyiEjonZ/cQpEFvj3hnB/UND+VqJzARxcN09fYgXl9E3wdgq
+NKx/v5ASPRWeMBvpKvPXi3FWu2ajfrc4AMn4lxSA2rk/dF4L453HLfuBtUwjpGifpEbhU94FWa9j
+fsFy9xuiNOR7oeLFUQurrUYHAG+AxA72YsQTB5eIdmMasQa7owLHwl0heEt43iSQOyrde8jML8kg
+upVtikCHX+r4Kvlw8G2WHshnJb/hvWjfYYo+TXwwHH37CRjPcFduNSMlufhhcaZCIIvvdRa0Qojn
+yF9cIR2AR7dYc9/c4dBFUqvyxD33dm7yPd5Mf+kR9mcYcMzFEJ0EMKDva2NMYQxyAt9zgcMEs2Tn
+JELYtiAQH4hNXnMPOa2h5TrZPgXf+fDjX2AI4pB9N0scRXMhFSLMQSucac6NySLzmP+mC+Ef01Ar
+sd0IjQTh3kl3jkTBG5YQmEi/Lh70IlcOyu4DfIR/hskxtMlrTOv3WP7RqJbLVUtOzblAebnZAmvZ
+6XrgvOjbcnsDtmAqc6UIAQbtlD+PXlQOph1kwlHr0/OZeko3dZypaCeh16ZcsVQcnAQbr0ka8aDt
+kvoIT9Xp+3MrL2frt2yLxDal0JJBezYnxp0x19F9Iv5vIg41v8I/cWE0kq2W82u6kZYv7vaiI/73
+Az8I53TGTC4Rm/NBkZy9uH3GW4oCn/ev0d46MqkmSJE5VVlS9Cfr3qleuphHa3upAJLQJ/GDlQvT
+/F+UIQjbWJQ2e6LB7/zu45jM16BBGjgqi7Vi9a56sEMFcOB6uLuLxCrs3+QMqQu7oZPiqCRvydlL
+3gUlbbELDrOayfiBs1zvjul4NLBDQSqCOGu8tJUYPAYQcsMwM8ZPho/ORCC5eWak1XnTsCRceveX
+2vo4IxvWbdjAPJuSLB0bYdG397ntRJ4MEJ4ovdW3mZNUddCYmyIhmioIXYDFtVV5DzpIp+iqLo6w
+aUCppSmUlUUYRwjySgOsJGuVGmEjOn/MBbo4pMQF7dnhzAYASSTLtXPhLEACq8pSe9mdsj0fEuw5
+65VSrvAaYQuuJO0jvH4GbQ6Mqs9/iZBFQT+HO3shL4/e2RdcpmpM8cs+L0WEHqLDZ/QQRQfLGkv6
+p8YGz5cRmWilfi+PI39JHF963aV0A0xd7OJX/c+fAW5DIp1xfSA668rsnCsj5IQcVKXBzj/knA95
+jOsK/5OGrTenPKffkC9Ol6XnKnP9iRcy1Mmxeaoctmtn4Tr2MsMw9Yjc16SGxP0GYt6Vd8tKPpHy
+tmKo/6T3OcGCElTYbHp2tJF6ujYs6t2o+oZicHCnaNAAuPY0HVxqVx2IGQ+Ut5T13lV0XnnuVlkA
+xc2itFIMiN52Zu+jQzDwI5F6nI/dxmvhd0S0i6Zzc/qRyagxjZEmb26K77eQ2qfO6tjKsv7m9J+9
+XdfeppH3eUnpWgwPzPEECHlfyPn+Ig9l9BbE1Bb6SU7TVfjhGOHKmlZZVSohIsj+jkjF8ghZHb7j
+ipdu8jairmivlLsTwPb2G5eJJMJ2qIFS5tXsUFXCT6l/GgEXKEVs6gFq+MRcP1HIT8X6Xn3TsCaZ
+yh7l75uUsX7vYnf2hzJbnb+8XRQnlk8j1aTqCDvOa6QnfdKP5vd/4nEbPJlMGhYfbZePwR6NnReE
+LoxREspDx/CsHpY0spxSqXQmJNWdxCt5pvGPb86vBZuRV3aZR8sgxICi4ig2Y4ChYdhORw02uvqA
+1s5dyuh6k1/WFvgyNAtiYlXDikU2xJBZ3l21ZgpX5/KVjGzm7x4LxXWM1CEaBAtpalXke7ua/KKx
+L17yGxerbXffUOtKOlXzKcRvusAj5MmsKsx+u2uXqPunWi9lvKAaUgSaLF+8ALLoxTEGuVf0fo6X
+i8ThOJNzTizHTMdScnXXaV2inaRnhIpz3JZVmZKHLqZ5oP1VDzgYu/mW6xpOHcm2oBz6pwHQkqcw
+AauQQQd3eXW/v7uhl47fsU5uEw61eFTBE17MPXfNNZgn/2mCDdE7zeuifNAo6AUUkYKtMwSRuGbf
+pgRo9TXtPBv3C02EyYfwtXE6b94IR18UZZvYur+GWJQXXw+XD1MKRiJz8RfQtTMVBlk4aLkj3GNb
+qpSUh+3uRINUPGHGDmaji1Z6lBVwtnAUYUlEXnAzOaQu+0XkvVeCVPT7taXzjkrUxrm2dDSqnU1s
+N5dY2zEOeQ9F0mmvL+C9QTXhcxkaQnmHqH5BXk5Pb3qCEyQtQoCf1/vNITjzA0G2b17dA1gu7iJq
+Sdv/rBAoe8pUE+zzTClS/VUarZJORtg+7uNspWj4p+HLcYYh2b4E/4gwPwtm6qZ7XymcC8RabA76
+HYylnj1z28aLQ9M+9yyVo1JCn0wugDAk4mqROYzEvg91ieaOlAnyUBHFf16AeFK9EYpc3uiNgV+S
+EJsLXKfTGOND/g8FZY+zvFhWKykoQmLb3GRloUTGogtTTsO/483LaKlg/KV0dVjwkL1v1ZVKjULp
+oS00rgamz3lC73865H/F7SebDYBBuQmDrsR4ywbP7AC9SQmIEtxQGrZZYUu1YMh/Sb6KiWaDy3Om
+68aBUlmBQe+k8GrolT6keWeMkrxrE1YdsxbGr0SPCvHJq0R9bYovaM2xVbTZd81N3cFxHq0Kkhrb
+3qPLiBFvtdwcIqZvIvT3wcXlUyb/Fgio+GUt3uyQ3noqzqO0qIq73pq9ydEWkkc+4N7u0QdleZRE
+ySdWzHaFf7EgbCHaQ7DkBYjbKlPqJHrc3dKrM0Dzzl3QCtopxgO7XeUgmluEVer6D8e4VpM6vfVG
+G+hrfBWc4SADNYmBhezjmWyvxKHZ1Qdwp2DINpuvADZGXd3wvgPv2kqDQQiVL4hkfZfmMzwnPkW/
+RXVjDn0hjIH/yNiqxtzdrNuNVF+Fh/KEIEqX5ytRr2gh9Z+67vq/FnAWgJU7SK+B7fkN1Cs9TXnk
+Mk9SoQW3RhEene4pkw083xLsXPwj8/fbjwBQlfxtX4Fm+uF7T32l5Lz2XOLKE70p0m/zx/6WNo1t
+nRh28X76AWlHezN/RvT8S816Va+OuNI5z5UoOIH/0AQSq0s0eTjgMZjbEDc+ZV3jU48QaLq0GSOH
+375VeZ7KMYxDMIl1iLC06vSZ7WWNHJlLY+nG+xkmIA6ZjtwF5KpNMRjALlZBUbmjxpLB3kvf4cy8
+cs4FBKyQHsHTz6SwJ6Bo+QPRRzrJWaceIfOv5kHFzGckfOaR25ZAibxrYo6XajbI/uTJrIWwAoOd
+jjYCJOUppv85UC0lXh5FR5c5bKuBE/URmdr6tnoT21i6+y5gHp5z8XqG2D3hJkEBIWtsQY9l9I3C
+bScQJ5M0ikoFAI2PMhn2ZTcZ5thhwT85q6bEA3ieNP1xim/iypLgOIypE44keTTeGh0zVYEyI5uW
+zLPWhNRiw0vQX8sxOWH7um6HkpkYsi3zHacIXNj8v6Ht1Ge50sFeV/hXmekUMN1TGFQytIEv7W3N
+5bv0j2TxWw5c/22s1pW4qvfj9qOk9RRAN2/HV1fqHJGckpDBQwts1AYJv5+UEVp8BlNpz81SRbQd
+KV8LvCsog6jCA054jSAPArMpOGDPt3wUHhlSQMsyMJ6p5QVSs26OsyhTNtIssW4nUFtMQGdIkVQ+
+1lKcWXe4bgablUtCNBo1Qw9lca4oMs0Pg/aaXK2377teVLKSzyQzHNgcS0n68ruMuD9Y++Y3FGTZ
+UZW/k/yRrub8Oju3K463LD/y/CjCtJG03OyoDPbNrFORXszfQv4rvgwkDFUM30oU/2rufsH7hi/2
+94CEdO2WK2MgzG+WKXm20QovMuD6RnDLRI8MnwKUNKa0sIrQvQdPGN8YX+uGGR8aeaqPdpdKAaSD
+pQS7NxgSsOvE5Yn1nO6lh56OM8crbHX2rr8R5BvkQK3uoSKLdRiUZydZNd9jerJAgMxWvV2sT//S
+7QTndx2nQfQ86NMif5UWjUjPlWHkGJ9Wb++enwT/CPbEAYno8/k9glkprAZ6IBMl84VRqVizRzwh
+V4shnAgZRgipHggEEujij4Nrx1pE6BM9BQLqh11F8vH1fHQGfj7c2CmTqYG98VGC9nCmiCscW4EK
+BeCkXnmGc1mi5W16UuRVX3G535SS25kL14Ajs0/uKh+m2rg96y+6RjQz24z9hLJyhE6PpA2i9/G/
+cPgkl7LR403UJGasU8g2IlJm5MfZDNw04ztxFJ9Glcz9cwSFy5y5Ys+or1Iog8aI+V7l6HMmT58I
+GDoNKFxfOgjh7Vn3gISxtOL47wEt9b/m7ivh3GFY5Atz/XtJsLhw4VkB6mZnLGTsbwvHEVgmS9j/
+045/7X2N2SZKWG6khDzl66HLhKa1bp7HnQim7m94jnhtCWeL9XS+iO1lKfpMHNRKJz29HeiSvZvZ
+jY8fK02lpweK7reEIu3dXCkvVDTrm1orXHQdXZho/x85YL/SmOCYRO/di+ooSGpnKHnwL986K/rq
+dKdjwbcg+p5J79LdBUUABTpLQNqMLHMbSl+OsQzeVOLPdfsFYdyH59HZ6vP+awYTY3Dp8kdAXXmb
+R9w2sf3kwsSc7FpeIVjDBc+4Luw5HSVBLbsdm/aXj7bH3ZEUkAuZeDPjae+dAlHeIvMef68tBu2P
+Zpt/94YSK2V3HmLZAayLRMCLxsjgN7RSP2bY360SxehTWWuCb8+i/4n+ibwXmQJCPrDOk5Z6ZQip
+yWSdlJY12C9EIW5a9EnEiqHw260VqYtY+p3JbNaTu6AVbNKY3vKKE35WaXhbreBfQ8l0A6rUZ5Ph
+l8c1a+Ge90FgltQSQ3bcQxHnfKzXySwz5AJgSgow6x6ViCGTpnfdIcilKAJSKqE0lnznMkkmTc/o
+zXhrJT5jNM4Wnf3SnMA+CLJOQrXMNPy3UI1w6A568nHnC8OuVEvxZPGiBBiKz8CciL74dtH4eqnJ
+EyMDCKeJqh3XnykwfrUWOs34eOzXsl8p0FiB3F6QE889EI+4otGMSXd0dPK0m3XQ8eq3SubCB6DG
+Lx4/hf6Db6R5EtsNoyvzD6LQlrldmkvkCiVdWoTvb9vSAprPg9eB3q97wPsgcweAsm5cAz8wono2
+6b0BpryoZAFRnhHfWH/8HtE+S7Slimw5WjozO8V1xHCM17FBtRVN+WsvWCow/OxQcCaxV5sf6fJP
+v2tcJ6qcvsv7lUT8/StnTzpAe1JVtuitNwMN5SJww1TkA1Fxbqjg8x1i7pWlihp6nQp5osFr/RBR
+JHwNtepvtZHm6OL9ZCyq3VJwCKvTDNVzmKVJjLHdBPCHDf6ZBDDejqxQOKqZKj0Fue87i3x1aTEw
+uqPTAVGs/tIhX+fGO+XT+ZdyAiHpshUr3MkDoi5bwil6GHQgJL746qg+1fYFhBiNQBSWi3CWDy8/
+3BpBXHst8NdQktSp1QImhsATJzEfIwM3aqrH49Le2+cUK8kTon0I20v6Ej/Q1DhZPanAdf/IMhOv
+0eAIo9dfDq1mNvZMu5IJUSoLYZxwmxcgQSVb6LYeS0oNE7p/3hZBXei1UvsBjag1+f7VX7HqG9RN
+gveeqhDzIPYQ2NcBrTWLDEbx5dE/C52NgQSkBj28mk413vv1KgrfEc18vf+iooOS8XNwmzosEb5R
+s+mCk90YObTe2Ub35ZBEGNL7L5lvuPSglCLiMZEz48q426h/idj5BXDh4pRzksicper72I9W9vym
+32VeGWrRJj/5E8Q8P+Z8zX2DV7Bwo9zInviAhll22JAG12o+aL7RKbDyuGxPo+Y4O/DgUj7uBjZ4
+iFk7xg/bswSn+rFi8v5mTHDbFIMGX7k7eeSUd75ghcd7ZRKvywJfUmuHOy57jZD5/jxp71CJ7FBw
+XnklcnpLaq6ZXYatsEqeddvVATnanAt9eRG0z9IbJhEai6/eRadsro1GuMlkDuy8lJa+0uDoFpYJ
+fEedUlTiTAxH7FBi2ZeLlfz9eToshPZL0HlcATo2Mump247rvPAuU5O/dpcb6CnCsYF36azZxfka
+iulJUeACG/zgbcRdcKHsrSkXwUxgxkKe4P7owBC/GO2OqwI/4+5mu6cIIPcevg219tJjfeUZIWu7
+mrdEAM2TbIGrOjt3fh6Ai//ctwC0SNZ2zdYzbd+raEFXcUBIW7CjBJ8UCE9Aa/bQzWaNz7XyVRMD
+MMYWLH0RbfClLQsgaHSDlzHbUxv5ekhEbnQTWtfhjQWUrh1o+uiMa2Wif2rBuqmcOTCP35wqjxIu
+xCJITnPA0SkYok++dNAPZPd7wMjr7p643leSBk8XEJ6VyjhQRb5V1PbO4YswNuCXH6JLacMjykFn
+biIjsc38zk15wuo11bkPPD4/k+I7cCN7VPbCNmhRIl0jZKqx/sBh2ZDXUbMYEhPPQD7OzYGU/+H1
+EpyIbhL/pCwGuK51dMsg/IqUn8kFFidWfTozpTgxc7LtVMkPEepmkUhFuzfNtIENsKw5RQVs9ouD
+CLL9/fY5OCXZXa8kEklahXkhNFlJCfkWtL67IfTwRg4dmFW5j9F+J2vMpEFn0C7rXTQLMUg6ESfy
+O6DLLRMeSYyfALpe0KpaANhWBRFkyuMyEemS0jO3YUcxQqu04lk0GbTRf+4xctwPOmof2+VTRTs2
+hAiSztEMumwZ3ypgNWSn4i+bqXI/RwhCFrryfqOCB8D4J2br1DQk1nnVICFtk+obLaP4OIK2XUeE
+v2BZhBZ9l5J/NPt7xQEICUlaNN5kC5/AzXjfdaKui5K/ZEmgj82cmngwSZY2CANsqJVfoeAZDIcT
+tNVZjXPjDXjGnxyewClPLQTVp6hBQBijNesm7DhEIQyH5OnA53hHQiHXCZVgC6r+ZuDNmCkHpcfJ
+xR/CDvBHx4iYDSXSa8gxZxpeqmZ4TLUHRxDHo6jP9a0UPPuO7G+vj092oaauTktSgzZk+24Av3Ql
+jhFDQF1BeFJUPjVo97vOp7pIIW7CBhZFHlqOvMis/Uq3paLTTcAtmYYm35yp5cNEMEMQl46jmdyM
+bR7T0tTni8qthrHkcFA/IZ8/LaMZXAbcgLdmU4aQ0kziiuU2NVzF1WhjnaSCZ/1tqhi9fA+RTS9C
+eqlk8/YwdeASjC5rctq5stx+ZEfS9XdEg+Be8BQT//mEZznwQSeTQJBq0f9x6O6fQWe1DHvsRDw4
+guHXXsR7U2nrJuhVkh9AnGtH0JvZCOT4Zs4SaykDqPao5vIVTcXr6v4aYfX5UWeXvssiFVMi2vXl
+zf54WN1A6HoGNUxn/uSLfkGgagCaPHXC2zJuz/AmKo9TPRg1dtDPOfNBd66LnE4gu9rcT8EXCN+3
+bxfWzPCjRxiC7fggilZ087JL+srN1cN/tYvA6a5qCp43JOFjqXKTYxyeQifOBM01/z/Fj8Z6V+Z6
+bUNqZ7zVqCb3TBOripizGwCw5vZ3MK4wjJD6evU3w0lTVfpSa1v8mtlkqTN9zRC34nC4t9fHcRHJ
+bXDNSr1XiYyxd6wTtKC1i7ZQOWHDLBlLkdn2LBdpX+8SrpP1d2OajVNeAZJyTa5ZfMOnXtXl5B4l
+NI2Kbv250OWCVnmcWsi2New+Aiqk0gmEZpJViZs3P5gZhg5/+vx/3KV7DsY1sFxs4yW1YC3Ri56v
+WLD0ujUjik/5cfDmto6j3yr/k0NSmbvLqGOM5oO2FxB72iZEdiz9zrc4fN4UTb6kw5yrKOw2Waeh
+IK1700NnqKVTPRUo9kk4hfwmaMou9VwVV+4O3i9CCbJ/8h8jiidoDS+cT2TMWf0Xg1bV6aDEy+Xb
+4i9MIxZWzICfaM/3pXt+Vy17t7/SXSY8IiNRWLOh/mUNxVoKOJ/WDeADvrG1txkOzxrkm0PnCtoH
+65RDOxvyTwBbIdlWvop+QF+7VsYeqIsAVZ8oRQh1Nw5geSc+THj0Qn0BbnhxiWGEVbLTMNUzJzhj
+BZ4KFSamIzK4ttqSp8XW945cloMyqvt7cPRq84WVrM59QmtTB088Y2+Bb7+7LvGTd6f/NTg/Q6y8
+8e7QQg85jyfXv4wjYaF58VwoLo35/VfvsCL3UMCaZTmdOs3UCBpKj/e8wzVzeplZekAC3Vm2Sypb
+8MGux4/qECMKZvITQ2cxBPyOOG6wi+a/ZaC=

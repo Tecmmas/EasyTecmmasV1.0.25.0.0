@@ -1,63 +1,61 @@
-<?php
-
-defined('BASEPATH') OR exit('No direct script access allowed');
-
-use ModbusTcpClient\Network\BinaryStreamConnection;
-use ModbusTcpClient\Packet\ModbusFunction\ReadHoldingRegistersRequest;
-use ModbusTcpClient\Packet\ModbusFunction\WriteSingleRegisterRequest;
-use ModbusTcpClient\Packet\ResponseFactory;
-
-require __DIR__ . '/../vendor/autoload.php';
-header("Access-Control-Allow-Origin: *");
-class Cmodbus extends CI_Controller {
-
-    public function leer() {
-       // $ip = $this->input->post('ip');
-       $ip = '192.168.10.80';
-        
-        $port = 502;
-        $unitId = 1;
-        $address = 0;
-        $quantity = 50;
-        $connection = BinaryStreamConnection::getBuilder()
-                ->setPort($port)
-                ->setHost($ip)
-                ->build();
-        $packet = new ReadHoldingRegistersRequest($address, $quantity, $unitId);
-        $result = [];
-        try {
-            $binaryData = $connection->connect()->sendAndReceive($packet);
-            $response = ResponseFactory::parseResponseOrThrow($binaryData)->withStartAddress($address);
-            foreach ($response as $address => $word) {
-                $result[$address] = [
-                    'dato' => $word->getInt16()
-                ];
-            }
-        } catch (Exception $exception) {
-            
-        } finally {
-            $connection->close();
-        }
-        $data['result'] = $result;
-        $data['address'] = $address;
-        echo json_encode($data);
-    }
-
-    public function escribir() {
-        $connection = BinaryStreamConnection::getBuilder()
-                ->setPort(502)
-                ->setHost('192.168.10.80')
-                ->build();
-        $startAddress = $this->input->post('response');
-        $value = $this->input->post('valor');
-        try {
-            $packet = new WriteSingleRegisterRequest($startAddress, $value);
-            $connection->connect()->sendAndReceive($packet);
-        } catch (Exception $exception) {
-            
-        } finally {
-            $connection->close();
-        }
-    }
-
-}
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+8VSVI7EgPChsTG==

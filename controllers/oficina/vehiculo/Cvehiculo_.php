@@ -1,575 +1,405 @@
-<?php
-
-defined('BASEPATH') OR exit('No direct script access allowed');
-header("Access-Control-Allow-Origin: *");
-ini_set('memory_limit', '-1');
-
-class Cvehiculo extends CI_Controller {
-
-    public function __construct() {
-        parent::__construct();
-        $this->load->helper('form');
-        $this->load->helper('url');
-        $this->load->helper('security');
-        $this->load->model("dominio/Mvehiculo");
-        $this->load->model("dominio/Mpropietario");
-        $this->load->model("dominio/Mdepartamento");
-        $this->load->model("dominio/Mciudad");
-        $this->load->model("dominio/Mclase");
-        $this->load->model("dominio/Mpais");
-        $this->load->model("dominio/Mpre_atributo");
-        $this->load->library('Opensslencryptdecrypt');
-    }
-
-    public function index() {
-        if ($this->session->userdata('IdUsuario') == '' || $this->session->userdata('IdUsuario') == '1024') {
-            redirect('Cindex');
-        }
-        $this->setDatos();
-        $encrptopenssl = New Opensslencryptdecrypt();
-        $json = $encrptopenssl->decrypt(file_get_contents('system/oficina.json', true), true);
-        $ofc = json_decode($json, true);
-        foreach ($ofc as $d) {
-            $data[$d['nombre']] = $d['valor'];
-        }
-        $this->load->view('oficina/vehiculo/Vvehiculo', $data);
-    }
-
-    public function buscarVehiculo() {
-        $rta = $this->Mvehiculo->getXplaca($this->input->post('numero_placa'));
-        $this->session->unset_userdata('numero_placa');
-        if ($rta->num_rows() > 0) {
-            $v = $rta->result();
-            echo json_encode($v[0]);
-        } else {
-            echo '';
-        }
-    }
-
-    public function getClases() {
-        $rta = $this->Mclase->getAll();
-        $clases = "";
-        foreach ($rta->result() as $c) {
-            $clases = $clases . "<option value='$c->idclase'>$c->nombre</option>";
-        }
-        echo $clases;
-    }
-
-    public function getIdClase() {
-        $rta = $this->Mclase->getAll();
-        $nombre = $this->input->post("nombre");
-        $idclase = "1";
-        foreach ($rta->result() as $c) {
-            if ($nombre == $c->nombre) {
-                $idclase = $c->idclase;
-                break;
-            }
-        }
-        echo $idclase;
-    }
-
-    public function getIdMarca() {
-        $json1 = file_get_contents('application/libraries/marca.json', true);
-        $mar = json_decode($json1, true);
-        $idmarca = "1";
-        foreach ($mar as $m) {
-            if ($m->nombre == $this->input->post("nombre")) {
-                $idmarca = $m->codigo;
-                break;
-            }
-        }
-        echo $idmarca;
-    }
-
-    public function getIdColor() {
-        $json1 = file_get_contents('recursos/color.json', true);
-        $col = json_decode($json1, true);
-        $idcolor = "1";
-        foreach ($col as $c) {
-            if ($c->nombre == $this->input->post("nombre")) {
-                $idcolor = $c->codigo;
-                break;
-            }
-        }
-        echo $idcolor;
-    }
-
-    public function getIdLinea() {
-        $json1 = file_get_contents('application/libraries/linea.json', true);
-        $lin = json_decode($json1, true);
-//        var_dump($lin);
-        $idlinea = "1";
-        foreach ($lin as $l) {
-            if ($l["codigo"] == $this->input->post("nombre") &&
-                    $l["idmarca"] == $this->input->post("idmarca")) {
-                $idlinea = $l["idlinea"];
-                break;
-            }
-        }
-        echo $idlinea;
-    }
-
-    public function getPaises() {
-        $rta = $this->Mpais->getAll();
-        $paises = "";
-        foreach ($rta->result() as $c) {
-            $paises = $paises . "<option value='$c->idpais'>$c->nombre</option>";
-        }
-        echo $paises;
-    }
-
-    public function getMarca() {
-        $json1 = file_get_contents('application/libraries/marca.json', true);
-        $mar = json_decode($json1, true);
-        $marca = "";
-        foreach ($mar as $m) {
-            $codigo = $m["codigo"];
-            $nombre = $m["nombre"];
-            if ($codigo == $this->input->post("idmarca")) {
-                $marca = "<option value='$codigo'>$nombre</option>";
-                break;
-            }
-        }
-        echo $marca;
-    }
-
-    public function getMarca_() {
-        $json1 = file_get_contents('application/libraries/marca.json', true);
-        $mar = json_decode($json1, true);
-        echo $mar;
-    }
-
-    private function getLinea($idlinea) {
-        $json = file_get_contents('application/libraries/linea.json', true);
-        $lin = json_decode($json, true);
-        $linea = "";
-        foreach ($lin as $l) {
-            if ($idlinea == $l['idlinea']) {
-                $value = $l['idlinea'];
-                $nombre = $l['nombre'];
-                $linea = "<option value='$value'>$nombre</option>";
-                break;
-            }
-        }
-        return $linea;
-    }
-
-    private function getLineaIdmarca($idlinea) {
-        $json = file_get_contents('application/libraries/linea.json', true);
-        $lin = json_decode($json, true);
-        $idmarca = "";
-
-        foreach ($lin as $l) {
-            if ($idlinea == $l['idlinea']) {
-                $idmarca = $l['idmarca'];
-                break;
-            }
-        }
-        return $idmarca;
-    }
-
-    public function getCombustibles() {
-        $json = file_get_contents('recursos/combustible.json', true);
-        $lin = json_decode($json, true);
-        $combustibles = "";
-        foreach ($lin as $l) {
-            $value = $l['codigo'];
-            $nombre = $l['nombre'];
-            $combustibles = $combustibles . "<option value='$value'>$nombre</option>";
-        }
-        echo $combustibles;
-    }
-
-    public function getServicios() {
-        $json = file_get_contents('recursos/servicio.json', true);
-        $lin = json_decode($json, true);
-        $servicios = "";
-        foreach ($lin as $l) {
-            $value = $l['codigo'];
-            $nombre = $l['nombre'];
-            $servicios = $servicios . "<option value='$value'>$nombre</option>";
-        }
-        echo $servicios;
-    }
-
-    public function getMarcas() {
-        $json1 = file_get_contents('application/libraries/marca.json', true);
-        $mar = json_decode($json1, true);
-        $marcas = "";
-        foreach ($mar as $m) {
-            if (strpos($m['nombre'], strtoupper($this->input->post('textomarca'))) !== FALSE) {
-                $value = $m['codigo'];
-                $nombre = $m['nombre'];
-                $marcas = $marcas . "<tr><td><input id='$value' class='btn btn-block bot_azul' onclick='asignarMarca(this)' type='button'  style='height: 40px;padding: 5px;width:420px'   value='$nombre'  data-dismiss='modal'/><td></tr>";
-            }
-        }
-        echo $marcas;
-    }
-
-    public function getMarcasE() {
-        $json1 = file_get_contents('application/libraries/marca.json', true);
-        $mar = json_decode($json1, true);
-        $marcas = "";
-        foreach ($mar as $m) {
-            if ($m['nombre'] == strtoupper($this->input->post('textomarca'))) {
-                $value = $m['codigo'];
-                $nombre = $m['nombre'];
-                $marcas = $marcas . "<tr><td><input id='$value' class='btn btn-block bot_azul' onclick='asignarMarca(this)' type='button'  style='height: 40px;padding: 5px;width:420px'   value='$nombre'  data-dismiss='modal'/><td></tr>";
-            }
-        }
-        echo $marcas;
-    }
-
-    public function getLineas() {
-        $json = file_get_contents('application/libraries/linea.json', true);
-        $lin = json_decode($json, true);
-        $lineas = "";
-        foreach ($lin as $l) {
-            if ($this->input->post('codigo') == $l['idmarca'] && strpos($l['nombre'], strtoupper($this->input->post('textolinea'))) !== FALSE) {
-                $value = $l['idlinea'];
-                $nombre = $l['nombre'];
-                $lineas = $lineas . "<tr><td><input id='$value' class='btn btn-block bot_azul' onclick='asignarLinea(this)' type='button'  style='height: 40px;padding: 5px;width:420px'   value='$nombre'  data-dismiss='modal'/><td></tr>";
-            }
-        }
-        echo $lineas;
-    }
-
-    public function getLineasE() {
-        $json = file_get_contents('application/libraries/linea.json', true);
-        $lin = json_decode($json, true);
-        $lineas = "";
-        foreach ($lin as $l) {
-            if ($this->input->post('codigo') == $l['idmarca'] && $l['nombre'] == strtoupper($this->input->post('textolinea'))) {
-                $value = $l['idlinea'];
-                $nombre = $l['nombre'];
-                $lineas = $lineas . "<tr><td><input id='$value' class='btn btn-block bot_azul' onclick='asignarLinea(this)' type='button'  style='height: 40px;padding: 5px;width:420px'   value='$nombre'  data-dismiss='modal'/><td></tr>";
-            }
-        }
-        echo $lineas;
-    }
-
-    public function getColores() {
-        $json = file_get_contents('recursos/color.json', true);
-        $lin = json_decode($json, true);
-        $colores = "";
-        foreach ($lin as $l) {
-            if (strpos($l['nombre'], strtoupper($this->input->post('textocolor'))) !== FALSE) {
-                $value = $l['codigo'];
-                $nombre = $l['nombre'];
-                $colores = $colores . "<tr><td><input id='$value' class='btn btn-block bot_azul' onclick='asignarColor(this)' type='button'  style='height: 40px;padding: 5px;width:420px'   value='$nombre'  data-dismiss='modal'/><td></tr>";
-            }
-        }
-        echo $colores;
-    }
-
-    public function getColoresE() {
-        $json = file_get_contents('recursos/color.json', true);
-        $lin = json_decode($json, true);
-        $colores = "";
-        foreach ($lin as $l) {
-            if ($l['nombre'] == strtoupper($this->input->post('textocolor'))) {
-                $value = $l['codigo'];
-                $nombre = $l['nombre'];
-                $colores = $colores . "<tr><td><input id='$value' class='btn btn-block bot_azul' onclick='asignarColor(this)' type='button'  style='height: 40px;padding: 5px;width:420px'   value='$nombre'  data-dismiss='modal'/><td></tr>";
-            }
-        }
-        echo $colores;
-    }
-
-    private function getColor($idcolor) {
-        $json = file_get_contents('recursos/color.json', true);
-        $lin = json_decode($json, true);
-        $color = "";
-        foreach ($lin as $l) {
-            $value = $l['codigo'];
-            $nombre = $l['nombre'];
-            if ($value == $idcolor) {
-                $color = "<option value='$value'>$nombre</option>";
-                break;
-            }
-        }
-        return $color;
-    }
-
-    public function getCarrocerias() {
-        $json = file_get_contents('recursos/carroceria.json', true);
-        $lin = json_decode($json, true);
-        $carrocerias = "";
-        foreach ($lin as $l) {
-            if (strpos($l['nombre'], strtoupper($this->input->post('textocarroceria'))) !== FALSE) {
-                $value = $l['codigo'];
-                $nombre = $l['nombre'];
-                $carrocerias = $carrocerias . "<tr><td><input id='$value' class='btn btn-block bot_azul' onclick='asignarCarroceria(this)' type='button'  style='height: 40px;padding: 5px;width:420px'   value='$nombre'  data-dismiss='modal'/><td></tr>";
-            }
-        }
-        echo $carrocerias;
-    }
-
-    public function getCarroceriasE() {
-        $json = file_get_contents('recursos/carroceria.json', true);
-        $lin = json_decode($json, true);
-        $carrocerias = "";
-        foreach ($lin as $l) {
-            if ($l['nombre'] == strtoupper($this->input->post('textocarroceria'))) {
-                $value = $l['codigo'];
-                $nombre = $l['nombre'];
-                $carrocerias = $carrocerias . "<tr><td><input id='$value' class='btn btn-block bot_azul' onclick='asignarCarroceria(this)' type='button'  style='height: 40px;padding: 5px;width:420px'   value='$nombre'  data-dismiss='modal'/><td></tr>";
-            }
-        }
-        echo $carrocerias;
-    }
-
-    private function getAseguradoras() {
-        $json = file_get_contents('recursos/aseguradora.json', true);
-        $lin = json_decode($json, true);
-        $aseguradoras = "";
-        foreach ($lin as $l) {
-            $value = $l['codigo'];
-            $nombre = $l['nombre'];
-            $aseguradoras = $aseguradoras . "<option value='$value'>$nombre</option>";
-        }
-        return $aseguradoras;
-    }
-
-    private function getAseguradora($idaseguradora) {
-        $json = file_get_contents('recursos/aseguradora.json', true);
-        $lin = json_decode($json, true);
-        $aseguradora = "";
-        foreach ($lin as $l) {
-            $value = $l['codigo'];
-            $nombre = $l['nombre'];
-            if ($value == $idaseguradora) {
-                $aseguradora = "<option value='$value'>$nombre</option>";
-                break;
-            }
-        }
-        return $aseguradora;
-    }
-
-    public function getTipo_Vehiculos() {
-        $tipo_vehiculo = "";
-        $tipo_vehiculo = $tipo_vehiculo . "<option value='1'>LIVIANO</option>";
-        $tipo_vehiculo = $tipo_vehiculo . "<option value='2'>PESADO</option>";
-        $tipo_vehiculo = $tipo_vehiculo . "<option value='3'>MOTO</option>";
-        echo $tipo_vehiculo;
-    }
-
-    public function getNumejes() {
-        $numEjes = "";
-        $numEjes = $numEjes . "<option value='2'>2</option>";
-        $numEjes = $numEjes . "<option value='3'>3</option>";
-        $numEjes = $numEjes . "<option value='4'>4</option>";
-        $numEjes = $numEjes . "<option value='5'>5</option>";
-        echo $numEjes;
-    }
-
-    public function getNumllantas() {
-        $numEjes = "";
-        $numEjes = $numEjes . "<option value='2'>2</option>";
-        $numEjes = $numEjes . "<option value='3'>3</option>";
-        $numEjes = $numEjes . "<option value='4'>4</option>";
-        $numEjes = $numEjes . "<option value='5'>5</option>";
-        $numEjes = $numEjes . "<option value='6'>6</option>";
-        $numEjes = $numEjes . "<option value='7'>7</option>";
-        $numEjes = $numEjes . "<option value='8'>8</option>";
-        $numEjes = $numEjes . "<option value='9'>9</option>";
-        $numEjes = $numEjes . "<option value='10'>10</option>";
-        $numEjes = $numEjes . "<option value='11'>11</option>";
-        $numEjes = $numEjes . "<option value='12'>12</option>";
-        $numEjes = $numEjes . "<option value='13'>13</option>";
-        $numEjes = $numEjes . "<option value='14'>14</option>";
-        $numEjes = $numEjes . "<option value='15'>15</option>";
-        $numEjes = $numEjes . "<option value='16'>16</option>";
-        $numEjes = $numEjes . "<option value='17'>17</option>";
-        $numEjes = $numEjes . "<option value='18'>18</option>";
-        echo $numEjes;
-    }
-
-    public function getTiempos() {
-        $tiempos = "";
-        $tiempos = $tiempos . "<option value='4'>4</option>";
-        $tiempos = $tiempos . "<option value='2'>2</option>";
-        echo $tiempos;
-    }
-
-    public function getNumExostos() {
-        $numExostos = "";
-        $numExostos = $numExostos . "<option value='1'>1</option>";
-        $numExostos = $numExostos . "<option value='2'>2</option>";
-        $numExostos = $numExostos . "<option value='3'>3</option>";
-        $numExostos = $numExostos . "<option value='4'>4</option>";
-        echo $numExostos;
-    }
-
-    public function getSiNo() {
-        $sino = "";
-        $sino = $sino . "<option value='0'>NO</option>";
-        $sino = $sino . "<option value='1'>SI</option>";
-        echo $sino;
-    }
-
-    public function getSiNoNa() {
-        $sino = "";
-        $sino = $sino . "<option value='NA'>NO APLICA</option>";
-        $sino = $sino . "<option value='SI'>SI</option>";
-        $sino = $sino . "<option value='NO'>NO</option>";
-        echo $sino;
-    }
-
-    public function getCilindros() {
-        $cilindros = "";
-        $cilindros = $cilindros . "<option value='1'>1</option>";
-        $cilindros = $cilindros . "<option value='2'>2</option>";
-        $cilindros = $cilindros . "<option value='3'>3</option>";
-        $cilindros = $cilindros . "<option value='4'>4</option>";
-        $cilindros = $cilindros . "<option value='6'>6</option>";
-        $cilindros = $cilindros . "<option value='8'>8</option>";
-        $cilindros = $cilindros . "<option value='10'>10</option>";
-        $cilindros = $cilindros . "<option value='12'>12</option>";
-        echo $cilindros;
-    }
-
-    private function getCarroceria($idcarroceria) {
-        $json = file_get_contents('recursos/carroceria.json', true);
-        $lin = json_decode($json, true);
-        $carroceria = "";
-        foreach ($lin as $l) {
-            $value = $l['codigo'];
-            $nombre = $l['nombre'];
-            if ($value == $idcarroceria) {
-                $carroceria = "<option value='$value'>$nombre</option>";
-                break;
-            }
-        }
-        return $carroceria;
-    }
-
-    private function setDatos() {
-        $this->setAtr("histo_propietario", "histo_propietario", "0");
-        $this->setAtr("histo_servicio", "histo_servicio", "0");
-        $this->setAtr("histo_licencia", "histo_licencia", "0");
-        $this->setAtr("histo_color", "histo_color", "0");
-        $this->setAtr("histo_combustible", "histo_combustible", "0");
-        $this->setAtr("histo_kilometraje", "histo_kilometraje", "0");
-        $this->setAtr("histo_blindaje", "histo_blindaje", "0");
-        $this->setAtr("histo_polarizado", "histo_polarizado", "0");
-        $this->setAtr("usuario_registro", "usuario_registro", "0");
-        $this->setAtr("histo_cliente", "histo_cliente", "0");
-        $this->setAtr("histo_aseguradora", "histo_aseguradora", "0");
-        $this->setAtr("fecha_inicio_soat", "fecha_inicio_soat", "0");
-        $this->setAtr("numero_soat", "numero_soat", "0");
-        $this->setAtr("chk-3", "Certificado de conversión a gas VIGENTE (si aplica)", "3");
-    }
-
-    private function setAtr($id, $label, $orden) {
-        $data['id'] = $id;
-        $data['label'] = $label;
-        $data['orden'] = $orden;
-        $r = $this->Mpre_atributo->getXid($data);
-        if ($r->num_rows() == 0) {
-            $this->Mpre_atributo->insert($data);
-        }
-    }
-
-    public function BuscarPropietario() {
-        $this->load->view('oficina/vehiculo/Vclientevehiculo');
-    }
-
-    public function getCliente() {
-        if ($this->input->post('match') !== '') {
-            $clientes = $this->Mpropietario->getMatch($this->input->post('match'));
-            $datos = '';
-            if ($clientes->num_rows() > 0) {
-                foreach ($clientes->result() as $c) {
-                    $datos = $datos . <<<EOF
-            <tr>
-                <td>$c->numero_identificacion</td>
-                <td>$c->nombre1 $c->nombre2</td>
-                <td>$c->apellido1 $c->apellido2</td>
-                <td>$c->direccion</td>
-                <td>$c->telefono1</td>
-                <td>$c->correo</td>
-                <td><form action='../Cvehiculo' method='post'>
-                        <input name='idcliente' type='hidden' value='$c->idcliente'>
-                        <input name='button' id='$c->idcliente' class='btn btn-block'  style='width: content-box;
-                                                                            border-radius: 10px 10px 10px 10px;
-                                                                            background: whitesmoke;
-                                                                            border: solid green;
-                                                                            color: black' value='Asignar'
-                                                                            onclick='asignarPropietario(this)'/>   
-                    </form>
-                </td>     
-            </tr>
-EOF;
-                }
-            }
-            $data['clientes'] = $datos;
-        }
-        $data['item'] = $this->input->post('match');
-        $this->load->view('oficina/vehiculo/Vclientevehiculo', $data);
-    }
-
-    public function asignarPropietario() {
-        echo $this->session->userdata('siPropietario');
-        $numero_placa = $this->session->userdata('numero_placa');
-        if ($this->session->userdata('siPropietario') === '1') {
-            $idpropietarios = $this->input->post('idpropietarios');
-            $this->Mvehiculo->actualizarPropietario($idpropietarios, $numero_placa);
-        } else {
-            $idcliente = $this->input->post('idpropietarios');
-            $this->Mvehiculo->actualizarCliente($idcliente, $numero_placa);
-        }
-        $this->load->view('oficina/vehiculo/Vvehiculo');
-    }
-
-    public function guardarVehiculo() {
-        $this->session->set_userdata('siPropietario', $this->input->post('sipropietario'));
-        $vehiculo = $this->input->post('vehiculo');
-        $this->session->set_userdata('numero_placa', $vehiculo['numero_placa']);
-        $vehiculo['usuario'] = $this->session->userdata('IdUsuario');
-        $this->Mvehiculo->guardarVehiculo($vehiculo);
-    }
-
-    private function setPrerevision() {
-        
-    }
-
-    public function nuevo() {
-        $this->session->unset_userdata('numero_placa');
-    }
-
-    public function consultaRuntTask() {
-        $encrptopenssl = New Opensslencryptdecrypt();
-        $json = $encrptopenssl->decrypt(file_get_contents('system/oficina.json', true), true);
-        $ofc = json_decode($json, true);
-        foreach ($ofc as $d) {
-            $data[$d['nombre']] = $d['valor'];
-        }
-        $this->load->view('oficina/vehiculo/consultaRuntTask', $data);
-    }
-
-    public function buscarVehCRT() {
-        $rta = $this->Mvehiculo->getXCRT();
-        if ($rta->num_rows() > 0) {
-            $v = $rta->result();
-            echo json_encode($v[0]);
-        } else {
-            echo '';
-        }
-    }
-
-    public function guardarCRT() {
-        $fechainicial = $this->input->post('fechainicial');
-        $data['idlinearunt'] = $this->input->post('idlinearunt');
-        $data['idcolorrunt'] = $this->input->post('idcolorrunt');
-        $data['numero_placa'] = $this->input->post('numero_placa');
-        $rta = $this->Mvehiculo->guardarCRT($data);
-//        var_dump($data);
-        if ($rta) {
-            echo $fechainicial . ' -> ' . $data['numero_placa'] . ": OK";
-        } else {
-            echo $fechainicial . ' -> ' . $data['numero_placa'] . ": ERROR";
-        }
-    }
-
-}
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
