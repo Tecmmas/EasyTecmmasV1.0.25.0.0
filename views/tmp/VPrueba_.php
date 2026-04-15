@@ -1,201 +1,41 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <script>
-        var entrada = new Array();
-        var ard, lea;
-        var marca, serie, ip;
-        var configuracion;
-
-        window.onload = function () {
-            getConfiguracion();
-            //leer();
-        };
-
-        function getConfiguracion() {
-            data = {
-                idconfiguracion: '1'
-            };
-            $.ajax({
-                url: "https://10.8.0.54:8091/atalaya/index.php/cget",
-                data: data,
-                type: 'post',
-                success: function (r) {
-                    if (r) {
-                        try {
-                            var d = JSON.parse(r);
-                            var dispositivo = d.dispositivo[0];
-                            // alert();
-                            $('#marca').text(dispositivo.marca);
-                            $('#serie').text(dispositivo.serie);
-                            $('#ip').text(dispositivo.ip);
-                            $('#ahora').text(d.ahora[0].ahora);
-                            configuracion = d.configuracion;
-                            var i;
-                            for (i = 0; i <= d.configuracion.length; i++) {
-                                $('#item' + d.configuracion[i].iditem).text(d.configuracion[i].val);
-                            }
-
-                            i = d = null;
-                        } catch (e) {
-                        }
-                    }
-                }
-            });
-        }
-        function iniciarArd() {
-            //  alert(configuracion[3].val);
-            lea = true;
-            ard = new Worker(leerArd());
-
-        }
-
-        function leerArd() {
-            data = {
-                ip: $("#ip").text()
-            };
-            $.ajax({
-                url: "<?php echo base_url() ?>index.php/Cmodbus/leer",
-                data: data,
-                type: 'post',
-                success: function (r) {
-                    if (r) {
-                        try {
-                            var d = JSON.parse(r);
-                            var i;
-                            for (i = 0; i <= d.address; i++) {
-                                entrada[i] = d.result[i].dato;
-                            }
-                            document.getElementById("alineacion").innerHTML = entrada[$('#item3').text()];
-                            document.getElementById("sensor").innerHTML = entrada[$('#item8').text()];
-                            i = d = null;
-                        } catch (e) {
-                        }
-                    }
-                }
-            });
-            if (lea) {
-                setTimeout("leerArd()", $('#item9').text());
-            } else {
-                ard.terminate();
-            }
-
-        }
-
-        function escribirArd() {
-            data = {
-                response: $("#response").val(),
-                valor: $("#valor").val()
-            };
-            $.ajax({
-                url: "<?php echo base_url() ?>index.php/Cmodbus/escribir",
-                data: data,
-                type: 'post'
-            });
-        }
-
-        function terminarArd() {
-            lea = false;
-        }
-
-
-    </script>
-    <body>
-<!--        <table border="1" id="table_lectura">
-            <tr>
-                <td>Rspse</td>
-                <td>Valor</td>
-            </tr>
-        <?php
-//            for ($i = 0; $i <= 29; $i++) {
-//                echo "<tr><td>r$i</td>";
-//                echo "<td><label id='r$i'></label></td></tr>";
-//            }
-        ?>
-        </table>
-        <input id="response" type="number" />
-        <input id="valor" type="number" />
-        <input type="submit" onclick="escribirArd()" value="Enviar" /><br>
-        
-        <input type="submit" onclick="mostrar()" value="Mostrar" />-->
-        <h2>Servicio de alineación</h2>
-        <table style="width: 100%">
-            <tr>
-                <td><h3>Informacion del dispostivo</h3></td>
-                <td><h3>Configuración</h3></td>
-            </tr>
-            <tr>
-                <td><table>
-                        <tr>
-                            <td><strong>Marca: </strong></td>
-                            <td><p id="marca"></p></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Serie: </strong></td>
-                            <td><p id="serie"></p></td>
-                        </tr>
-                        <tr>
-                            <td><strong>IP: </strong></td>
-                            <td><p id="ip"></p></td>
-                        </tr>
-                    </table></td>
-                <td><table>
-                        <tr>
-                            <td><strong>Entrada analógica: </strong></td>
-                            <td><p id="item3"></p></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Entrada digital: </strong></td>
-                            <td><p id="item4"></p></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Divisor de entrada: </strong></td>
-                            <td><p id="item5"></p></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Punto cero: </strong></td>
-                            <td><p id="item6"></p></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Ciclos: </strong></td>
-                            <td><p id="item7"></p></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Response: </strong></td>
-                            <td><p id="item8"></p></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Velocidad lectura: </strong></td>
-                            <td><p id="item9"></p></td>
-                        </tr>
-                    </table></td>
-            </tr>
-        </table>
-
-        <h3>Lectura</h3>
-        <table style="width: 100%">
-            <tr>
-                <td><strong>Sensor: </strong></td>
-                <td><p id="sensor"></p></td>
-            </tr>
-            <tr>
-                <td><strong>Alineacion: </strong></td>
-                <td><p id="alineacion"></p></td>
-            </tr>
-        </table>
-        <input type="submit" onclick="iniciarArd()" value="Iniciar" />
-        <input type="submit" onclick="terminarArd()" value="Terminar" /></br>
-        <strong>Fecha de consulta: </strong>
-        <p id="ahora"></p>
-        <script src="<?php echo base_url(); ?>assets/js/jquery-3.2.1.min.js" type="text/javascript"></script> 
-
-    </body>
-</html>
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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

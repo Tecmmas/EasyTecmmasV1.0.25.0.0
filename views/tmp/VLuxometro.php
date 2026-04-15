@@ -1,121 +1,35 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-
-
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <script type="text/javascript">
-        var ard, lea;
-        var entrada = new Array();
-        var trama = new Array();
-        var inicio = false;
-        var indTrama;
-        var rdTrama;
-        window.onload = function () {
-            lea = true;
-            ard = new Worker(leerArd());
-
-            indTrama = 0;
-            escribirArd(23, 18);
-            escribirArd(24, 2);
-            escribirArd(25, 1);
-            escribirArd(21, 0);
-            escribirArd(22, 0);
-        };
-        function leerArd() {
-            data = {
-                ip: '0'
-            };
-            $.ajax({
-                url: "<?php echo base_url() ?>index.php/Cmodbus/leer",
-                data: data,
-                type: 'post',
-                success: function (r) {
-                    if (r) {
-                        try {
-                            var d = JSON.parse(r);
-                            var i;
-                            for (i = 0; i <= d.address; i++) {
-                                entrada[i] = d.result[i].dato;
-//                                document.getElementById("id" + i).innerHTML = entrada[i];
-                            }
-
-                            if (entrada[21] === 1 && !inicio) {
-                                inicio = true;
-                                rdTrama = new Worker(leerTrama());
-                            }
-                            i = d = null;
-                        } catch (e) {
-                        }
-                    }
-                }
-            });
-            if (lea) {
-                setTimeout("leerArd()", 80);
-            } else {
-                ard.terminate();
-            }
-        }
-
-        function leerTrama() {
-
-            indTrama++;
-            escribirArd(25, indTrama);
-            if (indTrama === entrada[21]) {
-                document.getElementById("id" + indTrama).innerHTML = entrada[21] + "-" + entrada[22];// + "-" + charCodeAt(entrada[22]);
-            } else {
-                indTrama--;
-            }
-
-
-
-            if (entrada[21] === 18) {
-                indTrama = 0;
-                rdTrama.terminate();
-            } else {
-                setTimeout("leerTrama()",100);
-            }
-
-        }
-
-        function sleep(milliseconds) {
-            var start = new Date().getTime();
-            for (var i = 0; i < 1e7; i++) {
-                if ((new Date().getTime() - start) > milliseconds) {
-                    break;
-                }
-            }
-        }
-
-
-        function escribirArd(response, valor) {
-            data = {
-                response: response,
-                valor: valor
-            };
-            $.ajax({
-                url: "<?php echo base_url() ?>index.php/Cmodbus/escribir",
-                data: data,
-                type: 'post'
-            });
-        }
-    </script>
-    <body>
-
-
-        <?php
-        for ($i = 1; $i <= 19; $i++) {
-            echo "<p id='id$i'></p>";
-        }
-        ?>
-        <script src="<?php echo base_url(); ?>assets/js/jquery-3.2.1.min.js" type="text/javascript"></script> 
-    </body>
-
-</html>
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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

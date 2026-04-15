@@ -1,618 +1,130 @@
-<?php $this->load->view('././header'); ?>
-<script type="text/javascript">
-
-</script>
-<!-- START CONTENT -->
-<section id="main-content" class=" ">
-    <section class="wrapper main-wrapper row" style=''>
-        <div class='col-12'>
-            <div class="page-title">
-                <div class="float-left">
-                    <!-- PAGE HEADING TAG - START -->
-                    <h4 class="title">FORMATO UNIFORME RTMEC, PREVENTIVAS Y PRUEBAS LIBRES</h4><!-- PAGE HEADING TAG - END -->
-                </div>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-        <!-- MAIN CONTENT AREA STARTS -->
-        <div class="col-xl-12">
-            <section class="box ">
-                <header class="panel_header">
-                    <h4 class="title float-left">Generación de formatos</h4>
-                </header>
-                <div class="content-body">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-12">
-                            <section class="box ">
-                                <header class="panel_header">
-                                    <h2 class="title float-left">buscador</h2>
-                                </header>
-
-                                <div class="content-body">
-                                    <form action="<?php echo base_url(); ?>index.php/oficina/informes/CFur/consultar" method="post">
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <label style="font-weight: bold;color: black" for="placa">PLACA<br />
-                                                    <input type="text" name="placa" id="placa" class="input" style="font-size: 15px;height: 37px" size="15" value="<?php
-                                                                                                                                                                    if (isset($placa)) {
-                                                                                                                                                                        echo $placa;
-                                                                                                                                                                    }
-                                                                                                                                                                    ?>" />
-                                                </label>
-                                            </div>
-                                            <div class="col-3">
-                                                <p class="submit">
-                                                    <input type="submit" name="consultar" id="wp-submit" class="btn btn-accent btn-block" onclick="showSuccess('Generando el informe, por favor espere.')" style="background-color: #393185;border-radius: 40px 40px 40px 40px" value="Consultar" />
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <form action="<?php echo base_url(); ?>index.php/oficina/fur/CFUR" method="post">
-                                        <input type="hidden" name="desdeConsulta" value="true" />
-                                        <div class="col-12">
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        Tamaño hoja
-                                                    </td>
-                                                    <td>
-                                                        <select name="tamano" class="form-control input-lg m-bot15">
-                                                            <option value="oficio" selected>Oficio</option>
-                                                            <option value="carta">Carta</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        Medio
-                                                    </td>
-                                                    <td>
-                                                        <select name="medio" id="medioSelect" class="form-control input-lg m-bot15" onchange="guardarMedio()">
-                                                            <option value="0" selected>Impreso</option>
-                                                            <option value="1">Digital</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Id Control</th>
-                                                        <th>Placa</th>
-                                                        <th>Tipo</th>
-                                                        <th>Fecha inicial</th>
-                                                        <th>Fecha final</th>
-                                                        <th>Generar</th>
-                                                        <th>Email</th>
-                                                        <th>Primer envio sicov</th>
-                                                        <th>Envio runt</th>
-                                                        <th>Firma digital</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    if (isset($formatos)) {
-                                                        foreach ($formatos->result() as $p) {
-                                                    ?>
-                                                            <tr>
-                                                                <td><?php echo $p->idcontrol; ?></td>
-                                                                <th><?php echo $p->placa; ?></th>
-                                                                <th><?php echo $p->tipo; ?></th>
-                                                                <th><?php echo $p->fechainicial; ?></th>
-                                                                <th><?php echo $p->fechafinal; ?></th>
-                                                                <th><?php echo $p->btnFur; ?></th>
-                                                                <th><?php echo $p->btnEmail; ?></th>
-                                                                <th><?php echo $p->btnPrimerEnvio; ?></th>
-                                                                <th><?php echo $p->btnConsecutivo; ?></th>
-                                                                <th><?php echo $p->btnFirmaDigital; ?></th>
-                                                            </tr>
-                                                    <?php
-                                                        }
-                                                    }
-                                                    ?>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                    </form>
-                                </div>
-
-                            </section>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- MAIN CONTENT AREA ENDS -->
-    </section>
-</section>
-<div class="modal" id="envioEmail" s tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog animated bounceInDown">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="titulo_">ENVIO DE FORMATO</h4>
-            </div>
-            <div class="modal-body" style="background: whitesmoke">
-                <label id="mensaje" style="background: white;
-                       width: 100%;
-                       text-align: center;
-                       font-weight: bold;
-                       font-size: 15px;
-                       padding: 5px;border: solid gray 2px;
-                       border-radius:  15px 15px 15px 15px;color: gray">Bienvenido</label>
-                <br>
-                <table class="table">
-                    <tr>
-                        <td style="text-align: right">Email</td>
-                        <td colspan="3" style="text-align: left;padding-left: 10px">
-                            <input id="datEmail" type="email" class="form-control" />
-                        </td>
-                    </tr>
-
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button data-dismiss="modal" id="cancelar" class="btn btn-default" type="button">Cancelar</button>
-                <button class="btn btn-success" id="btnEnviar" type="submit" onclick="enviarEmailData()">Enviar</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal" id="guardarConsecutivo" s tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog animated bounceInDown">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="titulo_">ENVIO DE CONSECUTIVO RUNT</h4>
-            </div>
-            <div class="modal-body" style="background: whitesmoke">
-                <label id="mensaje" style="background: white;
-                       width: 100%;
-                       text-align: center;
-                       font-weight: bold;
-                       font-size: 15px;
-                       padding: 5px;border: solid gray 2px;
-                       border-radius:  15px 15px 15px 15px;color: gray">Bienvenido</label>
-                <br>
-                <table class="table">
-                    <tr>
-                        <td style="text-align: right">Consecutivo runt</td>
-                        <td colspan="3" style="text-align: left;padding-left: 10px">
-                            <input id="consecutivoRunt" type="number" class="form-control" onchange="guardarConsecutivo(this)">
-                        </td>
-                    </tr>
-
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button data-dismiss="modal" id="cancelarEnvioRunt" class="btn btn-default" type="button">Cancelar</button>
-                <button class="btn btn-success" id="btnEnviarConsecutivoRunt" type="submit" onclick="opcionEnvio(event,this.value,2)">Enviar</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal" id="modalFirmaFur" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog animated bounceInDown">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Firmar el fur</h4>
-            </div>
-            <div class="modal-body" style="background: whitesmoke">
-                <div style="border: solid 2px; background-color:  white; width: 450px;">
-                    <div id="root"></div>
-                    <br>
-                    <label id="mesajeFirma"></label>
-                    <img id="image1" class="image full-width" />
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button style="background-color: #a3e4d7;" class="btn btn-default" type="button" id="resetCanvas">Limpiar firma</button>
-                <button class="btn btn-success" type="button" id="getFirma">Guardar</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- END CONTENT -->
-
-
-<?php $this->load->view('././footer'); ?>
-
-
-<script type="text/javascript">
-    var envioCorreo = '<?php
-                        if (isset($envioCorreo)) {
-                            echo $envioCorreo;
-                        } else {
-                            echo '0';
-                        }
-                        ?>';
-    var firmaDigital = "<?php
-                        echo $this->session->userdata('firmaDigital');
-                        ?>";
-    var idhojaprueba = 0;
-    var reins = 0;
-    var datos = "";
-
-    document.addEventListener('DOMContentLoaded', cargarMedioGuardado);
-
-    function guardarMedio() {
-        const select = document.getElementById('medioSelect');
-        const valorSeleccionado = select.value;
-
-        // Guardar en localStorage
-        localStorage.setItem('medioPreferido', valorSeleccionado);
-
-        console.log('Medio guardado:', valorSeleccionado);
-    }
-
-    function cargarMedioGuardado() {
-        const medioGuardado = localStorage.getItem('medioPreferido');
-
-        if (medioGuardado !== null) {
-            const select = document.getElementById('medioSelect');
-
-            // Establecer el valor guardado
-            select.value = medioGuardado;
-
-            console.log('Medio cargado desde localStorage:', medioGuardado);
-        }
-    }
-
-
-
-    function emailFur(event, value, title) {
-        event.preventDefault();
-        $('#datEmail').val(title);
-        var dato = value.split('-');
-
-        idhojaprueba = dato[0];
-        reins = dato[1];
-
-        datos = idhojaprueba + "-" + reins + "-0-1";
-    }
-
-    var crearModalFirma = function(event, value) {
-        event.preventDefault();
-        var dato = value.split('-');
-
-        idhojaprueba = dato[0];
-        reins = dato[1];
-
-
-        if (firmaDigital == 1) {
-            const image1 = document.getElementById("image1")
-            image1.src = "";
-            getFirmaFur();
-            $("#resetCanvas").click();
-            $("#root").html("");
-            const root = document.getElementById("root")
-            const resetCanvas = document.getElementById("resetCanvas")
-            const getImage = document.getElementById("getFirma")
-
-            // Call signature with the root element and the options object, saving its reference in a variable
-            const component = Signature(root, {
-                value: [],
-                width: 450,
-                height: 200,
-                instructions: "Por favor ingrese la firma"
-            });
-            //$("#modalFirmaFur").modal("show");
-
-            resetCanvas.addEventListener("click", () => {
-                component.value = [];
-            });
-
-            getImage.addEventListener("click", () => {
-                //getImage.nextElementSibling.src = component.getImage();
-                firma = component.getImage();
-                guardarFirma(firma);
-                // image1.src = img.trim();
-
-            });
-        } else {
-            Swal.fire({
-                title: '<div style="font-size:15px;">Activación</div>',
-                html: "<div style='font-size:15px;'>Este servicio requiere activación para mas información, comuniquese con el area de soporte.</div>",
-                icon: 'info',
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Aceptar',
-                allowOutsideClick: false
-            })
-        }
-    }
-
-    var guardarFirma = function(firma) {
-        const image1 = document.getElementById("image1")
-        $.ajax({
-            url: '<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/guardarFirmaDigital',
-            type: 'post',
-            data: {
-                firma: firma,
-                idhojapruebas: idhojaprueba + '-' + reins,
-                reinspeccion: reins
-            },
-            success: function(rta) {
-                //$("#modalFirmaFur").modal("hide");
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Firma guardada",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                image1.src = firma;
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                Swal.fire({
-                    title: '<div style="font-size:15px;">No se pudo guardar la firma</div>',
-                    html: "<div style='font-size:15px;'>Comuniquese con el area de soporte.</div>",
-                    icon: 'info',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'Aceptar',
-                    allowOutsideClick: false
-                })
-
-            }
-        });
-    }
-
-    var getFirmaFur = function() {
-        const image1 = document.getElementById("image1")
-        $.ajax({
-            url: '<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/getFirmaFur',
-            type: 'post',
-            data: {
-                idhojapruebas: idhojaprueba + '-' + reins
-            },
-            success: function(rta) {
-                if (rta == "NA") {
-                    // Swal.fire({
-                    //     title: '<div style="font-size:15px;">Fur sin firma</div>',
-                    //     html: "<div style='font-size:15px;'>Este fur no tiene asociada ninguna firma digital.</div>",
-                    //     icon: 'info',
-                    //     confirmButtonColor: '#3085d6',
-                    //     confirmButtonText: 'Aceptar',
-                    //     allowOutsideClick: false
-                    // })
-                } else {
-                    $("#mesajeFirma").text("Firma ya registrada")
-                    image1.src = rta;
-                }
-
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                Swal.fire({
-                    title: '<div style="font-size:15px;">No se pudo guardar la firma</div>',
-                    html: "<div style='font-size:15px;'>Comuniquese con el area de soporte.</div>",
-                    icon: 'info',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'Aceptar',
-                    allowOutsideClick: false
-                })
-
-            }
-        });
-    }
-
-
-    $('#btnEnviarRunt').click(function(e) {
-        e.preventDefault();
-        var idht = $('#btnEnviarRunt').val().split('-');
-        $.ajax({
-            url: '<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/consultarConsecutivo',
-            type: 'post',
-            data: {
-                idhojapruebas: idht[0]
-            },
-            async: false,
-            mimeType: 'json',
-            success: function(rta) {
-                if (rta !== "") {
-                    if (idht[0] == 0) {
-                        if (rta.consecutivo_runt !== "") {
-                            $("#consecutivoRunt").val(rta.consecutivo_runt);
-                            document.getElementById("consecutivoRunt").disabled = true
-                        } else if (rta.consecutivo_runt_rechazado !== "") {
-                            $("#consecutivoRunt").val(rta.consecutivo_runt_rechazado);
-                            document.getElementById("consecutivoRunt").disabled = true
-                        }
-                    } else {
-                        if (rta.consecutivo_runt !== "") {
-                            $("#consecutivoRunt").val(rta.consecutivo_runt);
-                            document.getElementById("consecutivoRunt").disabled = true
-                        }
-                    }
-
-                }
-
-            }
-        });
-        document.getElementById("btnEnviarConsecutivoRunt").value = $('#btnEnviarRunt').val();
-    })
-
-    var guardarConsecutivo = function(e) {
-
-        var idht = $('#btnEnviarRunt').val().split('-');
-        var data = {
-            idhojapruebas: idht[0],
-            consecutivorunt: e.value,
-            reinspeccion: idht[1]
-        };
-        if (idht[2] == 2 || idht[2] == 4) {
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/guardarConsecutivoAprobado',
-                type: 'post',
-                data: data,
-                async: false,
-                success: function(rta) {
-                    //                                                                    console.log(rta);
-                }
-            });
-        } else {
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/guardarConsecutivoRechazado',
-                type: 'post',
-                data: data,
-                async: false
-            });
-        }
-
-    };
-
-
-    function enviarEmailData() {
-        var emaild = $('#datEmail').val();
-        if (envioCorreo === "1") {
-            document.getElementById('btnEnviar').disabled = true;
-            $('#mensaje').html('Enviado Información, por favor espere.');
-            //        console.log(emaild, idpred);
-            if ((idhojaprueba === null || idhojaprueba === "") || (emaild === null || emaild === "")) {
-                $('#cancelar').click();
-                Swal.fire({
-                    icon: 'error',
-                    text: 'Campo email vacio.'
-                });
-            } else {
-                $.ajax({
-                    url: '<?php echo base_url(); ?>index.php/oficina/fur/CFUR',
-                    type: 'post',
-                    data: {
-                        dato: datos,
-                        email: emaild
-                    },
-                    success: function(data, textStatus, jqXHR) {
-                        var v = 0;
-                        //                        if (document.getElementById('email_prerevision').checked) {
-                        //                            v = enviarPrerevision(emaild);
-                        //                        }
-                        $('#cancelar').click();
-                        if (v == 1 || data == 1) {
-                            Swal.fire({
-                                icon: 'success',
-                                text: 'Email enviado con exito.'
-                            });
-                        }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        $('#cancelar').click();
-                        Swal.fire({
-                            icon: 'error',
-                            html: 'No se pudo enviar el email.<br>' + jqXHR,
-                        })
-                    }
-                })
-            }
-        } else {
-            $('#cancelar').click();
-            Swal.fire({
-                icon: 'error',
-                html: 'Apreciado usuario, usted no tiene habilitado este módulo de envío. por favor comuníquese con TECMMAS SAS<br>',
-            });
-        }
-
-    }
-
-    function opcionEnvio(ev, value, tipoEnvio) {
-        ev.preventDefault();
-        $("#cancelarEnvioRunt").click();
-        var dato = value.split('-');
-        idhojaprueba = dato[0];
-        reins = dato[1];
-        Swal.fire({
-            title: '¿Esta seguro de enviar la información?',
-            html: "Usted está a punto de realizar un envío a sicov, tenga en cuenta que deberá tener la autorización brindada por sicov, de lo contrario puede generar errores.",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Aceptar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                enviarASICOV(idhojaprueba, tipoEnvio, reins);
-                //                Swal.fire(
-                //                        'Deleted!',
-                //                        'Your file has been deleted.',
-                //                        'success'
-                //                        )
-            }
-        })
-    }
-
-    var enviarASICOV = function(idhojaprueba, tipoEnvio, reins) {
-        var segundos = 2;
-        var proceso = setInterval(function() {
-            if (segundos === 0) {
-                clearInterval(proceso);
-
-                var data = {
-                    envioSicov: 'true',
-                    dato: idhojaprueba + '-' + reins,
-                    envio: tipoEnvio,
-                    IdUsuario: '1',
-                    ocacion: reins,
-                    sicovModoAlternativo: localStorage.getItem("sicovModoAlternativo")
-
-                };
-                $.ajax({
-                    url: '<?php echo base_url(); ?>index.php/oficina/fur/CFUR',
-                    type: 'post',
-                    data: data,
-                    async: false,
-                    success: function(rta) {
-
-                        var dat = rta.split('|');
-                        console.log(dat[0])
-                        if (dat[1] === '0000' || dat[1] === '1' || dat[1] === '5') {
-                            var segundos = 3;
-                            // var proceso = setInterval(function() {
-                            //                                $('#mensajeSicov').text("Mensaje de SICOV: " + dat[0] + ". Detalles en el visor.");
-                            //                                document.getElementById('mensajeSicov').style.color = 'green';
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'success',
-                                title: 'Respuesta',
-                                text: "Mensaje de SICOV: " + dat[0] + ". Detalles en el visor.",
-                                showConfirmButton: false,
-                                //                                    timer: 2500
-                            });
-                            //                                if (segundos === 0) {
-                            //                                    clearInterval(proceso);
-                            //                                    window.location.replace("<?php echo base_url(); ?>index.php/oficina/CGestion");
-                            //                                }
-                            segundos--;
-                            //}, 1000);
-                        } else {
-                            var segundos = 3;
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'error',
-                                title: 'Error',
-                                text: "Mensaje de SICOV: " + dat[0] + ". Detalles en el visor.",
-                                showConfirmButton: false,
-                                //                                timer: 2500
-                            });
-                            //                            $('#mensajeSicov').text("Mensaje de SICOV: " + dat[0] + ". Detalles en el visor.");
-                            //                            document.getElementById('mensajeSicov').style.color = 'salmon';
-                            //                            var proceso = setInterval(function () {
-                            //                                if (segundos === 0) {
-                            //                                    clearInterval(proceso);
-                            //                                    window.location.replace("<?php echo base_url(); ?>index.php/oficina/CGestion");
-                            //                                }
-                            //                                segundos--;
-                            //                            }, 1000);
-                        }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log(jqXHR)
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error de envio',
-                            html: 'No se pudo enviar la información.<br>' + jqXHR.responseText,
-                        })
-                    }
-                });
-            }
-            segundos--;
-        }, 500);
-
-    }
-</script>
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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

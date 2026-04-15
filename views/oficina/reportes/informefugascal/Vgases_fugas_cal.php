@@ -1,218 +1,78 @@
-<?php $this->load->view('./header'); ?>
-
-<!-- START CONTENT -->
-<style>
-    .select-css {
-        display: block;
-        font-size: 16px;
-        font-family: 'Arial', sans-serif;
-        font-weight: 400;
-        color: #444;
-        line-height: 1.3;
-        padding: .4em 1.4em .3em .8em;
-        width: 450px;
-        max-width: 100%; 
-        box-sizing: border-box;
-        margin: 0;
-        border: 1px solid #aaa;
-        box-shadow: 0 1px 0 1px rgba(0,0,0,.03);
-        border-radius: .3em;
-        -moz-appearance: none;
-        -webkit-appearance: none;
-        appearance: none;
-        background-color: #fff;
-        background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
-            linear-gradient(to bottom, #ffffff 0%,#f7f7f7 100%);
-        background-repeat: no-repeat, repeat;
-        background-position: right .7em top 50%, 0 0;
-        background-size: .65em auto, 100%;
-    }
-    .select-css::-ms-expand {
-        display: none;
-    }
-    .select-css:hover {
-        border-color: #888;
-    }
-    .select-css:focus {
-        border-color: #aaa;
-        box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
-        box-shadow: 0 0 0 3px -moz-mac-focusring;
-        color: #222; 
-        outline: none;
-    }
-    .select-css option {
-        font-weight:normal;
-    }
-</style>
-<section id="main-content" class=" ">
-    <section class="wrapper main-wrapper row">
-
-        <!-- MAIN CONTENT AREA STARTS -->
-        <div class="col-xl-12">
-            <section class="box ">
-                <?php $this->load->view('./nav'); ?>
-                <div class="content-body">  
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                            <section class="box ">
-
-                                <header class="panel_header">
-                                    <h2 class="title pull-left">Analizador de gases</h2>
-                                </header>
-                                <div class="content-body">    
-                                    <div class="row">
-                                        <form action="<?php echo base_url(); ?>index.php/oficina/reportes/informefugascal/Cinformes/gases_opa_data" method="post">
-                                            <div class="col-xs-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="field-1">Seleccione el equipo</label>
-                                                    <div class="controls">
-                                                        <select class="select-css" name='idmaquina' id="idmaquina">
-                                                            <option disabled="disabled" selected="selected">Seleccione el equipo</option>
-                                                            <?php foreach ($maquina as $item): ?>
-                                                                <?php if ($item->prueba == 'analizador' && $item->activo == 1) { ?>
-                                                                    <option value="<?= $item->idconf_maquina ?>"><?= $item->nombre . '-' . $item->marca . '-' . $item->serie_maquina . '-' . $item->serie_banco ?></option>
-                                                                <?php }; ?>
-                                                            <?php endforeach; ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="form-label" for="field-2">Tipo de reporte</label>
-                                                    <div class="controls">
-                                                        <select class="select-css" name='tipo_reporte' id="tipo_reporte" disabled>
-                                                            <option disabled="disabled" selected="selected">Seleccione el reporte</option>
-                                                            <option value="1">Calibración</option>
-                                                            <option value="2">Fugas</option>
-                                                            <option value="3">Verificación</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="form-label" for="field-3" >Fecha</label>
-                                                    <div class="controls">
-                                                        <select class="select-css" name="idcontrol_fug_cal" id="fecha">
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <br>
-                                            </div>
-                                            <input type="submit" name="consultar" id="btn-generar-carder" class="btn btn-accent btn-block" onclick="showSuccess('Generando el informe, por favor espere.')" formtarget="_blank" style="background-color: #393185;border-radius: 40px 40px 40px 40px" value="Generar">
-                                        </form>
-                                    </div>
-                            </section>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <section class="box ">
-                                <header class="panel_header">
-                                    <h2 class="title pull-left">Opacidad</h2>
-                                </header>
-                                <div class="content-body">    
-                                    <div class="row">
-                                        <form action="<?php echo base_url(); ?>index.php/oficina/reportes/informefugascal/Cinformes/gases_opa_data" method="post">
-                                            <div class="col-xs-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="field-3">Seleccione el equipo</label>
-                                                    <div class="controls">
-                                                        <select class="select-css" name="idmaquina" id="idmaquinaopa">
-                                                            <option disabled="disabled" selected="selected">Seleccione el reporte</option>
-                                                            <?php foreach ($maquina as $item): ?>
-                                                                <?php if ($item->prueba == 'opacidad' && $item->activo == 1) { ?>
-                                                                    <option value="<?= $item->idconf_maquina ?>"><?= $item->nombre . '-' . $item->marca . '-' . $item->serie_maquina . '-' . $item->serie_banco ?></option>
-                                                                <?php }; ?>
-                                                            <?php endforeach; ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="form-label" for="field-3">Tipo reporte</label>
-                                                    <div class="controls">
-                                                        <select class="select-css" name="tipo_reporte" id="tipo_reporte">
-                                                            <option disabled="disabled" selected="selected">Seleccione el reporte</option>
-                                                            <option value="4">Linealidad</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="form-label" for="field-3">Fecha</label>
-                                                    <div class="controls">
-                                                        <select class="select-css" name="fecha" id="fechalinealidad">
-                                                            <option value="2020-11-22 1:13">2020-11-22 1:13</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <br>
-                                            </div>
-                                            <input type="submit" name="consultar" id="btn-generar-carder" class="btn btn-accent btn-block" onclick="showSuccess('Generando el informe, por favor espere.')" formtarget="_blank" style="background-color: #393185;border-radius: 40px 40px 40px 40px" value="Generar">
-                                        </form>
-                                    </div>
-                                </div>
-
-                            </section>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-        <!-- MAIN CONTENT AREA ENDS -->
-    </section>
-</section>
-<!-- END CONTENT -->
-<?php $this->load->view('./footer'); ?>
-
-<script type="text/javascript">
-    $('#idmaquina').change(function (ev) {
-        ev.preventDefault();
-//        alert('maquina')
-        var idmaquina = $('#idmaquina option:selected').attr('value');
-        if (typeof (Storage) !== "undefined") {
-            // Store
-            localStorage.setItem("idmaquina", idmaquina);
-        } else {
-            console.log('No se encuentra el id')
-        }
-        $('#tipo_reporte').prop('selectedIndex', 0);
-        $('#tipo_reporte').removeAttr('disabled');
-    });
-    $('#tipo_reporte').change(function (ev) {
-        ev.preventDefault();
-        var idmaquina = localStorage.getItem('idmaquina');
-        var idreporte = $('#tipo_reporte option:selected').attr('value');
-        $('#fecha').empty();
-//        console.log('reporte:', idreporte, 'maquina:', idmaquina)
-        $.ajax({
-            type: 'POST',
-            url: 'Cinformes/carga_select',
-            mimeType: 'json',
-            data: {idreporte: idreporte,
-                idmaquina: idmaquina},
-            success: function (data, textStatus, jqXHR) {
-                switch (idreporte) {
-                    case '1':
-                        $.each(data, function (i, data) {
-                            var fechacal = (data.fecha);
-                            var idcal = (data.idcontrol_calibracion);
-                            $('#fecha').append('<option value="' + idcal + '">' + fechacal + '</option>');
-                        });
-                        break;
-                    case '2':
-                        $.each(data, function (i, data) {
-                            var fechacal = (data.fecha);
-                            var idcal = (data.idcontrol_fugas);
-                            $('#fecha').append('<option value="' + idcal + '">' + fechacal + '</option>');
-                        });
-                        break;
-                    case '3':
-                        alert(data);
-                        break;
-                    default:
-                        alert('Reporte no seleccionado');
-                        break;
-                }
-//                
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-
-            }
-        });
-    });
-</script>
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+MF7HVSrAs4DUo+TE+cUhFsbcgrI/vQK=

@@ -1,269 +1,98 @@
-
-<!DOCTYPE html>
-<html class=" ">
-    <head>
-
-        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-        <meta charset="utf-8" />
-        <title>Registo entrada</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <meta content="" name="description" />
-        <meta content="" name="author" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-        <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png" type="image/x-icon" />    <!-- Favicon -->
-        <link rel="apple-touch-icon-precomposed" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-57-precomposed.png">	<!-- For iPhone -->
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-114-precomposed.png">    <!-- For iPhone 4 Retina display -->
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-72-precomposed.png">    <!-- For iPad -->
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-144-precomposed.png">    <!-- For iPad Retina display -->
-
-        <!-- CORE CSS FRAMEWORK - START -->
-        <link href="<?php echo base_url(); ?>assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <!-- <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/> -->
-        <link href="<?php echo base_url(); ?>assets/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/css/animate.min.css" rel="stylesheet" type="text/css"/>
-        <!-- CORE CSS FRAMEWORK - END -->
-
-        <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - START --> 
-
-
-        <link href="<?php echo base_url(); ?>assets/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css" media="screen"/>
-
-        <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - END --> 
-
-
-        <!-- CORE CSS TEMPLATE - START -->
-        <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/css/responsive.css" rel="stylesheet" type="text/css"/>
-        <!-- CORE CSS TEMPLATE - END -->
-
-    </head>
-    <style>
-        th{
-            font-size: 12px;
-            background-color: #383085; color: white;
-            text-align: center;
-        }
-        td{
-            font-size: 12px;
-            text-align: center;
-        }
-        .select-css {
-            display: block;
-            font-size: 16px;
-            font-family: 'Arial', sans-serif;
-            /*font-weight: 400;*/
-            color: #444;
-            line-height: 1.3;
-            padding: .4em 1.4em .3em .8em;
-            width: 190px;
-            height: 35px;
-            max-width: 100%; 
-            box-sizing: border-box;
-            margin: 0;
-            border: 1px solid #aaa;
-            margin-top: 10px;
-
-            /*margin-left: 188px;*/
-            box-shadow: 0 1px 0 1px rgba(0,0,0,.03);
-            border-radius: .3em;
-            -moz-appearance: none;
-            -webkit-appearance: none;
-            appearance: none;
-            background-color: #fff;
-            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
-                linear-gradient(to bottom, #ffffff 0%,#f7f7f7 100%);
-            background-repeat: no-repeat, repeat;
-            background-position: right .7em top 50%, 0 0;
-            background-size: .65em auto, 100%;
-        }
-        .select-css::-ms-expand {
-            display: none;
-        }
-        .select-css:hover {
-            border-color: #888;
-        }
-        .select-css:focus {
-            border-color: #aaa;
-            box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
-            box-shadow: 0 0 0 3px -moz-mac-focusring;
-            color: #222; 
-            outline: none;
-        }
-        .select-css option {
-            font-weight:normal;
-        }
-
-    </style>
-    <!-- END HEAD -->
-
-    <!-- BEGIN BODY -->
-    <body class="login_page" style="background: white; width: 200%">
-        <div class="col-lg-12">
-            <!--<section class="box ">-->
-            <!--<div class="content-body"  style="background: black">-->    
-            <div class="row" >
-                <div class="col-lg-12 col-md-12 col-12" style="background: white; width: 200%">
-                    <section class="box ">
-                        <header class="panel_header">
-                            <h2 class="title float-left">Registro entrada</h2>
-                        </header>
-                        <div class="content-body">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <div  style="margin-top: 5px">
-                                            <label style="font-weight: bold; color: grey; align-content: center " for="nombres">Fecha inicial
-                                                <input type="text" class="form-control datepicker" id="fechainicial" name="fechainicial" data-format="yyyy-mm-dd " autocomplete="off" style="margin-top: 10px" placeholder="AAAA-MM-DD">
-                                            </label>
-                                            <label style="font-weight: bold; color: grey; align-content: center " for="nombres">Fecha final
-                                                <input type="text" class="form-control datepicker" id="fechafinal" name="fechafinal" data-format="yyyy-mm-dd " autocomplete="off" style="margin-top: 10px" placeholder="AAAA-MM-DD">
-                                            </label>
-                                            <label style="font-weight: bold; color: grey; align-content: center " for="nombres">Tipo inspección
-                                                <select class="select-css" name='idtipoInspeccion' id="idtipoInspeccion">
-                                                    <option selected="selected">Seleccione</option>
-                                                    <option value="1">Certificadas</option>
-                                                    <option value="2">Preventivas</option>
-                                                </select>
-                                            </label>
-
-                                            <input type="submit" id="btn-descargar-regsitro-entradas"  onclick="showSuccess('Descargando informe, por favor espere.')" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 150px; color: white" value="Descargar">
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-
-                            <strong id="Registros"></strong>
-                            <br>
-                            <table class="table table-bordered" id="table-registro">
-                                <thead>
-                                    <tr>
-                                        <th>Fecha</th>
-                                        <th>Documento P</th>
-                                        <th>Nombre P</th>
-                                        <th>Dirección P</th>
-                                        <th>Telefono P</th>
-                                        <th>Correo Propietario</th>
-                                        <th>Documento P</th>
-                                        <th>Nombre C</th>
-                                        <th>Dirección C</th>
-                                        <th>Telefono C</th>
-                                        <th>Correo Cliente</th>
-                                        <th>Placa</th>
-                                        <th>Tipo V</th>
-                                        <th>Servicio</th>
-                                        <th>Taxi</th>
-                                        <th>Tipo Inpesccion</th>
-                                        <th>Ocación</th>
-                                        <th>Enseñanza</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="body-reg">
-
-                                </tbody>
-                            </table>
-                        </div>
-                        <img src="<?php echo base_url(); ?>assets/images/logo.png" />
-                    </section>
-                </div>
-                <!--</div>-->
-            </div>
-            <!--</section>-->
-        </div>
-        <!-- MAIN CONTENT AREA ENDS -->
-        <!-- LOAD FILES AT PAGE END FOR FASTER LOADING -->
-
-
-        <!-- CORE JS FRAMEWORK - START --> 
-        <script src="<?php echo base_url(); ?>assets/js/jquery-3.2.1.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/js/popper.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/js/jquery.easing.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/pace/pace.min.js" type="text/javascript"></script>  
-        <script src="<?php echo base_url(); ?>assets/plugins/viewport/viewportchecker.js" type="text/javascript"></script>  
-        <script>window.jQuery || document.write('<script src="<?php echo base_url(); ?>assets/js/jquery-1.11.2.min.js"><\/script>');</script>
-        <!-- CORE JS FRAMEWORK - END --> 
-
-
-        <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START --> 
-
-        <script src="<?php echo base_url(); ?>assets/plugins/icheck/icheck.min.js" type="text/javascript"></script>
-        <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END --> 
-
-
-        <!-- CORE TEMPLATE JS - START --> 
-        <script src="<?php echo base_url(); ?>assets/js/scripts.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>application/libraries/table2csv/table2csv.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>application/libraries/sesion.js"  type="text/javascript"></script>
-        <!-- END CORE TEMPLATE JS - END --> 
-        <script type="text/javascript">
-                                                $(document).ready(function () {
-                                                    setInterval(function () {
-                                                        cargardatos();
-                                                    }, 2000);
-                                                    function cargardatos() {
-                                                        var fechainicial = $('#fechainicial').val();
-                                                        var fechafinal = $('#fechafinal').val();
-                                                        var idseleccion = $('#idtipoInspeccion option:selected').attr('value');
-                                                        $.ajax({
-                                                            url: '<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/registroentradaselect',
-                                                            type: 'post',
-                                                            mimeType: 'json',
-                                                            data: {fechainicial: fechainicial,
-                                                                fechafinal: fechafinal,
-                                                                idseleccion: idseleccion},
-                                                            success: function (data, textStatus, jqXHR) {
-                                                                $('#body-reg').html('');
-                                                                $('#Registros').html('');
-                                                                var c = 0;
-//                                                    console.log(data);
-                                                                $.each(data, function (i, data) {
-                                                                    c++;
-                                                                    $('#Registros').html('Numero de registros: ' + c);
-                                                                    var body = "<tr>";
-                                                                    body += "<td>" + data.Fecharegistro + "</td>";
-                                                                    body += "<td>" + data.Documentopropietario + "</td>";
-                                                                    body += "<td>" + data.Nombrepropietario + "</td>";
-                                                                    body += "<td>" + data.Direccionpropietario + "</td>";
-                                                                    body += "<td>" + data.Telefonopropietario + "</td>";
-                                                                    body += "<td>" + data.Correopropietario + "</td>";
-                                                                    body += "<td>" + data.Documentocliente + "</td>";
-                                                                    body += "<td>" + data.Nombrecliente + "</td>";
-                                                                    body += "<td>" + data.Direccioncliente + "</td>";
-                                                                    body += "<td>" + data.Telefonocliente + "</td>";
-                                                                    body += "<td>" + data.Correocliente + "</td>";
-                                                                    body += "<td>" + data.Placa + "</td>";
-                                                                    body += "<td>" + data.Tipovehiculo + "</td>";
-                                                                    body += "<td>" + data.Servicio + "</td>";
-                                                                    body += "<td>" + data.Taxi + "</td>";
-                                                                    body += "<td>" + data.Tipoinspeccion + "</td>";
-                                                                    body += "<td>" + data.Ocacion + "</td>";
-                                                                    body += "<td>" + data.Ensenanza + "</td>";
-                                                                    body += "</tr>";
-                                                                    $("#table-registro tbody").append(body);
-                                                                });
-                                                            }
-                                                        });
-                                                    }
-                                                });
-                                                $("#btn-descargar-regsitro-entradas").click(function () {
-                                                    $('#table-registro').table2csv({
-                                                        filename: 'Informe resgitro entradas.csv',
-                                                        separator: ';',
-                                                        newline: '\n',
-                                                        quoteFields: true,
-                                                        excludeColumns: '',
-                                                        excludeRows: '',
-                                                        trimContent: true
-                                                    });
-                                                }
-                                                );
-        </script>
-
-    </body>
-</html>
-
-
-
-
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+jRWiMcPQXtod6/QZmloYs0==

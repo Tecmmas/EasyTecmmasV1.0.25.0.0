@@ -1,579 +1,147 @@
-<?php
-
-$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-
-// set document information
-$pdf->SetCreator(PDF_CREATOR);
-$pdf->SetTitle($titulo);
-
-
-
-// set default header data
-//$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE . ' 006', PDF_HEADER_STRING);
-$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
-//$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-// set some language-dependent strings (optional)
-if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
-    require_once(dirname(__FILE__) . '/lang/eng.php');
-    $pdf->setLanguageArray($l);
-}
-
-$pdf->SetFont('dejavusans', '', 10);
-$pdf->AddPage();
-
-$red = array(255, 0, 0);
-$blue = array(0, 0, 200);
-$yellow = array(255, 255, 0);
-$green = array(0, 255, 0);
-$white = array(255);
-$black = array(0);
-
-$coords = array(0, 0, 1, 0);
-$pdf->LinearGradient(10, 10, 190, 2, $red, $blue, $coords);
-$html = <<<EOF
-    <table bgcolor="#cccccc">
-        <tr>
-        <td width="100%" height="105px" border="1">
-            <table>
-                <tr>
-                 <td width="50%" align="center"><br><br><img src="@$imagen->logo" style="width:220px;height:100px;"></td>
-                 <td width="290px" align="center"><br><br><label style="font-size:15px">$cda->nombre_cda</label><br>
-                                  <label style="font-size:12px">Nit: $cda->numero_id</label><br>
-                                  Tel: $sede->telefono_uno<br>
-                                   $sede->direccion<br>
-                                  $sede->ciudad-$sede->departamento<br>
-                </td>
-                </tr>
-            </table>
-        </td>
-        </tr>
-</table>
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-$html = <<<EOF
-
-        <label align="center" style="font-size:18px">$titulo</label><br>
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-$html = <<<EOF
-        <table border="1" cellspacing="2" cellpadding="1">
-    <tr>
-        <th bgcolor="#6773FE" align="center" colspan="2">Informacion de usuario</th>
-    </tr>
-    <tr>
-        <td>Usuario que genera el reporte:</td>
-        <td colspan="2">$usuariogeneracion</td>
-    </tr>
-    <tr>
-        <td>Fecha de generacion del reporte:</td>
-        <td colspan="2">$fechageneracion</td>
-    </tr>
-</table>
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-
-switch ($tipoinforme) {
-    case 1:
-        if ($cal->resultado == 'S') {
-            $resultadocal = '<td colspan = "2" align = "center" bgcolor = "#F9F774">Aprobado</td>';
-        }else{
-            $resultadocal = '<td colspan = "2" align = "center" bgcolor = "#E74C3C">Rechazado</td>';
-        }
-        $html = <<<EOF
-        
-        <table border="1" cellspacing="2" cellpadding="1">
-            <tr>
-                <th bgcolor="#6773FE"  align="center" colspan="2">Informacion de equipo</th>
-            </tr>
-            <tr>
-                <td>Marca:</td>
-                <td colspan="2">$marca</td>
-            </tr>
-            <tr>
-                <td>Modelo:</td>
-                <td colspan="2">$modelo</td>
-            </tr>
-            <tr>
-                <td>Serial:</td>
-                <td colspan="2">$serial</td>
-            </tr>
-            <tr>
-                <td>Pef:</td>
-                <td colspan="2">$cal->pef</td>
-            </tr>
-
-        </table>
-EOF;
-        $pdf->writeHTML($html, true, false, true, false, '');
-
-        $html = <<<EOF
-        
-<table border="1" cellspacing="2" cellpadding="1">
-    <tr>
-        <th bgcolor="#6773FE" align="center" colspan="2">Informacion de prueba</th>
-    </tr>
-    <tr>
-        <td bgcolor="#BFD0F5" align="center" >Parametro</td>
-        <td bgcolor="#BFD0F5" align="center" >Valor</td>
-    </tr>
-    <tr>
-        <td>Usuario que realizo la prueba:</td>
-        <td colspan="2">$nombreuser->nombre_user</td>
-    </tr>
-    <tr>
-        <td>Fecha de la prueba:</td>
-        <td colspan="2">$cal->fecha</td>
-    </tr>
-    <tr>
-        <th bgcolor="#6773FE" align="center" colspan="2">Span alto</th>
-    </tr>
-    <tr>
-        <td>Hc[ppm]:</td>
-        <td colspan="2">$cal->span_alto_hc</td>
-    </tr>
-    <tr>
-        <td>Co[%]:</td>
-        <td colspan="2">$cal->span_alto_co</td>
-    </tr>
-    <tr>
-        <td>Co2[%]:</td>
-        <td colspan="2">$cal->span_alto_co2</td>
-    </tr>
-    <tr>
-        <td>N:</td>
-        <td colspan="2">$n</td>
-    </tr>
-    <tr>
-        <th bgcolor="#6773FE" align="center" colspan="2">Span bajo</th>
-    </tr>
-    <tr>
-        <td>Hc[ppm]:</td>
-        <td colspan="2">$cal->span_bajo_hc</td>
-    </tr>
-    <tr>
-        <td>Co[%]:</td>
-        <td colspan="2">$cal->span_bajo_co</td>
-    </tr>
-    <tr>
-        <td>Co2[%]:</td>
-        <td colspan="2">$cal->span_bajo_co2</td>
-    </tr>
-    <tr>
-        <td>N:</td>
-        <td colspan="2">$n</td>
-    </tr>
-    <tr>
-        <th bgcolor="#6773FE" align="center" colspan="2">Calibracion alto</th>
-    </tr>
-    <tr>
-        <td>Hc[ppm]:</td>
-        <td colspan="2">$cal->cal_alto_hc</td>
-    </tr>
-    <tr>
-        <td>Co[%]:</td>
-        <td colspan="2">$cal->cal_alto_co</td>
-    </tr>
-    <tr>
-        <td>Co2[%]:</td>
-        <td colspan="2">$cal->cal_alto_co2</td>
-    </tr>
-    <tr>
-        <td>N:</td>
-        <td colspan="2">$n</td>
-    </tr>
-    <tr>
-        <th bgcolor="#6773FE" align="center" colspan="2">Calibracion baja</th>
-    </tr>
-    <tr>
-        <td>Hc[ppm]:</td>
-        <td colspan="2">$cal->cal_bajo_hc</td>
-    </tr>
-    <tr>
-        <td>Co[%]:</td>
-        <td colspan="2">$cal->cal_bajo_co</td>
-    </tr>
-    <tr>
-        <td>Co2[%]:</td>
-        <td colspan="2">$cal->cal_bajo_co2</td>
-    </tr>
-    <tr>
-        <td>N:</td>
-        <td colspan="2">$n</td>
-    </tr>
-    <tr>
-        <td bgcolor="#6773FE">Resultado:</td>
-        $resultadocal
-    </tr>
-</table>
-EOF;
-
-        $pdf->writeHTML($html, true, false, true, false, '');
-
-        break;
-    case 2:
-        if ($fug->aprobado == 'S') {
-            $resultadofug = '<td colspan = "2" align = "center" bgcolor = "#F9F774">Aprobado</td>';
-        }else{
-            $resultadofug = '<td colspan = "2" align = "center" bgcolor = "#E74C3C">Rechazado</td>';
-        }
-        $html = <<<EOF
-        
-        <table border="1" cellspacing="2" cellpadding="1">
-            <tr>
-                <th bgcolor="#6773FE"  align="center" colspan="2">Informacion de equipo</th>
-            </tr>
-            <tr>
-                <td>Marca:</td>
-                <td colspan="2">$marca</td>
-            </tr>
-            <tr>
-                <td>Modelo:</td>
-                <td colspan="2">$modelo</td>
-            </tr>
-            <tr>
-                <td>Serial:</td>
-                <td colspan="2">$serial</td>
-            </tr>
-            <tr>
-                <td>Pef:</td>
-                <td colspan="2">$cal->pef</td>
-            </tr>
-
-        </table>
-EOF;
-        $pdf->writeHTML($html, true, false, true, false, '');
-
-        $html = <<<EOF
-        
-<table border="1" cellspacing="2" cellpadding="1">
-    <tr>
-        <th bgcolor="#6773FE" align="center" colspan="2">Informacion de prueba</th>
-    </tr>
-    <tr>
-        <td bgcolor="#BFD0F5" align="center" >Parametro</td>
-        <td bgcolor="#BFD0F5" align="center" >Valor</td>
-    </tr>
-    <tr>
-        <td>Usuario que realizo la prueba:</td>
-        <td colspan="2">$nombreuser->nombre_user</td>
-    </tr>
-    <tr>
-        <td>Fecha de la prueba:</td>
-        <td colspan="2">$fug->fecha</td>
-    </tr>
-    <tr>
-        <td>Presion base[mBar]:</td>
-        <td colspan="2">$fug->presion_base</td>
-    </tr>
-    <tr>
-        <td>Presion bomba[mBar]:</td>
-        <td colspan="2">$fug->presion_bomba</td>
-    </tr>
-    <tr>
-        <td>Presion filtros[mBar]:</td>
-        <td colspan="2">$fug->presion_filtros</td>
-    </tr>
-    <tr>
-        <td>Vacio bomba apagada[mBar]:</td>
-        <td colspan="2">$fug->presion_bombaoff</td>
-    </tr>
-    <tr>
-        <td>Vacion bomba encendida[mBar]:</td>
-        <td colspan="2">$fug->presion_bombaon</td>
-    </tr>
-    <tr>
-        <td>Total fugas[mBar]:</td>
-        <td colspan="2">$fug->num_fuga</td>
-    </tr>
-    <tr>
-        <td>Total fugas[%]:</td>
-        <td colspan="2">$fug->por_num_fuga</td>
-    </tr>
-    <tr>
-        <td bgcolor = "#6773FE">Resultado:</td>
-        $resultadofug
-    </tr>
-    
-</table>
-EOF;
-        $pdf->writeHTML($html, true, false, true, false, '');
-        
-        break;
-
-    case 3:
-        $html = <<<EOF
-        
-        <table border="1" cellspacing="2" cellpadding="1">
-            <tr>
-                <th bgcolor="#6773FE"  align="center" colspan="2">Informacion de equipo</th>
-            </tr>
-            <tr>
-                <td>Marca:</td>
-                <td colspan="2">$marca</td>
-            </tr>
-            <tr>
-                <td>Modelo:</td>
-                <td colspan="2">$modelo</td>
-            </tr>
-            <tr>
-                <td>Serial:</td>
-                <td colspan="2">$serial</td>
-            </tr>
-            <tr>
-                <td>Pef:</td>
-                <td colspan="2">$pef</td>
-            </tr>
-
-        </table>
-EOF;
-        $pdf->writeHTML($html, true, false, true, false, '');
-
-        $html = <<<EOF
-        
-<table border="1" cellspacing="2" cellpadding="1">
-    <tr>
-        <th bgcolor="#6773FE" align="center" colspan="2">Informacion de prueba</th>
-    </tr>
-    <tr>
-        <td bgcolor="#BFD0F5" align="center" >Parametro</td>
-        <td bgcolor="#BFD0F5" align="center" >Valor</td>
-    </tr>
-    <tr>
-        <td>Usuario que realizo la prueba:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <td>Fecha de la prueba:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <th bgcolor="#6773FE" align="center" colspan="2">Span alto</th>
-    </tr>
-    <tr>
-        <td>Hc[ppm]:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <td>Co[%]:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <td>Co2[%]:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <td>N:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <th bgcolor="#6773FE" align="center" colspan="2">Span bajo</th>
-    </tr>
-    <tr>
-        <td>Hc[ppm]:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <td>Co[%]:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <td>Co2[%]:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <td>N:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <th bgcolor="#6773FE" align="center" colspan="2">Calibracion alto</th>
-    </tr>
-    <tr>
-        <td>Hc[ppm]:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <td>Co[%]:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <td>Co2[%]:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <td>N:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <th bgcolor="#6773FE" align="center" colspan="2">Calibracion alto</th>
-    </tr>
-    <tr>
-        <td>Hc[ppm]:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <td>Co[%]:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <td>Co2[%]:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <td>N:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <td bgcolor="#6773FE">Resultado:</td>
-        <td colspan = "2" align = "center" bgcolor = "#F9F774">Aprobado</td>
-    </tr>
-    
-    
-     
-</table>
-EOF;
-        $pdf->writeHTML($html, true, false, true, false, '');
-
-        break;
-    case 4:
-        $html = <<<EOF
-        
-        <table border="1" cellspacing="2" cellpadding="1">
-            <tr>
-                <th bgcolor="#6773FE"  align="center" colspan="2">Informacion de equipo</th>
-            </tr>
-            <tr>
-                <td>Marca:</td>
-                <td colspan="2">$marca</td>
-            </tr>
-            <tr>
-                <td>Modelo:</td>
-                <td colspan="2">$modelo</td>
-            </tr>
-            <tr>
-                <td>Serial:</td>
-                <td colspan="2">$serial</td>
-            </tr>
-            <tr>
-                <td>Ltoe:</td>
-                <td colspan="2">$ltoe</td>
-            </tr>
-
-        </table>
-EOF;
-        $pdf->writeHTML($html, true, false, true, false, '');
-
-        $html = <<<EOF
-        
-<table border="1" cellspacing="2" cellpadding="1">
-    <tr>
-        <th bgcolor="#6773FE" align="center" colspan="2">Informacion de prueba</th>
-    </tr>
-    <tr>
-        <td bgcolor="#BFD0F5" align="center" >Parametro</td>
-        <td bgcolor="#BFD0F5" align="center" >Valor</td>
-    </tr>
-    <tr>
-        <td>Usuario que realizo la prueba:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <td>Fecha de la prueba:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <th bgcolor="#6773FE" align="center" colspan="2">Informacion lentes</th>
-    </tr>
-     <tr>
-        <td>Opacidad lente 1 [%]:</td>
-        <td colspan="2"></td>
-    </tr>           
-     <tr>
-        <td>Opacidad lente 2 [%]:</td>
-        <td colspan="2"></td>
-    </tr>           
-     <tr>
-        <td>Opacidad lente 3 [%]:</td>
-        <td colspan="2"></td>
-    </tr>           
-     <tr>
-        <td>Opacidad lente 4 [%]:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <th bgcolor="#6773FE" align="center" colspan="2">Resultados linealidad</th>
-    </tr>
-    <tr>
-        <td bgcolor="#BFD0F5" align="center" >Lente</td>
-        <td bgcolor="#BFD0F5" align="center" >Valor</td>
-    </tr>
-    <tr>
-        <td>Lente 1:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <td>Lente 2:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <td>Lente 3:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <td>Lente 4:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <td bgcolor="#BFD0F5">Error total:</td>
-        <td colspan="2" align="center" bgcolor="#BFD0F5"></td>
-    </tr>
-    <tr>
-        <td bgcolor="#6773FE">Resultado:</td>
-        <td colspan="2" align="center" bgcolor="#FFFF00">Aprobado</td>
-    </tr>
-    <tr>
-        <th bgcolor="#6773FE" align="center" colspan="2">Infromacion control de cero</th>
-    </tr>
-    <tr>
-        <td bgcolor="#BFD0F5" align="center" >Parametro</td>
-        <td bgcolor="#BFD0F5" align="center" >Valor</td>
-    </tr>
-    <tr>
-        <td>Usuario que realizo la prueba:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <td>Fecha de la prueba:</td>
-        <td colspan="2"></td>
-    </tr>
-    <tr>
-        <td bgcolor="#6773FE">Resultado:</td>
-        <td colspan = "2" align = "center" bgcolor = "#F9F774">Aprobado</td>
-    </tr>
-</table>
-EOF;
-        $pdf->writeHTML($html, true, false, true, false, '');
-        break;
-    default:
-        break;
-}
-$html = <<<EOF
-        <label align="center">*************************Fin reporte*************************</label>
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-
-
-
-
-//Close and output PDF document
-$pdf->Output($titulo . '_' . $serial . '.pdf');
-
-//============================================================+
-// END OF FILE
-//============================================================+
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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

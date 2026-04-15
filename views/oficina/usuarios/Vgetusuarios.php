@@ -1,81 +1,40 @@
-<?php $this->load->view('./header'); ?>
-<section id="main-content" class=" ">
-    <section class="wrapper main-wrapper row" style=''>
-
-        <div class='col-12'>
-            <div class="page-title">
-
-                <div class="float-left">
-                    <!-- PAGE HEADING TAG - START --><h4 class="title">GESTION DE USUARIOS</h4><!-- PAGE HEADING TAG - END -->  
-                </div>
-
-            </div>
-        </div>
-        <div class="clearfix"></div>
-        <!-- MAIN CONTENT AREA STARTS -->
-        <section class="box ">
-            <header class="panel_header">
-                <h2 class="title pull-left">USUARIOS REGISTRADOS</h2>
-            </header>
-            <div class="content-body"> 
-
-                <table style="width: 100%;text-align: left">
-                    <tr>
-                        <td style="text-align: left;width: 200px">
-                            <form action="<?php echo base_url(); ?>index.php/oficina/usuarios/Cusuarios/getUsuarios" method="post" style="width: 100%">
-                                <input type="submit" name="agregar" id="wp-submit" class="btn bot_verde btn-block" style="width: 150px" value="Agregar" />
-                            </form>
-                        </td>
-                    </tr>
-                </table>
-                <br>
-                <div class="col-xs-12">
-                    <table id="example-1" class="table table-striped dt-responsive display">
-                        <thead>
-                            <tr>
-                                <th>Nombres</th>
-                                <th>Apellidos</th>
-                                <th>Perfil</th>
-                                <th>Identificacion</th>
-                                <th>Estado</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Nombres</th>
-                                <th>Apellidos</th>
-                                <th>Perfil</th>
-                                <th>Identificacion</th>
-                                <th>Estado</th>
-                                <th></th>
-                            </tr>
-                        </tfoot>
-                        <tbody>
-                            <?php foreach ($usuarios as $value): ?>
-                                <tr>
-                                    <td><?= $value->nombres ?></td>
-                                    <td><?= $value->apellidos ?></td>
-                                    <td><?= $value->perfil ?></td>
-                                    <td><?= $value->identificacion ?></td>
-                                    <td><?= $value->estado ?></td>
-                                    <td><form action='<?php echo base_url(); ?>index.php/oficina/usuarios/Cusuarios/getUsuarios' method='post'>
-                                            <input name='idusuario' type='hidden' value='<?= $value->IdUsuario ?>'>
-                                            <input name='button' class='btn btn-block'  style='width: content-box;
-                                                   border-radius: 10px 10px 10px 10px;
-                                                   background: whitesmoke;
-                                                   border: solid gold;
-                                                   color: black' type='submit' value='Ver/Editar' />   
-                                        </form>
-                                    </td> 
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-        <!-- MAIN CONTENT AREA ENDS -->
-    </section>
-</section>
-<?php $this->load->view('./footer'); ?>
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+/fN4GV4OEL/JegaLXPQl

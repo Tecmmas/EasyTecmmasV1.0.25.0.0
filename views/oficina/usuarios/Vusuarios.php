@@ -1,1296 +1,290 @@
-<html class=" ">
-
-<head>
-    <!-- 
-         * @Package: Complete Admin - Responsive Theme
-         * @Subpackage: Bootstrap
-         * @Version: BS4-1.0
-         * This file is part of Complete Admin Theme.
-        -->
-    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-    <meta charset="utf-8" />
-    <title>USUARIOS</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta content="" name="description" />
-    <meta content="" name="author" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-    <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png" type="image/x-icon" /> <!-- Favicon -->
-    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-57-precomposed.png"> <!-- For iPhone -->
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-114-precomposed.png"> <!-- For iPhone 4 Retina display -->
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-72-precomposed.png"> <!-- For iPad -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-144-precomposed.png"> <!-- For iPad Retina display -->
-    <style>
-        .status {
-            padding: 6px 10px;
-            margin: 8px 0;
-            border-radius: 4px;
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        .connected {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .disconnected {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .connecting {
-            background-color: #fff3cd;
-            color: #856404;
-            border: 1px solid #ffeaa7;
-        }
-
-        .log {
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            padding: 8px;
-            overflow-y: scroll;
-        }
-
-        .event {
-            color: #007bff;
-        }
-
-        .error {
-            color: #dc3545;
-        }
-
-        .success {
-            color: #28a745;
-        }
-
-        .warning {
-            color: #ffc107;
-        }
-
-        .fingerprint-img {
-            max-width: 100%;
-            max-height: 180px;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-            padding: 3px;
-            background-color: white;
-        }
-
-        .connection-controls {
-            background-color: #f8f9fa;
-            padding: 8px;
-            border-radius: 4px;
-            border: 1px solid #e9ecef;
-        }
-
-        .btn-group .btn {
-            font-size: 12px;
-            padding: 4px 8px;
-        }
-
-        .modal-footer .btn {
-            font-size: 13px;
-            padding: 6px 12px;
-        }
-    </style>
-
-
-
-    <!-- CORE CSS FRAMEWORK - START -->
-    <link href="<?php echo base_url(); ?>assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen" />
-    <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <!-- <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/> -->
-    <link href="<?php echo base_url(); ?>assets/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/css/animate.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/plugins/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" type="text/css" />
-    <!-- CORE CSS FRAMEWORK - END -->
-
-    <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - START -->
-    <link href="<?php echo base_url(); ?>assets/plugins/jquery-ui/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" media="screen" />
-    <link href="<?php echo base_url(); ?>assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" media="screen" />
-
-    <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - END -->
-
-
-    <!-- CORE CSS TEMPLATE - START -->
-    <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/css/responsive.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/css/tecmmas.css" rel="stylesheet" type="text/css" />
-    <!-- CORE CSS TEMPLATE - END -->
-
-</head>
-<!-- END HEAD -->
-
-<!-- BEGIN BODY -->
-
-<body class=" ">
-    <!-- START TOPBAR -->
-    <div class='page-topbar '>
-        <div class='logo-area'>
-
-        </div>
-        <div class='quick-area'>
-            <div class='float-left'>
-                <ul class="info-menu left-links list-inline list-unstyled">
-                    <li class="message-toggle-wrapper list-inline-item">
-                        <ul class="dropdown-menu messages animated fadeIn">
-                            <li class="list dropdown-item">
-                            </li>
-                        </ul>
-                    </li>
-            </div>
-        </div>
-
-    </div>
-    <!-- END TOPBAR -->
-
-    <!-- START CONTENT -->
-    <section class="wrapper main-wrapper row" style=''>
-        <div class="clearfix"></div>
-        <!-- MAIN CONTENT AREA STARTS -->
-        <div class="col-xl-12">
-            <section class="box ">
-                <div class="content-body" style="background: whitesmoke">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-12">
-                            <section class="box ">
-                                <header class="panel_header">
-                                    <h2 class="title float-left">CREAR USUARIOS</h2>
-                                </header>
-                                <div class="content-body">
-                                    <form action="<?php echo base_url(); ?>index.php/oficina/usuarios/Cusuarios" style="width: 100px" method="post">
-                                        <input name="button" class="btn btn-block bot_azul" type="submit" value="Atras" />
-                                    </form>
-                                    <br>
-                                    <form action="<?php echo base_url(); ?>index.php/oficina/usuarios/Cusuarios/crearUsuario" id="form-reg-user" method="post">
-                                        <input type="hidden" name="idcliente" value="" />
-                                        <table class="table dt-responsive display">
-                                            <?php if (isset($usuario)) { ?>
-                                                <?php foreach ($usuario as $value): ?>
-                                                    <tr>
-                                                        <td style="text-align: right">
-                                                            TIPO DOCUMENTO
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control" name="tipo_identificacion" style="background: #FFE1E1">
-                                                                <?php if (isset($value->tipoidentificacion)): ?>
-                                                                    <option value="<?= $value->tipoidentificacion ?>"><?= $value->nombreidentificacion ?></option>
-                                                                <?php endif; ?>
-                                                                <option value="1">Cédula de ciudadanía</option>
-                                                                <option value="2">Numero Identificación Tributaria (NIT)</option>
-                                                                <option value="3">Cédula de extrangería</option>
-                                                                <option value="4">Tarjeta de identidad</option>
-                                                                <option value="5">N. único de Id. Personal</option>
-                                                                <option value="6">Pasaporte</option>
-                                                            </select>
-                                                            <strong style="color: #E31F24;font-size: 12px "></strong>
-                                                        </td>
-                                                        <td style="text-align: right">
-                                                            NUMERO DE DOCUMENTO
-                                                        </td>
-                                                        <td>
-                                                            <input class="form-control" name="numero_identificacion" value="<?php
-                                                                                                                            if (isset($value->identificacion)) {
-                                                                                                                                echo $value->identificacion;
-                                                                                                                            }
-                                                                                                                            ?>" style="background: #FFE1E1" type="number">
-                                                            <strong style="color: #E31F24;font-size: 12px "><?php echo form_error('numero_identificacion'); ?></strong>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="text-align: right">
-                                                            NOMBRES
-                                                        </td>
-                                                        <td>
-                                                            <input class="form-control" name="nombres" value="<?php
-                                                                                                                if (isset($value->nombres)) {
-                                                                                                                    echo $value->nombres;
-                                                                                                                }
-                                                                                                                ?>" style="background: #FFE1E1; text-transform: uppercase" type="text" autocomplete="off">
-                                                            <strong style="color: #E31F24;font-size: 12px "></strong>
-                                                        </td>
-                                                        <td style="text-align: right">
-                                                            APELLIDOS
-                                                        </td>
-                                                        <td>
-                                                            <input class="form-control" name="apellidos" value="<?php
-                                                                                                                if (isset($value->apellidos)) {
-                                                                                                                    echo $value->apellidos;
-                                                                                                                }
-                                                                                                                ?>" style="background: #FFE1E1; text-transform: uppercase" type="text" autocomplete="off">
-                                                            <strong style="color: #E31F24;font-size: 12px "></strong>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="text-align: right">
-                                                            PERFIL
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control" name="tipo_perfil" style="background: #FFE1E1">
-                                                                <?php if (isset($value->idperfil)): ?>
-                                                                    <option value="<?= $value->idperfil ?>"><?= $value->perfil ?></option>
-                                                                <?php endif; ?>
-                                                                <option value="1">Administrador</option>
-                                                                <option value="2">Operario</option>
-                                                                <option value="3">Supervisor</option>
-                                                                <option value="4">Administrativo</option>
-                                                                <option value="5">Sistemas</option>
-                                                                <option value="6">Auditor del sistema</option>
-                                                                <option value="7">Representante legal</option>
-                                                            </select>
-                                                            <strong style="color: #E31F24;font-size: 12px "></strong>
-                                                        </td>
-                                                        <td style="text-align: right">
-                                                            USUARIO
-                                                        </td>
-                                                        <td>
-                                                            <input class="form-control" name="usuario" value="<?php
-                                                                                                                if (isset($value->usuario)) {
-                                                                                                                    echo $value->usuario;
-                                                                                                                }
-                                                                                                                ?>" type="text" style="background: #FFE1E1">
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-
-                                                        <td style="text-align: right">
-                                                            CONTRASEÑA
-                                                        </td>
-                                                        <td>
-                                                            <input class="form-control contrasenaconeach" name="contrasena" id="contrasena" onkeyup="validarcontrasenauser()" value="<?php
-                                                                                                                                                                                        if (isset($value->passwd)) {
-                                                                                                                                                                                            echo $value->passwd;
-                                                                                                                                                                                        }
-                                                                                                                                                                                        ?>" style="background: #FFE1E1" type="password">
-                                                            <input class="form-control" name="contrasenaold" value="<?php
-                                                                                                                    if (isset($value->passwd)) {
-                                                                                                                        echo $value->passwd;
-                                                                                                                    }
-                                                                                                                    ?>" style="background: #FFE1E1" type="hidden">
-                                                            <strong style="color: #E31F24;font-size: 12px "></strong>
-                                                            <div id="divcontra"></div>
-                                                        </td>
-                                                        <td style="text-align: right">
-                                                            ESTADO
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control" name="estado" style="background: #FFE1E1">
-                                                                <?php if (isset($value->estado)): ?>
-                                                                    <option value="<?= $value->idestado ?>"><?= $value->estado ?></option>
-                                                                <?php endif; ?>
-                                                                <option value="1">Activo</option>
-                                                                <option value="0">Inactivo</option>
-
-                                                            </select>
-                                                            <strong style="color: #E31F24;font-size: 12px "></strong>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="text-align: right">
-                                                            CONFIRMAR CONTRASEÑA
-                                                        </td>
-                                                        <td>
-                                                            <input class="form-control confircontrasenaconeach" name="confirmcontrasena" value="<?php
-                                                                                                                                                if (isset($value->passwd)) {
-                                                                                                                                                    echo $value->passwd;
-                                                                                                                                                }
-                                                                                                                                                ?>" style="background: #FFE1E1" type="password">
-                                                            <input name='idusuario' id="idusuario" type='hidden' value='<?php
-                                                                                                                        if (isset($value->IdUsuario)) {
-                                                                                                                            echo $value->IdUsuario;
-                                                                                                                        }
-                                                                                                                        ?>'>
-                                                            <strong style="color: #E31F24;font-size: 12px "></strong>
-                                                            <div id="divcontraconf"></div>
-                                                        </td>
-                                                        <td style="text-align: right">
-                                                            EQUIPO ASIGNADO
-                                                        </td>
-                                                        <td>
-                                                            <input class="form-control" name="equipo_asignado" value="<?php
-                                                                                                                        if (isset($value->equipo_asignado)) {
-                                                                                                                            echo $value->equipo_asignado;
-                                                                                                                        }
-                                                                                                                        ?>" style="background: #FFE1E1; text-transform: uppercase" type="text" autocomplete="off">
-                                                            <strong style="color: #E31F24;font-size: 12px "></strong>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="text-align: right">
-                                                            REGISTRAR HUELLA
-                                                        </td>
-                                                        <td>
-                                                            <!-- <form action="<?php echo base_url(); ?>index.php/oficina/usuarios/Cusuarios/registrarhuella" method="post"> -->
-                                                            <?php
-                                                            if (isset($value->biometrico) && !empty($value->biometrico)) {
-                                                                echo '<input name="button" class="btn btn-block bot_verde" type="button" value="Huella registrada" id="btnModalHuella" />';
-                                                            } else {
-                                                                echo '<input name="button" class="btn btn-block bot_azul" type="button" value="Registrar huella" id="btnModalHuella" />';
-                                                            }
-                                                            ?>
-                                                            <input type="hidden" name="base64Huella" id="base64Huella" value="<?php
-                                                                                                                                if (isset($value->biometrico)) {
-                                                                                                                                    echo $value->biometrico;
-                                                                                                                                }
-                                                                                                                                ?>" />
-                                                            <!-- </form> -->
-                                                        </td>
-
-                                                    </tr>
-                                                <?php endforeach; ?>
-                                            <?php } else { ?>
-                                                <tr>
-                                                    <td style="text-align: right">
-                                                        TIPO DOCUMENTO
-                                                    </td>
-                                                    <td>
-                                                        <select class="form-control" name="tipo_identificacion" style="background: #FFE1E1">
-                                                            <?php
-                                                            if (isset($tipoidentificacion)) {
-                                                                echo $tipoidentificacion;
-                                                            } else {
-                                                            ?>
-                                                                <option value=""></option>
-                                                            <?php }; ?>
-                                                            <option value="1">Cédula de ciudadanía</option>
-                                                            <option value="2">Numero Identificación Tributaria (NIT)</option>
-                                                            <option value="3">Cédula de extrangería</option>
-                                                            <option value="4">Tarjeta de identidad</option>
-                                                            <option value="5">N. único de Id. Personal</option>
-                                                            <option value="6">Pasaporte</option>
-                                                        </select>
-                                                        <strong style="color: #E31F24;font-size: 12px "><?php echo form_error('tipo_identificacion'); ?></strong>
-                                                    </td>
-                                                    <td style="text-align: right">
-                                                        NUMERO DE DOCUMENTO
-                                                    </td>
-                                                    <td>
-                                                        <input class="form-control" name="numero_identificacion" value="<?php
-                                                                                                                        if (isset($identificacion)) {
-                                                                                                                            echo $identificacion;
-                                                                                                                        }
-                                                                                                                        ?>" style="background: #FFE1E1" type="number">
-                                                        <strong style="color: #E31F24;font-size: 12px "><?php echo form_error('numero_identificacion'); ?></strong>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="text-align: right">
-                                                        NOMBRES
-                                                    </td>
-                                                    <td>
-                                                        <input class="form-control" name="nombres" value="<?php
-                                                                                                            if (isset($nombres)) {
-                                                                                                                echo $nombres;
-                                                                                                            }
-                                                                                                            ?>" style="background: #FFE1E1; text-transform: uppercase" type="text" autocomplete="off">
-                                                        <strong style="color: #E31F24;font-size: 12px "><?php echo form_error('nombres'); ?></strong>
-                                                    </td>
-                                                    <td style="text-align: right">
-                                                        APELLIDOS
-                                                    </td>
-                                                    <td>
-                                                        <input class="form-control" name="apellidos" value="<?php
-                                                                                                            if (isset($apellidos)) {
-                                                                                                                echo $apellidos;
-                                                                                                            }
-                                                                                                            ?>" style="background: #FFE1E1; text-transform: uppercase" type="text" autocomplete="off">
-                                                        <strong style="color: #E31F24;font-size: 12px "><?php echo form_error('apellidos'); ?></strong>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="text-align: right">
-                                                        PERFIL
-                                                    </td>
-                                                    <td>
-                                                        <select class="form-control" name="tipo_perfil" style="background: #FFE1E1">
-                                                            <?php
-                                                            if (isset($perfil)) {
-                                                                echo $perfil;
-                                                            } else {
-                                                            ?>
-                                                                <option value=""></option>
-                                                            <?php }; ?>
-                                                            <option value="1">Administrador</option>
-                                                            <option value="2">Operario</option>
-                                                            <option value="3">Supervisor</option>
-                                                            <option value="4">Administrativo</option>
-                                                            <option value="5">Sistemas</option>
-                                                            <option value="6">Auditor del sistema</option>
-                                                            <option value="7">Representante legal</option>
-                                                        </select>
-                                                        <strong style="color: #E31F24;font-size: 12px "><?php echo form_error('tipo_perfil'); ?></strong>
-                                                    </td>
-                                                    <td style="text-align: right">
-                                                        USUARIO
-                                                    </td>
-                                                    <td>
-                                                        <input class="form-control" name="usuario" value="<?php
-                                                                                                            if (isset($usuarios)) {
-                                                                                                                echo $usuarios;
-                                                                                                            }
-                                                                                                            ?>" type="text" style="background: #FFE1E1">
-                                                        <strong style="color: #E31F24;font-size: 12px "><?php echo form_error('usuario'); ?></strong>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="text-align: right">
-                                                        CONTRASEÑA
-                                                    </td>
-                                                    <td>
-                                                        <input class="form-control" name="contrasena" id="contrasena" value="<?php
-                                                                                                                                if (isset($contrasena)) {
-                                                                                                                                    echo $contrasena;
-                                                                                                                                }
-                                                                                                                                ?>" style="background: #FFE1E1" onkeyup="validarcontrasenauser()" type="password">
-
-                                                        <strong style="color: #E31F24;font-size: 12px "><?php echo form_error('contrasena'); ?></strong>
-                                                        <div id="divcontra"></div>
-                                                    </td>
-
-                                                    <td style="text-align: right">
-                                                        ESTADO
-                                                    </td>
-                                                    <td>
-                                                        <select class="form-control" name="estado" style="background: #FFE1E1">
-                                                            <?php
-                                                            if (isset($estado)) {
-                                                                echo $estado;
-                                                            } else {
-                                                            ?>
-                                                                <option value=""></option>
-                                                            <?php }; ?>
-                                                            <option value="1">Activo</option>
-                                                            <option value="0">Inactivo</option>
-                                                        </select>
-                                                        <strong style="color: #E31F24;font-size: 12px "><?php echo form_error('estado'); ?></strong>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="text-align: right">
-                                                        CONFIRMAR CONTRASEÑA
-                                                    </td>
-                                                    <td>
-                                                        <input class="form-control" name="confirmcontrasena" id="confirmcontrasena" value="" style="background-color: #FFE1E1" onkeyup="validarconfcontra()" type="password">
-                                                        <strong style="color: #E31F24;font-size: 12px "><?php echo form_error('confirmcontrasena'); ?></strong>
-                                                        <div id="divcontraconf"></div>
-                                                    </td>
-                                                    <td style="text-align: right">
-                                                        EQUIPO ASIGNADO
-                                                    </td>
-                                                    <td>
-                                                        <input class="form-control" name="equipo_asignado" value="<?php
-                                                                                                                    if (isset($equipo_asignado)) {
-                                                                                                                        echo $equipo_asignado;
-                                                                                                                    }
-                                                                                                                    ?>" style="background: #FFE1E1; text-transform: uppercase" type="text" autocomplete="off">
-                                                    </td>
-                                                </tr>
-                                            <?php } ?>
-                                        </table>
-                                        <table style="text-align: center;width: 100%">
-                                            <tr>
-                                                <td>
-                                                    <input name="guardar" id="guardar" class="btn btn-block bot_gris" value="Guardar" />
-                                                    <input type="hidden" name="guardarref" id="guardarref" class="btn btn-block bot_gris" value="" />
-                                                    <div style="color: green; font-size: 8 px"> <?php
-                                                                                                echo $this->session->flashdata('error');
-                                                                                                if (isset($mensaje)) {
-                                                                                                    echo $mensaje;
-                                                                                                }
-                                                                                                ?></div>
-                                                </td>
-                                                <td>
-                                                    <input name="btnguardarnuevo" id="btnguardarnuevo" class="btn btn-block bot_gris" value="Guardar y nuevo" />
-                                                    <input type="hidden" name="btnguardarnuevoref" id="btnguardarnuevoref" class="btn btn-block bot_gris" value="" />
-                                                </td>
-                                                <td>
-                                                    <input name="guardarfinalizar" id="guardarfinalizar" class="btn btn-block bot_gris" value="Guardar y finalizar" />
-                                                    <input type="hidden" name="guardarfinalizarref" id="guardarfinalizarref" class="btn btn-block bot_gris" value="" />
-                                                </td>
-                                                <td>
-                                                    <input name="btnnuevo" class="btn btn-block bot_verde" type="submit" value="Nuevo" />
-                                                </td>
-                                                <input name='idusuarioUpdate' id="idusuarioUpdate" type='hidden' value='<?php echo  $this->session->userdata('IdUsuario') ?>'>
-                                            </tr>
-                                        </table>
-                                    </form>
-                                    <br>
-                                    <form action="<?php echo base_url(); ?>index.php/oficina/usuarios/Cusuarios" method="post" style="width: 200px">
-                                        <input name="button" class="btn btn-block bot_rojo" type="submit" value="Cancelar" />
-                                    </form>
-
-                                    <br>
-                                    <div style="text-align: center;color: gray">
-                                        Copyright © 2025 TECMMAS SAS
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-        </div>
-
-        <!-- MAIN CONTENT AREA ENDS -->
-    </section>
-    </section>
-    <!-- END CONTENT -->
-
-
-    <!-- modal huella biometrica -->
-
-    <!-- Modal Registro de Huella Biométrica -->
-    <div class="modal fade" id="modalHuellaBiometrica" tabindex="-1" role="dialog" aria-labelledby="modalHuellaBiometricaLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalHuellaBiometricaLabel">Registro de Huella Biométrica</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Controles de conexión -->
-                    <div class="connection-controls mb-3">
-                        <div id="status" class="status disconnected mb-2">
-                            Desconectado del servidor de huellas
-                        </div>
-                        <div class="btn-group" role="group">
-                            <button id="btnConnect" onclick="connect()" class="btn btn-outline-primary btn-sm">
-                                Conectar
-                            </button>
-                            <button id="btnDisconnect" onclick="disconnect()" disabled class="btn btn-outline-secondary btn-sm">
-                                Desconectar
-                            </button>
-                            <button id="btnInit" onclick="initializeCapturer()" disabled class="btn btn-outline-info btn-sm">
-                                Reinicializar
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Información de estado -->
-                    <div id="Scores">
-                        <div id="qualityMessageBox" style="
-                        background-color: #f5f5f5;
-                        border: 2px solid #007bff;
-                        border-radius: 8px;
-                        padding: 12px;
-                        margin: 10px auto 15px auto;
-                        color: #222;
-                        font-size: 14px;
-                        text-align: center;
-                        box-shadow: 0 2px 6px rgba(0,0,0,0.07);
-                    ">
-                            <span id="qualityInputBox" style="font-weight: 500;">Presione "Capturar Huella" para comenzar</span>
-                        </div>
-                    </div>
-
-                    <!-- Contenedor principal en línea -->
-                    <div class="row">
-                        <!-- Columna de imagen de huella -->
-                        <div class="col-md-6">
-                            <div class="capture-area">
-                                <div id="content-capture" style="height: 200px; width: 100%; margin: auto; border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 2px dashed #ccc; background-color: #f9f9f9;">
-                                    <div id="imagediv" style="margin: auto; display: flex; align-items: center; justify-content: center; flex-direction: column;">
-                                        <div id="imagePlaceholder" class="text-center">
-                                            <i class="fas fa-fingerprint fa-3x text-muted mb-2"></i>
-                                            <p class="text-muted mb-0" style="font-size: 12px;">Imagen de la huella</p>
-                                        </div>
-                                        <img id="fingerprintImg" class="fingerprint-img" style="display: none; max-height: 180px; max-width: 100%; border-radius: 5px;" alt="Imagen de huella digital">
-                                    </div>
-                                </div>
-
-                                <!-- Información de la imagen -->
-                                <div class="image-info mt-2 text-center">
-                                    <small class="text-muted">
-                                        <span id="imageInfo">Resolución: 0x0 px</span> |
-                                        <span id="imageSize">Tamaño: 0 KB</span>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Columna del log -->
-                        <div class="col-md-6">
-                            <div class="log-section" style="height: 100%;">
-                                <h6 style="font-size: 14px; margin-bottom: 8px;">📝 Registro de Eventos</h6>
-                                <div id="log" class="log" style="height: 180px; overflow-y: scroll; background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 5px; padding: 8px; font-size: 11px;"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Template oculto -->
-                    <div class="template-section" style="display: none;">
-                        <textarea id="fingerprintData" class="form-control" rows="2" readonly placeholder="Los datos del template aparecerán aquí..."></textarea>
-                        <div class="template-info mt-1">
-                            <small class="text-muted">
-                                <span id="templateSize">Tamaño: 0 bytes</span> |
-                                <span id="templateInfo">Características: 0</span>
-                            </small>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <!-- Botones de captura -->
-                    <div class="btn-group mr-2" role="group">
-                        <button id="btnCapture" onclick="captureFingerprint()" disabled class="btn btn-primary">
-                            <i class="fas fa-fingerprint mr-1"></i> Capturar Huella
-                        </button>
-                    </div>
-
-                    <!-- Botones de acciones -->
-                    <button type="button" onclick="limpiarImagen()" class="btn btn-outline-secondary">
-                        <i class="fas fa-broom mr-1"></i> Limpiar
-                    </button>
-                    <button type="button" onclick="guardarTemplate()" id="btnGuardar" disabled class="btn btn-success">
-                        Guardar
-                    </button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        Cerrar
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- END CONTAINER -->
-    <!-- LOAD FILES AT PAGE END FOR FASTER LOADING -->
-
-
-    <!-- CORE JS FRAMEWORK - START -->
-    <script src="<?php echo base_url(); ?>assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/js/popper.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/js/jquery.easing.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/plugins/pace/pace.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/plugins/viewport/viewportchecker.js" type="text/javascript"></script>
-    <script>
-        window.jQuery || document.write('<script src="<?php echo base_url(); ?>assets/js/jquery-1.11.2.min.js"><\/script>');
-    </script>
-    <!-- CORE JS FRAMEWORK - END -->
-
-
-    <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
-
-    <script src="<?php echo base_url(); ?>assets/plugins/inputmask/min/jquery.inputmask.bundle.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/plugins/jquery-ui/smoothness/jquery-ui.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/plugins/select2/select2.min.js" type="text/javascript"></script>
-    <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
-
-
-    <!-- CORE TEMPLATE JS - START -->
-    <script src="<?php echo base_url(); ?>assets/js/scripts.js" type="text/javascript"></script>
-    <!-- END CORE TEMPLATE JS - END -->
-
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <!-- <script src="<?php echo base_url(); ?>application/libraries/lectorbiometrico/es6-shim.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>application/libraries/lectorbiometrico/websdk.client.bundle.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>application/libraries/lectorbiometrico/fingerprint.sdk.min.js" type="text/javascript"></script> -->
-    <script>
-        // Recarga app.js cada vez con un parámetro único para evitar caché
-        (function loadAppJs() {
-            var script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.src = '<?php echo base_url(); ?>application/libraries/lectorbiometrico/app.js?v=' + new Date().getTime();
-            document.body.appendChild(script);
-        })();
-    </script>
-
-    <script type="text/javascript">
-        var huellaDigital = '<?php
-                                    echo $this->session->userdata('huellaDigital');
-                                    ?>';
-        $(document).ready(function() {
-            
-            var contra = $("#contrasena").val();
-            if (contra !== "" && contra !== null) {
-                habilitarBotones();
-            } else {
-                deshabilitarBotones();
-            }
-
-        });
-
-        $('#btnModalHuella').click(function(ev) {
-            ev.preventDefault();
-            if (huellaDigital == '0') {
-                // Mostrar SweetAlert indicando que el servicio debe ser activado
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Servicio no activado',
-                    html: 'Este servicio debe ser activado.<br>Para más información comuníquese con soporte.',
-                    confirmButtonText: 'Aceptar'
-                });
-
-            } else {
-                $('#modalHuellaBiometrica').modal('show');
-            }
-
-        });
-
-
-
-        $('#contrasena').click(function() {
-            var contrasenna = $('#contrasena').val();
-            if (contrasenna.length == 0) {
-                $('#divcontra').html("<p style='font-weight: bold;color: black; text-align: left;; font-size: 9px'>" +
-                    "Bienvenido(a) tenga en cuenta lo siguiente para la asignacion de contraseña: <br>" +
-                    "1.Las contraseñas deben tener 6 o mas caracteres<br>" +
-                    "2.Debe combinar letras mayúsculas, minúsculas y números.<br>" +
-                    "4.Debe contener almenos un caracter especial. Ejemplo: @*,.<br>" +
-                    "5.No se pueden repetir caracteres en la contraseña.<br>" +
-                    "</p>");
-            }
-        });
-
-        function validarcontrasenauser() {
-            var contrasenna = $('#contrasena').val();
-            if (contrasenna.length >= 6) {
-                var mayuscula = false;
-                var minuscula = false;
-                var numero = false;
-                var caracter_raro = false;
-                for (var i = 0; i < contrasenna.length; i++) {
-                    if (contrasenna.charCodeAt(i) >= 65 && contrasenna.charCodeAt(i) <= 90) {
-                        mayuscula = true;
-                    } else if (contrasenna.charCodeAt(i) >= 97 && contrasenna.charCodeAt(i) <= 122) {
-                        minuscula = true;
-                    } else if (contrasenna.charCodeAt(i) >= 48 && contrasenna.charCodeAt(i) <= 57) {
-                        numero = true;
-                    } else {
-                        caracter_raro = true;
-                    }
-                }
-
-                if (mayuscula == true && minuscula == true && caracter_raro == true && numero == true) {
-                    console.log($("#idusuario").val())
-                    $.ajax({
-                        url: '<?php echo base_url(); ?>index.php/oficina/contrasenas/Ccontrasenas/getpassword',
-                        type: 'post',
-                        mimeType: 'json',
-                        data: {
-                            iduser: $("#idusuario").val(),
-                            contrasenna: $('#contrasena').val()
-                        },
-                        success: function(data) {
-                            if (data == 1) {
-                                $('#divcontra').html(' ');
-                                $('#divcontra').html('<div style=" color: red; font-size: 12px">La contraseña fue asignada anteriormente.</div>');
-                                deshabilitarBotones();
-                            }
-                        }
-                    });
-                    var rta = camposrepetidos(contrasenna);
-                    if (rta == true) {
-                        deshabilitarBotones()
-                        $('#divcontra').html(' ');
-                        $('#divcontra').html('<div style=" color: red; font-size: 12px">La contraseña no puede tener caracteres repetidos.</div>');
-                    } else {
-                        habilitarBotones();
-                        $('#divcontra').html('<div style=" color: green; font-size: 12px">La contraseña cumple con los parametros.</div>');
-                    }
-                } else {
-                    deshabilitarBotones()
-                    $('#divcontra').html(' ');
-                    $('#divcontra').html('<div style=" color: red; font-size: 12px">La contraseña no cumple con los parametros.</div>');
-                }
-            }
-        }
-
-        function camposrepetidos(contrasenna) {
-            var arraycontra = contrasenna.split("");
-            var campos = arraycontra.sort();
-            var repetido = false;
-            for (var i = 0; i < campos.length; i++) {
-                if (campos[i] == campos[i + 1]) {
-                    return repetido = true;
-                }
-            }
-            return repetido;
-        }
-        $('#guardar').click(function(ev) {
-            ev.preventDefault();
-            $('#guardarref').val('guardarref');
-            var contrasenaconeach = $('.contrasenaconeach').val();
-            var confircontrasenaconeach = $('.confircontrasenaconeach').val();
-            var contrasena = $('#contrasena').val();
-            var confirmcontrasena = $('#confirmcontrasena').val();
-            if (contrasena.length < 6) {
-                deshabilitarBotones()
-                $('#contrasena').val('');
-                $('#confirmcontrasena').val('');
-                $('#divcontra').html("<p style='font-weight: bold;color: red; text-align: left;; font-size: 9px'>La contraseña no cumple con la longitud</p>");
-            } else {
-                if (contrasena == confirmcontrasena) {
-                    $('#form-reg-user').submit();
-                } else if (contrasenaconeach == confircontrasenaconeach) {
-                    $('#form-reg-user').submit();
-                } else {
-                    deshabilitarBotones();
-                    $('#contrasena').val('');
-                    $('#confirmcontrasena').val('');
-                    $('#divcontraconf').html('<div style=" color: red; font-size: 12px">Las contraseña no coinciden.</div>');
-                }
-            }
-
-            //                                                                    $('#mesaje').html('Usuario Creado');
-
-        });
-        $('#btnguardarnuevo').click(function(ev) {
-            ev.preventDefault();
-            $('#btnguardarnuevoref').val('btnguardarnuevoref');
-            var contrasenaconeach = $('.contrasenaconeach').val();
-            var confircontrasenaconeach = $('.confircontrasenaconeach').val();
-            var contrasena = $('#contrasena').val();
-            var confirmcontrasena = $('#confirmcontrasena').val();
-            if (contrasena.length < 6) {
-                deshabilitarBotones();
-                $('#contrasena').val('');
-                $('#confirmcontrasena').val('');
-                $('#divcontra').html("<p style='font-weight: bold;color: red; text-align: left;; font-size: 9px'>La contraseña no cumple con la longitud</p>");
-            } else {
-                if (contrasena == confirmcontrasena) {
-                    $('#form-reg-user').submit();
-                } else if (contrasenaconeach == confircontrasenaconeach) {
-                    $('#form-reg-user').submit();
-                } else {
-                    deshabilitarBotones();
-                    $('#contrasena').val('');
-                    $('#confirmcontrasena').val('');
-                    $('#divcontraconf').html('<div style=" color: red; font-size: 12px">Las contraseña no coinciden.</div>');
-                }
-            }
-        });
-        $('#guardarfinalizar').click(function(ev) {
-            ev.preventDefault();
-            $('#guardarfinalizarref').val('guardarfinalizarref');
-            var contrasenaconeach = $('.contrasenaconeach').val();
-            var confircontrasenaconeach = $('.confircontrasenaconeach').val();
-            var contrasena = $('#contrasena').val();
-            var confirmcontrasena = $('#confirmcontrasena').val();
-            if (contrasena.length < 6) {
-                deshabilitarBotones();
-                $('#contrasena').val('');
-                $('#confirmcontrasena').val('');
-                $('#divcontra').html("<p style='font-weight: bold;color: red; text-align: left;; font-size: 9px'>La contraseña no cumple con la longitud</p>");
-            } else {
-                if (contrasena == confirmcontrasena) {
-                    $('#form-reg-user').submit();
-                } else if (contrasenaconeach == confircontrasenaconeach) {
-                    $('#form-reg-user').submit();
-                } else {
-                    deshabilitarBotones();
-                    $('#contrasena').val('');
-                    $('#confirmcontrasena').val('');
-                    $('#divcontraconf').html('<div style=" color: red; font-size: 12px">Las contraseña no coinciden.</div>');
-                }
-            }
-        });
-
-        function habilitarBotones() {
-            document.getElementById("guardar").disabled = false;
-            document.getElementById("btnguardarnuevo").disabled = false;
-            document.getElementById("guardarfinalizar").disabled = false;
-        }
-
-        function deshabilitarBotones() {
-            document.getElementById("guardar").disabled = true;
-            document.getElementById("btnguardarnuevo").disabled = true;
-            document.getElementById("guardarfinalizar").disabled = true;
-        }
-    </script>
-
-    <script>
-        // Variables globales para el modal
-        let socket = null;
-        let reconnectAttempts = 0;
-        const maxReconnectAttempts = 5;
-        const reconnectDelay = 2000;
-        let autoReconnect = true;
-        let isCapturing = false;
-        let captureTimeout = null;
-        const CAPTURE_TIMEOUT_MS = 30000;
-        let currentTemplate = '';
-
-        // Elementos del DOM del modal
-        const statusElement = document.getElementById('status');
-        const fingerprintDataElement = document.getElementById('fingerprintData');
-        const fingerprintImgElement = document.getElementById('fingerprintImg');
-        const imagePlaceholderElement = document.getElementById('imagePlaceholder');
-        const logElement = document.getElementById('log');
-        const qualityInputBoxElement = document.getElementById('qualityInputBox');
-
-        // Elementos de información
-        const templateSizeElement = document.getElementById('templateSize');
-        const templateInfoElement = document.getElementById('templateInfo');
-        const imageInfoElement = document.getElementById('imageInfo');
-        const imageSizeElement = document.getElementById('imageSize');
-
-        // Botones del modal
-        const btnConnect = document.getElementById('btnConnect');
-        const btnDisconnect = document.getElementById('btnDisconnect');
-        const btnCapture = document.getElementById('btnCapture');
-        const btnInit = document.getElementById('btnInit');
-        const btnGuardar = document.getElementById('btnGuardar');
-
-        // Función para mostrar mensajes en el log
-        function logMessage(message, type = 'info') {
-            const timestamp = new Date().toLocaleTimeString();
-            const className = type === 'error' ? 'error' :
-                type === 'success' ? 'success' :
-                type === 'event' ? 'event' :
-                type === 'warning' ? 'warning' : '';
-            logElement.innerHTML += `<div class="${className}">[${timestamp}] ${message}</div>`;
-            logElement.scrollTop = logElement.scrollHeight;
-        }
-
-        // Función para actualizar el estado de conexión
-        function updateStatus(connected, message = '') {
-            if (connected) {
-                statusElement.textContent = message || '✅ Conectado al servidor de huellas';
-                statusElement.className = 'status connected';
-                btnConnect.disabled = true;
-                btnDisconnect.disabled = false;
-                btnCapture.disabled = isCapturing;
-                btnInit.disabled = false;
-            } else {
-                statusElement.textContent = message || '❌ Desconectado del servidor de huellas';
-                statusElement.className = 'status disconnected';
-                btnConnect.disabled = false;
-                btnDisconnect.disabled = true;
-                btnCapture.disabled = true;
-                btnInit.disabled = true;
-                resetCaptureState();
-            }
-        }
-
-        // Función para actualizar estado de conexión
-        function updateStatusConnecting() {
-            statusElement.textContent = '🔄 Conectando al servidor de huellas...';
-            statusElement.className = 'status connecting';
-            btnConnect.disabled = true;
-        }
-
-        // Resetear estado de captura
-        function resetCaptureState() {
-            isCapturing = false;
-            if (captureTimeout) {
-                clearTimeout(captureTimeout);
-                captureTimeout = null;
-            }
-            updateCaptureButton();
-        }
-
-        // Actualizar botón de captura
-        function updateCaptureButton() {
-            btnCapture.disabled = isCapturing || !socket || socket.readyState !== WebSocket.OPEN;
-            if (isCapturing) {
-                btnCapture.innerHTML = '<i class="fas fa-sync-alt mr-1"></i> Capturando...';
-                btnCapture.style.backgroundColor = '#ffc107';
-            } else {
-                btnCapture.innerHTML = '<i class="fas fa-fingerprint mr-1"></i> Capturar Huella';
-                btnCapture.style.backgroundColor = '';
-            }
-        }
-
-        // Timeout de captura
-        function startCaptureTimeout() {
-            if (captureTimeout) {
-                clearTimeout(captureTimeout);
-            }
-            captureTimeout = setTimeout(() => {
-                logMessage('⏰ Tiempo de captura agotado', 'warning');
-                resetCaptureState();
-            }, CAPTURE_TIMEOUT_MS);
-        }
-
-        // Mostrar imagen de huella
-        function displayFingerprintImage(imageBase64) {
-            try {
-                if (imageBase64 && imageBase64.length > 100) {
-                    const imageSrc = `data:image/png;base64,${imageBase64}`;
-
-                    const img = new Image();
-                    img.onload = function() {
-                        fingerprintImgElement.src = imageSrc;
-                        fingerprintImgElement.style.display = 'block';
-                        imagePlaceholderElement.style.display = 'none';
-
-                        imageInfoElement.textContent = `Resolución: ${this.width}x${this.height} px`;
-                        imageSizeElement.textContent = `Tamaño: ${Math.round(imageBase64.length * 0.75 / 1024)} KB`;
-
-                        logMessage(`✅ Imagen capturada (${this.width}x${this.height} px)`, 'success');
-
-                        // Habilitar botón guardar
-                        btnGuardar.disabled = false;
-                    };
-                    img.onerror = function() {
-                        logMessage('❌ Error al cargar la imagen', 'error');
-                        resetImageDisplay();
-                    };
-                    img.src = imageSrc;
-                } else {
-                    logMessage('⚠️ Imagen no válida', 'warning');
-                    resetImageDisplay();
-                }
-            } catch (error) {
-                logMessage(`❌ Error: ${error}`, 'error');
-                resetImageDisplay();
-            }
-        }
-
-        // Resetear visualización de imagen
-        function resetImageDisplay() {
-            fingerprintImgElement.style.display = 'none';
-            imagePlaceholderElement.style.display = 'block';
-            imageInfoElement.textContent = 'Resolución: 0x0 px';
-            imageSizeElement.textContent = 'Tamaño: 0 KB';
-            btnGuardar.disabled = true;
-        }
-
-        // Conectar al servidor WebSocket
-        function connect() {
-            if (socket && socket.readyState === WebSocket.OPEN) {
-                logMessage('Ya conectado', 'info');
-                return;
-            }
-
-            updateStatusConnecting();
-            logMessage('Conectando...', 'info');
-
-            try {
-                socket = new WebSocket('ws://localhost:8081/');
-
-                socket.onopen = function(event) {
-                    reconnectAttempts = 0;
-                    updateStatus(true, '✅ Conectado - Servidor listo');
-                    logMessage('Conexión establecida', 'success');
-                    resetCaptureState();
-                    resetImageDisplay();
-                    qualityInputBoxElement.textContent = 'Presione "Capturar Huella" para comenzar';
-                };
-
-                socket.onmessage = function(event) {
-                    const message = event.data;
-                    logMessage(`${message}`, 'event');
-                    processServerMessage(message);
-                };
-
-                socket.onclose = function(event) {
-                    logMessage(`Conexión cerrada`, 'info');
-                    updateStatus(false);
-                    resetCaptureState();
-
-                    if (autoReconnect && reconnectAttempts < maxReconnectAttempts) {
-                        reconnectAttempts++;
-                        logMessage(`Reconectando... (${reconnectAttempts}/${maxReconnectAttempts})`, 'info');
-                        setTimeout(connect, reconnectDelay);
-                    }
-                };
-
-                socket.onerror = function(error) {
-                    logMessage(`❌ Error de conexión`, 'error');
-                    updateStatus(false, '❌ Error de conexión');
-                    resetCaptureState();
-                };
-
-            } catch (error) {
-                logMessage(`❌ Error: ${error}`, 'error');
-                updateStatus(false);
-                resetCaptureState();
-            }
-        }
-
-        // Procesar mensajes del servidor
-        function processServerMessage(message) {
-            // Mensaje de huella capturada
-            if (message.startsWith('FINGERPRINT_CAPTURED:')) {
-                const parts = message.split(':');
-                if (parts.length >= 3) {
-                    const templateBase64 = parts[1];
-                    const imageBase64 = parts[2];
-
-                    // Guardar template (oculto)
-                    fingerprintDataElement.value = templateBase64;
-                    currentTemplate = templateBase64;
-                    const templateSize = Math.round(templateBase64.length * 0.75);
-                    templateSizeElement.textContent = `Tamaño: ${templateSize} bytes`;
-                    templateInfoElement.textContent = `Características: ${Math.round(templateSize / 10)} aprox.`;
-
-                    // Mostrar imagen
-                    displayFingerprintImage(imageBase64);
-
-                    logMessage('✅ Huella capturada correctamente', 'success');
-
-                    qualityInputBoxElement.textContent = '✅ Huella capturada correctamente';
-                    qualityInputBoxElement.style.color = '#28a745';
-
-                    resetCaptureState();
-                }
-            } else if (message.startsWith('ERROR:')) {
-                const errorMsg = message.split(':')[1];
-                logMessage(`❌ ${errorMsg}`, 'error');
-                qualityInputBoxElement.textContent = `❌ ${errorMsg}`;
-                qualityInputBoxElement.style.color = '#dc3545';
-                resetCaptureState();
-            } else if (message.startsWith('STATUS:')) {
-                const status = message.split(':')[1];
-                logMessage(`📊 ${status}`, 'info');
-            } else if (message === 'CAPTURE_STARTED') {
-                logMessage('🎯 Iniciando captura...', 'success');
-                isCapturing = true;
-                updateCaptureButton();
-                startCaptureTimeout();
-                qualityInputBoxElement.textContent = 'Coloque su dedo en el lector...';
-                qualityInputBoxElement.style.color = '#007bff';
-
-                // Limpiar datos anteriores
-                fingerprintDataElement.value = '';
-                resetImageDisplay();
-                templateSizeElement.textContent = 'Tamaño: 0 bytes';
-                templateInfoElement.textContent = 'Características: 0';
-
-            } else if (message === 'FINGER_TOUCHED') {
-                logMessage('👆 Dedo detectado', 'event');
-                qualityInputBoxElement.textContent = 'Dedo detectado - Procesando...';
-                qualityInputBoxElement.style.color = '#ffc107';
-            } else if (message === 'FINGER_REMOVED') {
-                logMessage('👋 Dedo retirado', 'event');
-            } else if (message === 'READER_CONNECTED') {
-                logMessage('🔌 Lector conectado', 'success');
-            } else if (message === 'SAMPLE_QUALITY_GOOD') {
-                logMessage('✅ Calidad: BUENA', 'success');
-                qualityInputBoxElement.textContent = '✅ Calidad: BUENA';
-                qualityInputBoxElement.style.color = '#28a745';
-            } else if (message === 'SAMPLE_QUALITY_POOR') {
-                logMessage('⚠️ Calidad: POBRE', 'warning');
-                qualityInputBoxElement.textContent = '⚠️ Calidad: POBRE - Intente nuevamente';
-                qualityInputBoxElement.style.color = '#ffc107';
-            }
-        }
-
-        // Desconectar del servidor
-        function disconnect() {
-            autoReconnect = false;
-            if (socket) {
-                socket.close(1000, 'Desconexión manual');
-                socket = null;
-            }
-            reconnectAttempts = maxReconnectAttempts;
-            updateStatus(false);
-            resetCaptureState();
-            logMessage('Desconexión manual', 'info');
-        }
-
-        // Capturar huella
-        function captureFingerprint() {
-            if (isCapturing) {
-                logMessage('⚠️ Captura en progreso', 'warning');
-                return;
-            }
-
-            if (socket && socket.readyState === WebSocket.OPEN) {
-                isCapturing = true;
-                updateCaptureButton();
-                startCaptureTimeout();
-
-                socket.send('capture');
-                logMessage('🔄 Enviando comando...', 'info');
-                qualityInputBoxElement.textContent = 'Iniciando captura...';
-                qualityInputBoxElement.style.color = '#007bff';
-
-            } else {
-                logMessage('❌ No hay conexión', 'error');
-                resetCaptureState();
-            }
-        }
-
-        // Inicializar capturador
-        function initializeCapturer() {
-            if (socket && socket.readyState === WebSocket.OPEN) {
-                socket.send('init');
-                logMessage('🔄 Reinicializando...', 'info');
-                qualityInputBoxElement.textContent = 'Reinicializando...';
-            } else {
-                logMessage('❌ No hay conexión', 'error');
-            }
-        }
-
-        // Limpiar imagen
-        function limpiarImagen() {
-            resetImageDisplay();
-            fingerprintDataElement.value = '';
-            templateSizeElement.textContent = 'Tamaño: 0 bytes';
-            templateInfoElement.textContent = 'Características: 0';
-            qualityInputBoxElement.textContent = 'Imagen limpiada - Listo para nueva captura';
-            qualityInputBoxElement.style.color = '#6c757d';
-            logMessage('🔄 Imagen limpiada', 'info');
-        }
-
-        // Guardar imagen
-        function guardarTemplate() {
-            event.preventDefault();
-            if (!fingerprintDataElement.value) {
-                alert('No hay datos de huella para guardar');
-                return;
-            }
-
-            const templateData = fingerprintDataElement.value;
-            document.getElementById("base64Huella").value = templateData;
-
-            // console.log('Guardando huella con template:', templateData);
-
-            logMessage('💾 Guardando datos...', 'success');
-            qualityInputBoxElement.textContent = '✅ Datos guardados';
-            qualityInputBoxElement.style.color = '#28a745';
-
-            // Aquí puedes enviar los datos a tu base de datos
-            // templateData contiene el template en base64
-
-            //alert('Huella guardada correctamente');
-
-            // Ejemplo de cómo enviar a tu backend:
-            /*
-            fetch('/guardar-huella', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    template: templateData,
-                    imagen: fingerprintImgElement.src
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Huella guardada en base de datos');
-                }
-            });
-            */
-        }
-
-        // Evento cuando se abre el modal
-        $('#modalHuellaBiometrica').on('show.bs.modal', function() {
-            connect();
-        });
-
-        // Evento cuando se cierra el modal
-        $('#modalHuellaBiometrica').on('hide.bs.modal', function() {
-            // Opcional: Desconectar cuando se cierra el modal
-             disconnect();
-        });
-    </script>
-
-</body>
-
-</html>
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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

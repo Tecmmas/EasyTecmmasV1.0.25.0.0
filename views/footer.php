@@ -1,339 +1,118 @@
-</div>
-<div class="page-chatapi hideit">
-
-    <div class="search-bar">
-        <input type="text" placeholder="Search" class="form-control">
-    </div>
-
-    <div class="chat-wrapper">
-        <h4 class="group-head">Groups</h4>
-        <ul class="group-list list-unstyled">
-            <li class="group-row">
-                <div class="group-status available">
-                    <i class="fa fa-circle"></i>
-                </div>
-                <div class="group-info">
-                    <h4><a href="#">Work</a></h4>
-                </div>
-            </li>
-            <li class="group-row">
-                <div class="group-status away">
-                    <i class="fa fa-circle"></i>
-                </div>
-                <div class="group-info">
-                    <h4><a href="#">Friends</a></h4>
-                </div>
-            </li>
-
-        </ul>
-
-
-        <h4 class="group-head">Favourites</h4>
-        <ul class="contact-list">
-
-
-
-
-        </ul>
-
-
-        <h4 class="group-head">More Contacts</h4>
-        <ul class="contact-list">
-
-
-
-        </ul>
-    </div>
-
-</div>
-
-
-<div class="chatapi-windows ">
-
-
-
-
-</div>
-<!-- END CONTAINER -->
-<!-- LOAD FILES AT PAGE END FOR FASTER LOADING -->
-
-
-<!-- CORE JS FRAMEWORK - START -->
-<script src="<?php echo base_url(); ?>assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url(); ?>assets/js/popper.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url(); ?>assets/js/jquery.easing.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url(); ?>assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url(); ?>assets/plugins/pace/pace.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url(); ?>assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url(); ?>assets/plugins/viewport/viewportchecker.js" type="text/javascript"></script>
-<script>
-    window.jQuery || document.write('<script src="<?php echo base_url(); ?>assets/js/jquery-1.11.2.min.js"><\/script>');
-</script>
-<!-- CORE JS FRAMEWORK - END -->
-<script src="<?php echo base_url(); ?>assets/plugins/datatables/js/dataTables.min.js" type="text/javascript"></script>
-
-
-
-<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
-
-<script src="<?php echo base_url(); ?>assets/plugins/datatables/js/jquery.dataTables.min.js" type="text/javascript"></script>
-
-<script src="<?php echo base_url(); ?>assets/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url(); ?>assets/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url(); ?>assets/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>
-
-<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
-
-
-<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
-
-
-
-<script src="<?php echo base_url(); ?>assets/plugins/jquery-ui/smoothness/jquery-ui.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url(); ?>assets/plugins/echarts/echarts-custom-for-dashboard.js" type="text/javascript"></script>
-<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
-
-
-<!-- CORE TEMPLATE JS - START -->
-<script src="<?php echo base_url(); ?>assets/js/scripts.js" type="text/javascript"></script>
-<script src="<?php echo base_url(); ?>assets/plugins/datepicker/js/datepicker.js" type="text/javascript"></script>
-<script src="<?php echo base_url(); ?>assets/plugins/multi-select/js/jquery.multi-select.js" type="text/javascript"></script>
-<!-- END CORE TEMPLATE JS - END -->
-
-<script src="<?php echo base_url(); ?>assets/plugins/daterangepicker/js/moment.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url(); ?>assets/plugins/daterangepicker/js/daterangepicker.js" type="text/javascript"></script>
-<script src="<?php echo base_url(); ?>/application/libraries/package/dist/sweetalert2.all.min.js"></script>
-<script src="<?php echo base_url(); ?>application/libraries/table2csv/table2csv.js" type="text/javascript"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
-
-<script src="<?php echo base_url(); ?>assets/plugins/messenger/js/messenger.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url(); ?>assets/plugins/messenger/js/messenger-theme-future.js" type="text/javascript"></script>
-<script src="<?php echo base_url(); ?>assets/plugins/messenger/js/messenger-theme-flat.js" type="text/javascript"></script>
-<script src="<?php echo base_url(); ?>assets/js/messenger.js" type="text/javascript"></script>
-<script src="https://cdn.jsdelivr.net/npm/lemonadejs/dist/lemonade.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@lemonadejs/signature/dist/index.min.js"></script>
-<!--<script src="<?php echo base_url(); ?>assets/sesion.js"  type="text/javascript"></script>-->
-<script src="<?php echo base_url(); ?>application/libraries/sesion.js" type="text/javascript"></script>
-
-
-<!-- libraries lector biometrico -->
-
-<script type="text/javascript">
-    var salaEspera2 = '<?php
-                        if (isset($salaEspera2)) {
-                            echo $salaEspera2;
-                        } else {
-                            echo '0';
-                        }
-                        ?>';
-    var sicov = '<?php echo $this->session->userdata('sicov'); ?>';
-    var activoSicov = '<?php echo $this->session->userdata('activoSicov'); ?>';
-    var sicovModoAlternativo = '<?php echo $this->session->userdata('sicovModoAlternativo'); ?>';
-    var ipSicovAlternativo = '<?php echo $this->session->userdata('ipSicovAlternativo'); ?>';
-    var ipSicov = '<?php echo $this->session->userdata('ipSicov'); ?>';
-    var idCdaRUNT = '<?php echo $this->session->userdata('idCdaRUNT'); ?>';
-    var espejoDatabase = '<?php echo $this->session->userdata('espejoDatabase'); ?>';
-    var espejoDatabaseMesaje = '<?php echo $this->session->userdata('espejoDatabaseMesaje'); ?>';
-
-    $(document).ready(function() {
-        console.log(sicov);
-        localStorage.setItem('espejoDatabase', espejoDatabase);
-        localStorage.setItem('espejoDatabaseMesaje', espejoDatabaseMesaje);
-
-        // Variables de control
-        var enviandoEvento = false;
-        var intentosFallidos = 0;
-        var maxIntentos = 7;
-
-        // if (sicov === 'INDRA' && activoSicov === '1') {
-        //     setInterval(function() {
-        //         enviarEventosINDRA();
-        //     }, 2000);
-        // }
-
-        validarEspejoDatabase();
-
-        setInterval(function() {
-            //enviarPlacaSalaE();
-            getCronAudit();
-        }, 5000);
-
-        var enviarEventosINDRA = function() {
-            if (enviandoEvento) {
-                console.log("Petición anterior en curso, omitiendo...");
-                return;
-            }
-
-            if (intentosFallidos >= maxIntentos) {
-                Swal.fire({
-                    title: "Error",
-                    text: "Demasiados intentos fallidos en el envio de eventos INDRA, deteniendo envío. Por favor comuníquese con soporte",
-                    icon: "error"
-                });
-                intentosFallidos = maxIntentos; // Detener intentos
-                return;
-            }
-
-            enviandoEvento = true;
-
-            var data = {
-                sicovModoAlternativo: sicovModoAlternativo,
-                ipSicovAlternativo: ipSicovAlternativo,
-                ipSicov: ipSicov,
-                idCdaRUNT: idCdaRUNT
-            };
-
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/CGestion/enviarEventosIndra',
-                type: 'post',
-                data: data,
-                async: true,
-                timeout: 5000, // 5 segundos de timeout
-                success: function(response) {
-                    console.log("Evento enviado exitosamente:", response);
-                    intentosFallidos = 0; // Resetear contador de fallos
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error enviando evento:", error);
-                    intentosFallidos++;
-                },
-                complete: function() {
-                    enviandoEvento = false;
-                }
-            });
-        };
-    });
-
-    var validarEspejoDatabase = function() {
-        if (parseInt(espejoDatabase) == 1) {
-            Swal.fire({
-                title: "Error en el servidor",
-                html: '<div style="font-size: 15px">Se detectó un problema en el enlace a la base de datos. Por seguridad, no realicé ningún tipo de prueba ni modificación de datos hasta que el área de soporte valide, de lo contrario puede presentar pérdida de información. Por favor, comuníquese con el área de soporte.<br><br> ' + espejoDatabaseMesaje + '</div>',
-                icon: "warning",
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Aceptar",
-                allowOutsideClick: false
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // window.location.href = "<?php echo base_url(); ?>index.php/Cindex";
-                }
-            });
-
-        }
-
-    }
-
-
-
-    var ranTh = function(param, idm) {
-        if (param === 0) {
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/CGestion/ranTh'
-            });
-        } else {
-
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/CGestion/ranTh1',
-                type: 'post',
-                data: {
-                    idm: idm
-                }
-            });
-        }
-
-    };
-
-    var getCronAudit = function() {
-        $.ajax({
-            url: '<?php echo base_url(); ?>index.php/oficina/reportes/pruebas/Cpruebas/getCronAudit',
-            type: 'post',
-            mimeType: 'json',
-            data: {},
-            success: function(data, textStatus, jqXHR) {
-                // console.log(data)
-                
-                if (data !== null && data !== "" && data.length > 0) {
-                    if (localStorage.getItem("alert") == null) {
-                        var datos = {
-                            placa: "",
-                            id: "",
-                            notificado: 0,
-                        };
-                        localStorage.setItem("alert", JSON.stringify(datos));
-                    } else {
-                        var dat = JSON.parse(localStorage.getItem("alert"));
-                        if (data[0].id == 1 && dat.notificado == 0) {
-                            var dat = JSON.parse(localStorage.getItem("alert"));
-                            var datos = {
-                                placa: data[0].placa,
-                                id: data[0].id,
-                                notificado: 1,
-                            };
-                            localStorage.setItem("alert", JSON.stringify(datos));
-                            var tex = "Se detecto una alteración del sistema." + "<br>" + "Fecha: " + data[0].fecha + "<br>" + "Placa: " + data[0].placa
-                            Swal.fire({
-                                title: '¡Atención!',
-                                html: tex,
-                                imageUrl: '<?php echo base_url(); ?>application/libraries/advertencia.png',
-                                imageWidth: 150,
-                                imageHeight: 150,
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: 'Aceptar',
-                            });
-                        } else {
-                            if (data[0].id !== dat.id) {
-                                var datos = {
-                                    placa: data[0].placa,
-                                    id: data[0].id,
-                                    notificado: 1,
-                                };
-                                localStorage.setItem("alert", JSON.stringify(datos));
-                                var tex2 = "Se detecto una alteración del sistema." + "<br>" + "Fecha: " + data[0].fecha + "<br>" + "Placa: " + data[0].placa
-                                Swal.fire({
-                                    title: '¡Atención!',
-                                    html: tex2,
-                                    imageUrl: '<?php echo base_url(); ?>application/libraries/advertencia.png',
-                                    imageWidth: 150,
-                                    imageHeight: 150,
-                                    confirmButtonColor: '#3085d6',
-                                    confirmButtonText: 'Aceptar',
-                                });
-                            }
-
-                        }
-                    }
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-
-            }
-        });
-    }
-</script>
-<!-- General section box modal start -->
-<div class="modal" id="section-settings" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog animated bounceInDown">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Section Settings</h4>
-            </div>
-            <div class="modal-body">
-
-                Body goes here...
-
-            </div>
-            <div class="modal-footer">
-                <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
-                <button class="btn btn-success" type="button">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- modal end -->
-</body>
-
-</html>
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+/YMsl9l55qft05t9z76Tk5Ryqia=

@@ -1,672 +1,104 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Cliente WebSocket - Captura y Verificación de Huellas</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .status {
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-        }
-
-        .connected {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .disconnected {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-
-        .connecting {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-
-        .controls {
-            margin: 20px 0;
-        }
-
-        button {
-            padding: 10px 15px;
-            margin: 5px;
-            cursor: pointer;
-        }
-
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        textarea {
-            width: 100%;
-            height: 150px;
-            margin: 10px 0;
-        }
-
-        .log {
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            padding: 10px;
-            height: 200px;
-            overflow-y: scroll;
-        }
-
-        .event {
-            color: #007bff;
-        }
-
-        .error {
-            color: #dc3545;
-        }
-
-        .success {
-            color: #28a745;
-        }
-
-        .warning {
-            color: #ffc107;
-        }
-
-        .focus-notice {
-            background-color: #fff3cd;
-            border: 1px solid #ffeaa7;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 10px 0;
-        }
-
-        .data-container {
-            display: flex;
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .data-section {
-            flex: 1;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-            padding: 15px;
-            background-color: #f8f9fa;
-        }
-
-        .fingerprint-image {
-            text-align: center;
-            margin: 10px 0;
-        }
-
-        .fingerprint-img {
-            max-width: 100%;
-            max-height: 300px;
-            border: 2px solid #dee2e6;
-            border-radius: 5px;
-            padding: 10px;
-            background-color: white;
-        }
-
-        .image-placeholder {
-            width: 100%;
-            height: 200px;
-            border: 2px dashed #dee2e6;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #6c757d;
-            background-color: #f8f9fa;
-        }
-
-        .template-info {
-            font-size: 12px;
-            color: #6c757d;
-            margin-top: 10px;
-        }
-
-        .auto-capture-notice {
-            background-color: #e7f3ff;
-            border: 1px solid #b3d9ff;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 10px 0;
-        }
-
-        .verification-section {
-            background-color: #f0f8ff;
-            border: 2px solid #007bff;
-            border-radius: 5px;
-            padding: 15px;
-            margin: 20px 0;
-        }
-
-        .verification-result {
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .verification-success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .verification-failed {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <h1>Cliente WebSocket - Captura y Verificación de Huellas Digitales</h1>
-
-        <div class="focus-notice">
-            💡 <strong>Nota:</strong> La aplicación se activará automáticamente cuando inicies una captura
-        </div>
-
-        <div class="auto-capture-notice">
-            🔄 <strong>Captura Automática:</strong> Se iniciará automáticamente cuando se conecte al servidor
-        </div>
-
-        <div id="status" class="status disconnected">
-            Desconectado
-        </div>
-
-        <div class="controls">
-            <button id="btnConnect" onclick="connect()" style="display: none;">Conectar</button>
-            <button id="btnDisconnect" onclick="disconnect()" disabled>Desconectar</button>
-            <button id="btnCapture" onclick="captureFingerprint()" disabled>Capturar Huella</button>
-            <button id="btnStatus" onclick="getStatus()" disabled>Obtener Estado</button>
-            <button id="btnInit" onclick="initializeCapturer()" disabled>Reinicializar</button>
-            <!-- NUEVO: Botón de verificación -->
-            <button id="btnVerify" onclick="startVerificationMode()" disabled>Verificar Huella</button>
-        </div>
-
-        <!-- NUEVA SECCIÓN: Verificación -->
-        <div class="verification-section">
-            <h3>🔍 Verificación de Huella</h3>
-            <p>Usa el template capturado para verificar una huella:</p>
-            <button id="btnStartVerify" onclick="startVerification()" disabled>Iniciar Verificación</button>
-            <div id="verificationResult" class="verification-result" style="display: none;">
-                <!-- Resultado de verificación aparecerá aquí -->
-            </div>
-        </div>
-
-        <div class="data-container">
-            <div class="data-section">
-                <h3>📊 Template de Huella:</h3>
-                <textarea id="fingerprintData" readonly placeholder="Los datos del template aparecerán aquí..."></textarea>
-                <div class="template-info">
-                    <div id="templateSize">Tamaño: 0 bytes</div>
-                    <div id="templateInfo">Características: 0</div>
-                </div>
-            </div>
-
-            <div class="data-section">
-                <h3>🖼️ Imagen de Huella:</h3>
-                <div class="fingerprint-image">
-                    <div id="imagePlaceholder" class="image-placeholder">
-                        👆 La imagen de la huella aparecerá aquí
-                    </div>
-                    <img id="fingerprintImg" class="fingerprint-img" style="display: none;" alt="Imagen de huella digital">
-                </div>
-                <div class="template-info">
-                    <div id="imageInfo">Resolución: 0x0 px</div>
-                    <div id="imageSize">Tamaño: 0 KB</div>
-                </div>
-            </div>
-        </div>
-
-        <h3>📝 Registro de Eventos:</h3>
-        <div id="log" class="log"></div>
-    </div>
-
-    <script>
-        let socket = null;
-        let reconnectAttempts = 0;
-        const maxReconnectAttempts = 5;
-        const reconnectDelay = 2000;
-        let autoReconnect = true;
-
-        // VARIABLES PARA CONTROLAR CAPTURA
-        let isCapturing = false;
-        let captureTimeout = null;
-        const CAPTURE_TIMEOUT_MS = 30000;
-        let autoCaptureOnConnect = true;
-
-        // NUEVO: Variables para verificación
-        let isVerificationMode = false;
-        let currentTemplate = '';
-
-        const statusElement = document.getElementById('status');
-        const fingerprintDataElement = document.getElementById('fingerprintData');
-        const fingerprintImgElement = document.getElementById('fingerprintImg');
-        const imagePlaceholderElement = document.getElementById('imagePlaceholder');
-        const logElement = document.getElementById('log');
-        const verificationResultElement = document.getElementById('verificationResult');
-
-        // Elementos de información
-        const templateSizeElement = document.getElementById('templateSize');
-        const templateInfoElement = document.getElementById('templateInfo');
-        const imageInfoElement = document.getElementById('imageInfo');
-        const imageSizeElement = document.getElementById('imageSize');
-
-        // Botones
-        const btnConnect = document.getElementById('btnConnect');
-        const btnDisconnect = document.getElementById('btnDisconnect');
-        const btnCapture = document.getElementById('btnCapture');
-        const btnStatus = document.getElementById('btnStatus');
-        const btnInit = document.getElementById('btnInit');
-        const btnVerify = document.getElementById('btnVerify');
-        const btnStartVerify = document.getElementById('btnStartVerify');
-
-        function logMessage(message, type = 'info') {
-            const timestamp = new Date().toLocaleTimeString();
-            const className = type === 'error' ? 'error' :
-                type === 'success' ? 'success' :
-                type === 'event' ? 'event' :
-                type === 'warning' ? 'warning' : '';
-            logElement.innerHTML += `<div class="${className}">[${timestamp}] ${message}</div>`;
-            logElement.scrollTop = logElement.scrollHeight;
-            console.log(`[${timestamp}] ${message}`);
-        }
-
-        function updateStatus(connected, message = '') {
-            if (connected) {
-                statusElement.textContent = message || '✅ Conectado al servidor';
-                statusElement.className = 'status connected';
-                btnConnect.disabled = true;
-                btnDisconnect.disabled = false;
-                btnCapture.disabled = isCapturing;
-                btnStatus.disabled = false;
-                btnInit.disabled = false;
-                btnVerify.disabled = false;
-                btnStartVerify.disabled = !currentTemplate;
-
-                // Iniciar captura automática si está habilitada
-                if (autoCaptureOnConnect) {
-                    setTimeout(() => {
-                        logMessage('🔄 Iniciando captura automática...', 'info');
-                        captureFingerprint();
-                    }, 1000);
-                }
-            } else {
-                statusElement.textContent = message || '❌ Desconectado';
-                statusElement.className = 'status disconnected';
-                btnConnect.disabled = false;
-                btnDisconnect.disabled = true;
-                btnCapture.disabled = true;
-                btnStatus.disabled = true;
-                btnInit.disabled = true;
-                btnVerify.disabled = true;
-                btnStartVerify.disabled = true;
-                resetCaptureState();
-            }
-        }
-
-        function updateStatusConnecting() {
-            statusElement.textContent = '🔄 Conectando...';
-            statusElement.className = 'status connecting';
-            btnConnect.disabled = true;
-        }
-
-        function resetCaptureState() {
-            isCapturing = false;
-            isVerificationMode = false;
-            if (captureTimeout) {
-                clearTimeout(captureTimeout);
-                captureTimeout = null;
-            }
-            updateCaptureButton();
-        }
-
-        function updateCaptureButton() {
-            btnCapture.disabled = isCapturing || !socket || socket.readyState !== WebSocket.OPEN;
-            if (isCapturing) {
-                btnCapture.textContent = '🔄 Capturando...';
-                btnCapture.style.backgroundColor = '#ffc107';
-            } else {
-                btnCapture.textContent = 'Capturar Huella';
-                btnCapture.style.backgroundColor = '';
-            }
-        }
-
-        function startCaptureTimeout() {
-            if (captureTimeout) {
-                clearTimeout(captureTimeout);
-            }
-            captureTimeout = setTimeout(() => {
-                logMessage('⏰ Timeout de captura alcanzado - Reiniciando estado', 'warning');
-                resetCaptureState();
-            }, CAPTURE_TIMEOUT_MS);
-        }
-
-        // NUEVO: Función para verificar huella
-        function verifyFingerprint(templateBase64) {
-            if (socket && socket.readyState === WebSocket.OPEN) {
-                const message = `verify:${templateBase64}`;
-                socket.send(message);
-                logMessage('🔍 Enviando template para verificación...', 'info');
-                logMessage('💡 Escanee la huella a verificar', 'info');
-                isVerificationMode = true;
-            } else {
-                logMessage('❌ Error: No hay conexión con el servidor', 'error');
-            }
-        }
-
-        // NUEVO: Iniciar modo verificación
-        function startVerification() {
-            const templateBase64 = fingerprintDataElement.value.trim();
-            if (!templateBase64) {
-                logMessage('❌ Error: No hay template para verificar', 'error');
-                showVerificationResult('Por favor, capture primero una huella para obtener el template', false);
-                return;
-            }
-
-            currentTemplate = templateBase64;
-            verifyFingerprint(templateBase64);
-            showVerificationResult('Modo verificación activado - Escanee huella para verificar', null);
-        }
-
-        // NUEVO: Mostrar resultado de verificación
-        function showVerificationResult(message, isSuccess) {
-            verificationResultElement.style.display = 'block';
-            verificationResultElement.textContent = message;
-
-            if (isSuccess === true) {
-                verificationResultElement.className = 'verification-result verification-success';
-            } else if (isSuccess === false) {
-                verificationResultElement.className = 'verification-result verification-failed';
-            } else {
-                verificationResultElement.className = 'verification-result';
-                verificationResultElement.style.backgroundColor = '#fff3cd';
-                verificationResultElement.style.color = '#856404';
-            }
-        }
-
-        // NUEVO: Función para modo verificación (comando simple)
-        function startVerificationMode() {
-            if (socket && socket.readyState === WebSocket.OPEN) {
-                socket.send('verify');
-                logMessage('🔍 Solicitando modo verificación...', 'info');
-            } else {
-                logMessage('❌ Error: No hay conexión con el servidor', 'error');
-            }
-        }
-
-        function displayFingerprintImage(imageBase64) {
-            try {
-                if (imageBase64 && imageBase64.length > 100) {
-                    const imageSrc = `data:image/png;base64,${imageBase64}`;
-
-                    const img = new Image();
-                    img.onload = function() {
-                        fingerprintImgElement.src = imageSrc;
-                        fingerprintImgElement.style.display = 'block';
-                        imagePlaceholderElement.style.display = 'none';
-
-                        imageInfoElement.textContent = `Resolución: ${this.width}x${this.height} px`;
-                        imageSizeElement.textContent = `Tamaño: ${Math.round(imageBase64.length * 0.75 / 1024)} KB`;
-
-                        logMessage(`🖼️ Imagen de huella mostrada (${this.width}x${this.height} px)`, 'success');
-                    };
-                    img.onerror = function() {
-                        logMessage('❌ Error al cargar la imagen de huella', 'error');
-                        resetImageDisplay();
-                    };
-                    img.src = imageSrc;
-                } else {
-                    logMessage('⚠️ Datos de imagen insuficientes o inválidos', 'warning');
-                    resetImageDisplay();
-                }
-            } catch (error) {
-                logMessage(`❌ Error al mostrar imagen: ${error}`, 'error');
-                resetImageDisplay();
-            }
-        }
-
-        function resetImageDisplay() {
-            fingerprintImgElement.style.display = 'none';
-            imagePlaceholderElement.style.display = 'flex';
-            imageInfoElement.textContent = 'Resolución: 0x0 px';
-            imageSizeElement.textContent = 'Tamaño: 0 KB';
-        }
-
-        function connect() {
-            if (socket && socket.readyState === WebSocket.OPEN) {
-                logMessage('Ya está conectado', 'info');
-                return;
-            }
-
-            updateStatusConnecting();
-            logMessage('Intentando conectar con el servidor...', 'info');
-
-            try {
-                socket = new WebSocket('ws://localhost:8081/');
-
-                socket.onopen = function(event) {
-                    reconnectAttempts = 0;
-                    updateStatus(true, '✅ Conectado - Servidor listo');
-                    logMessage('Conexión WebSocket establecida correctamente', 'success');
-                    logMessage('Puedes enviar comandos de captura', 'info');
-                    resetCaptureState();
-                    resetImageDisplay();
-                };
-
-                socket.onmessage = function(event) {
-                    const message = event.data;
-                    logMessage(`📨 Servidor: ${message}`, 'event');
-                    processServerMessage(message);
-                };
-
-                socket.onclose = function(event) {
-                    logMessage(`Conexión cerrada: ${event.code} - ${event.reason || 'Sin razón'}`, 'info');
-                    updateStatus(false);
-                    resetCaptureState();
-
-                    if (autoReconnect && reconnectAttempts < maxReconnectAttempts) {
-                        reconnectAttempts++;
-                        logMessage(`Intentando reconectar... (${reconnectAttempts}/${maxReconnectAttempts})`, 'info');
-                        setTimeout(connect, reconnectDelay);
-                    }
-                };
-
-                socket.onerror = function(error) {
-                    logMessage(`❌ Error de WebSocket: No se pudo conectar al servidor`, 'error');
-                    logMessage(`Asegúrate de que la aplicación C# esté ejecutándose`, 'error');
-                    updateStatus(false, '❌ Error de conexión');
-                    resetCaptureState();
-                };
-
-            } catch (error) {
-                logMessage(`❌ Error al crear WebSocket: ${error}`, 'error');
-                updateStatus(false);
-                resetCaptureState();
-            }
-        }
-
-        function processServerMessage(message) {
-            // NUEVO: Procesar mensajes de verificación
-            if (message.startsWith('VERIFICATION_READY:')) {
-                const status = message.split(':')[1];
-                logMessage(`✅ ${status}`, 'success');
-                logMessage('👆 Coloque su dedo en el lector para verificar', 'info');
-                isVerificationMode = true;
-                showVerificationResult('Listo para verificar - Escanee su huella', null);
-            } else if (message.startsWith('VERIFICATION_SUCCESS:')) {
-                const result = message.split(':')[1];
-                logMessage(`🎉 ${result}`, 'success');
-                showVerificationResult('✅ HUELLA VERIFICADA CORRECTAMENTE', true);
-                resetCaptureState();
-                isVerificationMode = false;
-            } else if (message.startsWith('VERIFICATION_FAILED:')) {
-                const result = message.split(':')[1];
-                logMessage(`❌ ${result}`, 'error');
-                showVerificationResult('❌ HUELLA NO COINCIDE - Verificación fallida', false);
-                resetCaptureState();
-                isVerificationMode = false;
-            } else if (message.startsWith('VERIFICATION_ERROR:')) {
-                const error = message.split(':')[1];
-                logMessage(`❌ Error de verificación: ${error}`, 'error');
-                showVerificationResult(`❌ Error: ${error}`, false);
-                resetCaptureState();
-                isVerificationMode = false;
-            }
-            // Procesar mensaje con template e imagen
-            else if (message.startsWith('FINGERPRINT_CAPTURED:')) {
-                const parts = message.split(':');
-                if (parts.length >= 3) {
-                    const templateBase64 = parts[1];
-                    const imageBase64 = parts[2];
-
-                    // Mostrar template
-                    fingerprintDataElement.value = templateBase64;
-                    currentTemplate = templateBase64;
-                    const templateSize = Math.round(templateBase64.length * 0.75);
-                    templateSizeElement.textContent = `Tamaño: ${templateSize} bytes`;
-                    templateInfoElement.textContent = `Características: ${Math.round(templateSize / 10)} aprox.`;
-
-                    // Mostrar imagen
-                    displayFingerprintImage(imageBase64);
-
-                    logMessage('✅ Huella digital capturada - Template e imagen recibidos', 'success');
-                    logMessage(`📊 Tamaño del template: ${templateSize} bytes`, 'info');
-
-                    // Habilitar botón de verificación
-                    btnStartVerify.disabled = false;
-
-                    resetCaptureState();
-                }
-
-            } else if (message.startsWith('ERROR:')) {
-                const errorMsg = message.split(':')[1];
-                logMessage(`❌ Error del servidor: ${errorMsg}`, 'error');
-                resetCaptureState();
-
-            } else if (message.startsWith('STATUS:')) {
-                const status = message.split(':')[1];
-                logMessage(`📊 Estado del servidor: ${status}`, 'info');
-
-            } else if (message === 'CAPTURE_STARTED') {
-                logMessage('🎯 Captura iniciada - Coloque su dedo en el lector', 'success');
-                logMessage('💡 La ventana de la aplicación se activará automáticamente', 'info');
-                isCapturing = true;
-                updateCaptureButton();
-                startCaptureTimeout();
-
-                // Limpiar datos anteriores
-                fingerprintDataElement.value = '';
-                resetImageDisplay();
-                templateSizeElement.textContent = 'Tamaño: 0 bytes';
-                templateInfoElement.textContent = 'Características: 0';
-                verificationResultElement.style.display = 'none';
-
-            } else if (message === 'FINGER_TOUCHED') {
-                logMessage('👆 Dedo detectado en el lector', 'event');
-
-            } else if (message === 'FINGER_REMOVED') {
-                logMessage('👋 Dedo retirado del lector', 'event');
-
-            } else if (message === 'READER_CONNECTED') {
-                logMessage('🔌 Lector de huellas conectado', 'success');
-
-            } else if (message === 'SAMPLE_QUALITY_GOOD') {
-                logMessage('✅ Calidad de la muestra: BUENA', 'success');
-
-            } else if (message === 'SAMPLE_QUALITY_POOR') {
-                logMessage('⚠️ Calidad de la muestra: POBRE - Intente nuevamente', 'warning');
-            }
-        }
-
-        function disconnect() {
-            autoReconnect = false;
-            if (socket) {
-                socket.close(1000, 'Desconexión manual del usuario');
-                socket = null;
-            }
-            reconnectAttempts = maxReconnectAttempts;
-            updateStatus(false);
-            resetCaptureState();
-            logMessage('Desconexión manual', 'info');
-        }
-
-        function captureFingerprint() {
-            if (isCapturing) {
-                logMessage('⚠️ Ya hay una captura en progreso - Espere a que termine', 'warning');
-                return;
-            }
-
-            if (socket && socket.readyState === WebSocket.OPEN) {
-                isCapturing = true;
-                updateCaptureButton();
-                startCaptureTimeout();
-
-                socket.send('capture');
-                logMessage('🔄 Enviando comando CAPTURE...', 'info');
-                logMessage('💡 Activando ventana de la aplicación...', 'info');
-
-            } else {
-                logMessage('❌ Error: No hay conexión con el servidor', 'error');
-                resetCaptureState();
-            }
-        }
-
-        function initializeCapturer() {
-            if (socket && socket.readyState === WebSocket.OPEN) {
-                socket.send('init');
-                logMessage('🔄 Enviando comando INIT...', 'info');
-            } else {
-                logMessage('❌ Error: No hay conexión con el servidor', 'error');
-            }
-        }
-
-        function getStatus() {
-            if (socket && socket.readyState === WebSocket.OPEN) {
-                socket.send('status');
-                logMessage('📊 Solicitando estado del servidor...', 'info');
-            } else {
-                logMessage('❌ Error: No hay conexión con el servidor', 'error');
-            }
-        }
-
-        // Conectar automáticamente al cargar la página
-        window.addEventListener('load', function() {
-            logMessage('Página cargada - Conectando automáticamente...', 'info');
-            connect();
-        });
-
-        // Verificar el estado de la conexión periódicamente
-        setInterval(() => {
-            if (socket && socket.readyState === WebSocket.OPEN) {
-                // Conexión saludable
-            } else if (socket && socket.readyState === WebSocket.CLOSED && autoReconnect) {
-                if (reconnectAttempts < maxReconnectAttempts) {
-                    logMessage('🔄 Intentando reconexión automática...', 'info');
-                    connect();
-                }
-            }
-        }, 5000);
-    </script>
-</body>
-
-</html>
-
-
-
-
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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

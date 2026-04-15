@@ -1,86 +1,36 @@
-<?php $this->load->view('header'); ?>
-<script type="text/javascript">
-   
-</script>
-<!-- START CONTENT -->
-<section id="main-content" class=" ">
-    <section class="wrapper main-wrapper row" style=''>
-
-        <div class='col-12'>
-            <div class="page-title">
-
-                <div class="float-left">
-                    <!-- PAGE HEADING TAG - START --><h4 class="title">LINEA LIVIANOS PRINCIPAL</h4><!-- PAGE HEADING TAG - END -->  
-                </div>
-
-            </div>
-        </div>
-        <div class="clearfix"></div>
-        <!-- MAIN CONTENT AREA STARTS -->
-
-        <div class="col-xl-12">
-            <section class="box ">
-                <header class="panel_header">
-                    <h4 class="title float-left">VEHICULOS DISPONIBLES</h4>
-
-                </header>
-                <div class="content-body">    
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-12">
-                            <section class="box ">
-                                <header class="panel_header">
-                                    <h2 class="title float-left">Bordered Table</h2>
-                                    <div class="actions panel_actions float-right">
-                                        <a class="box_toggle fa fa-chevron-down"></a>
-                                        <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
-                                        <a class="box_close fa fa-times"></a>
-                                    </div>
-                                </header>
-                                <div class="content-body">    <div class="row">
-                                        <div class="col-12">
-                                            <form action="<?php echo base_url(); ?>index.php/CPrueba" method="post">
-                                                <table class="table table-bordered">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Fecha</th>
-                                                            <th>Placa</th>
-                                                            <th>Iniciar</th>
-                                                        </tr>
-                                                        <?php ?>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php foreach ($pruebas->result() as $p) { ?>
-                                                            <tr>
-
-                                                                <td><?php echo $p->fecha; ?></td>
-                                                                <th scope="row"><?php echo $p->placa; ?></th>
-                                                                <td><button class="btn btn-primary btn-block" name="idprueba" value ="<?php echo $p->idprueba; ?>" type="submit">Iniciar</button></td>
-                                                            </tr>
-                                                        <?php } ?>
-                                                    </tbody>
-                                                </table>
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-        </div>
-
-
-
-        <!-- MAIN CONTENT AREA ENDS -->
-    </section>
-</section>
-<!-- END CONTENT -->
-
-
-
-<?php
-$this->load->view('footer');
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+5lS=

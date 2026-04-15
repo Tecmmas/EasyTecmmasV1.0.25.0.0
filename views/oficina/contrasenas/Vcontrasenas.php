@@ -1,227 +1,101 @@
-<!DOCTYPE html>
-<html class=" ">
-    <head>
-
-        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-        <meta charset="utf-8" />
-        <title><?php echo $this->config->item('titulo'); ?></title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <meta content="" name="description" />
-        <meta content="" name="author" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-        <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png" type="image/x-icon" />    <!-- Favicon -->
-        <link rel="apple-touch-icon-precomposed" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-57-precomposed.png">	<!-- For iPhone -->
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-114-precomposed.png">    <!-- For iPhone 4 Retina display -->
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-72-precomposed.png">    <!-- For iPad -->
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-144-precomposed.png">    <!-- For iPad Retina display -->
-
-        <!-- CORE CSS FRAMEWORK - START -->
-        <link href="<?php echo base_url(); ?>assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <!-- <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/> -->
-        <link href="<?php echo base_url(); ?>assets/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/css/animate.min.css" rel="stylesheet" type="text/css"/>
-        <!-- CORE CSS FRAMEWORK - END -->
-
-        <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - START --> 
-
-
-        <link href="<?php echo base_url(); ?>assets/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css" media="screen"/>
-
-        <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - END --> 
-
-
-        <!-- CORE CSS TEMPLATE - START -->
-        <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/css/responsive.css" rel="stylesheet" type="text/css"/>
-        <!-- CORE CSS TEMPLATE - END -->
-
-    </head>
-    <!-- END HEAD -->
-
-    <!-- BEGIN BODY -->
-    <body class="login_page" style="background: white">
-
-        <div class="container-fluid"> 
-            <div class="login-wrapper row" >
-                <div id="login" class="login loginpage offset-xl-3 offset-lg-3 offset-md-3 offset-0 col-12 col-md-6 col-xl-7" style="border: solid;border-color: #393185;background: whitesmoke;border-radius: 40px 40px 40px 40px" >
-                    <h1><a href="#" title="Login Page" tabindex="-1">Complete Admin</a></h1>
-                    <form name="loginform" id="loginform" action="<?php echo base_url(); ?>index.php/oficina/contrasenas/Ccontrasenas/updatecontra" method="post">
-                        <p style="font-weight: bold;color: black; text-align: left">
-                            Bienvenido(a) <?= ucwords(strtolower($user->nombres)) ?> para el cambio de contraseña debe tener en cuenta:<br>
-                            1.Las contraseñas deben tener 6 o mas caracteres<br>
-                            2.Debe combinar letras mayúsculas, minúsculas y números.<br>
-                            3.No debe ser igual a la clave anterior.<br>
-                            4.Debe contener almenos un caracter especial. Ejemplo: @*,.<br>
-                            5.No se pueden repetir caracteres en la contraseña.<br>
-                        </p>
-                        <p>
-                            <label style="font-weight: bold;color: black" for="usuario">Contraseña<br/>
-                                <input  type="password" onkeyup="validarcontrasena()"  name="contrasenna" id="contrasenna" class="input"  size="20" autocomplete="off"/>
-                                <strong style="color: #E31F24"><?php echo form_error('contrasena'); ?></strong>
-                            </label>
-                        </p>
-                        <p>
-                            <label style="font-weight: bold;color: black" for="contrasena">Confirmar contraseña<br />
-                                <input  disabled type="password" onkeyup="validarconfcontra()"name="confcontrasena" id="confcontrasena" class="input"  size="20"  />
-                                <input  type="hidden" class="input" name="iduser" id="iduser" size="20" value="<?= $user->IdUsuario ?>"  />
-                                <input  type="hidden" class="input" name="idperfil" id="idperfil" size="20" value="<?= $user->idperfil ?>"  />
-                                <input  type="hidden" class="input" name="fecha" id="fecha" size="20" value="<?= $user->fecha_actualizacion ?>"  />
-                                <strong style="color: #E31F24"><?php echo form_error('confcontrasena'); ?></strong>
-                            </label>
-                        </p>
-                        <div style="color: #E31F24" id="divcontra"> <?php
-                            echo $this->session->flashdata('error');
-                            if (isset($mensaje)) {
-                                echo $mensaje;
-                            }
-                            ?></div>
-                        <p class="submit" style="color: #E31F24">   
-                            <input disabled type="submit" name="wp-submit" id="ingresar" class="btn btn-accent btn-block" style="background-color: #393185" value="Registrar" />
-                        </p>
-                        <label id="mensaje" style="color: brown;font-weight: bold;text-align: center"></label>
-                    </form>
-                    <div style="text-align: center;color: gray">
-                        <?php echo $this->config->item('derechos'); ?>    
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MAIN CONTENT AREA ENDS -->
-        <!-- LOAD FILES AT PAGE END FOR FASTER LOADING -->
-
-
-        <!-- CORE JS FRAMEWORK - START --> 
-        <script src="<?php echo base_url(); ?>assets/js/jquery-3.2.1.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/js/popper.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/js/jquery.easing.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/pace/pace.min.js" type="text/javascript"></script>  
-        <script src="<?php echo base_url(); ?>assets/plugins/viewport/viewportchecker.js" type="text/javascript"></script>  
-        <script>window.jQuery || document.write('<script src="<?php echo base_url(); ?>assets/js/jquery-1.11.2.min.js"><\/script>');</script>
-        <!-- CORE JS FRAMEWORK - END --> 
-
-
-        <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START --> 
-
-        <script src="<?php echo base_url(); ?>assets/plugins/icheck/icheck.min.js" type="text/javascript"></script>
-        <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END --> 
-
-
-        <!-- CORE TEMPLATE JS - START --> 
-        <script src="<?php echo base_url(); ?>assets/js/scripts.js" type="text/javascript"></script> 
-        <!-- END CORE TEMPLATE JS - END --> 
-
-        <script type="text/javascript">
-                                    function validarcontrasena() {
-                                        var contrasenna = $('#contrasenna').val();
-                                        var iduser = $('#iduser').val();
-                                        if (contrasenna.length >= 6) {
-                                            var mayuscula = false;
-                                            var minuscula = false;
-                                            var numero = false;
-                                            var caracter_raro = false;
-                                            for (var i = 0; i < contrasenna.length; i++) {
-                                                if (contrasenna.charCodeAt(i) >= 65 && contrasenna.charCodeAt(i) <= 90)
-                                                {
-                                                    mayuscula = true;
-//                                                    console.log('mayuscula' + ' ' + mayuscula);
-                                                } else if (contrasenna.charCodeAt(i) >= 97 && contrasenna.charCodeAt(i) <= 122)
-                                                {
-                                                    minuscula = true;
-//                                                    console.log('minuscula' + ' ' + minuscula);
-                                                } else if (contrasenna.charCodeAt(i) >= 48 && contrasenna.charCodeAt(i) <= 57)
-                                                {
-                                                    numero = true;
-//                                                    console.log('numero' + ' ' + numero);
-                                                } else
-                                                {
-                                                    caracter_raro = true;
-//                                                    console.log('Caracter' + ' ' + caracter_raro);
-                                                }
-                                            }
-
-                                        }
-                                        if (mayuscula == true && minuscula == true && caracter_raro == true && numero == true) {
-                                            $.ajax({
-                                                url: '<?php echo base_url(); ?>index.php/oficina/contrasenas/Ccontrasenas/getpassword',
-                                                type: 'post',
-                                                mimeType: 'json',
-                                                data: {iduser: iduser,
-                                                    contrasenna: contrasenna},
-                                                success: function (data) {
-                                                    if (data == 1) {
-                                                        $('#divcontra').html('La contraseña fue asignada anteriormente.');
-                                                        $('#confcontrasena').val('');
-                                                        deshabilitarComponentes();
-                                                        deshabilitarinputconfcontra();
-                                                    } else {
-                                                        var rta = camposrepetidos(contrasenna);
-                                                        console.log(rta);
-                                                        if (rta === true) {
-                                                            $('#divcontra').html('La contraseña no puede tener caracteres repetidos.');
-                                                            deshabilitarinputconfcontra();
-                                                        } else {
-                                                            $('#divcontra').html('<div style="color: #1D8348">La contraseña cumple con los parametros.</div>');
-                                                            inputconfcontra();
-                                                        }
-                                                    }
-                                                }
-                                            });
-//                                            
-                                        } else {
-                                            $('#divcontra').html(' ');
-                                            $('#divcontra').html('La contraseña no cumple con los parametros.');
-                                            $('#confcontrasena').val('');
-                                            deshabilitarinputconfcontra();
-                                            deshabilitarComponentes();
-                                        }
-                                    }
-
-
-                                    function validarconfcontra() {
-                                        var confcontrasena = $('#confcontrasena').val();
-                                        var contrasenna = $('#contrasenna').val();
-                                        if (contrasenna == confcontrasena) {
-                                            $('#divcontra').html('<div style="color: #1D8348">Las contraseñas coninciden y cumplen con los parametros.</div>');
-                                            habilitarComponentes();
-                                        } else {
-                                            $('#divcontra').html('Las contraseñas no coinciden.');
-                                            deshabilitarComponentes();
-                                        }
-                                    }
-                                    function habilitarComponentes() {
-                                        document.getElementById("ingresar").disabled = false;
-                                    }
-                                    function deshabilitarComponentes() {
-                                        document.getElementById("ingresar").disabled = true;
-                                    }
-                                    function deshabilitarinputconfcontra() {
-                                        document.getElementById("confcontrasena").disabled = true;
-                                    }
-                                    function inputconfcontra() {
-                                        document.getElementById("confcontrasena").disabled = false;
-                                    }
-                                    function camposrepetidos(contrasenna) {
-                                        var arraycontra = contrasenna.split("");
-                                        var campos = arraycontra.sort();
-                                        var repetido = false;
-//                                        console.log(campos);
-                                        for (var i = 0; i < campos.length; i++) {
-                                            if (campos[i] == campos[i + 1]) {
-//                                                console.log('Caracter repetido' + ' ' + campos);
-                                                return repetido = true;
-                                            }
-                                        }
-                                        return repetido;
-//                                        console.log(repetido);
-                                    }
-        </script>
-
-    </body>
-</html>
-
-
-
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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

@@ -1,2184 +1,820 @@
-<?php
-
-// Extend the TCPDF class to create custom Header and Footer
-
-class MYPDF extends TCPDF
-{
-
-    //Page header
-    public function Header()
-    {
-        // Logo
-        $image_file = K_PATH_IMAGES . 'logo_example.jpg';
-        $this->Image($image_file, 10, 10, 15, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
-        // Set font
-        $this->SetFont('helvetica', 'B', 20);
-        // Title
-        $this->Cell(0, 15, '<< TCPDF Example 003 >>', 0, false, 'C', 0, '', 0, false, 'M', 'M');
-    }
-
-    // Page footer
-    public function Footer()
-    {
-        // Position at 15 mm from bottom
-        $this->SetY(-15);
-        // Set font
-        //        $this->SetFont('helvetica', 'I', 8);
-        // Page number
-        $this->Cell(0, 10, $this->getAliasNumPage() . ' de ' . $this->getAliasNbPages(), 0, false, 'R', 0, '', 0, false, 'T', 'M');
-    }
-}
-
-
-
-if ($tamano == 'oficio') {
-    $pdf = new MYPDF('P', PDF_UNIT, PDF_PAGE_FORMAT_COL_OFICIO, true, 'UTF-8', false);
-} else {
-    $pdf = new MYPDF('P', PDF_UNIT, PDF_PAGE_FORMAT_COL_CARTA, true, 'UTF-8', false);
-}
-
-
-//$pdf->SetCreator(PDF_CREATOR);
-// set margins
-$pdf->SetMargins(PDF_MARGIN_LEFT_FUR, PDF_MARGIN_TOP_FUR, PDF_MARGIN_RIGHT_FUR);
-$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-//$pageNumbers = "Page " . $pdf->getAliasNumPage();
-//$pdf->SetY(-15);
-//$pdf->Cell(0, 10, $pageNumbers, 0, false, "C", 0, "", 0, false, "T", "M");
-//$total = $pdf->getNumPages();
-$pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-
-$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
-if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
-    require_once(dirname(__FILE__) . '/lang/eng.php');
-    $pdf->setLanguageArray($l);
-}
-
-$pdf->SetFont('helvetica', '', 8);
-$pdf->SetPrintHeader(false);
-$pdf->SetPrintFooter(true);
-// set auto page breaks
-//$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
-
-$pdf->AddPage();
-
-//TITULO Y NUMERO CONSECUTIVO
-$showencabezado = true;
-if ($luces->idprueba == '' && ($reins == '8888' || $reins == '88881') && ($idrunt == '19705572' || $idrunt == '19236858' || $idrunt == '17244773')) {
-    $showencabezado = false;
-}
-
-if ($showencabezado) {
-    $html = <<<EOF
-    <table cellpadding="2">
-            <tr>
-                    <td  width="1%" ></td>
-                    <td  width="78%" ><label><strong>$titulo</strong></label></td>
-                    <td  width="20%" border="1"><label>$consecutivo</label></td>
-            </tr>
-    </table>
-EOF;
-    $direccion = '<label style="font-size: 7px">' . $sede->direccion . '</label>';
-    $pdf->writeHTML($html, true, false, true, false, '');
-    //ENCABEZADO DEL FUR: ESCUDO, LOGOS, INFORMACIÓN DEL CDA
-    $html = <<<EOF
-<table >
-<tr>
-        <td  width="5px"></td>
-        <td  width="44px">$escudoColombia</td>
-        <td  width="188px">$tituloMinisterio
-            <table cellpadding="3px">
-                <tr >
-                    <td width="40px"></td>
-                    <td width="110px">$logoSuper</td>
-                </tr>
-            </table>
-        </td>
-        <td border="1" width="340.157px" height="85.039px">
-                        <table >
-                            <tr><td style="font-size: 5.5px;color: white" ></td></tr>
-                            <tr>
-                                <td width="$colOnac" style="text-align: center">$infoOnac</td>
-                                <td width="$colMid"></td>
-                                <td width="$colCda">$logoCda</td>
-                                <td width="$colDatCda" align="center">$cda->nombre_cda<br>
-                                                                                 NIT: $cda->numero_id<br>
-                                                                                 $direccion<br>
-                                                                                 Tel - $sede->telefono_uno<br>
-                                                                                 $ciudadCDA->nombre $departamentoCDA->nombre<br>
-                                                                                 $sede->email </td>
-                            </tr>
-                        </table>
-        </td>
-</tr>
-</table>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-
-    $html = <<<EOF
-<label>   <strong>A. INFORMACIÓN GENERAL</strong></label>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-
-    //INFORMACIÓN DEL PROPIETARIO O TINEDOR DEL VEHÍCULO
-    $html = <<<EOF
-<br>
-<table cellpadding="2" nobr="true">
-                <tr>
-                    <td width="10%"></td>
-                    <td width="30%"><label><strong>1. FECHA</strong></label></td>
-                    <td width="60%"><label><strong>2.  DATOS DEL PROPIETARIO, TENEDOR O POSEEDOR DEL VEHÍCULO </strong></label></td>
-                </tr>
-                <tr >
-                    <td width="20%" border="1" ><strong>Fecha de prueba</strong><br>$fechafur</td>
-                    <td width="40%" border="1" ><label><strong>Nombre o Razón social</strong></label><br>$propietario->nombre1 $propietario->nombre2 $propietario->apellido1 $propietario->apellido2</td>
-                    <td width="39%" border="1"><label><strong>Documento de identidad</strong><br>$tipoDocumento No. $propietario->numero_identificacion</label></td>
-                </tr>
-                <tr >
-                    <td width="30%" border="1" ><strong>Direccion</strong><br>$propietario->direccion</td>
-                    <td width="30%" border="1" ><label><strong>Teléfono fijo o Número de Celular</strong><br>$propietario->telefono1</label></td>
-                    <td width="20%" border="1"><label><strong>Ciudad</strong><br>$ciudadPropietario->nombre</label></td>
-                    <td width="19%" border="1"><label><strong>Departamento</strong><br>$departamentoPropietario->nombre</label></td>
-                </tr>
-                <tr >
-                    <td width="99%" border="1" ><strong>Correo Electrónico</strong><br>$propietario->correo</td>
-                </tr>
-</table>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-}
-
-
-
-//INFORMACIÓN DEL VEHÍCULO
-$html = <<<EOF
-        <br>
-        <table cellpadding="2" nobr="true">
-                        <tr >
-                            <td width="99%" align="center"><strong>3. DATOS DEL VEHÍCULO</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="20%" border="1"><strong>Placa</strong><br>$vehiculo->numero_placa</td>
-                            <td width="15%" border="1"><strong>País</strong><br>$pais->nombre</td>
-                            <td width="15%" border="1"><strong>Servicio</strong><br>$servicio->nombre</td>
-                            <td width="17%" border="1"><strong>Clase</strong><br>$clase->nombre</td>
-                            <td width="16%" border="1"><strong>Marca</strong><br>$marca->nombre</td>
-                            <td width="16%" border="1"><strong>Línea</strong><br>$linea->nombre</td>
-                        </tr>
-                        <tr>
-                            <td width="6%" border="1"><strong>Modelo</strong><br>$vehiculo->ano_modelo</td>
-                            <td width="21%" border="1"><strong>Número de licencia de tránsito</strong><br>$vehiculo->numero_tarjeta_propiedad</td>
-                            <td width="14%" border="1"><strong>Fecha de matrícula</strong><br>$vehiculo->fecha_matricula</td>
-                            <td width="24%" border="1"><strong>Color</strong><br>$color->nombre</td>
-                            <td width="18%" border="1"><strong>Combustible / Propulsión</strong><br>$combustible->nombre</td>
-                            <td width="16%" border="1"><strong>VIN o Chasis </strong><br>$vehiculo->numero_vin</td>
-                        </tr>
-                        <tr>
-                            <td width="15%" border="1"><strong>No de motor</strong><br>$vehiculo->numero_motor</td>
-                            <td width="10%" border="1"><strong>Tipo motor</strong><br>$vehiculo->tiempos</td>
-                            <td width="18%" border="1"><strong>Cilindraje(cm<sup>3</sup>)(si aplica)</strong><br>$vehiculo->cilindraje</td>
-                            <td width="14%" border="1"><strong>Kilometraje</strong><br>$vehiculo->kilometraje</td>
-                            <td width="30%" border="1"><strong>Número de pasajeros (sin incluir conductor)</strong><br>$pasajeros</td>
-                            <td width="12%" border="1"><strong>Blindaje</strong><br>$blindaje</td>
-                        </tr>
-                        <tr>
-                            <td width="20%" border="1"><strong>Potencia (si aplica)</strong><br>$vehiculo->potencia_motor</td>
-                            <td width="20%" border="1"><strong>Tipo de Carrocería</strong><br>$carroceria->nombre</td>
-                            <td width="20%" border="1"><strong>Fecha vencimiento SOAT</strong><br>$vehiculo->fecha_vencimiento_soat</td>
-                            <td width="20%" border="1"><strong>Conversión GNV</strong><br>$vehiculo->certificadoGas</td>
-                            <td width="19%" border="1"><strong>Fecha Vencimiento GNV</strong><br>$vehiculo->fecha_final_certgas</td>
-                        </tr>
-        </table>
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-
-$html = <<<EOF
-        <br>
-        <table>
-        <tr>
-        <td >$tituloB<br>
-        Nota: Todo valor medido, seguido del símbolo *, indica un defecto encontrado.</td>
-                        </tr>
-        </table>
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-
-//------------------------------------------------------------------------------LUXOMETRO
-$showLux = true;
-if ($luces->idprueba == '' && ($reins == '4444' || $reins == '44441')) {
-    $showLux = false;
-}
-if ($showLux) {
-    $html = <<<EOF
-            <br>
-        <table cellpadding="2" nobr="true">
-                        <tr>
-                            <td width="100%"><strong>4. Medición de Intensidad / inclinación de las luces (Bajas, Altas Antiniebla / Exploradoras)</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="30%" border="1" align="center"></td>
-                            <td width="11%" border="1" align="center"><strong>Valor 1</strong></td>
-                            <td width="11%" border="1" align="center"><strong>Valor 2</strong></td>
-                            <td width="11%" border="1" align="center"><strong>Valor 3</strong></td>
-                            <td width="11%" border="1" align="center"><strong>Mínima/Rango</strong></td>
-                            <td width="11%" border="1" align="center"><strong>Unidad</strong></td>
-                            <td width="14%" border="1" align="center"><strong>Simultanea (Si) (No)</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="11%" border="1" align="center" rowspan="4"><br><br><br><strong>Baja(s)</strong></td>
-                            <td width="9%" border="1" align="center" rowspan="2"><br><br><strong>Derecha(s)</strong></td>
-                            <td width="10%" border="1" align="center"><strong>Intensidad</strong></td>
-                            <td width="11%" border="1" align="center">$luces->valor_baja_derecha_1</td>
-                            <td width="11%" border="1" align="center">$luces->valor_baja_derecha_2</td>
-                            <td width="11%" border="1" align="center">$luces->valor_baja_derecha_3</td>
-                            <td width="11%" border="1" align="center">$luces->intensidad_minima</td>
-                            <td width="11%" border="1" align="center"><strong>klux</strong></td>
-                            <td width="14%" border="1" align="center" rowspan="2"><br><br>$luces->simultaneaBaja</td>
-                        </tr>
-                        <tr>
-                            <td width="10%" border="1" align="center"><strong>Inclinación</strong></td>
-                            <td width="11%" border="1" align="center">$luces->inclinacion_baja_derecha_1</td>
-                            <td width="11%" border="1" align="center">$luces->inclinacion_baja_derecha_2</td>
-                            <td width="11%" border="1" align="center">$luces->inclinacion_baja_derecha_3</td>
-                            <td width="11%" border="1" align="center">$luces->inclinacion_rango</td>
-                            <td width="11%" border="1" align="center"><strong>%</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="9%" border="1" align="center" rowspan="2"><br><br><strong>Izquierda(s)</strong></td>
-                            <td width="10%" border="1" align="center"><strong>Intensidad</strong></td>
-                            <td width="11%" border="1" align="center">$luces->valor_baja_izquierda_1</td>
-                            <td width="11%" border="1" align="center">$luces->valor_baja_izquierda_2</td>
-                            <td width="11%" border="1" align="center">$luces->valor_baja_izquierda_3</td>
-                            <td width="11%" border="1" align="center">$luces->intensidad_minimaBI</td>
-                            <td width="11%" border="1" align="center"><strong>klux</strong></td>
-                            <td width="14%" border="1" align="center" rowspan="2"><br><br>$luces->simultaneaBaja</td>
-                        </tr>
-                        <tr>
-                            <td width="10%" border="1" align="center"><strong>Inclinación</strong></td>
-                            <td width="11%" border="1" align="center">$luces->inclinacion_baja_izquierda_1</td>
-                            <td width="11%" border="1" align="center">$luces->inclinacion_baja_izquierda_2</td>
-                            <td width="11%" border="1" align="center">$luces->inclinacion_baja_izquierda_3</td>
-                            <td width="11%" border="1" align="center">$luces->inclinacion_rangoBI</td>
-                            <td width="11%" border="1" align="center"><strong>%</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="11%" border="1" align="center" rowspan="2"><br><br><strong>Alta(s)</strong></td>
-                            <td width="9%" border="1" align="center"><strong>Derecha(s)</strong></td>
-                            <td width="10%" border="1" align="center"><strong>Intensidad</strong></td>
-                            <td width="11%" border="1" align="center">$luces->valor_alta_derecha_1</td>
-                            <td width="11%" border="1" align="center">$luces->valor_alta_derecha_2</td>
-                            <td width="11%" border="1" align="center">$luces->valor_alta_derecha_3</td>
-                            <td width="11%" border="1" align="center">$luces->intensidad_minimaAD</td>
-                            <td width="11%" border="1" align="center"><strong>klux</strong></td>
-                            <td width="14%" border="1" align="center">$luces->simultaneaAlta</td>
-                        </tr>
-                        <tr>
-                            <td width="9%" border="1" align="center"><strong>Izquierda(s)</strong></td>
-                            <td width="10%" border="1" align="center"><strong>Intensidad</strong></td>
-                            <td width="11%" border="1" align="center">$luces->valor_alta_izquierda_1</td>
-                            <td width="11%" border="1" align="center">$luces->valor_alta_izquierda_2</td>
-                            <td width="11%" border="1" align="center">$luces->valor_alta_izquierda_3</td>
-                            <td width="11%" border="1" align="center">$luces->intensidad_minimaAI</td>
-                            <td width="11%" border="1" align="center"><strong>klux</strong></td>
-                            <td width="14%" border="1" align="center">$luces->simultaneaAlta</td>
-                        </tr>
-                        <tr>
-                            <td width="11%" border="1" align="center" rowspan="2"><strong>Antiniebla(s)/ Exploradora(s)</strong></td>
-                            <td width="9%" border="1" align="center"><strong>Derecha(s)</strong></td>
-                            <td width="10%" border="1" align="center"><strong>Intensidad</strong></td>
-                            <td width="11%" border="1" align="center">$luces->valor_antiniebla_derecha_1</td>
-                            <td width="11%" border="1" align="center">$luces->valor_antiniebla_derecha_2</td>
-                            <td width="11%" border="1" align="center">$luces->valor_antiniebla_derecha_3</td>
-                            <td width="11%" border="1" align="center"><strong></strong></td>
-                            <td width="11%" border="1" align="center"><strong>klux</strong></td>
-                            <td width="14%" border="1" align="center">$luces->simultaneaAntiniebla</td>
-                        </tr>
-                        <tr>
-                            <td width="9%" border="1" align="center"><strong>Izquierda(s)</strong></td>
-                            <td width="10%" border="1" align="center"><strong>Intensidad</strong></td>
-                            <td width="11%" border="1" align="center">$luces->valor_antiniebla_izquierda_1</td>
-                            <td width="11%" border="1" align="center">$luces->valor_antiniebla_izquierda_2</td>
-                            <td width="11%" border="1" align="center">$luces->valor_antiniebla_izquierda_3</td>
-                            <td width="11%" border="1" align="center"><strong></strong></td>
-                            <td width="11%" border="1" align="center"><strong>klux</strong></td>
-                            <td width="14%" border="1" align="center">$luces->simultaneaAntiniebla</td>
-                        </tr>
-                        <tr>
-                            <td width="30%" border="1" align="center"><strong>Sumatoria de luces simultáneamente</strong></td>
-                            <td width="33%" border="1" align="center"><strong>Intensidad</strong><br>$luces->intensidad_total</td>
-                            <td width="11%" border="1" align="center"><strong>Máxima</strong><br>$luces->intensidad_maxima</td>
-                            <td width="25%" border="1" align="center"><strong>Unidad<br>klux</strong></td>
-                        </tr>
-        </table>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-}
-//------------------------------------------------------------------------------SUSPENSIÓN
-$showSus = true;
-if ($suspension->idprueba == '' && ($reins == '4444' || $reins == '44441')) {
-    $showSus = false;
-}
-if ($showSus) {
-    $html = <<<EOF
-            <br>
-        <table cellpadding="2" nobr="true">
-                        <tr >
-                            <td width="100%" align="center"><strong>5. SUSPENSIÓN (adherencia)(si aplica)</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="10%" style="border-left: 1px solid black;border-top: 1px solid black;" align="center"><strong>Delantera</strong></td>
-                            <td width="10%" style="border-right: 1px solid black;border-top: 1px solid black;" align="center"><strong>Valor</strong></td>
-                            <td width="10%" style="border-left: 1px solid black;border-top: 1px solid black;" align="center"><strong>Delantera</strong></td>
-                            <td width="10%" style="border-right: 1px solid black;border-top: 1px solid black;" align="center"><strong>Valor</strong></td>
-                            <td width="10%" style="border-left: 1px solid black;border-top: 1px solid black;" align="center"><strong>Trasera</strong></td>
-                            <td width="10%" style="border-right: 1px solid black;border-top: 1px solid black;" align="center"><strong>Valor</strong></td>
-                            <td width="10%" style="border-left: 1px solid black;border-top: 1px solid black;" align="center"><strong>Trasera</strong></td>
-                            <td width="10%" style="border-right: 1px solid black;border-top: 1px solid black;" align="center"><strong>Valor</strong></td>
-                            <td width="10%" style="border-left: 1px solid black;border-top: 1px solid black;" align="center"><strong>Mínima</strong></td>
-                            <td width="9%" style="border-right: 1px solid black;border-top: 1px solid black;" align="center"><strong>Unidad</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="10%" style="border-left: 1px solid black;border-bottom: 1px solid black;" align="center"><strong>Izquierda</strong></td>
-                            <td width="10%" style="border-right: 1px solid black;border-bottom: 1px solid black;" align="center">$suspension->delantera_izquierda</td>
-                            <td width="10%" style="border-left: 1px solid black;border-bottom: 1px solid black;" align="center"><strong>Derecha</strong></td>
-                            <td width="10%" style="border-right: 1px solid black;border-bottom: 1px solid black;" align="center">$suspension->delantera_derecha</td>
-                            <td width="10%" style="border-left: 1px solid black;border-bottom: 1px solid black;" align="center"><strong>Izquierda</strong></td>
-                            <td width="10%" style="border-right: 1px solid black;border-bottom: 1px solid black;" align="center">$suspension->trasera_izquierda</td>
-                            <td width="10%" style="border-left: 1px solid black;border-bottom: 1px solid black;" align="center"><strong>Derecha</strong></td>
-                            <td width="10%" style="border-right: 1px solid black;border-bottom: 1px solid black;" align="center">$suspension->trasera_derecha</td>
-                            <td width="10%" style="border-left: 1px solid black;border-bottom: 1px solid black;" align="center">$suspension->minima</td>
-                            <td width="9%" style="border-right: 1px solid black;border-bottom: 1px solid black;" align="center"><strong>%</strong></td>
-                        </tr>
-        </table>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-}
-//------------------------------------------------------------------------------FRENOS
-$showFre = true;
-if ($frenos->idprueba == '' && ($reins == '4444' || $reins == '44441')) {
-    $showFre = false;
-}
-if ($showFre) {
-    $html = <<<EOF
-            <br>
-        <table cellpadding="2" nobr="true">
-                        <tr>
-                            <td width="100%" align="center"><strong>6. FRENOS</strong></td>
-                        </tr>
-                         <tr>
-                            <td width="5%" border="1" align="center" rowspan="2"><strong></strong></td>
-                            <td width="9%" style="border-top: 1px solid black" align="center"><strong>Fuerza</strong></td>
-                            <td width="9%" style="border-top: 1px solid black;border-left: 1px solid black" align="center"><strong>Peso</strong></td>
-                            <td width="9%" border="1" align="center" rowspan="2"><br><br><strong>Unidad</strong></td>
-                            <td width="5%" border="1" align="center" rowspan="2"><strong></strong></td>
-                            <td width="9%" style="border-top: 1px solid black;border-left: 1px solid black" align="center"><strong>Fuerza</strong></td>
-                            <td width="9%" style="border-top: 1px solid black;border-left: 1px solid black" align="center"><strong>Peso</strong></td>
-                            <td width="9%" border="1" align="center" rowspan="2"><br><br><strong>Unidad</strong></td>
-                            <td width="10%" border="1" align="center" rowspan="2"><br><br><strong>Desequilibrio</strong></td>
-                            <td width="9%" border="1" align="center" rowspan="2"><br><br><strong>Rangos(B)</strong></td>
-                            <td width="9%" border="1" align="center" rowspan="2"><br><br><strong>Max(A)</strong></td>
-                            <td width="7%" border="1" align="center" rowspan="2"><br><br><strong>Unidad</strong></td>
-                        </tr>
-                        <tr>
-                             <td width="9%" style="border-bottom: 1px solid black;border-left: 1px solid black" align="center"><strong>Izquierdo</strong></td>
-                             <td width="9%" style="border-bottom: 1px solid black;border-left: 1px solid black" align="center"><strong>Izquierdo</strong></td>
-                             <td width="9%" style="border-bottom: 1px solid black;border-left: 1px solid black" align="center"><strong>Derecho</strong></td>
-                             <td width="9%" style="border-bottom: 1px solid black;border-left: 1px solid black" align="center"><strong>Derecho</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="5%" border="1" align="center"><strong>Eje 1</strong></td>
-                            <td width="9%" border="1" align="center">$frenos->freno_1_izquierdo</td>
-                            <td width="9%" border="1" align="center">$frenos->peso_1_izquierdo</td>
-                            <td width="9%" border="1" align="center"><strong>N</strong></td>
-                            <td width="5%" border="1" align="center"><strong>Eje 1</strong></td>
-                            <td width="9%" border="1" align="center">$frenos->freno_1_derecho</td>
-                            <td width="9%" border="1" align="center">$frenos->peso_1_derecho</td>
-                            <td width="9%" border="1" align="center"><strong>N</strong></td>
-                            <td width="10%" border="1" align="center">$frenos->desequilibrio_1</td>
-                            <td width="9%" border="1" align="center">$frenos->n_desequilibrio_B</td>
-                            <td width="9%" border="1" align="center">$frenos->n_desequilibrio_A</td>
-                            <td width="7%" border="1" align="center"><strong>%</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="5%" border="1" align="center"><strong>Eje 2</strong></td>
-                            <td width="9%" border="1" align="center">$frenos->freno_2_izquierdo</td>
-                            <td width="9%" border="1" align="center">$frenos->peso_2_izquierdo</td>
-                            <td width="9%" border="1" align="center"><strong>N</strong></td>
-                            <td width="5%" border="1" align="center"><strong>Eje 2</strong></td>
-                            <td width="9%" border="1" align="center">$frenos->freno_2_derecho</td>
-                            <td width="9%" border="1" align="center">$frenos->peso_2_derecho</td>
-                            <td width="9%" border="1" align="center"><strong>N</strong></td>
-                            <td width="10%" border="1" align="center">$frenos->desequilibrio_2</td>
-                            <td width="9%" border="1" align="center">$frenos->n_desequilibrio_B</td>
-                            <td width="9%" border="1" align="center">$frenos->n_desequilibrio_A</td>
-                            <td width="7%" border="1" align="center"><strong>%</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="5%" border="1" align="center"><strong>Eje 3</strong></td>
-                            <td width="9%" border="1" align="center">$frenos->freno_3_izquierdo</td>
-                            <td width="9%" border="1" align="center">$frenos->peso_3_izquierdo</td>
-                            <td width="9%" border="1" align="center"><strong>N</strong></td>
-                            <td width="5%" border="1" align="center"><strong>Eje 3</strong></td>
-                            <td width="9%" border="1" align="center">$frenos->freno_3_derecho</td>
-                            <td width="9%" border="1" align="center">$frenos->peso_3_derecho</td>
-                            <td width="9%" border="1" align="center"><strong>N</strong></td>
-                            <td width="10%" border="1" align="center">$frenos->desequilibrio_3</td>
-                            <td width="9%" border="1" align="center">$frenos->n_desequilibrio_B</td>
-                            <td width="9%" border="1" align="center">$frenos->n_desequilibrio_A</td>
-                            <td width="7%" border="1" align="center"><strong>%</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="5%" border="1" align="center"><strong>Eje 4</strong></td>
-                            <td width="9%" border="1" align="center">$frenos->freno_4_izquierdo</td>
-                            <td width="9%" border="1" align="center">$frenos->peso_4_izquierdo</td>
-                            <td width="9%" border="1" align="center"><strong>N</strong></td>
-                            <td width="5%" border="1" align="center"><strong>Eje 4</strong></td>
-                            <td width="9%" border="1" align="center">$frenos->freno_4_derecho</td>
-                            <td width="9%" border="1" align="center">$frenos->peso_4_derecho</td>
-                            <td width="9%" border="1" align="center"><strong>N</strong></td>
-                            <td width="10%" border="1" align="center">$frenos->desequilibrio_4</td>
-                            <td width="9%" border="1" align="center">$frenos->n_desequilibrio_B</td>
-                            <td width="9%" border="1" align="center">$frenos->n_desequilibrio_A</td>
-                            <td width="7%" border="1" align="center"><strong>%</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="5%" border="1" align="center"><strong>Eje 5</strong></td>
-                            <td width="9%" border="1" align="center">$frenos->freno_5_izquierdo</td>
-                            <td width="9%" border="1" align="center">$frenos->peso_5_izquierdo</td>
-                            <td width="9%" border="1" align="center"><strong>N</strong></td>
-                            <td width="5%" border="1" align="center"><strong>Eje 5</strong></td>
-                            <td width="9%" border="1" align="center">$frenos->freno_5_derecho</td>
-                            <td width="9%" border="1" align="center">$frenos->peso_5_derecho</td>
-                            <td width="9%" border="1" align="center"><strong>N</strong></td>
-                            <td width="10%" border="1" align="center">$frenos->desequilibrio_5</td>
-                            <td width="9%" border="1" align="center">$frenos->n_desequilibrio_B</td>
-                            <td width="9%" border="1" align="center">$frenos->n_desequilibrio_A</td>
-                            <td width="7%" border="1" align="center"><strong>%</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="23%" border="1" align="center" rowspan="2"><br><br><strong>Eficacia Total</strong></td>
-                            <td width="21%" border="1" align="center"><strong>Valor</strong></td>
-                            <td width="20%" border="1" align="center"><strong>Minimo</strong></td>
-                            <td width="35%" border="1" align="center"><strong>Unidad</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="21%" border="1" align="center">$frenos->eficacia_total</td>
-                            <td width="20%" border="1" align="center">$frenos->n_eficacia_total</td>
-                            <td width="35%" border="1" align="center"><strong>%</strong></td>
-                        </tr>
-        </table>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-
-    //------------------------------------------------------------------------------FRENO AUXILIAR
-    $html = <<<EOF
-            <br>
-        <table cellpadding="2" nobr="true">
-                        <tr>
-                            <td width="99%" align="center"><strong>6.1 FRENO AUXILIAR (Si aplica)</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="9%" style="
-                                border-top: 1px solid black;
-                                border-rigth: 1px solid black;
-                                border-left: 1px solid black;" align="center"><strong>Eficacia</strong></td>
-                            <td width="9%" style="
-                                border-top: 1px solid black;
-                                border-rigth: 1px solid black;
-                                border-left: 1px solid black;" align="center"><strong>Mínimo</strong></td>
-                            <td width="9%" style="
-                                border-top: 1px solid black;
-                                border-rigth: 1px solid black;
-                                border-left: 1px solid black;" align="center"><strong>Unidad</strong></td>
-                            <td width="9%" style="
-                                border-top: 1px solid black;
-                                border-bottom: 1px solid black;
-                                border-left: 1px solid black;" align="center"><strong></strong></td>
-                            <td width="9%" style="
-                                border-top: 1px solid black;
-                                border-bottom: 1px solid black" align="center"><strong>Fuerza</strong></td>
-                            <td width="9%" style="
-                                border-top: 1px solid black;
-                                border-bottom: 1px solid black" align="center"><strong>Peso</strong></td>
-                            <td width="9%" style="
-                                border-top: 1px solid black;
-                                border-bottom: 1px solid black;
-                                border-rigth: 1px solid black;" align="center"><strong>Unidad</strong></td>
-                            <td width="9%" style="
-                                border-top: 1px solid black;
-                                border-bottom: 1px solid black;
-                                border-left: 1px solid black;" align="center"><strong></strong></td>
-                            <td width="9%" style="
-                                border-top: 1px solid black;
-                                border-bottom: 1px solid black" align="center"><strong>Fuerza</strong></td>
-                            <td width="9%" style="
-                                border-top: 1px solid black;
-                                border-bottom: 1px solid black" align="center"><strong>Peso</strong></td>
-                            <td width="9%" style="
-                                border-rigth: 1px solid black;
-                                border-top: 1px solid black;
-                                border-bottom: 1px solid black" align="center"><strong>Unidad</strong></td>
-                            <td style="border-left: 1px solid black;" align="center"><strong></strong></td>
-                        </tr>
-                        <tr>
-                            <td width="9%" style="
-                                border-bottom: 1px solid black;
-                                border-left: 1px solid black" align="center"><br><br>$frenos->eficacia_auxiliar</td>
-                            <td width="9%" style="  
-                                border-bottom: 1px solid black" align="center"><br><br>$frenos->n_eficacia_auxiliar</td>
-                            <td width="9%" style="
-                                border-bottom: 1px solid black;
-                                border-rigth: 1px solid black" align="center"><br><br><strong>%</strong></td>
-                            <td width="9%" style="
-                                border-bottom: 1px solid black;
-                                border-left: 1px solid black;
-                                border-rigth: 1px solid black;" align="center"><strong>Sumatoria Izquierdo</strong></td>
-                            <td width="9%" style="
-                                border-top: 1px solid black;
-                                border-bottom: 1px solid black" align="center"><br><br>$frenos->sum_freno_aux_izquierdo</td>
-                            <td width="9%" style="
-                                border-top: 1px solid black;
-                                border-bottom: 1px solid black" align="center"><br><br>$frenos->sum_peso_izquierdo</td>
-                            <td width="9%" style="
-                                border-top: 1px solid black;
-                                border-bottom: 1px solid black" align="center"><br><br><strong>N</strong></td>
-                            <td width="9%" style="
-                                border-top: 1px solid black;
-                                border-left: 1px solid black;
-                                border-bottom: 1px solid black" align="center"><strong>Sumatoria Derecho</strong></td>
-                            <td width="9%" style="
-                                border-top: 1px solid black;
-                                border-bottom: 1px solid black" align="center"><br><br>$frenos->sum_freno_aux_derecho</td>
-                            <td width="9%" style="
-                                border-top: 1px solid black;
-                                border-bottom: 1px solid black" align="center"><br><br>$frenos->sum_peso_derecho</td>
-                            <td width="9%" style="
-                                border-top: 1px solid black;
-                                border-rigth: 1px solid black;
-                                border-bottom: 1px solid black" align="center"><br><br><strong>N</strong></td>
-                            <td style="border-left: 1px solid black;" align="center"><strong></strong></td>
-                        </tr>
-                         
-        </table>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-}
-//------------------------------------------------------------------------------DESVIACIÓN LATERAL
-$showAli = true;
-if ($alineacion->idprueba == '' && ($reins == '4444' || $reins == '44441')) {
-    $showAli = false;
-}
-if ($showAli) {
-    $html = <<<EOF
-            <br>
-        <table cellpadding="2" nobr="true">
-                        <tr>
-                            <td width="100%" align="center"><strong>7. DESVIACIÓN LATERAL (si aplica)</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="14%" style="
-                                border-top: 1px solid black;
-                                border-left: 1px solid black"><strong>Eje 1</strong></td>
-                            <td width="14%" style="
-                                border-top: 1px solid black;
-                                border-left: 1px solid black"><strong>Eje 2</strong></td>
-                            <td width="14%" style="
-                                border-top: 1px solid black;
-                                border-left: 1px solid black"><strong>Eje 3</strong></td>
-                            <td width="14%" style="
-                                border-top: 1px solid black;
-                                border-left: 1px solid black"><strong>Eje 4</strong></td>
-                            <td width="14%" style="
-                                border-top: 1px solid black;
-                                border-left: 1px solid black"><strong>Eje 5</strong></td>
-                            <td width="15%" style="
-                                border-top: 1px solid black;
-                                border-left: 1px solid black" align="center"><strong>Máximo</strong></td>
-                            <td width="14%" style="
-                                border-top: 1px solid black;" align="center"><strong>Unidad</strong></td>
-                            <td style="border-left: 1px solid black;" align="center"><strong></strong></td>
-                        </tr>
-                        <tr>
-                            <td width="14%" style="
-                                border-bottom: 1px solid black;
-                                border-left: 1px solid black" align="center">$alineacion->alineacion_1</td>
-                            <td width="14%" style="
-                                border-bottom: 1px solid black;
-                                border-left: 1px solid black" align="center">$alineacion->alineacion_2</td>
-                            <td width="14%" style="
-                                border-bottom: 1px solid black;
-                                border-left: 1px solid black" align="center">$alineacion->alineacion_3</td>
-                            <td width="14%" style="
-                                border-bottom: 1px solid black;
-                                border-left: 1px solid black" align="center">$alineacion->alineacion_4</td>
-                            <td width="14%" style="
-                                border-bottom: 1px solid black;
-                                border-left: 1px solid black" align="center">$alineacion->alineacion_5</td>
-                            <td width="15%" style="
-                                border-bottom: 1px solid black;
-                                border-left: 1px solid black" align="center">$alineacion->minmax</td>
-                            <td width="14%" style="
-                                border-bottom: 1px solid black;" align="center"><strong>m/Km</strong></td>
-                            <td style="border-left: 1px solid black;" align="center"><strong></strong></td>
-                        </tr>
-                         
-        </table>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-}
-//------------------------------------------------------------------------------DISPOSIIVO DE COBRO
-$showTax = true;
-if ($taximetro->idprueba == '' && ($reins == '4444' || $reins == '44441')) {
-    $showTax = false;
-}
-if ($showTax) {
-    $html = <<<EOF
-            <br>
-        <table cellpadding="2" nobr="true">
-                        <tr>
-                            <td width="100%" align="center"><strong>8. DISPOSITIVOS DE COBRO (si aplica)</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="25%" style="
-                                border-top: 1px solid black;
-                                border-left: 1px solid black"><strong>Tamaño normalizado de la Llanta</strong></td>
-                            <td width="14%" style="
-                                border-top: 1px solid black;
-                                border-left: 1px solid black" align="center"><strong>Error en distancia</strong></td>
-                            <td width="10%" style="
-                                border-top: 1px solid black;" align="center"><strong>Unidad</strong></td>
-                            <td width="14%" style="
-                                border-top: 1px solid black;
-                                border-left: 1px solid black" align="center"><strong>Error en tiempo</strong></td>
-                            <td width="10%" style="
-                                border-top: 1px solid black;" align="center"><strong>Unidad</strong></td>
-                            <td width="14%" style="
-                                border-top: 1px solid black;
-                                border-left: 1px solid black" align="center"><strong>Máximo</strong></td>
-                            <td width="12%" style="
-                                border-top: 1px solid black" align="center"><strong>Unidad</strong></td>
-                            <td style="border-left: 1px solid black;" align="center"><strong></strong></td>
-                        </tr>
-                        <tr>
-                            <td width="25%" style="
-                                border-bottom: 1px solid black;
-                                border-left: 1px solid black" align="center">$taximetro->r_llanta</td>
-                            <td width="14%" style="
-                                border-bottom: 1px solid black;
-                                border-left: 1px solid black" align="center">$taximetro->distancia</td>
-                            <td width="10%" style="
-                                border-bottom: 1px solid black;" align="center"><strong>%</strong></td>
-                            <td width="14%" style="
-                                border-bottom: 1px solid black;
-                                border-left: 1px solid black" align="center">$taximetro->tiempo</td>
-                            <td width="10%" style="
-                                border-bottom: 1px solid black;" align="center"><strong>%</strong></td>
-                            <td width="14%" style="
-                                border-bottom: 1px solid black;
-                                border-left: 1px solid black" align="center">$taximetro->minmax</td>
-                            <td width="12%" style="
-                                border-bottom: 1px solid black" align="center"><strong>%</strong></td>
-                            <td style="border-left: 1px solid black;" align="center"><strong></strong></td>
-                        </tr>
-        </table>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-}
-//------------------------------------------------------------------------------EMISIONES DE GASES
-//------------------------------------------------------------------------------VEHÍCULOS CICLO OTTO, 4T o 2T
-if ($vehiculo->tipo_vehiculo !== "3") {
-    $coFlagRa = $gases->CoFlag;
-    $co2FlagRa = $gases->Co2Flag;
-    $o2FlagRa = $gases->O2Flag;
-    $hcFlagRa = $gases->HcFlag;
-    $coFlagCr = $gases->CoFlag;
-    $co2FlagCr = $gases->Co2Flag;
-    $o2FlagCr = $gases->O2Flag;
-    $hcFlagCr = $gases->HcFlag;
-} else {
-    $coFlagRa = $gases->CoFlag;
-    $co2FlagRa = $gases->Co2Flag;
-    $o2FlagRa = $gases->O2Flag;
-    $hcFlagRa = $gases->HcFlag;
-    $coFlagCr = '';
-    $co2FlagCr = '';
-    $o2FlagCr = '';
-    $hcFlagCr = '';
-}
-$showGas = true;
-if ($gases->idprueba == '' && ($reins == '4444' || $reins == '44441')) {
-    $showGas = false;
-}
-if ($showGas) {
-    $html = <<<EOF
-            <br>
-        <table cellpadding="2" nobr="true">
-                        <tr>
-                            <td width="100%" align="center"><strong>9. EMISIONES DE GASES (Exentos vehículos a motor Eléctrico e Hidrógeno)</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="100%" align="center"><strong>9a. VEHÍCULOS CICLO OTTO, 4T o 2T</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="15%" style="
-                                border-top: 1px solid black;
-                                border-left: 1px solid black" align="center"><strong></strong></td>
-                            <td width="17%" border="1" align="center"><strong>Monóxido de Carbono</strong></td>
-                            <td width="17%" border="1" align="center"><strong>Dióxido de carbono</strong></td>
-                            <td width="17%" border="1" align="center"><strong>Oxigeno</strong></td>
-                            <td width="17%" border="1" align="center"><strong>Hidrocarburo (hexano)</strong></td>
-                            <td width="16%" border="1" align="center"><strong>Óxido Nitroso</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="8%" style="
-                                border-left: 1px solid black" align="center"><strong></strong></td>
-                            <td width="7%" align="center"><strong>(rpm)</strong></td>
-                            <td width="5%" style="
-                                border-left: 1px solid black" align="center"><strong>(CO)</strong></td>
-                            <td width="6%" style="
-                                border-left: 1px solid black" align="center"><strong>Norma</strong></td>
-                            <td width="6%" style="
-                                border-left: 1px solid black" align="center"><strong>Unidad</strong></td>
-                            <td width="5%" style="
-                                border-left: 1px solid black" align="center"><strong>(CO<sub>2</sub>)</strong></td>
-                            <td width="6%" style="
-                                border-left: 1px solid black" align="center"><strong>Norma</strong></td>
-                            <td width="6%" style="
-                                border-left: 1px solid black" align="center"><strong>Unidad</strong></td>
-                            <td width="5%" style="
-                                border-left: 1px solid black" align="center"><strong>(O<sub>2</sub>)</strong></td>
-                            <td width="6%" style="
-                                border-left: 1px solid black" align="center"><strong>Norma</strong></td>
-                            <td width="6%" style="
-                                border-left: 1px solid black" align="center"><strong>Unidad</strong></td>
-                            <td width="5%" style="
-                                border-left: 1px solid black" align="center"><strong>(HC)</strong></td>
-                            <td width="6%" style="
-                                border-left: 1px solid black" align="center"><strong>Norma</strong></td>
-                            <td width="6%" style="
-                                border-left: 1px solid black" align="center"><strong>Unidad</strong></td>
-                            <td width="5%" style="
-                                border-left: 1px solid black" align="center"><strong>(NOx)</strong></td>
-                            <td width="6%" style="
-                                border-left: 1px solid black" align="center"><strong>Norma</strong></td>
-                            <td width="5%" style="
-                                border-left: 1px solid black;font-size: 7.3px"  align="center"><strong>Unidad</strong></td>
-                            <td style="border-left: 1px solid black;" align="center"><strong></strong></td>
-                        </tr>
-                        <tr>
-                            <td width="8%" style="
-                                border-left: 1px solid black" align="center"><strong>Ralentí</strong></td>
-                            <td width="7%" align="center">$gases->rpm_ralenti</td>
-                            <td width="5%" style="
-                                border-left: 1px solid black" align="center">$gases->co_ralenti</td>
-                            <td width="6%" align="center"><strong>$coFlagRa</strong></td>
-                            <td width="6%" align="center"><strong>%</strong></td>
-                            <td width="5%" style="
-                                border-left: 1px solid black" align="center">$gases->co2_ralenti</td>
-                            <td width="6%" align="center"><strong>$co2FlagRa</strong></td>
-                            <td width="6%" align="center"><strong>%</strong></td>
-                            <td width="5%" style="
-                                border-left: 1px solid black" align="center">$gases->o2_ralenti</td>
-                            <td width="6%" align="center"><strong>$o2FlagRa</strong></td>
-                            <td width="6%" align="center"><strong>%</strong></td>
-                            <td width="5%" style="
-                                border-left: 1px solid black" align="center">$gases->hc_ralenti</td>
-                            <td width="6%" align="center"><strong>$hcFlagRa</strong></td>
-                            <td width="6%" align="center"><strong>(ppm)</strong></td>
-                            <td width="5%" style="
-                                border-left: 1px solid black" align="center"></td>
-                            <td width="6%" align="center"><strong></strong></td>
-                            <td width="5%" align="center"><strong>%</strong></td>
-                            <td style="border-left: 1px solid black;" align="center"><strong></strong></td>
-                        </tr>
-                        <tr>
-                            <td width="8%" style="
-                                border-left: 1px solid black;
-                                border-top: 1px solid black" align="center"><strong>Crucero</strong></td>
-                            <td width="7%" align="center">$gases->rpm_crucero</td>
-                            <td width="5%" style="
-                                border-left: 1px solid black" align="center">$gases->co_crucero</td>
-                            <td width="6%" align="center"><strong>$coFlagCr</strong></td>
-                            <td width="6%" align="center"><strong>%</strong></td>
-                            <td width="5%" style="
-                                border-left: 1px solid black" align="center">$gases->co2_crucero</td>
-                            <td width="6%" align="center"><strong>$co2FlagCr</strong></td>
-                            <td width="6%" align="center"><strong>%</strong></td>
-                            <td width="5%" style="
-                                border-left: 1px solid black" align="center">$gases->o2_crucero</td>
-                            <td width="6%" align="center"><strong>$o2FlagCr</strong></td>
-                            <td width="6%" align="center"><strong>%</strong></td>
-                            <td width="5%" style="
-                                border-left: 1px solid black" align="center">$gases->hc_crucero</td>
-                            <td width="6%" align="center"><strong>$hcFlagCr</strong></td>
-                            <td width="6%" align="center"><strong>(ppm)</strong></td>
-                            <td width="5%" style="
-                                border-left: 1px solid black" align="center"></td>
-                            <td width="6%" align="center"><strong></strong></td>
-                            <td width="5%" align="center"><strong>%</strong></td>
-                            <td style="border-left: 1px solid black;" align="center"><strong></strong></td>
-                        </tr>
-                        <tr>
-                            <td width="32%" border="1" align="center"><strong>Vehículo con catalizador (SI) (NO) (N.A)</strong></td>
-                            <td width="17%" border="1" align="center">$vehiculo->convertidorCat</td>
-                            <td width="34%" border="1" align="center"><strong>Valor</strong></td>
-                            <td width="16%" border="1" align="center"><strong>Unidad</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="32%" border="1" align="center"><strong>Temperatura de prueba</strong></td>
-                            <td width="17%" border="1" align="center"><strong>Temperatura</strong></td>
-                            <td width="34%" border="1" align="center">$gases->temperatura</td>
-                            <td width="16%" border="1" align="center"><strong>°C</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="32%" border="1" align="center" rowspan="2"><br><br><strong>Condiciones Ambientales</strong></td>
-                            <td width="17%" border="1" align="center"><strong>Temperatura Ambiente</strong></td>
-                            <td width="34%" border="1" align="center">$gases->temperatura_ambiente</td>
-                            <td width="16%" border="1" align="center"><strong>°C</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="17%" border="1" align="center"><strong>Humedad Relativa</strong></td>
-                            <td width="34%" border="1" align="center">$gases->humedad</td>
-                            <td width="16%" border="1" align="center"><strong>%</strong></td>
-                        </tr>
-        </table>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-}
-//------------------------------------------------------------------------------VEHÍCULOS CICLO DIESEL
-$showOpa = true;
-if ($opacidad->idprueba == '' && ($reins == '4444' || $reins == '44441')) {
-    $showOpa = false;
-}
-if ($showOpa) {
-    if ($opacidad->idprueba == '') {
-        $vehiculo->diametro_escape = "";
-    }
-    $html = <<<EOF
-            <br>
-        <table cellpadding="2" nobr="true">
-                        <tr>
-                            <td width="100%" align="center"><strong>9b. VEHÍCULOS CICLO DIESEL</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="8%" style="
-                                border-top: 1px solid black;
-                                border-left: 1px solid black" align="center"><strong></strong></td>
-                            <td width="7%" border="1" align="center"><strong>Ciclo 1</strong></td>
-                            <td width="7%" border="1" align="center"><strong>Unidad</strong></td>
-                            <td width="7%" border="1" align="center"><strong>Ciclo 2</strong></td>
-                            <td width="7%" border="1" align="center"><strong>Unidad</strong></td>
-                            <td width="7%" border="1" align="center"><strong>Ciclo 3</strong></td>
-                            <td width="7%" border="1" align="center"><strong>Unidad</strong></td>
-                            <td width="7%" border="1" align="center"><strong>Ciclo 4</strong></td>
-                            <td width="8%" border="1" align="center"><strong>Unidad</strong></td>
-                            <td width="8%" style="
-                                border-top: 1px solid black" align="center"><strong></strong></td>
-                            <td width="9%" style="
-                                border-top: 1px solid black" align="center"><strong>Valor</strong></td>
-                            <td width="9%" style="
-                                border-top: 1px solid black" align="center"><strong>Norma</strong></td>
-                            <td width="8%" style="
-                                border-top: 1px solid black" align="center"><strong>Unidad</strong></td>
-                            <td style="border-left: 1px solid black;" align="center"><strong></strong></td>
-                        </tr>
-                        <tr>
-                            <td width="8%" style="
-                                border-left: 1px solid black" align="center"><strong>Opacidad</strong></td>
-                            <td width="7%" style="
-                                border-left: 1px solid black" align="center">$opacidad->op_ciclo1</td>
-                            <td width="7%" style="
-                                border-left: 1px solid black" align="center"><strong>$opacidad->unidad</strong></td>
-                            <td width="7%" style="
-                                border-left: 1px solid black" align="center">$opacidad->op_ciclo2</td>
-                            <td width="7%" style="
-                                border-left: 1px solid black" align="center"><strong>$opacidad->unidad</strong></td>
-                            <td width="7%" style="
-                                border-left: 1px solid black" align="center">$opacidad->op_ciclo3</td>
-                            <td width="7%" style="
-                                border-left: 1px solid black" align="center"><strong>$opacidad->unidad</strong></td>
-                            <td width="7%" style="
-                                border-left: 1px solid black" align="center">$opacidad->op_ciclo4</td>
-                            <td width="8%" style="
-                                border-left: 1px solid black" align="center"><strong>$opacidad->unidad</strong></td>
-                            <td width="8%" style="
-                                border-top: 1px solid black;
-                                border-left: 1px solid black" align="center"><strong>Resultado</strong></td>
-                            <td width="9%" style="
-                                border-top: 1px solid black" align="center">$opacidad->opacidad_total</td>
-                            <td width="9%" style="
-                                border-top: 1px solid black" align="center"><strong>$opacidad->max</strong></td>
-                            <td width="8%" style="
-                                border-top: 1px solid black" align="center"><strong>$opacidad->unidad</strong></td>
-                            <td style="border-left: 1px solid black;" align="center"><strong></strong></td>
-                        </tr>
-                        <tr>
-                            <td width="8%" style="
-                                border-left: 1px solid black" align="center"><strong>Gobernada</strong></td>
-                            <td width="7%" style="
-                                border-left: 1px solid black" align="center">$opacidad->rpm_ciclo1</td>
-                            <td width="7%" style="
-                                border-left: 1px solid black" align="center"><strong>(rpm)</strong></td>
-                            <td width="7%" style="
-                                border-left: 1px solid black" align="center">$opacidad->rpm_ciclo2</td>
-                            <td width="7%" style="
-                                border-left: 1px solid black" align="center"><strong>(rpm)</strong></td>
-                            <td width="7%" style="
-                                border-left: 1px solid black" align="center">$opacidad->rpm_ciclo3</td>
-                            <td width="7%" style="
-                                border-left: 1px solid black" align="center"><strong>(rpm)</strong></td>
-                            <td width="7%" style="
-                                border-left: 1px solid black" align="center">$opacidad->rpm_ciclo4</td>
-                            <td width="8%" style="
-                                border-left: 1px solid black" align="center"><strong>(rpm)</strong></td>
-                            <td width="8%" style="
-                                border-left: 1px solid black" align="center"><strong></strong></td>
-                            <td width="9%"  align="center"><strong></strong></td>
-                            <td width="9%"  align="center"><strong></strong></td>
-                            <td width="8%"  align="center"><strong></strong></td>
-                            <td style="border-left: 1px solid black;" align="center"><strong></strong></td>
-                        </tr>
-                        <tr>
-                            <td width="8%" style="
-                                border-left: 1px solid black;
-                                border-top: 1px solid black" align="center"><strong>(rpm)</strong></td>
-                            <td width="28%" style="
-                                border-left: 1px solid black;
-                                border-top: 1px solid black" align="center"><strong>Temperatura de operación del motor</strong></td>
-                            <td width="46%" style="
-                                border-left: 1px solid black;
-                                border-top: 1px solid black" align="center"><strong>Condiciones Ambientales</strong></td>
-                            <td width="9%" style="
-                                border-left: 1px solid black;
-                                border-top: 1px solid black" align="center"><strong>LTOE</strong></td>
-                            <td width="8%" style="
-                                border-left: 1px solid black;
-                                border-top: 1px solid black;
-                                border-rigth: 1px solid black;" align="center"><strong></strong></td>
-                            <td style="border-left: 1px solid black;" align="center"><strong></strong></td>
-                        </tr>
-                        <tr>
-                            <td width="8%" style="
-                                border-left: 1px solid black" align="center"><strong>Ralenti</strong></td>
-                            <td width="10%" style="
-                                border-left: 1px solid black;
-                                border-top: 1px solid black" align="center"><strong>Temp-Inicial</strong></td>
-                            <td width="10%" style="
-                                border-left: 1px solid black;
-                                border-top: 1px solid black" align="center"><strong>Temp-Final</strong></td>
-                            <td width="8%" style="
-                                border-left: 1px solid black;
-                                border-top: 1px solid black" align="center"><strong>Unidad</strong></td>
-                            <td width="16%" style="
-                                border-left: 1px solid black;
-                                border-top: 1px solid black" align="center"><strong>Temperatura ambiente</strong></td>
-                            <td width="7%" style="
-                                border-left: 1px solid black;
-                                border-top: 1px solid black" align="center"><strong>Unidad</strong></td>
-                            <td width="16%" style="
-                                border-left: 1px solid black;
-                                border-top: 1px solid black" align="center"><strong>Humedad Relativa</strong></td>
-                            <td width="7%" style="
-                                border-left: 1px solid black;
-                                border-top: 1px solid black" align="center"><strong>Unidad</strong></td>
-                            <td width="9%" style="
-                                border-left: 1px solid black;" align="center"><strong>estándar</strong></td>
-                            <td width="8%" style="
-                                border-left: 1px solid black;
-                                border-rigth: 1px solid black;" align="center"><strong>Unidad</strong></td>
-                            <td style="border-left: 1px solid black;" align="center"><strong></strong></td>
-                        </tr>
-                        <tr>
-                            <td width="8%" style="
-                                border-left: 1px solid black;
-                                border-bottom: 1px solid black" align="center">$opacidad->rpm_ralenti</td>
-                            <td width="10%" style="
-                                border-left: 1px solid black;
-                                border-bottom: 1px solid black" align="center">$opacidad->temp_inicial</td>
-                            <td width="10%" style="
-                                border-left: 1px solid black;
-                                border-bottom: 1px solid black" align="center">$opacidad->temp_final</td>
-                            <td width="8%" style="
-                                border-left: 1px solid black;
-                                border-bottom: 1px solid black" align="center"><strong>°C</strong></td>
-                            <td width="16%" style="
-                                border-left: 1px solid black;
-                                border-bottom: 1px solid black" align="center">$opacidad->temp_ambiente</td>
-                            <td width="7%" style="
-                                border-left: 1px solid black;
-                                border-bottom: 1px solid black" align="center"><strong>°C</strong></td>
-                            <td width="16%" style="
-                                border-left: 1px solid black;
-                                border-bottom: 1px solid black" align="center">$opacidad->humedad</td>
-                            <td width="7%" style="
-                                border-left: 1px solid black;
-                                border-bottom: 1px solid black" align="center"><strong>%</strong></td>
-                            <td width="9%" style="
-                                border-left: 1px solid black;
-                                border-bottom: 1px solid black" align="center">$vehiculo->diametro_escape</td>
-                            <td width="8%" style="
-                                border-left: 1px solid black;
-                                border-rigth: 1px solid black;
-                                border-bottom: 1px solid black" align="center"><strong>mm</strong></td>
-                            <td style="border-left: 1px solid black;" align="center"><strong></strong></td>
-                        </tr>
-        </table>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-}
-//------------------------------------------------------------------------------LISTADO DEFECTOS MECANIZADOS
-$html = <<<EOF
-        <br>
-        <table>
-        <tr>
-        <td >$tituloC</td>
-                        </tr>
-        </table>
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-
-$defMA = "";
-$countDedMeqA = "";
-if (count($defectosMecanizadosA) > 0) {
-    $countDedMeqA = count($defectosMecanizadosA);
-    foreach ($defectosMecanizadosA as $def) {
-        if ($def->tipo == "A") {
-            $tipo = '<td width="10%" border="1" align="center">X</td>
-               <td width="9%" border="1" align="center"></td>';
-        } else {
-            $tipo = '<td width="10%" border="1" align="center"></td>
-               <td width="9%" border="1" align="center">X</td>';
-        }
-        $defMA = $defMA .
-            '<tr>
-                            <td width="10%" border="1" align="center"><strong>' . $def->codigo . '</strong></td>
-                            <td width="45%" border="1" style="text-align: justify" >' . $def->descripcion . '</td>
-                            <td width="25%" border="1" >' . $def->grupo . '</td>
-                            ' . $tipo . '
-                        </tr>';
-    }
-} else {
-    $tipo = '<tr>
-                            <td width="10%" border="1" align="center"></td>
-                            <td width="45%" border="1" align="center"></td>
-                            <td width="25%" border="1" align="center"></td>
-                            <td width="10%" border="1" align="center"></td>
-                            <td width="9%" border="1" align="center"></td>
-                        </tr>';
-}
-
-$defMB = "";
-$countDedMeqB = "";
-if (count($defectosMecanizadosB) > 0) {
-    $countDedMeqB = count($defectosMecanizadosB);
-    foreach ($defectosMecanizadosB as $def) {
-        if ($def->tipo == "A") {
-            $tipo = '<td width="10%" border="1" align="center">X</td>
-               <td width="9%" border="1" align="center"></td>';
-        } else {
-            $tipo = '<td width="10%" border="1" align="center"></td>
-               <td width="9%" border="1" align="center">X</td>';
-        }
-        $defMB = $defMB .
-            '<tr>
-                            <td width="10%" border="1" align="center"><strong>' . $def->codigo . '</strong></td>
-                            <td width="45%" border="1" style="text-align: justify" >' . $def->descripcion . '</td>
-                            <td width="25%" border="1" >' . $def->grupo . '</td>
-                            ' . $tipo . '
-                        </tr>';
-    }
-}
-
-$html = <<<EOF
-        <br>
-        <table cellpadding="2" nobr="true">
-                        <tr>
-                            <td width="10%" border="1" align="center" rowspan="2"><strong>Código</strong></td>
-                            <td width="45%" border="1" align="center" rowspan="2"><strong>Descripción</strong></td>
-                            <td width="25%" border="1" align="center" rowspan="2"><strong>Grupo</strong></td>
-                            <td width="19%" border="1" align="center"><strong>Tipo de defecto</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="10%" border="1" align="center"><strong>A</strong></td>
-                            <td width="9%" border="1" align="center"><strong>B</strong></td>
-                        </tr>
-                        $defMA
-                        $defMB
-                        <tr>
-                            <td width="80%" align="rigth"><strong>TOTAL</strong></td>
-                            <td width="10%" border="1" align="center"><strong>$countDedMeqA</strong></td>
-                            <td width="9%" border="1" align="center"><strong>$countDedMeqB</strong></td>
-                        </tr>
-        </table>
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-
-//------------------------------------------------------------------------------LISTADO DEFECTOS SENSORIALES
-
-$defSA = "";
-$countDefSenA = "";
-if (count($defectosSensorialesA) > 0) {
-    $countDefSenA = count($defectosSensorialesA);
-    foreach ($defectosSensorialesA as $def) {
-        if ($def->tipo == "A") {
-            $tipo = '<td width="10%" border="1" align="center">X</td>
-               <td width="9%" border="1" align="center"></td>';
-        } else {
-            $tipo = '<td width="10%" border="1" align="center"></td>
-               <td width="9%" border="1" align="center">X</td>';
-        }
-        $defSA = $defSA .
-            '<tr>
-                            <td width="10%" border="1" align="center"><strong>' . $def->codigo . '</strong></td>
-                            <td width="45%" border="1" style="text-align: justify" >' . $def->descripcion . '</td>
-                            <td width="25%" border="1" >' . $def->grupo . '</td>
-                            ' . $tipo . '
-                        </tr>';
-    }
-} else {
-    $tipo = '<tr>
-                            <td width="10%" border="1" align="center"></td>
-                            <td width="45%" border="1" align="center"></td>
-                            <td width="25%" border="1" align="center"></td>
-                            <td width="10%" border="1" align="center"></td>
-                            <td width="10%" border="1" align="center"></td>
-                        </tr>';
-}
-
-$defSB = "";
-$countDefSenB = "";
-if (count($defectosSensorialesB) > 0) {
-    $countDefSenB = count($defectosSensorialesB);
-    foreach ($defectosSensorialesB as $def) {
-        if ($def->tipo == "A") {
-            $tipo = '<td width="10%" border="1" align="center">X</td>
-               <td width="9%" border="1" align="center"></td>';
-        } else {
-            $tipo = '<td width="10%" border="1" align="center"></td>
-               <td width="9%" border="1" align="center">X</td>';
-        }
-        $defSB = $defSB .
-            '<tr>
-                            <td width="10%" border="1" align="center"><strong>' . $def->codigo . '</strong></td>
-                            <td width="45%" border="1" style="text-align: justify" >' . $def->descripcion . '</td>
-                            <td width="25%" border="1" >' . $def->grupo . '</td>
-                            ' . $tipo . '
-                        </tr>';
-    }
-}
-$html = <<<EOF
-        <br>
-        <table>
-        <tr>
-        <td >$tituloD</td>
-                        </tr>
-        </table>
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-$html = <<<EOF
-        <br>
-        <table cellpadding="2" nobr="true">
-                        <tr>
-                            <td width="10%" border="1" align="center" rowspan="2"><strong>Código</strong></td>
-                            <td width="45%" border="1" align="center" rowspan="2"><strong>Descripción</strong></td>
-                            <td width="25%" border="1" align="center" rowspan="2"><strong>Grupo</strong></td>
-                            <td width="19%" border="1" align="center"><strong>Tipo de defecto</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="10%" border="1" align="center"><strong>A</strong></td>
-                            <td width="9%" border="1" align="center"><strong>B</strong></td>
-                        </tr>
-                        $defSA
-                        $defSB
-                        <tr>
-                            <td width="80%" align="rigth"><strong>TOTAL</strong></td>
-                            <td width="10%" border="1" align="center"><strong>$countDefSenA</strong></td>
-                            <td width="9%" border="1" align="center"><strong>$countDefSenB</strong></td>
-                        </tr>
-        </table>
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-//------------------------------------------------------------------------------LISTADO DEFECTOS SENSORIALES ENSEÑANZA
-$defEA = "";
-$countDefEnsA = "";
-if (count($defectosEnsenanzaA) > 0) {
-    $countDefEnsA = count($defectosEnsenanzaA);
-    foreach ($defectosEnsenanzaA as $def) {
-        if ($def->tipo == "A") {
-            $tipo = '<td width="10%" border="1" align="center">X</td>
-               <td width="9%" border="1" align="center"></td>';
-        } else {
-            $tipo = '<td width="10%" border="1" align="center"></td>
-               <td width="9%" border="1" align="center">X</td>';
-        }
-        $defEA = $defEA .
-            '<tr>
-                            <td width="10%" border="1" align="center"><strong>' . $def->codigo . '</strong></td>
-                            <td width="45%" border="1" style="text-align: justify" >' . $def->descripcion . '</td>
-                            <td width="25%" border="1" >' . $def->grupo . '</td>
-                            ' . $tipo . '
-                        </tr>';
-    }
-} else {
-    $tipo = '<tr>
-                            <td width="10%" border="1" align="center"></td>
-                            <td width="45%" border="1" align="center"></td>
-                            <td width="25%" border="1" align="center"></td>
-                            <td width="10%" border="1" align="center"></td>
-                            <td width="9%" border="1" align="center"></td>
-                        </tr>';
-}
-
-$defEB = "";
-$countDefEnsB = "";
-if (count($defectosEnsenanzaB) > 0) {
-    $countDefEnsB = count($defectosEnsenanzaB);
-    foreach ($defectosEnsenanzaB as $def) {
-        if ($def->tipo == "A") {
-            $tipo = '<td width="10%" border="1" align="center">X</td>
-               <td width="9%" border="1" align="center"></td>';
-        } else {
-            $tipo = '<td width="10%" border="1" align="center"></td>
-               <td width="9%" border="1" align="center">X</td>';
-        }
-        $defEB = $defEB .
-            '<tr>
-                            <td width="10%" border="1" align="center"><strong>' . $def->codigo . '</strong></td>
-                            <td width="45%" border="1" style="text-align: justify" >' . $def->descripcion . '</td>
-                            <td width="25%" border="1" >' . $def->grupo . '</td>
-                            ' . $tipo . '
-                        </tr>';
-    }
-}
-$html = <<<EOF
-        <br>
-        <table>
-        <tr>
-        <td ><strong>D1. DEFECTOS ENCONTRADOS EN LA INSPECCIÓN SENSORIAL DE LOS VEHÍCULOS UTILIZADOS PARA IMPARTIR LA ENSEÑANZA AUTOMOVILÍSTICA.</strong></td>
-                        </tr>
-        </table>
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-$html = <<<EOF
-        <br>
-        <table cellpadding="2" nobr="true">
-                        <tr>
-                            <td width="10%" border="1" align="center" rowspan="2"><strong>Código</strong></td>
-                            <td width="45%" border="1" align="center" rowspan="2"><strong>Descripción</strong></td>
-                            <td width="25%" border="1" align="center" rowspan="2"><strong>Grupo</strong></td>
-                            <td width="19%" border="1" align="center"><strong>Tipo de defecto</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="10%" border="1" align="center"><strong>A</strong></td>
-                            <td width="9%" border="1" align="center"><strong>B</strong></td>
-                        </tr>
-                        $defEA
-                        $defEB
-                        <tr>
-                            <td width="80%" align="rigth"><strong>TOTAL</strong></td>
-                            <td width="10%" border="1" align="center"><strong>$countDefEnsA</strong></td>
-                            <td width="9%" border="1" align="center"><strong>$countDefEnsB</strong></td>
-                        </tr>
-        </table>
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-
-//------------------------------------------------------------------------------PROFUNIDAD DE LABRADO
-$html = <<<EOF
-        <br>
-    <label style="text-align: justify;"><strong>D2. REGISTRO DE LA PROFUNDIDAD DE LABRADO Y PRESIÓN DE LAS LLANTAS</strong></label><br>
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-
-$html = <<<EOF
-        <br>
-        <table cellpadding="2" nobr="true">
-                        <tr>
-                            <td width="16%" border="1" align="center"><strong></strong></td>  
-                            <td width="14%" border="1" align="center"><strong>Eje 1 (mm)</strong></td>
-                            <td width="14%" border="1" align="center"><strong>Eje 2 (mm)</strong></td>
-                            <td width="14%" border="1" align="center"><strong>Eje 3 (mm)</strong></td>
-                            <td width="14%" border="1" align="center"><strong>Eje 4 (mm)</strong></td>
-                            <td width="14%" border="1" align="center"><strong>Eje 5 (mm)</strong></td>
-                            <td width="13%" border="1" align="center"><strong>Repuesto (mm)</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="16%" border="1" align="center"><strong>IZQUIERDA</strong></td>  
-                            <td width="14%" border="1" align="center">$labrado->eje1_izquierdo</td>
-                            <td width="7%" border="1" align="center">$labrado->eje2_izquierdo</td>
-                            <td width="7%" border="1" align="center">$labrado->eje2_izquierdo_interior</td>
-                            <td width="7%" border="1" align="center">$labrado->eje3_izquierdo</td>
-                            <td width="7%" border="1" align="center">$labrado->eje3_izquierdo_interior</td>
-                            <td width="7%" border="1" align="center">$labrado->eje4_izquierdo</td>
-                            <td width="7%" border="1" align="center">$labrado->eje4_izquierdo_interior</td>
-                            <td width="7%" border="1" align="center">$labrado->eje5_izquierdo</td>
-                            <td width="7%" border="1" align="center">$labrado->eje5_izquierdo_interior</td>
-                            <td width="7%" border="1" rowspan="2" align="center"><br><br>$labrado->repuesto</td>
-                            <td width="6%" border="1" rowspan="2" align="center"><br><br>$labrado->repuesto2</td>
-                        </tr>
-                        <tr>
-                            <td width="16%" border="1" align="center"><strong>DERECHA</strong></td>  
-                            <td width="14%" border="1" align="center">$labrado->eje1_derecho</td>
-                            <td width="7%" border="1" align="center">$labrado->eje2_derecho</td>
-                            <td width="7%" border="1" align="center">$labrado->eje2_derecho_interior</td>
-                            <td width="7%" border="1" align="center">$labrado->eje3_derecho</td>
-                            <td width="7%" border="1" align="center">$labrado->eje3_derecho_interior</td>
-                            <td width="7%" border="1" align="center">$labrado->eje4_derecho</td>
-                            <td width="7%" border="1" align="center">$labrado->eje4_derecho_interior</td>
-                            <td width="7%" border="1" align="center">$labrado->eje5_derecho</td>
-                            <td width="7%" border="1" align="center">$labrado->eje5_derecho_interior</td>
-                        </tr>
-        </table>
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-
-//-----------------------------------------------------------------------------
-if ($reins == '0' || $reins == '1' || $reins == '8888') {
-    $html = <<<EOF
-            <br>
-        <table cellpadding="2" nobr="true">
-                        <tr>
-                            <td width="10%">Nota:</td>  
-                            <td width="89%" align="justify">Defectos tipo A: Son aquellos defectos graves que implican un peligro inminente para la seguridad del vehículo, la de otros vehículos, la de sus ocupantes, la de los usuarios de la vía pública o el ambiente.<br>Defectos tipo B: Son aquellos defectos que implican un peligro potencial para la seguridad del vehículo, la de otros vehículos, la de sus ocupantes, la de los usuarios de la vía pública.</td>
-                        </tr>
-        </table>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-}
-//-----------------------------------------------------------------------------
-if ($reins == '0' || $reins == '1' || $reins == '8888') {
-    $html = <<<EOF
-            <br>
-    <label style="text-align: justify;">$tituloE</label><br>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-
-    $html = <<<EOF
-            <br>
-        <table cellpadding="5" nobr="true">
-                        <tr>
-                            <td width="50%" border="1" align="center"><strong>$apro</strong></td>  
-                            <td width="49%" border="1" ><strong>No Consecutivo RUNT:</strong> $numero_consecutivo</td>
-                        </tr>
-                        <tr>
-                            <td width="99%" border="1" ><strong>E.1. ¿Cumple con las adaptaciones para vehículos de enseñanza automovilística? (Solo para vehículos de este tipo)<br><br>$aproE</strong></td>
-                        </tr>
-        </table>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-} else {
-    $html = <<<EOF
-    <label style="text-align: justify;">$tituloE</label>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-
-    $html = <<<EOF
-        <table cellpadding="5" nobr="true">
-                        <tr>
-                            <td width="100%" border="1" align="center"><strong>$apro</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="100%" border="1" ><strong>E.1. ¿Cumple con las adaptaciones para vehículos de enseñanza automovilística? (Solo para vehículos de este tipo)<br><br>$aproE</strong></td>
-                        </tr>
-        </table>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-}
-//------------------------------------------------------------------------------
-if ($reins == '0' || $reins == '1' || $reins == '8888') {
-    $html = <<<EOF
-            <br>
-    <label style="text-align: justify;"><strong>Nota: Causal de Rechazo</strong></label>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-    $html = <<<EOF
-            <br>
-        <table>
-                        <tr>
-                            <td width="2%">a)</td>  
-                            <td >Se encuentra al menos un defecto Tipo A.</td>
-                        </tr>
-                        <tr>
-                            <td width="2%">b)</td>  
-                            <td width="98%">La cantidad total de defectos tipo B sea:</td>
-                        </tr>
-                        <tr>
-                            <td width="2%"></td>
-                            <td width="98%">- Igual o superior a 10 para vehículos Livianos Particulares y Pesados Particulares.</td>
-                        </tr>
-                        <tr>
-                            <td width="2%"></td>
-                            <td width="98%">- Igual o superior a 7 para vehículos Motocarros, Cuatrimotos, Mototriciclos y Cuadriciclos.</td>
-                        </tr>
-                        <tr>
-                            <td width="2%"></td>
-                            <td width="98%">- Igual o superior a 5 para vehículos Livianos públicos, Pesados públicos, Motocicleta, Ciclomotor y Tricimoto.</td>
-                        </tr>
-                        <tr>
-                            <td width="2%"></td>
-                            <td width="98%">- Igual o superior a 5 para vehículos de enseñanza automovilística.</td>
-                        </tr>
-                        <tr>
-                            <td width="2%"></td>
-                            <td width="98%">- Igual o superior a 1 para vehículos de enseñanza automovilística tipo Cuatrimotos, Mototriciclos, Cuadriciclos, Ciclomotor, Tricimoto.</td>
-                        </tr>
-                        <tr>
-                            <td width="2%"></td>
-                            <td width="98%">- Cuando se presente al menos un defecto tipo A para vehículos tipo Remolque o similares.</td>
-                        </tr>
-        </table>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-
-    //------------------------------------------------------------------------------NUMEROS DE LOS FUR ASOCIADOS AL A LA INSPECCIÓN
-
-    $html = <<<EOF
-            <br>
-        NÚMEROS DE LOS FUR ASOCIADOS AL VEHÍCULO PARA LA REVISIÓN: <strong>$num_fur_aso</strong> <br>
-        <hr>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-}
-//------------------------------------------------------------------------------OBSERVACIONES
-$obs = '';
-if (count($observaciones) > 0) {
-    //    $countDefSenA = count($defectosSensorialesA);
-    foreach ($observaciones as $o) {
-        $obs = $obs . "<strong>$o->codigo</strong>: $o->descripcion<br>";
-    }
-}
-$obs = $obs . $fechainicioprueba . $fechafinalprueba;
-
-$html = <<<EOF
-        <br>
-        <strong>F. COMENTARIOS U OBSERVACIONES ADICIONALES:</strong><br>
-        <table>
-        <tr>
-        <td >$obs</td>
-        </tr>
-        </table>
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-
-//------------------------------------------------------------------------------PRESIONES
-if ($showencabezado) {
-    $html = <<<EOF
-        <br>
-    <label style="text-align: justify;"><strong>PRESIÓN DE LAS LLANTAS </strong></label>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-
-    $html = <<<EOF
-        <br>
-        <table cellpadding="2" nobr="true">
-                        <tr>
-                            <td width="16%" border="1" align="center"><strong></strong></td>  
-                            <td width="14%" border="1" align="center"><strong>Eje 1 (psi)</strong></td>
-                            <td width="14%" border="1" align="center"><strong>Eje 2 (psi)</strong></td>
-                            <td width="14%" border="1" align="center"><strong>Eje 3 (psi)</strong></td>
-                            <td width="14%" border="1" align="center"><strong>Eje 4 (psi)</strong></td>
-                            <td width="14%" border="1" align="center"><strong>Eje 5 (psi)</strong></td>
-                            <td width="13%" border="1" align="center"><strong>Repuesto (psi)</strong></td>
-                        </tr>
-                        <tr>
-                            <td width="16%" border="1" align="center"><strong>IZQUIERDA</strong></td>  
-                            <td width="14%" border="1" align="center">$presion->llanta_1_I</td>
-                            <td width="7%" border="1" align="center">$presion->llanta_2_IE</td>
-                            <td width="7%" border="1" align="center">$presion->llanta_2_II</td>
-                            <td width="7%" border="1" align="center">$presion->llanta_3_IE</td>
-                            <td width="7%" border="1" align="center">$presion->llanta_3_II</td>
-                            <td width="7%" border="1" align="center">$presion->llanta_4_IE</td>
-                            <td width="7%" border="1" align="center">$presion->llanta_4_II</td>
-                            <td width="7%" border="1" align="center">$presion->llanta_5_IE</td>
-                            <td width="7%" border="1" align="center">$presion->llanta_5_II</td>
-                            <td width="7%" border="1" rowspan="2" align="center"><br><br>$presion->llanta_R</td>
-                            <td width="6%" border="1" rowspan="2" align="center"><br><br>$presion->llanta_R2</td>
-                        </tr>
-                        <tr>
-                            <td width="16%" border="1" align="center"><strong>DERECHA</strong></td>  
-                            <td width="14%" border="1" align="center">$presion->llanta_1_D</td>
-                            <td width="7%" border="1" align="center">$presion->llanta_2_DE</td>
-                            <td width="7%" border="1" align="center">$presion->llanta_2_DI</td>
-                            <td width="7%" border="1" align="center">$presion->llanta_3_DE</td>
-                            <td width="7%" border="1" align="center">$presion->llanta_3_DI</td>
-                            <td width="7%" border="1" align="center">$presion->llanta_4_DE</td>
-                            <td width="7%" border="1" align="center">$presion->llanta_4_DI</td>
-                            <td width="7%" border="1" align="center">$presion->llanta_5_DE</td>
-                            <td width="7%" border="1" align="center">$presion->llanta_5_DI</td>
-                        </tr>
-        </table><br>
-        <hr>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-}
-//------------------------------------------------------------------------------FOTOGRAFÍAS
-$html = <<<EOF
-        <br>
-        <strong>$tituloG<strong><br>
-        <hr>
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-//------------------------------------------------------------------------------FOTOGRAFÍAS
-if ($fotografia->imagen1 !== '' || $fotografia->imagen2 !== '') {
-    $html = <<<EOF
-        <table cellpadding="5" nobr="true">
-                        <tr >
-                            <td width="5%"></td>  
-                            <td width="42%"><img src="$fotografia->imagen1" style="width: 226.772px;height:198.425px"></td>
-                            <td width="6%"></td>  
-                            <td width="42%"><img src="$fotografia->imagen2" style="width: 226.772px;height:198.425px"></td>
-                            <td width="5%"></td>
-                        </tr>
-        </table>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-}
-//------------------------------------------------------------------------------PERISFERICOS
-$luxometro = "";
-$opacimetro = "";
-$analizador = "";
-$sonometro = "";
-$camara = "";
-$taximetro = "";
-$frenometro = "";
-$suspension = "";
-$alineador = "";
-$termohigrometro = "";
-$profundimetro = "";
-$captador = "";
-$pierey = "";
-$elevador = "";
-$detector = "";
-$sensorRPM = "";
-$sondaTMP = "";
-if ($maquinas->nombreLuxometro !== '') {
-    $luxometro = explode("$", $maquinas->nombreLuxometro);
-    $luxometro = <<<EOF
-            <tr>
-                <td border="1" align="center">$luxometro[0]</td>
-                <td border="1" align="center">$luxometro[1]</td>
-                <td border="1" align="center">$luxometro[2]</td>
-                <td border="1" align="center">$luxometro[3]</td>
-                <td border="1" align="center"></td>
-                <td border="1" align="center">$luxometro[4]</td>
-                <td border="1" align="center">$luxometro[5]</td>
-            </tr>
-EOF;
-}
-
-if ($maquinas->nombreOpacimetro !== '') {
-    $opacimetro = explode("$", $maquinas->nombreOpacimetro);
-    $opacimetro = <<<EOF
-            <tr>
-                <td border="1" align="center">$opacimetro[0]</td>
-                <td border="1" align="center">$opacimetro[1]</td>
-                <td border="1" align="center">$opacimetro[2]</td>
-                <td border="1" align="center">$opacimetro[3]</td>
-                <td border="1" align="center"></td>
-                <td border="1" align="center">$opacimetro[4]</td>
-                <td border="1" align="center">$opacimetro[5]</td>
-            </tr>
-EOF;
-}
-$bench = "";
-if ($maquinas->nombreGases !== '') {
-    $analizador = explode("$", $maquinas->nombreGases);
-    $analizador = <<<EOF
-            <tr>
-                <td border="1" align="center">$analizador[0]</td>
-                <td border="1" align="center">$analizador[1]</td>
-                <td border="1" align="center">$analizador[2]</td>
-                <td border="1" align="center">$analizador[3]</td>
-                <td border="1" align="center">$analizador[6]</td>            
-                <td border="1" align="center">$analizador[4]</td>
-                <td border="1" align="center">$analizador[5]</td>
-            </tr>
-EOF;
-}
-//echo $maquinas->nombreSonometro;
-if ($maquinas->nombreSonometro !== '') {
-    $sonometro = explode("$", $maquinas->nombreSonometro);
-    if ($sonometro[0] !== '') {
-        $sonometro = <<<EOF
-            <tr>
-                <td border="1" align="center">$sonometro[0]</td>
-                <td border="1" align="center">$sonometro[1]</td>
-                <td border="1" align="center">$sonometro[2]</td>
-                <td border="1" align="center">$sonometro[3]</td>
-                <td border="1" align="center"></td>                
-                <td border="1" align="center">$sonometro[4]</td>
-                <td border="1" align="center">$sonometro[5]</td>
-            </tr>
-EOF;
-    } else {
-        $sonometro = "";
-    }
-}
-
-if ($maquinas->nombreFotos !== '') {
-    $camara = explode("$", $maquinas->nombreFotos);
-    $camara = <<<EOF
-            <tr>
-                <td border="1" align="center">$camara[0]</td>
-                <td border="1" align="center">$camara[1]</td>
-                <td border="1" align="center">$camara[2]</td>
-                <td border="1" align="center">$camara[3]</td>
-                <td border="1" align="center"></td>            
-                <td border="1" align="center">$camara[4]</td>
-                <td border="1" align="center">$camara[5]</td>
-            </tr>
-EOF;
-}
-
-if ($maquinas->nombreTaximetro !== '') {
-    $taximetro = explode("$", $maquinas->nombreTaximetro);
-    $taximetro = <<<EOF
-            <tr>
-                <td border="1" align="center">$taximetro[0]</td>
-                <td border="1" align="center">$taximetro[1]</td>
-                <td border="1" align="center">$taximetro[2]</td>
-                <td border="1" align="center">$taximetro[3]</td>
-                <td border="1" align="center"></td>            
-                <td border="1" align="center">$taximetro[4]</td>
-                <td border="1" align="center">$taximetro[5]</td>
-            </tr>
-EOF;
-}
-
-if ($maquinas->nombreFrenos !== '') {
-    $frenometro = explode("$", $maquinas->nombreFrenos);
-    $frenometro = <<<EOF
-            <tr>
-                <td border="1" align="center">$frenometro[0]</td>
-                <td border="1" align="center">$frenometro[1]</td>
-                <td border="1" align="center">$frenometro[2]</td>
-                <td border="1" align="center">$frenometro[3]</td>
-                <td border="1" align="center"></td>            
-                <td border="1" align="center">$frenometro[4]</td>
-                <td border="1" align="center">$frenometro[5]</td>
-            </tr>
-EOF;
-}
-if ($maquinas->nombreBascula !== '') {
-    $bascula = explode("$", $maquinas->nombreBascula);
-    $bascula = <<<EOF
-            <tr>
-                <td border="1" align="center">$bascula[0]</td>
-                <td border="1" align="center">$bascula[1]</td>
-                <td border="1" align="center">$bascula[2]</td>
-                <td border="1" align="center">$bascula[3]</td>
-                <td border="1" align="center"></td>            
-                <td border="1" align="center">$bascula[4]</td>
-                <td border="1" align="center">$bascula[5]</td>
-            </tr>
-EOF;
-} else {
-    $bascula = '';
-}
-
-if ($maquinas->nombreVisual !== '') {
-    $visual = explode("$", $maquinas->nombreVisual);
-    $visual = <<<EOF
-            <tr>
-                <td border="1" align="center">$visual[0]</td>
-                <td border="1" align="center">$visual[1]</td>
-                <td border="1" align="center">$visual[2]</td>
-                <td border="1" align="center">$visual[3]</td>
-                <td border="1" align="center"></td>            
-                <td border="1" align="center">$visual[4]</td>
-                <td border="1" align="center">$visual[5]</td>
-            </tr>
-EOF;
-} else {
-    $visual = "";
-}
-
-
-if ($maquinas->nombreSuspension !== '') {
-    $suspension = explode("$", $maquinas->nombreSuspension);
-    $suspension = <<<EOF
-            <tr>
-                <td border="1" align="center">$suspension[0]</td>
-                <td border="1" align="center">$suspension[1]</td>
-                <td border="1" align="center">$suspension[2]</td>
-                <td border="1" align="center">$suspension[3]</td>
-                <td border="1" align="center"></td>            
-                <td border="1" align="center">$suspension[4]</td>
-                <td border="1" align="center">$suspension[5]</td>
-            </tr>
-EOF;
-}
-
-if ($maquinas->nombreAlineador !== '') {
-    $alineador = explode("$", $maquinas->nombreAlineador);
-    $alineador = <<<EOF
-            <tr>
-                <td border="1" align="center">DESVIACIÓN LATERAL</td>
-                <td border="1" align="center">$alineador[1]</td>
-                <td border="1" align="center">$alineador[2]</td>
-                <td border="1" align="center">$alineador[3]</td>
-                <td border="1" align="center"></td>            
-                <td border="1" align="center">$alineador[4]</td>
-                <td border="1" align="center">$alineador[5]</td>
-            </tr>
-EOF;
-}
-
-if ($maquinas->nombreTermohigrometro !== '') {
-    $termohigrometro = explode("$", $maquinas->nombreTermohigrometro);
-    $termohigrometro = <<<EOF
-            <tr>
-                <td border="1" align="center">$termohigrometro[0]</td>
-                <td border="1" align="center">$termohigrometro[1]</td>
-                <td border="1" align="center">$termohigrometro[2]</td>
-                <td border="1" align="center">$termohigrometro[3]</td>
-                <td border="1" align="center"></td>            
-                <td border="1" align="center">$termohigrometro[4]</td>
-                <td border="1" align="center">$termohigrometro[5]</td>
-            </tr>
-EOF;
-}
-
-if ($maquinas->nombreProfundimetro !== '') {
-    $profundimetro = explode("$", $maquinas->nombreProfundimetro);
-    $profundimetro = <<<EOF
-            <tr>
-                <td border="1" align="center">$profundimetro[0]</td>
-                <td border="1" align="center">$profundimetro[1]</td>
-                <td border="1" align="center">$profundimetro[2]</td>
-                <td border="1" align="center">$profundimetro[3]</td>
-                <td border="1" align="center"></td>            
-                <td border="1" align="center">$profundimetro[4]</td>
-                <td border="1" align="center">$profundimetro[5]</td>
-            </tr>
-EOF;
-}
-
-if ($maquinas->nombreCaptador !== '') {
-    $captador = explode("$", $maquinas->nombreCaptador);
-    $captador = <<<EOF
-            <tr>
-                <td border="1" align="center">$captador[0]</td>
-                <td border="1" align="center">$captador[1]</td>
-                <td border="1" align="center">$captador[2]</td>
-                <td border="1" align="center">$captador[3]</td>
-                <td border="1" align="center"></td>            
-                <td border="1" align="center">$captador[4]</td>
-                <td border="1" align="center">$captador[5]</td>
-            </tr>
-EOF;
-}
-
-if ($maquinas->nombrePiederey !== '') {
-    $pierey = explode("$", $maquinas->nombrePiederey);
-    $pierey = <<<EOF
-            <tr>
-                <td border="1" align="center">$pierey[0]</td>
-                <td border="1" align="center">$pierey[1]</td>
-                <td border="1" align="center">$pierey[2]</td>
-                <td border="1" align="center">$pierey[3]</td>
-                <td border="1" align="center"></td>            
-                <td border="1" align="center">$pierey[4]</td>
-                <td border="1" align="center">$pierey[5]</td>
-            </tr>
-EOF;
-}
-
-if ($maquinas->nombreElevador !== '') {
-    $elevador = explode("$", $maquinas->nombreElevador);
-    $elevador = <<<EOF
-            <tr>
-                <td border="1" align="center">$elevador[0]</td>
-                <td border="1" align="center">$elevador[1]</td>
-                <td border="1" align="center">$elevador[2]</td>
-                <td border="1" align="center">$elevador[3]</td>
-                <td border="1" align="center"></td>            
-                <td border="1" align="center">$elevador[4]</td>
-                <td border="1" align="center">$elevador[5]</td>
-            </tr>
-EOF;
-}
-
-if ($maquinas->nombreDetector !== '') {
-    $detector = explode("$", $maquinas->nombreDetector);
-    $detector = <<<EOF
-            <tr>
-                <td border="1" align="center">$detector[0]</td>
-                <td border="1" align="center">$detector[1]</td>
-                <td border="1" align="center">$detector[2]</td>
-                <td border="1" align="center">$detector[3]</td>
-                <td border="1" align="center"></td>            
-                <td border="1" align="center">$detector[4]</td>
-                <td border="1" align="center">$detector[5]</td>
-            </tr>
-EOF;
-}
-
-if ($maquinas->nombreSensorRPM !== '') {
-    $sensorRPM = explode("$", $maquinas->nombreSensorRPM);
-    $sensorRPM = <<<EOF
-            <tr>
-                <td border="1" align="center">$sensorRPM[0]</td>
-                <td border="1" align="center">$sensorRPM[1]</td>
-                <td border="1" align="center">$sensorRPM[2]</td>
-                <td border="1" align="center">$sensorRPM[3]</td>
-                <td border="1" align="center"></td>            
-                <td border="1" align="center">$sensorRPM[4]</td>
-                <td border="1" align="center">$sensorRPM[5]</td>
-            </tr>
-EOF;
-}
-
-if ($vehiculo->convertidorCat === "NO" || ($vehiculo->tipo_vehiculo === '3' && $vehiculo->scooter === '0') || $combustible->nombre === "Diesel") {
-    // var_dump($combustible->nombre);
-    // var_dump($maquinas->nombreSondaTMP);
-    if ($maquinas->nombreSondaTMP !== '') {
-        $sondaTMP = explode("$", $maquinas->nombreSondaTMP);
-        $sondaTMP = <<<EOF
-            <tr>
-                <td border="1" align="center">$sondaTMP[0]</td>
-                <td border="1" align="center">$sondaTMP[1]</td>
-                <td border="1" align="center">$sondaTMP[2]</td>
-                <td border="1" align="center">$sondaTMP[3]</td>
-                <td border="1" align="center"></td>                
-                <td border="1" align="center">$sondaTMP[4]</td>
-                <td border="1" align="center">$sondaTMP[5]</td>
-            </tr>
-EOF;
-    }
-}
-//if ($reins == '0' || $reins == '1' || $reins == '8888') {
-//    if ($vehiculo->scooter !== '1') {
-//        $sensorTmp = '<tr>
-//                <td border="1" align="center">SONDA TEMPERATURA</td>
-//                <td border="1" align="center">CAPELEC</td>
-//                <td border="1" align="center">32363</td>
-//                <td border="1" align="center">CAP8530</td>
-//                <td border="1" align="center"></td>
-//                <td border="1" align="center"></td>
-//            </tr>';
-//    } else {
-//        $sensorTmp = "";
-//    }
-//    $sensorRpm = '<tr>
-//                <td border="1" align="center">SENSOR VIBRACION</td>
-//                <td border="1" align="center">CAPELEC</td>
-//                <td border="1" align="center">32363</td>
-//                <td border="1" align="center">CAP8530</td>
-//                <td border="1" align="center"></td>
-//                <td border="1" align="center"></td>
-//            </tr>';
-//        $sensorRpm
-//        $sensorTmp
-
-
-$html = <<<EOF
-        <br>
-        <strong>H. RELACIÓN DE EQUIPOS Y PERIFERICOS UTILIZADOS EN LA REVISIÓN</strong><br><br>
-        <table cellpadding="1" nobr="true" >
-            <tr>
-                <td border="1" align="center" width="18%"><strong>NOMBRE</strong></td>
-                <td border="1" align="center" width="20%"><strong>MARCA</strong></td>
-                <td border="1" align="center" width="20%"><strong>SERIAL</strong></td>
-                <td border="1" align="center" width="19%"><strong>REFERENCIA</strong></td>
-                <td border="1" align="center" width="12%"><strong># SERIE BANCO</strong></td>
-                <td border="1" align="center" width="5%"><strong>PEF</strong></td>
-                <td border="1" align="center" width="5%"><strong>LTOE</strong></td>
-            </tr>
-        $luxometro
-        $opacimetro
-        $analizador
-        $sonometro
-        $taximetro
-        $frenometro
-        $bascula
-        $suspension
-        $alineador
-        $termohigrometro
-        $profundimetro
-        $captador
-        $pierey
-        $elevador
-        $detector
-        $sensorRPM
-        $sondaTMP
-        </table>
-        <br>
-        $bench
-        <hr>
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-
-if ($reins == '0' || $reins == '1') {
-    //------------------------------------------------------------------------------VERSION
-    $html = <<<EOF
-            <br>
-        <strong>I. SOFTWARE Y/O APLICATIVOS CON LA VERSIÓN UTILIZADA: </strong><br>
-             <table>
-        <tr>
-        <td width="99%">$software</td></tr>
-        </table>
-        <br>
-        <hr>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-}
-//------------------------------------------------------------------------------LISTA DE TECNICOS
-//------------------------------------------------------------------------------PERISFERICOS
-$luxometroOperario = "";
-$opacimetroOperario = "";
-$analizadorOperario = "";
-$sonometroOperario = "";
-$camaraOperario = "";
-$taximetroOperario = "";
-$frenometroOperario = "";
-$suspensionOperario = "";
-$alineadorOperario = "";
-if ($inspectores->nombreLuxometro !== '') {
-    $luxometroOperario = explode("$", $inspectores->nombreLuxometro);
-    $luxometroOperario = str_replace('^', '', $luxometroOperario);
-    $luxometroOperario = <<<EOF
-            <tr>
-                <td border="1" align="left">Luces</td>
-                <td border="1" align="left">$luxometroOperario[8]</td>
-            </tr>
-EOF;
-}
-
-if ($inspectores->nombreOpacimetro !== '') {
-    $opacimetroOperario = explode("$", $inspectores->nombreOpacimetro);
-    $opacimetroOperario = str_replace('^', '', $opacimetroOperario);
-    $opacimetroOperario = <<<EOF
-            <tr>
-                <td border="1" align="left">Emisiones ciclo Diesel</td>
-                <td border="1" align="left">$opacimetroOperario[8]</td>
-            </tr>
-EOF;
-}
-
-if ($inspectores->nombreGases !== '') {
-    $analizadorOperario = explode("$", $inspectores->nombreGases);
-    $analizadorOperario = str_replace('^', '', $analizadorOperario);
-    $analizadorOperario = <<<EOF
-            <tr>
-                <td border="1" align="left">Emisiones ciclo OTTO/4T/2T</td>
-                <td border="1" align="left">$analizadorOperario[8]</td>
-            </tr>
-EOF;
-}
-
-if ($inspectores->nombreSonometro !== '') {
-    $sonometroOperario = explode("$", $inspectores->nombreSonometro);
-    $sonometroOperario = str_replace('^', '', $sonometroOperario);
-    if ($sonometroOperario[0] !== '') {
-        $sonometroOperario = <<<EOF
-            <tr>
-                <td border="1" align="left">Sonometría</td>
-                <td border="1" align="left">$sonometroOperario[8]</td>
-            </tr>
-EOF;
-    } else {
-        $sonometroOperario = "";
-    }
-}
-
-if ($inspectores->nombreFotos !== '') {
-    $camaraOperario = explode("$", $inspectores->nombreFotos);
-    $camaraOperario = str_replace('^', '', $camaraOperario);
-    $camaraOperario = <<<EOF
-            <tr>
-                <td border="1" align="left">Registro fotográfico</td>
-                <td border="1" align="left">$camaraOperario[8]</td>
-            </tr>
-EOF;
-}
-
-if ($inspectores->nombreTaximetro !== '') {
-    $taximetroOperario = explode("$", $inspectores->nombreTaximetro);
-    $taximetroOperario = str_replace('^', '', $taximetroOperario);
-    $taximetroOperario = <<<EOF
-            <tr>
-                <td border="1" align="left">Dispositivo de cobro</td>
-                <td border="1" align="left">$taximetroOperario[8]</td>
-            </tr>
-EOF;
-}
-
-if ($inspectores->nombreFrenos !== '') {
-    $frenometroOperario = explode("$", $inspectores->nombreFrenos);
-    $frenometroOperario = str_replace('^', '', $frenometroOperario);
-    $frenometroOperario = <<<EOF
-            <tr>
-                <td border="1" align="left">Frenos</td>
-                <td border="1" align="left">$frenometroOperario[8]</td>
-            </tr>
-EOF;
-}
-
-if ($inspectores->nombreVisual !== '') {
-    $visualOperario = explode("$", $inspectores->nombreVisual);
-    $visualOperario = str_replace('^', '', $visualOperario);
-    $visualOperario = <<<EOF
-            <tr>
-                <td border="1" align="left">Inspección sensorial</td>
-                <td border="1" align="left">$visualOperario[8]</td>
-            </tr>
-EOF;
-} else {
-    $visualOperario = "";
-}
-
-if ($inspectores->nombreSuspension !== '') {
-    $suspensionOperario = explode("$", $inspectores->nombreSuspension);
-    $suspensionOperario = str_replace('^', '', $suspensionOperario);
-    $suspensionOperario = <<<EOF
-            <tr>
-                <td border="1" align="left">Suspensión</td>
-                <td border="1" align="left">$suspensionOperario[8]</td>
-            </tr>
-EOF;
-}
-
-if ($inspectores->nombreAlineador !== '') {
-    $alineadorOperario = explode("$", $inspectores->nombreAlineador);
-    $alineadorOperario = str_replace('^', '', $alineadorOperario);
-    $alineadorOperario = <<<EOF
-            <tr>
-                <td border="1" align="left">Desviación lateral</td>
-                <td border="1" align="left">$alineadorOperario[8]</td>
-            </tr>
-EOF;
-}
-$sensoriales = "";
-if ($sensorial->operarios_sensorial) {
-    foreach ($sensorial->operarios_sensorial as $s) {
-		$tipo_inpeccion =  str_replace("visual", "sensorial", $s->sensorial);
-        $sensoriales = $sensoriales . <<<EOF
-            <tr>
-                <td border="1" align="left">$tipo_inpeccion</td>
-                <td border="1" align="left">$s->operario</td>
-            </tr>
-EOF;
-    }
-}
-$html = <<<EOF
-        <br>
-        <strong>$tituloJ</strong><br><br>
-            <table cellpadding="1" >
-            <tr>
-                <td border="1" align="left" width="35%"><strong>PRUEBA</strong></td>
-                <td border="1" align="left" width="40%"><strong>INSPECTOR</strong></td>
-            </tr>
-        $luxometroOperario
-        $opacimetroOperario
-        $analizadorOperario
-        $sonometroOperario
-        $camaraOperario
-        $taximetroOperario
-        $frenometroOperario
-        $visualOperario
-        $suspensionOperario
-        $alineadorOperario
-        $sensoriales
-        </table>
-        <br>
-        <hr>
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-//}
-//------------------------------------------------------------------------------FIRMA JEFE DE PISTA
-if ($showencabezado) {
-    if ($firmaJefe == '') {
-        $html = <<<EOF
-                <br>
-            <strong>K. NOMBRE Y FIRMA DEL DIRECTOR TÉCNICO AUTORIZADO POR EL REPRESENTANTE LEGAL DEL CDA</strong><br><br><br><br><br>
-                <table>
-            <tr>
-            <td width="99%">
-                _______________________________________<br>
-            <strong>$hojatrabajo->jefelinea</strong><br>
-            Director técnico<br>
-             </td></tr>
-            </table>
-            
-            <hr>
-EOF;
-    } else {
-        $html = <<<EOF
-                <br>
-            <strong>K. NOMBRE Y FIRMA DEL DIRECTOR TÉCNICO AUTORIZADO POR EL REPRESENTANTE LEGAL DEL CDA</strong><br>
-                <table>
-            <tr>
-            <td width="99%">
-                <img src="@$firmaJefe" style="width: 200px"><br>
-            _________________________________________________<br>
-            <strong>$hojatrabajo->jefelinea</strong><br>
-            Director técnico<br>
-             </td></tr>
-            </table>
-            <hr>
-EOF;
-    }
-    $pdf->writeHTML($html, true, false, true, false, '');
-}
-
-
-
-if ($reins == '0' || $reins == '1' || $reins == '8888') {
-    //------------------------------------------------------------------------------
-    $html = <<<EOF
-            <br>
-    <label style="text-align: justify;"><strong>NOTA: </strong></label> 
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-    $html = <<<EOF
-            <br>
-        <table nobr="true">
-                        <tr>
-                            <td width="3%">1)</td>  
-                            <td width="96%" align="justify">El campo del resultado de la prueba de Óxido Nitroso (NO) en el formato, se aplicará cuando quede regulado por la entidad competente.</td>
-                        </tr>
-                        <tr>
-                            <td width="3%">2)</td>  
-                            <td width="96%" align="justify">Los resultados aquí consignados corresponden al momento de la revisión técnico-mecánica y de emisiones contaminantes, y por ende es
-responsabilidad del poseedor o tenedor del vehículo mantener las condiciones técnico-mecánicas y de emisiones contaminantes que
-indican artículos 50- 51 de la ley 769 de 2002 o la que modifique o sustituya.</td>
-                        </tr>
-                        <tr>
-                            <td width="3%">3)</td>  
-                            <td width="96%" align="justify">En caso de rechazo, el propietario, poseedor o tenedor del vehículo automotor objeto de revisión, deberá efectuar las reparaciones
-pertinentes y subsanar los aspectos defectuosos dentro de los quince (15) días calendario contados a partir de la fecha en que fue
-reprobado. Una vez realizadas las reparaciones, el propietario, poseedor o tenedor del vehículo automotor, podrá volver por una sola vez
-sin costo alguno al mismo Centro de Diagnóstico Automotor para someter el vehículo a la revisión de los aspectos reprobados en la visita
-inicial, conforme a lo indicado en el artículo 28 de la Resolución 3768 de 2013, o la que la modifique, adicione o sustituya.</td>
-                        </tr>
-        </table>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-}
-$html = <<<EOF
-    <label style="text-align: justify;">_____________________________________________________________Fin del informe__________________________________________________________</label> 
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-
-if (($reins == '0' || $reins == '1') && $ocasion == 'false' && $apro === 'APROBADO: SI_____ NO__X__') {
-    $f = date('Y-m-d  H:i', strtotime($fechafur . '+ 358 hours'));
-    $fec = date_format(date_create($f), 'd/m/Y H:i');
-    $html = <<<EOF
-            <br>
-<p style="font-size:6px;text-align:justify">RECUERDE: A PARTIR DE LA FECHA DE ESTA REVISIÓN USTED CUENTA CON 15 DÍAS CALENDARIO EXACTAMENTE HASTA EL <strong>$fec</strong>, PARA REPARAR SUS DEFECTOS Y REGRESAR A UNA SEGUNDA VISITA, EN TODOS LOS CASOS EL VEHÍCULO SERÁ OBJETO DE UNA REVISIÓN SENSORIAL COMPLETA PARA VERIFICAR QUE LAS CONDICIONES GENERALES SE MANTIENEN Y SE PROCEDA A HACER UNA REVISIÓN GRATUITA DE LOS ASPECTOS REPROBADOS EN LA VISITA INICIAL, CUANDO EN LA REVISIÓN SENSORIAL SE COMPRUEBE QUE EL VEHÍCULO PUDO HABER SUFRIDO ALGUNA ALTERACIÓN, ESTE SERÁ SOMETIDO A UNA REVISIÓN TOTAL COMO SI FUESE LA PRIMERA VEZ, EN ESTE CASO O SI SE PASA DEL PLAZO ESTABLECIDO, SE GENERARÁ EL RESPECTIVO COBRO.</p><br>
-$horarioAtencion            
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-}
-//$pdf->Output($url_ . $file_, 'F'); 
-//ob_end_clean();
-if ($tipopdfenvio == '1') {
-    $pdf->Output($url_ . $file_, 'F');
-} else {
-    $pdf->Output("fur.pdf", 'I');
-}
-
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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

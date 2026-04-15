@@ -1,999 +1,1044 @@
-<?php
-
-set_time_limit(0);
-ini_set('memory_limit', '-1');
-//$pdf = new TCPDF('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-$pdf = new TCPDF('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-
-//$titulo = "NÃºmero de registro visual: " . $this->session->userdata('idhojapruebas') . "-" . $this->session->userdata('idprueba') . " \nFecha inspeccion: " . $fechafinal . "\nPlaca: " . $this->session->userdata('numero_placa');
-$hoy = getdate();
-$pdf->SetTitle($titulo);
-
-$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, $nombreCda . " - Estadástica por inspector/categoria discriminada", "Fecha inicial: " . $fechainicial . "            Fecha final: " . $fechafinal . " \nFecha de generación de este informe: " . $fechageneracion);
-//$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, "prueba", "prueba");
-// set header and footer fonts
-$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-
-// set default monospaced font
-$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
-// set margins
-$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-
-// set auto page breaks
-$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
-// set image scale factor
-$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-// set some language-dependent strings (optional)
-if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
-    require_once(dirname(__FILE__) . '/lang/eng.php');
-    $pdf->setLanguageArray($l);
-}
-
-// ---------------------------------------------------------
-//
-$style = array('width' => 0.5, 'cap' => 'butt', 'join' => 'miter', 'dash' => '10,20,5,10', 'phase' => 10, 'color' => array(255, 0, 0));
-//$style4 = array('L' => 0,
-//    'T' => array('width' => 0.25, 'cap' => 'butt', 'join' => 'miter', 'dash' => '20,10', 'phase' => 10, 'color' => array(100, 100, 255)),
-//    'R' => array('width' => 0.50, 'cap' => 'round', 'join' => 'miter', 'dash' => 0, 'color' => array(50, 50, 127)),
-//    'B' => array('width' => 0.75, 'cap' => 'square', 'join' => 'miter', 'dash' => '30,10,5,10'));
-// set font
-$pdf->SetFont('helvetica', '', 10);
-
-// add a page
-
-if ($inspectores != FALSE) {
-    $rango = "'" . $fechainicial . "' and '" . $fechafinal . "'";
-//TOTAL DEFECTOS CDA
-    $total1a = $this->Mestadisticos->getTotalNumDefectos('td.id_tipo_defecto=1', 'A', $rango);
-    $total1b = $this->Mestadisticos->getTotalNumDefectos('td.id_tipo_defecto=1', 'B', $rango);
-    $total1 = $total1a + $total1b;
-
-    $total2a = $this->Mestadisticos->getTotalNumDefectos('td.id_tipo_defecto=3', 'A', $rango);
-    $total2b = $this->Mestadisticos->getTotalNumDefectos('td.id_tipo_defecto=3', 'B', $rango);
-    $total2 = $total2a + $total2b;
-
-    $total3a = $this->Mestadisticos->getTotalNumDefectos('td.id_tipo_defecto=2', 'A', $rango);
-    $total3b = $this->Mestadisticos->getTotalNumDefectos('td.id_tipo_defecto=2', 'B', $rango);
-    $total3 = $total3a + $total3b;
-
-    $total4a = $this->Mestadisticos->getTotalNumDefectos('td.id_tipo_defecto=4', 'A', $rango);
-    $total4b = $this->Mestadisticos->getTotalNumDefectos('td.id_tipo_defecto=4', 'B', $rango);
-    $total4 = $total4a + $total4b;
-
-    $total5a = $this->Mestadisticos->getTotalNumDefectos('td.id_tipo_defecto=5', 'A', $rango);
-    $total5b = $this->Mestadisticos->getTotalNumDefectos('td.id_tipo_defecto=5', 'B', $rango);
-    $total5 = $total5a + $total5b;
-
-    $total6a = $this->Mestadisticos->getTotalNumDefectos('td.id_tipo_defecto=7', 'A', $rango);
-    $total6b = $this->Mestadisticos->getTotalNumDefectos('td.id_tipo_defecto=7', 'B', $rango);
-    $total6 = $total6a + $total6b;
-
-    $total7a = $this->Mestadisticos->getTotalNumDefectos('td.id_tipo_defecto=8', 'A', $rango);
-    $total7b = $this->Mestadisticos->getTotalNumDefectos('td.id_tipo_defecto=8', 'B', $rango);
-    $total7 = $total7a + $total7b;
-
-    $total8a = $this->Mestadisticos->getTotalNumDefectos('td.id_tipo_defecto=10', 'A', $rango);
-    $total8b = $this->Mestadisticos->getTotalNumDefectos('td.id_tipo_defecto=10', 'B', $rango);
-    $total8 = $total8a + $total8b;
-
-    $total9a = $this->Mestadisticos->getTotalNumDefectos('td.id_tipo_defecto=11', 'A', $rango);
-    $total9b = $this->Mestadisticos->getTotalNumDefectos('td.id_tipo_defecto=11', 'B', $rango);
-    $total9 = $total9a + $total9b;
-
-    $total10a = $this->Mestadisticos->getTotalNumDefectos('td.id_tipo_defecto=24', 'A', $rango);
-    $total10b = $this->Mestadisticos->getTotalNumDefectos('td.id_tipo_defecto=24', 'B', $rango);
-    $total10 = $total10a + $total10b;
-
-    $total11a = $this->Mestadisticos->getTotalNumDefectos('td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'A', $rango);
-    $total11b = $this->Mestadisticos->getTotalNumDefectos('td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'B', $rango);
-    $total11 = $total11a + $total11b;
-
-    foreach ($inspectores as $ins) {
-
-        if ($this->Mestadisticos->siDefectos($rango, $ins->idusuario) != 0) {
-
-            $pdf->AddPage();
-
-//DEFECTOS POR TIPO
-//EXTERIOR TIPO A
-            $lpa1a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=3', 'td.id_tipo_defecto=1', 'A', $rango);
-            $lpu1a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=2', 'td.id_tipo_defecto=1', 'A', $rango);
-            $lot1a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=1', 'A', $rango);
-            $ppa1a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=3', 'td.id_tipo_defecto=1', 'A', $rango);
-            $ppu1a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=2', 'td.id_tipo_defecto=1', 'A', $rango);
-            $pot1a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=1', 'A', $rango);
-            $mpa1a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=3', 'td.id_tipo_defecto=1', 'A', $rango);
-            $mpu1a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=2', 'td.id_tipo_defecto=1', 'A', $rango);
-            $mot1a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=1', 'A', $rango);
-            $rem1a = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '15', 'td.id_tipo_defecto=1', 'A', $rango);
-            $sem1a = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '13', 'td.id_tipo_defecto=1', 'A', $rango);
-            $totalInspector1a = $lpa1a + $lpu1a + $lot1a + $ppa1a + $ppu1a + $pot1a + $mpa1a + $mpu1a + $mot1a + $rem1a + $sem1a;
-            if ($total1a <= 0) {
-                $total1a = 1;
-            }
-            $porInsp1a = round(($totalInspector1a / $total1a) * 100) . "%";
-//EXTERIOR TIPO B
-            $lpa1b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=3', 'td.id_tipo_defecto=1', 'B', $rango);
-            $lpu1b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=2', 'td.id_tipo_defecto=1', 'B', $rango);
-            $lot1b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=1', 'B', $rango);
-            $ppa1b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=3', 'td.id_tipo_defecto=1', 'B', $rango);
-            $ppu1b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=2', 'td.id_tipo_defecto=1', 'B', $rango);
-            $pot1b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=1', 'B', $rango);
-            $mpa1b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=3', 'td.id_tipo_defecto=1', 'B', $rango);
-            $mpu1b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=2', 'td.id_tipo_defecto=1', 'B', $rango);
-            $mot1b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=1', 'B', $rango);
-            $rem1b = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '15', 'td.id_tipo_defecto=1', 'B', $rango);
-            $sem1b = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '13', 'td.id_tipo_defecto=1', 'B', $rango);
-            $totalInspector1b = $lpa1b + $lpu1b + $lot1b + $ppa1b + $ppu1b + $pot1b + $mpa1b + $mpu1b + $mot1b + $rem1b + $sem1b;
-            if ($total1b <= 0) {
-                $total1b = 1;
-            }
-            $porInsp1b = round(($totalInspector1b / $total1b) * 100) . "%";
-            if ($total1 <= 0) {
-                $total1 = 1;
-            }
-            $porTotal1ab = round((($totalInspector1a + $totalInspector1b) / ($total1)) * 100) . "%";
-
-//INTERIOR TIPO A
-            $lpa2a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=3', 'td.id_tipo_defecto=3', 'A', $rango);
-            $lpu2a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=2', 'td.id_tipo_defecto=3', 'A', $rango);
-            $lot2a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=3', 'A', $rango);
-            $ppa2a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=3', 'td.id_tipo_defecto=3', 'A', $rango);
-            $ppu2a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=2', 'td.id_tipo_defecto=3', 'A', $rango);
-            $pot2a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=3', 'A', $rango);
-            $mpa2a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=3', 'td.id_tipo_defecto=3', 'A', $rango);
-            $mpu2a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=2', 'td.id_tipo_defecto=3', 'A', $rango);
-            $mot2a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=3', 'A', $rango);
-            $rem2a = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '15', 'td.id_tipo_defecto=3', 'A', $rango);
-            $sem2a = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '13', 'td.id_tipo_defecto=3', 'A', $rango);
-            $totalInspector2a = $lpa2a + $lpu2a + $lot2a + $ppa2a + $ppu2a + $pot2a + $mpa2a + $mpu2a + $mot2a + $rem2a + $sem2a;
-            if ($total2a <= 0) {
-                $total2a = 1;
-            }
-            $porInsp2a = round(($totalInspector2a / $total2a) * 100) . "%";
-//INTERIOR TIPO B
-            $lpa2b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=3', 'td.id_tipo_defecto=3', 'B', $rango);
-            $lpu2b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=2', 'td.id_tipo_defecto=3', 'B', $rango);
-            $lot2b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=3', 'B', $rango);
-            $ppa2b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=3', 'td.id_tipo_defecto=3', 'B', $rango);
-            $ppu2b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=2', 'td.id_tipo_defecto=3', 'B', $rango);
-            $pot2b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=3', 'B', $rango);
-            $mpa2b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=3', 'td.id_tipo_defecto=3', 'B', $rango);
-            $mpu2b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=2', 'td.id_tipo_defecto=3', 'B', $rango);
-            $mot2b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=3', 'B', $rango);
-            $rem2b = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '15', 'td.id_tipo_defecto=3', 'B', $rango);
-            $sem2b = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '13', 'td.id_tipo_defecto=3', 'B', $rango);
-            $totalInspector2b = $lpa2b + $lpu2b + $lot2b + $ppa2b + $ppu2b + $pot2b + $mpa2b + $mpu2b + $mot2b + $rem2b + $sem2b;
-            if ($total2b <= 0) {
-                $total2b = 1;
-            }
-            $porInsp2b = round(($totalInspector2b / $total2b) * 100) . "%";
-            if ($total2 <= 0) {
-                $total2 = 1;
-            }
-            $porTotal2ab = round((($totalInspector2a + $totalInspector2b) / ($total2)) * 100) . "%";
-
-//VIDRIOS TIPO A
-            $lpa3a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=3', 'td.id_tipo_defecto=2', 'A', $rango);
-            $lpu3a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=2', 'td.id_tipo_defecto=2', 'A', $rango);
-            $lot3a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=2', 'A', $rango);
-            $ppa3a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=3', 'td.id_tipo_defecto=2', 'A', $rango);
-            $ppu3a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=2', 'td.id_tipo_defecto=2', 'A', $rango);
-            $pot3a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=2', 'A', $rango);
-            $mpa3a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=3', 'td.id_tipo_defecto=2', 'A', $rango);
-            $mpu3a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=2', 'td.id_tipo_defecto=2', 'A', $rango);
-            $mot3a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=2', 'A', $rango);
-            $rem3a = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '15', 'td.id_tipo_defecto=2', 'A', $rango);
-            $sem3a = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '13', 'td.id_tipo_defecto=2', 'A', $rango);
-            $totalInspector3a = $lpa3a + $lpu3a + $lot3a + $ppa3a + $ppu3a + $pot3a + $mpa3a + $mpu3a + $mot3a + $rem3a + $sem3a;
-            if ($total3a <= 0) {
-                $total3a = 1;
-            }
-            $porInsp3a = round(($totalInspector3a / $total3a) * 100) . "%";
-//VIDRIOS TIPO B
-            $lpa3b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=3', 'td.id_tipo_defecto=2', 'B', $rango);
-            $lpu3b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=2', 'td.id_tipo_defecto=2', 'B', $rango);
-            $lot3b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=2', 'B', $rango);
-            $ppa3b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=3', 'td.id_tipo_defecto=2', 'B', $rango);
-            $ppu3b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=2', 'td.id_tipo_defecto=2', 'B', $rango);
-            $pot3b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=2', 'B', $rango);
-            $mpa3b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=3', 'td.id_tipo_defecto=2', 'B', $rango);
-            $mpu3b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=2', 'td.id_tipo_defecto=2', 'B', $rango);
-            $mot3b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=2', 'B', $rango);
-            $rem3b = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '15', 'td.id_tipo_defecto=2', 'B', $rango);
-            $sem3b = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '13', 'td.id_tipo_defecto=2', 'B', $rango);
-            $totalInspector3b = $lpa3b + $lpu3b + $lot3b + $ppa3b + $ppu3b + $pot3b + $mpa3b + $mpu3b + $mot3b + $rem3b + $sem3b;
-            if ($total3b <= 0) {
-                $total3b = 1;
-            }
-            $porInsp3b = round(($totalInspector3b / $total3b) * 100) . "%";
-            if ($total3 <= 0) {
-                $total3 = 1;
-            }
-            $porTotal3ab = round((($totalInspector3a + $totalInspector3b) / ($total3)) * 100) . "%";
-
-//EMISIONES TIPO A
-            $lpa4a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=3', 'td.id_tipo_defecto=4', 'A', $rango);
-            $lpu4a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=2', 'td.id_tipo_defecto=4', 'A', $rango);
-            $lot4a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=4', 'A', $rango);
-            $ppa4a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=3', 'td.id_tipo_defecto=4', 'A', $rango);
-            $ppu4a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=2', 'td.id_tipo_defecto=4', 'A', $rango);
-            $pot4a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=4', 'A', $rango);
-            $mpa4a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=3', 'td.id_tipo_defecto=4', 'A', $rango);
-            $mpu4a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=2', 'td.id_tipo_defecto=4', 'A', $rango);
-            $mot4a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=4', 'A', $rango);
-            $rem4a = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '15', 'td.id_tipo_defecto=4', 'A', $rango);
-            $sem4a = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '13', 'td.id_tipo_defecto=4', 'A', $rango);
-            $totalInspector4a = $lpa4a + $lpu4a + $lot4a + $ppa4a + $ppu4a + $pot4a + $mpa4a + $mpu4a + $mot4a + $rem4a + $sem4a;
-            if ($total4a <= 0) {
-                $total4a = 1;
-            }
-            $porInsp4a = round(($totalInspector4a / $total4a) * 100) . "%";
-//EMISIONES TIPO B
-            $lpa4b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=3', 'td.id_tipo_defecto=4', 'B', $rango);
-            $lpu4b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=2', 'td.id_tipo_defecto=4', 'B', $rango);
-            $lot4b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=4', 'B', $rango);
-            $ppa4b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=3', 'td.id_tipo_defecto=4', 'B', $rango);
-            $ppu4b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=2', 'td.id_tipo_defecto=4', 'B', $rango);
-            $pot4b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=4', 'B', $rango);
-            $mpa4b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=3', 'td.id_tipo_defecto=4', 'B', $rango);
-            $mpu4b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=2', 'td.id_tipo_defecto=4', 'B', $rango);
-            $mot4b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=4', 'B', $rango);
-            $rem4b = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '15', 'td.id_tipo_defecto=4', 'B', $rango);
-            $sem4b = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '13', 'td.id_tipo_defecto=4', 'B', $rango);
-            $totalInspector4b = $lpa4b + $lpu4b + $lot4b + $ppa4b + $ppu4b + $pot4b + $mpa4b + $mpu4b + $mot4b + $rem4b + $sem4b;
-            if ($total4b <= 0) {
-                $total4b = 1;
-            }
-            $porInsp4b = round(($totalInspector4b / $total4b) * 100) . "%";
-            if ($total4 <= 0) {
-                $total4 = 1;
-            }
-            $porTotal4ab = round((($totalInspector4a + $totalInspector4b) / ($total4)) * 100) . "%";
-
-//LUCES TIPO A
-            $lpa5a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=3', 'td.id_tipo_defecto=5', 'A', $rango);
-            $lpu5a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=2', 'td.id_tipo_defecto=5', 'A', $rango);
-            $lot5a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=5', 'A', $rango);
-            $ppa5a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=3', 'td.id_tipo_defecto=5', 'A', $rango);
-            $ppu5a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=2', 'td.id_tipo_defecto=5', 'A', $rango);
-            $pot5a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=5', 'A', $rango);
-            $mpa5a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=3', 'td.id_tipo_defecto=5', 'A', $rango);
-            $mpu5a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=2', 'td.id_tipo_defecto=5', 'A', $rango);
-            $mot5a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=5', 'A', $rango);
-            $rem5a = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '15', 'td.id_tipo_defecto=5', 'A', $rango);
-            $sem5a = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '13', 'td.id_tipo_defecto=5', 'A', $rango);
-            $totalInspector5a = $lpa5a + $lpu5a + $lot5a + $ppa5a + $ppu5a + $pot5a + $mpa5a + $mpu5a + $mot5a + $rem5a + $sem5a;
-            if ($total5a <= 0) {
-                $total5a = 1;
-            }
-            $porInsp5a = round(($totalInspector5a / $total5a) * 100) . "%";
-//LUCES TIPO B
-            $lpa5b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=3', 'td.id_tipo_defecto=5', 'B', $rango);
-            $lpu5b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=2', 'td.id_tipo_defecto=5', 'B', $rango);
-            $lot5b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=5', 'B', $rango);
-            $ppa5b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=3', 'td.id_tipo_defecto=5', 'B', $rango);
-            $ppu5b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=2', 'td.id_tipo_defecto=5', 'B', $rango);
-            $pot5b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=5', 'B', $rango);
-            $mpa5b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=3', 'td.id_tipo_defecto=5', 'B', $rango);
-            $mpu5b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=2', 'td.id_tipo_defecto=5', 'B', $rango);
-            $mot5b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=5', 'B', $rango);
-            $rem5b = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '15', 'td.id_tipo_defecto=5', 'B', $rango);
-            $sem5b = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '13', 'td.id_tipo_defecto=5', 'B', $rango);
-            $totalInspector5b = $lpa5b + $lpu5b + $lot5b + $ppa5b + $ppu5b + $pot5b + $mpa5b + $mpu5b + $mot5b + $rem5b + $sem5b;
-            if ($total5b <= 0) {
-                $total5b = 1;
-            }
-            $porInsp5b = round(($totalInspector5b / $total5b) * 100) . "%";
-            if ($total5 <= 0) {
-                $total5 = 1;
-            }
-            $porTotal5ab = round((($totalInspector5a + $totalInspector5b) / ($total5)) * 100) . "%";
-
-//FRENOS TIPO A
-            $lpa6a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=3', 'td.id_tipo_defecto=7', 'A', $rango);
-            $lpu6a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=2', 'td.id_tipo_defecto=7', 'A', $rango);
-            $lot6a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=7', 'A', $rango);
-            $ppa6a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=3', 'td.id_tipo_defecto=7', 'A', $rango);
-            $ppu6a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=2', 'td.id_tipo_defecto=7', 'A', $rango);
-            $pot6a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=7', 'A', $rango);
-            $mpa6a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=3', 'td.id_tipo_defecto=7', 'A', $rango);
-            $mpu6a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=2', 'td.id_tipo_defecto=7', 'A', $rango);
-            $mot6a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=7', 'A', $rango);
-            $rem6a = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '15', 'td.id_tipo_defecto=7', 'A', $rango);
-            $sem6a = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '13', 'td.id_tipo_defecto=7', 'A', $rango);
-            $totalInspector6a = $lpa6a + $lpu6a + $lot6a + $ppa6a + $ppu6a + $pot6a + $mpa6a + $mpu6a + $mot6a + $rem6a + $sem6a;
-            if ($total6a <= 0) {
-                $total6a = 1;
-            }
-            $porInsp6a = round(($totalInspector6a / $total6a) * 100) . "%";
-//FRENOS TIPO B
-            $lpa6b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=3', 'td.id_tipo_defecto=7', 'B', $rango);
-            $lpu6b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=2', 'td.id_tipo_defecto=7', 'B', $rango);
-            $lot6b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=7', 'B', $rango);
-            $ppa6b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=3', 'td.id_tipo_defecto=7', 'B', $rango);
-            $ppu6b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=2', 'td.id_tipo_defecto=7', 'B', $rango);
-            $pot6b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=7', 'B', $rango);
-            $mpa6b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=3', 'td.id_tipo_defecto=7', 'B', $rango);
-            $mpu6b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=2', 'td.id_tipo_defecto=7', 'B', $rango);
-            $mot6b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=7', 'B', $rango);
-            $rem6b = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '15', 'td.id_tipo_defecto=7', 'B', $rango);
-            $sem6b = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '13', 'td.id_tipo_defecto=7', 'B', $rango);
-            $totalInspector6b = $lpa6b + $lpu6b + $lot6b + $ppa6b + $ppu6b + $pot6b + $mpa6b + $mpu6b + $mot6b + $rem6b + $sem6b;
-            if ($total6b <= 0) {
-                $total6b = 1;
-            }
-            $porInsp6b = round(($totalInspector6b / $total6b) * 100) . "%";
-            if ($total6 <= 0) {
-                $total6 = 1;
-            }
-            $porTotal6ab = round((($totalInspector6a + $totalInspector6b) / ($total6)) * 100) . "%";
-
-//SUSPENSION TIPO A
-            $lpa7a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=3', 'td.id_tipo_defecto=8', 'A', $rango);
-            $lpu7a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=2', 'td.id_tipo_defecto=8', 'A', $rango);
-            $lot7a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=8', 'A', $rango);
-            $ppa7a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=3', 'td.id_tipo_defecto=8', 'A', $rango);
-            $ppu7a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=2', 'td.id_tipo_defecto=8', 'A', $rango);
-            $pot7a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=8', 'A', $rango);
-            $mpa7a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=3', 'td.id_tipo_defecto=8', 'A', $rango);
-            $mpu7a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=2', 'td.id_tipo_defecto=8', 'A', $rango);
-            $mot7a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=8', 'A', $rango);
-            $rem7a = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '15', 'td.id_tipo_defecto=8', 'A', $rango);
-            $sem7a = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '13', 'td.id_tipo_defecto=8', 'A', $rango);
-            $totalInspector7a = $lpa7a + $lpu7a + $lot7a + $ppa7a + $ppu7a + $pot7a + $mpa7a + $mpu7a + $mot7a + $rem7a + $sem7a;
-            if ($total7a <= 0) {
-                $total7a = 1;
-            }
-            $porInsp7a = round(($totalInspector7a / $total7a) * 100) . "%";
-//SUSPENSION TIPO B
-            $lpa7b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=3', 'td.id_tipo_defecto=8', 'B', $rango);
-            $lpu7b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=2', 'td.id_tipo_defecto=8', 'B', $rango);
-            $lot7b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=8', 'B', $rango);
-            $ppa7b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=3', 'td.id_tipo_defecto=8', 'B', $rango);
-            $ppu7b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=2', 'td.id_tipo_defecto=8', 'B', $rango);
-            $pot7b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=8', 'B', $rango);
-            $mpa7b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=3', 'td.id_tipo_defecto=8', 'B', $rango);
-            $mpu7b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=2', 'td.id_tipo_defecto=8', 'B', $rango);
-            $mot7b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=8', 'B', $rango);
-            $rem7b = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '15', 'td.id_tipo_defecto=8', 'B', $rango);
-            $sem7b = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '13', 'td.id_tipo_defecto=8', 'B', $rango);
-            $totalInspector7b = $lpa7b + $lpu7b + $lot7b + $ppa7b + $ppu7b + $pot7b + $mpa7b + $mpu7b + $mot7b + $rem7b + $sem7b;
-            if ($total7b <= 0) {
-                $total7b = 1;
-            }
-            $porInsp7b = round(($totalInspector7b / $total7b) * 100) . "%";
-            if ($total7 <= 0) {
-                $total7 = 1;
-            }
-            $porTotal7ab = round((($totalInspector7a + $totalInspector7b) / ($total7)) * 100) . "%";
-
-//DIRECCION TIPO A
-            $lpa8a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=3', 'td.id_tipo_defecto=10', 'A', $rango);
-            $lpu8a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=2', 'td.id_tipo_defecto=10', 'A', $rango);
-            $lot8a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=10', 'A', $rango);
-            $ppa8a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=3', 'td.id_tipo_defecto=10', 'A', $rango);
-            $ppu8a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=2', 'td.id_tipo_defecto=10', 'A', $rango);
-            $pot8a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=10', 'A', $rango);
-            $mpa8a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=3', 'td.id_tipo_defecto=10', 'A', $rango);
-            $mpu8a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=2', 'td.id_tipo_defecto=10', 'A', $rango);
-            $mot8a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=10', 'A', $rango);
-            $rem8a = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '15', 'td.id_tipo_defecto=10', 'A', $rango);
-            $sem8a = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '13', 'td.id_tipo_defecto=10', 'A', $rango);
-            $totalInspector8a = $lpa8a + $lpu8a + $lot8a + $ppa8a + $ppu8a + $pot8a + $mpa8a + $mpu8a + $mot8a + $rem8a + $sem8a;
-            if ($total8a <= 0) {
-                $total8a = 1;
-            }
-            $porInsp8a = round(($totalInspector8a / $total8a) * 100) . "%";
-//DIRECCION TIPO B
-            $lpa8b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=3', 'td.id_tipo_defecto=10', 'B', $rango);
-            $lpu8b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=2', 'td.id_tipo_defecto=10', 'B', $rango);
-            $lot8b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=10', 'B', $rango);
-            $ppa8b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=3', 'td.id_tipo_defecto=10', 'B', $rango);
-            $ppu8b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=2', 'td.id_tipo_defecto=10', 'B', $rango);
-            $pot8b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=10', 'B', $rango);
-            $mpa8b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=3', 'td.id_tipo_defecto=10', 'B', $rango);
-            $mpu8b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=2', 'td.id_tipo_defecto=10', 'B', $rango);
-            $mot8b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=10', 'B', $rango);
-            $rem8b = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '15', 'td.id_tipo_defecto=10', 'B', $rango);
-            $sem8b = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '13', 'td.id_tipo_defecto=10', 'B', $rango);
-            $totalInspector8b = $lpa8b + $lpu8b + $lot8b + $ppa8b + $ppu8b + $pot8b + $mpa8b + $mpu8b + $mot8b + $rem8b + $sem8b;
-            if ($total8b <= 0) {
-                $total8b = 1;
-            }
-            $porInsp8b = round(($totalInspector8b / $total8b) * 100) . "%";
-            if ($total8 <= 0) {
-                $total8 = 1;
-            }
-            $porTotal8ab = round((($totalInspector8a + $totalInspector8b) / ($total8)) * 100) . "%";
-
-//RINES Y LLANTAS TIPO A
-            $lpa9a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=3', 'td.id_tipo_defecto=11', 'A', $rango);
-            $lpu9a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=2', 'td.id_tipo_defecto=11', 'A', $rango);
-            $lot9a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=11', 'A', $rango);
-            $ppa9a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=3', 'td.id_tipo_defecto=11', 'A', $rango);
-            $ppu9a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=2', 'td.id_tipo_defecto=11', 'A', $rango);
-            $pot9a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=11', 'A', $rango);
-            $mpa9a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=3', 'td.id_tipo_defecto=11', 'A', $rango);
-            $mpu9a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=2', 'td.id_tipo_defecto=11', 'A', $rango);
-            $mot9a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=11', 'A', $rango);
-            $rem9a = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '15', 'td.id_tipo_defecto=11', 'A', $rango);
-            $sem9a = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '13', 'td.id_tipo_defecto=11', 'A', $rango);
-            $totalInspector9a = $lpa9a + $lpu9a + $lot9a + $ppa9a + $ppu9a + $pot9a + $mpa9a + $mpu9a + $mot9a + $rem9a + $sem9a;
-            if ($total9a <= 0) {
-                $total9a = 1;
-            }
-            $porInsp9a = round(($totalInspector9a / $total9a) * 100) . "%";
-//RINES Y LLANTAS TIPO B
-            $lpa9b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=3', 'td.id_tipo_defecto=11', 'B', $rango);
-            $lpu9b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=2', 'td.id_tipo_defecto=11', 'B', $rango);
-            $lot9b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=11', 'B', $rango);
-            $ppa9b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=3', 'td.id_tipo_defecto=11', 'B', $rango);
-            $ppu9b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=2', 'td.id_tipo_defecto=11', 'B', $rango);
-            $pot9b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=11', 'B', $rango);
-            $mpa9b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=3', 'td.id_tipo_defecto=11', 'B', $rango);
-            $mpu9b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=2', 'td.id_tipo_defecto=11', 'B', $rango);
-            $mot9b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=11', 'B', $rango);
-            $rem9b = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '15', 'td.id_tipo_defecto=11', 'B', $rango);
-            $sem9b = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '13', 'td.id_tipo_defecto=11', 'B', $rango);
-            $totalInspector9b = $lpa9b + $lpu9b + $lot9b + $ppa9b + $ppu9b + $pot9b + $mpa9b + $mpu9b + $mot9b + $rem9b + $sem9b;
-            if ($total9b <= 0) {
-                $total9b = 1;
-            }
-            $porInsp9b = round(($totalInspector9b / $total9b) * 100) . "%";
-            if ($total9 <= 0) {
-                $total9 = 1;
-            }
-            $porTotal9ab = round((($totalInspector9a + $totalInspector9b) / ($total9)) * 100) . "%";
-
-//ALINEACION TIPO A
-            $lpa10a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=3', 'td.id_tipo_defecto=24', 'A', $rango);
-            $lpu10a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=2', 'td.id_tipo_defecto=24', 'A', $rango);
-            $lot10a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=24', 'A', $rango);
-            $ppa10a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=3', 'td.id_tipo_defecto=24', 'A', $rango);
-            $ppu10a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=2', 'td.id_tipo_defecto=24', 'A', $rango);
-            $pot10a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=24', 'A', $rango);
-            $mpa10a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=3', 'td.id_tipo_defecto=24', 'A', $rango);
-            $mpu10a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=2', 'td.id_tipo_defecto=24', 'A', $rango);
-            $mot10a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=24', 'A', $rango);
-            $rem10a = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '15', 'td.id_tipo_defecto=24', 'A', $rango);
-            $sem10a = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '13', 'td.id_tipo_defecto=24', 'A', $rango);
-            $totalInspector10a = $lpa10a + $lpu10a + $lot10a + $ppa10a + $ppu10a + $pot10a + $mpa10a + $mpu10a + $mot10a + $rem10a + $sem10a;
-            if ($total10a <= 0) {
-                $total10a = 1;
-            }
-            $porInsp10a = round(($totalInspector10a / $total10a) * 100) . "%";
-//ALINEACION TIPO B
-            $lpa10b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=3', 'td.id_tipo_defecto=24', 'B', $rango);
-            $lpu10b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=2', 'td.id_tipo_defecto=24', 'B', $rango);
-            $lot10b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=24', 'B', $rango);
-            $ppa10b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=3', 'td.id_tipo_defecto=24', 'B', $rango);
-            $ppu10b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=2', 'td.id_tipo_defecto=24', 'B', $rango);
-            $pot10b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=24', 'B', $rango);
-            $mpa10b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=3', 'td.id_tipo_defecto=24', 'B', $rango);
-            $mpu10b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=2', 'td.id_tipo_defecto=24', 'B', $rango);
-            $mot10b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto=24', 'B', $rango);
-            $rem10b = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '15', 'td.id_tipo_defecto=24', 'B', $rango);
-            $sem10b = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '13', 'td.id_tipo_defecto=24', 'B', $rango);
-            $totalInspector10b = $lpa10b + $lpu10b + $lot10b + $ppa10b + $ppu10b + $pot10b + $mpa10b + $mpu10b + $mot10b + $rem10b + $sem10b;
-            if ($total10b <= 0) {
-                $total10b = 1;
-            }
-            $porInsp10b = round(($totalInspector10b / $total10b) * 100) . "%";
-            if ($total10 <= 0) {
-                $total10 = 1;
-            }
-            $porTotal10ab = round((($totalInspector10a + $totalInspector10b) / ($total10)) * 100) . "%";
-
-//OTROS TIPO A
-            $lpa11a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=3', 'td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'A', $rango);
-            $lpu11a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=2', 'td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'A', $rango);
-            $lot11a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'A', $rango);
-            $ppa11a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=3', 'td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'A', $rango);
-            $ppu11a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=2', 'td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'A', $rango);
-            $pot11a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'A', $rango);
-            $mpa11a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=3', 'td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'A', $rango);
-            $mpu11a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=2', 'td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'A', $rango);
-            $mot11a = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'A', $rango);
-            $rem11a = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '15', 'td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'A', $rango);
-            $sem11a = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '13', 'td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'A', $rango);
-            $totalInspector11a = $lpa11a + $lpu11a + $lot11a + $ppa11a + $ppu11a + $pot11a + $mpa11a + $mpu11a + $mot11a + $rem11a + $sem11a;
-            if ($total11a <= 0) {
-                $total11a = 1;
-            }
-            $porInsp11a = round(($totalInspector11a / $total11a) * 100) . "%";
-//OTROS TIPO B
-            $lpa11b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=3', 'td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'B', $rango);
-            $lpu11b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio=2', 'td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'B', $rango);
-            $lot11b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '1', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'B', $rango);
-            $ppa11b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=3', 'td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'B', $rango);
-            $ppu11b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio=2', 'td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'B', $rango);
-            $pot11b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '2', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'B', $rango);
-            $mpa11b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=3', 'td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'B', $rango);
-            $mpu11b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio=2', 'td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'B', $rango);
-            $mot11b = $this->Mestadisticos->getNumDefectos($ins->idusuario, '3', 'v.idservicio!=2 and v.idservicio!=3', 'td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'B', $rango);
-            $rem11b = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '15', 'td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'B', $rango);
-            $sem11b = $this->Mestadisticos->getNumDefectosRemolque($ins->idusuario, '13', 'td.id_tipo_defecto!=24 and td.id_tipo_defecto!=11 and td.id_tipo_defecto!=10 and td.id_tipo_defecto!= 8 and td.id_tipo_defecto!=7 and td.id_tipo_defecto!=5 and td.id_tipo_defecto!=4 and td.id_tipo_defecto!=2 and td.id_tipo_defecto!=3 and td.id_tipo_defecto!=1', 'B', $rango);
-            $totalInspector11b = $lpa11b + $lpu11b + $lot11b + $ppa11b + $ppu11b + $pot11b + $mpa11b + $mpu11b + $mot11b + $rem11b + $sem11b;
-            if ($total11b <= 0) {
-                $total11b = 1;
-            }
-            $porInsp11b = round(($totalInspector11b / $total11b) * 100) . "%";
-            if ($total11 <= 0) {
-                $total11 = 1;
-            }
-            $porTotal11ab = round((($totalInspector11a + $totalInspector11b) / ($total11)) * 100) . "%";
-
-            $tbl1 = ' <br/><br/><br/>
-        <table >
-            <thead>
-                <tr >
-                    <th style="font-weight: bold;width: 150px"><strong>INSPECTOR: ' . $ins->user . ' </strong></th>
-                    <th style="text-align: center;vertical-align: middle;width: 792px;font-weight: bold;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px"><strong>Número de defectos de tipo A y B marcados</strong></th>
-                </tr>
-                <tr >
-                    <th style="font-weight: bold;width: 150px"></th>
-                    <th style="text-align: center;vertical-align: middle;width: 72px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Exterior</th>
-                    <th style="text-align: center;vertical-align: middle;width: 72px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Interior</th>
-                    <th style="text-align: center;vertical-align: middle;width: 72px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Vidrios</th>
-                    <th style="text-align: center;vertical-align: middle;width: 72px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Emisiones</th>
-                    <th style="text-align: center;vertical-align: middle;width: 72px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Luces</th>
-                    <th style="text-align: center;vertical-align: middle;width: 72px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Frenos</th>
-                    <th style="text-align: center;vertical-align: middle;width: 72px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Suspensión</th>
-                    <th style="text-align: center;vertical-align: middle;width: 72px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Dirección</th>
-                    <th style="font-size:10px;text-align: center;vertical-align: middle;width: 72px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Rines y llantas</th>
-                    <th style="text-align: center;vertical-align: middle;width: 72px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Alineación</th>
-                    <th style="text-align: center;vertical-align: middle;width: 72px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Otros</th>
-                </tr>
-                <tr >
-                    <th style="font-weight: bold;width: 150px"></th>
-                    <th style="text-align: center;vertical-align: middle;width: 36px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">A</th>
-                    <th style="text-align: center;vertical-align: middle;width: 36px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">B</th>
-                    <th style="text-align: center;vertical-align: middle;width: 36px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">A</th>
-                    <th style="text-align: center;vertical-align: middle;width: 36px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">B</th>
-                    <th style="text-align: center;vertical-align: middle;width: 36px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">A</th>
-                    <th style="text-align: center;vertical-align: middle;width: 36px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">B</th>
-                    <th style="text-align: center;vertical-align: middle;width: 36px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">A</th>
-                    <th style="text-align: center;vertical-align: middle;width: 36px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">B</th>
-                    <th style="text-align: center;vertical-align: middle;width: 36px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">A</th>
-                    <th style="text-align: center;vertical-align: middle;width: 36px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">B</th>
-                    <th style="text-align: center;vertical-align: middle;width: 36px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">A</th>
-                    <th style="text-align: center;vertical-align: middle;width: 36px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">B</th>
-                    <th style="text-align: center;vertical-align: middle;width: 36px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">A</th>
-                    <th style="text-align: center;vertical-align: middle;width: 36px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">B</th>
-                    <th style="text-align: center;vertical-align: middle;width: 36px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">A</th>
-                    <th style="text-align: center;vertical-align: middle;width: 36px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">B</th>
-                    <th style="text-align: center;vertical-align: middle;width: 36px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">A</th>
-                    <th style="text-align: center;vertical-align: middle;width: 36px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">B</th>
-                    <th style="text-align: center;vertical-align: middle;width: 36px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">A</th>
-                    <th style="text-align: center;vertical-align: middle;width: 36px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">B</th>
-                    <th style="text-align: center;vertical-align: middle;width: 36px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">A</th>
-                    <th style="text-align: center;vertical-align: middle;width: 36px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">B</th>
-                </tr>
-                
-            </thead>
-            <tbody>';
-
-            $tbl2 = '
-        <tr >
-            <td style="width: 942px;font-weight: bold;border-width: 1px;border-left-width: 1px;border-right-width: 1px"><strong> Livianos</strong></td>
-        </tr>
-        <tr >
-            <td style="width: 75px;border-left-width: 1px"></td>
-            <td style="width: 75px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px"> Particulares</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lpa1a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lpa1b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lpa2a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lpa2b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lpa3a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lpa3b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lpa4a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lpa4b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lpa5a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lpa5b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lpa6a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lpa6b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lpa7a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lpa7b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lpa8a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lpa8b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lpa9a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lpa9b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lpa10a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lpa10b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lpa11a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lpa11b . '</td>
-        </tr>
-        <tr >
-            <td style="width: 75px;border-left-width: 1px"></td>
-            <td style="width: 75px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px"> Públicos</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lpu1a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lpu1b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lpu2a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lpu2b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lpu3a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lpu3b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lpu4a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lpu4b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lpu5a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lpu5b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lpu6a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lpu6b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lpu7a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lpu7b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lpu8a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lpu8b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lpu9a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lpu9b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lpu10a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lpu10b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lpu11a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lpu11b . '</td>
-        </tr>
-        <tr >
-            <td style="width: 75px;border-left-width: 1px"></td>
-            <td style="width: 75px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px"> Otros</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lot1a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lot1b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lot2a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lot2b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lot3a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lot3b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lot4a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lot4b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lot5a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lot5b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lot6a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lot6b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lot7a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lot7b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lot8a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lot8b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lot9a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lot9b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lot10a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lot10b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $lot11a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $lot11b . '</td>
-        </tr>
-        <tr >
-            <td style="width: 942px;font-weight: bold;border-width: 1px;border-left-width: 1px;border-right-width: 1px"><strong> Pesados</strong></td>
-        </tr>
-        <tr >
-            <td style="width: 75px;border-left-width: 1px"></td>
-            <td style="width: 75px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px"> Particulares</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $ppa1a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ppa1b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $ppa2a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ppa2b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $ppa3a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ppa3b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $ppa4a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ppa4b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $ppa5a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ppa5b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $ppa6a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ppa6b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $ppa7a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ppa7b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $ppa8a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ppa8b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $ppa9a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ppa9b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $ppa10a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ppa10b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $ppa11a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ppa11b . '</td>
-        </tr>
-        <tr >
-            <td style="width: 75px;border-left-width: 1px"></td>
-            <td style="width: 75px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px"> Públicos</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $ppu1a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ppu1b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $ppu2a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ppu2b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $ppu3a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ppu3b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $ppu4a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ppu4b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $ppu5a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ppu5b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $ppu6a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ppu6b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $ppu7a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ppu7b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $ppu8a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ppu8b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $ppu9a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ppu9b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $ppu10a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ppu10b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $ppu11a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ppu11b . '</td>
-        </tr>
-        <tr >
-            <td style="width: 75px;border-left-width: 1px"></td>
-            <td style="width: 75px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px"> Otros</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $pot1a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $pot1b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $pot2a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $pot2b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $pot3a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $pot3b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $pot4a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $pot4b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $pot5a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $pot5b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $pot6a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $pot6b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $pot7a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $pot7b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $pot8a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $pot8b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $pot9a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $pot9b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $pot10a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $pot10b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $pot11a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $pot11b . '</td>
-        </tr>
-        <tr >
-            <td style="width: 942px;font-weight: bold;border-width: 1px;border-left-width: 1px;border-right-width: 1px"><strong> Motos</strong></td>
-        </tr>
-        <tr >
-            <td style="width: 75px;border-left-width: 1px"></td>
-            <td style="width: 75px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px"> Particulares</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mpa1a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mpa1b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mpa2a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mpa2b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mpa3a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mpa3b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mpa4a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mpa4b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mpa5a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mpa5b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mpa6a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mpa6b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mpa7a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mpa7b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mpa8a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mpa8b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mpa9a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mpa9b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mpa10a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mpa10b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mpa11a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mpa11b . '</td>
-        </tr>
-        <tr >
-            <td style="width: 75px;border-left-width: 1px"></td>
-            <td style="width: 75px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px"> Públicos</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mpu1a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mpu1b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mpu2a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mpu2b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mpu3a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mpu3b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mpu4a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mpu4b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mpu5a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mpu5b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mpu6a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mpu6b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mpu7a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mpu7b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mpu8a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mpu8b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mpu9a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mpu9b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mpu10a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mpu10b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mpu11a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mpu11b . '</td>
-        </tr>
-        <tr >
-            <td style="width: 75px;border-left-width: 1px"></td>
-            <td style="width: 75px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px"> Otros</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mot1a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mot1b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mot2a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mot2b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mot3a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mot3b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mot4a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mot4b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mot5a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mot5b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mot6a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mot6b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mot7a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mot7b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mot8a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mot8b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mot9a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mot9b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mot10a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mot10b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $mot11a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $mot11b . '</td>
-        </tr>
-        <tr >
-            <td style="width: 942px;font-weight: bold;border-width: 1px;border-left-width: 1px;border-right-width: 1px"><strong> Remolques</strong></td>
-        </tr>
-        <tr >
-            <td style="width: 75px;border-left-width: 1px"></td>
-            <td style="width: 75px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px"> Todo tipo</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $rem1a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $rem1b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $rem2a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $rem2b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $rem3a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $rem3b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $rem4a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $rem4b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $rem5a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $rem5b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $rem6a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $rem6b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $rem7a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $rem7b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $rem8a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $rem8b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $rem9a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $rem9b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $rem10a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $rem10b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $rem11a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $rem11b . '</td>
-        </tr>
-        <tr >
-            <td style="width: 942px;font-weight: bold;border-width: 1px;border-left-width: 1px;border-right-width: 1px"><strong> Semi-Remolques</strong></td>
-        </tr>
-        <tr >
-            <td style="width: 75px;border-left-width: 1px;border-bottom-width: 1px"></td>
-            <td style="width: 75px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px"> Todo tipo</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $sem1a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $sem1b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $sem2a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $sem2b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $sem3a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $sem3b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $sem4a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $sem4b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $sem5a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $sem5b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $sem6a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $sem6b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $sem7a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $sem7b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $sem8a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $sem8b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $sem9a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $sem9b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $sem10a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $sem10b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $sem11a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $sem11b . '</td>
-        </tr>
-        
-<br/>
-<br/>
-
-        <tr >
-            <td style="width: 50px"></td>
-            <td style="width: 100px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px"> <strong>Total Inspector</strong></td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $totalInspector1a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $totalInspector1b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $totalInspector2a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $totalInspector2b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $totalInspector3a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $totalInspector3b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $totalInspector4a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $totalInspector4b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $totalInspector5a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $totalInspector5b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $totalInspector6a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $totalInspector6b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $totalInspector7a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $totalInspector7b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $totalInspector8a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $totalInspector8b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $totalInspector9a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $totalInspector9b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $totalInspector10a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $totalInspector10b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $totalInspector11a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $totalInspector11b . '</td>
-        </tr>
-<br/>
-        <tr >
-            <td style="width: 50px"></td>
-            <td style="width: 100px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px"> <strong>Total CDA</strong></td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $total1a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $total1b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $total2a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $total2b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $total3a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $total3b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $total4a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $total4b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $total5a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $total5b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $total6a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $total6b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $total7a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $total7b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $total8a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $total8b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $total9a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $total9b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $total10a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $total10b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px">' . $total11a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $total11b . '</td>
-        </tr>
-<br/>
-        <tr >
-            <td style="width: 50px"></td>
-            <td style="width: 100px;border-width: 1px;border-left-width: 1px;border-right-width: 1px"> <strong>Porcentaje con</strong></td>
-            <td style="text-align: center;width: 36px;border-width: 1px">' . $porInsp1a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-right-width: 1px">' . $porInsp1b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px">' . $porInsp2a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-right-width: 1px">' . $porInsp2b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px">' . $porInsp3a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-right-width: 1px">' . $porInsp3b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px">' . $porInsp4a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-right-width: 1px">' . $porInsp4b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px">' . $porInsp5a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-right-width: 1px">' . $porInsp5b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px">' . $porInsp6a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-right-width: 1px">' . $porInsp6b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px">' . $porInsp7a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-right-width: 1px">' . $porInsp7b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px">' . $porInsp8a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-right-width: 1px">' . $porInsp8b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px">' . $porInsp9a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-right-width: 1px">' . $porInsp9b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px">' . $porInsp10a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-right-width: 1px">' . $porInsp10b . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px">' . $porInsp11a . '</td>
-            <td style="text-align: center;width: 36px;border-width: 1px;border-right-width: 1px">' . $porInsp11b . '</td>
-        </tr>
-        <tr >
-            <td style="width: 50px"></td>
-            <td style="width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px"> <strong>relación al CDA</strong></td>
-            <td style="text-align: center;width: 72px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $porTotal1ab . '</td>
-            <td style="text-align: center;width: 72px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $porTotal2ab . '</td>
-            <td style="text-align: center;width: 72px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $porTotal3ab . '</td>
-            <td style="text-align: center;width: 72px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $porTotal4ab . '</td>
-            <td style="text-align: center;width: 72px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $porTotal5ab . '</td>
-            <td style="text-align: center;width: 72px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $porTotal6ab . '</td>
-            <td style="text-align: center;width: 72px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $porTotal7ab . '</td>
-            <td style="text-align: center;width: 72px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $porTotal8ab . '</td>
-            <td style="text-align: center;width: 72px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $porTotal9ab . '</td>
-            <td style="text-align: center;width: 72px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $porTotal10ab . '</td>
-            <td style="text-align: center;width: 72px;border-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $porTotal11ab . '</td>
-        </tr>
-        ';
-
-            $tbl3 = ' </tbody>
-        </table>';
-
-            $tbl = $tbl1 . $tbl2 . $tbl3;
-
-            $pdf->writeHTML($tbl, true, false, false, false, '');
-        }
-    }
-}
-
-
-
-$pdf->Output($titulo . '_' . $fechageneracion . ".pdf", 'I');
-
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+CP5KAvx2jL8qu+3LDwR5RJkz

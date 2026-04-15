@@ -1,165 +1,123 @@
-<?php
-
-set_time_limit(0);
-ini_set('memory_limit', '-1');
-
-//$pdf = new TCPDF('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-
-//$titulo = "NÃºmero de registro visual: " . $this->session->userdata('idhojapruebas') . "-" . $this->session->userdata('idprueba') . " \nFecha inspeccion: " . $fechafinal . "\nPlaca: " . $this->session->userdata('numero_placa');
-$hoy = getdate();
-$pdf->SetTitle($titulo);
-
-$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, $nombreCda . " - Lista de defectos por inspector", "Fecha inicial: " . $fechainicial . "            Fecha final: " . $fechafinal . " \nFecha de generación de este informe: ".$fechageneracion);
-//$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, "prueba", "prueba");
-// set header and footer fonts
-$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-
-// set default monospaced font
-$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
-// set margins
-$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-
-// set auto page breaks
-$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
-// set image scale factor
-$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-// set some language-dependent strings (optional)
-if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
-    require_once(dirname(__FILE__) . '/lang/eng.php');
-    $pdf->setLanguageArray($l);
-}
-
-// ---------------------------------------------------------
-//
-$style = array('width' => 0.5, 'cap' => 'butt', 'join' => 'miter', 'dash' => '10,20,5,10', 'phase' => 10, 'color' => array(255, 0, 0));
-//$style4 = array('L' => 0,
-//    'T' => array('width' => 0.25, 'cap' => 'butt', 'join' => 'miter', 'dash' => '20,10', 'phase' => 10, 'color' => array(100, 100, 255)),
-//    'R' => array('width' => 0.50, 'cap' => 'round', 'join' => 'miter', 'dash' => 0, 'color' => array(50, 50, 127)),
-//    'B' => array('width' => 0.75, 'cap' => 'square', 'join' => 'miter', 'dash' => '30,10,5,10'));
-// set font
-$pdf->SetFont('helvetica', '', 10);
-
-// add a page
-
-$pdf->AddPage();
-$tbl1 = ' 
-        <table >
-            <thead>
-            <tr >
-                    <th style="width: 140px"></th>
-                    <th style="text-align: center;border-width: 1px;font-weight: bold;width: 200px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Defectos</th>
-                </tr>
-                <tr >
-                    <th style="text-align: center;border-width: 1px;width: 140px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Inspectores</th>
-                    <th style="text-align: center;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">A</th>
-                    <th style="text-align: center;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">B</th>
-                    <th style="text-align: center;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Total defectos</th>
-                </tr>
-            </thead>
-            <tbody>';
-
-$tbl2 = '';
-
-if ($inspectores != FALSE) {
-    $total_a = 0;
-    $total_b = 0;
-    foreach ($inspectores as $ins) {
-        $idusuario = $ins->idusuario;
-        $num = $this->Mestadisticos->numDefectos($fechainicial,$fechafinal,$idusuario);
-        $tbltmp = '<tr >
-                        <td style="text-align: center;vertical-align: middle;width: 140px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ins->idusuario . '</td>
-                        <td style="text-align: center;vertical-align: middle;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $num->num_defA . '</td>
-                        <td style="text-align: center;vertical-align: middle;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $num->num_defB . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . ($num->num_defA + $num->num_defB) . '</td>
-                    </tr>';
-        $tbl2 = $tbl2 . $tbltmp;
-        $total_a = $total_a + $num->num_defA;
-        $total_b = $total_b + $num->num_defB;
-    }
-    $tbltmp2 = '<tr >
-                        <td style="text-align: center;vertical-align: middle;width: 140px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px;color: #cd0a0a"><strong>Total</strong></td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px;color: #cd0a0a">' . $total_a . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px;color: #cd0a0a">' . $total_b . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px;color: #cd0a0a">' . ($total_a + $total_b) . '</td>
-                    </tr>';
-}
-
-
-$tbl3 = $tbltmp2 . ' </tbody>
-        </table>';
-
-$tbl = $tbl1 . $tbl2 . $tbl3;
-
-$pdf->writeHTML($tbl, true, false, false, false, '');
-
-$pdf->AddPage();
-$xc = 35;
-$yc = 50;
-$r = 15;
-$xTextInspector = 27;
-$yTextInspector = 30;
-$xTextNum = 50;
-$yTextNum1 = 40;
-$yTextNum2 = 55;
-
-$pdf->SetTextColor(210, 16, 16);
-$pdf->Text(40, 22, 'Defectos de tipo A');
-$pdf->SetTextColor(142, 139, 139);
-$pdf->Text(130, 22, 'Defectos de tipo B');
-
-$banderaX = 1;
-if ($inspectores != FALSE) {
-    foreach ($inspectores as $ins) {
-        $idusuario = $ins->idusuario;
-        $num = $this->Mestadisticos->numDefectos($fechainicial,$fechafinal,$idusuario);
-        $numA = $num->num_defA;
-        $numB = $num->num_defB;
-        $total = $numA + $numB;
-
-        $numAPor = round(($numA / $total) * 100);
-        $numBPor = round(($numB / $total) * 100);
-
-        $numAGr = round(($numA / $total) * 360);
-        $numBGr = round(($numB / $total) * 360);
-
-        $pdf->SetFillColor(210, 16, 16);
-        $pdf->PieSector($xc, $yc, $r, 0, $numAGr, 'F', false, 0, 2);
-
-        $pdf->SetFillColor(142, 139, 139);
-        $pdf->PieSector($xc, $yc, $r, $numAGr, 360, 'F', false, 0, 2);
-
-        $pdf->SetTextColor(210, 16, 16);
-        $pdf->Text($xTextNum, $yTextNum1, $numA);
-        $pdf->SetTextColor(142, 139, 139);
-        $pdf->Text($xTextNum, $yTextNum2, $numB);
-        $pdf->SetTextColor(0, 0, 0);
-        $pdf->Text($xTextInspector, $yTextInspector, 'Insp. ' . $ins->idusuario);
-
-        if ($banderaX == 3) {
-            $xTextInspector = 27;
-            $xTextNum = 50;
-            $xc = 35;
-            $yc = $yc + 40;
-            $yTextInspector = $yTextInspector + 40;
-            $yTextNum1 = $yTextNum1 + 40;
-            $yTextNum2 = $yTextNum2 + 40;
-            $banderaX = 0;
-        } else {
-            $xTextInspector = $xTextInspector + 65;
-            $xTextNum = $xTextNum + 65;
-            $xc = $xc + 65;
-        }
-        $banderaX++;
-    }
-}
-
-
-$pdf->Output($titulo . $fechageneracion . ".pdf", 'I');
-
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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

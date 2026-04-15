@@ -1,466 +1,115 @@
-<!DOCTYPE html>
-<html class=" ">
-    <head>
-        <!-- 
-         * @Package: Complete Admin - Responsive Theme
-         * @Subpackage: Bootstrap
-         * @Version: BS4-1.0
-         * This file is part of Complete Admin Theme.
-        -->
-        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-        <meta charset="utf-8" />
-        <title>ESTADO DEL VEHÍCULO</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <meta content="" name="description" />
-        <meta content="" name="author" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-        <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png" type="image/x-icon" />    <!-- Favicon -->
-        <link rel="apple-touch-icon-precomposed" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-57-precomposed.png">	<!-- For iPhone -->
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-114-precomposed.png">    <!-- For iPhone 4 Retina display -->
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-72-precomposed.png">    <!-- For iPad -->
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-144-precomposed.png">    <!-- For iPad Retina display -->
-
-
-
-
-        <!-- CORE CSS FRAMEWORK - START -->
-        <link href="<?php echo base_url(); ?>assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <!-- <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/> -->
-        <link href="<?php echo base_url(); ?>assets/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/css/animate.min.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" type="text/css"/>
-        <!-- CORE CSS FRAMEWORK - END -->
-
-        <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - START --> 
-        <link href="<?php echo base_url(); ?>assets/plugins/jquery-ui/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/image-cropper/css/cropper.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/image-cropper/css/main.css" rel="stylesheet" type="text/css" media="screen"/>
-
-        <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - END --> 
-
-
-        <!-- CORE CSS TEMPLATE - START -->
-        <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/css/responsive.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/css/tecmmas.css" rel="stylesheet" type="text/css"/>
-        <!-- CORE CSS TEMPLATE - END -->
-
-    </head>
-    <!-- END HEAD -->
-
-    <!-- BEGIN BODY -->
-    <!--<form action="<?php echo base_url(); ?>index.php/oficina/vehiculo/Cvehiculo/gestionar" method="post">-->
-    <body class=" ">
-
-        <!-- START TOPBAR -->
-        <div class='page-topbar '>
-            <div class='logo-area'>
-
-            </div>
-            <div class='quick-area'>
-                <div class='float-left'>
-                    <ul class="info-menu left-links list-inline list-unstyled">
-                        <li class="message-toggle-wrapper list-inline-item">
-                            <ul class="dropdown-menu messages animated fadeIn">
-                                <li class="list dropdown-item">
-                                </li>
-                            </ul>
-                        </li>
-                </div>		
-            </div>
-
-        </div>
-        <!-- END TOPBAR -->
-
-        <!-- START CONTENT -->
-        <section class="wrapper main-wrapper row" style=''>
-
-
-            <div class="clearfix"></div>
-            <!-- MAIN CONTENT AREA STARTS -->
-            <div class="col-xl-12">
-                <section class="box " style="padding: 5px">
-                    <div class="col-lg-12 col-md-12 col-12">
-
-
-                        <section class="box " style="padding: 20px">
-                            <header class="panel_header">
-                                <h2 class="title float-left">Estado del vehículo</h2>
-                            </header>
-                            <form action="<?php echo base_url(); ?>index.php/oficina/informes/CPrerevision/verFoto" method="post">
-                                <?php echo $fotos; ?>
-                                <br>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <!-- <h3>Demo:</h3> -->
-                                        <div class="img-container">
-                                            <!--<img id="image" src="../data/image-cropper-1.jpg" alt="Picture">-->
-                                            <input type="hidden" name="idprerevision" value="<?php
-                                            if (isset($idprerevision)) {
-                                                echo $idprerevision;
-                                            }
-                                            ?>" />
-                                            <img id="image" src="<?php
-                                            if (isset($foto)) {
-                                                echo $foto;
-                                            }
-                                            ?>" >
-
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <!-- <h3>Preview:</h3> -->
-                                        <div class="docs-preview clearfix">
-                                            <div class="img-preview preview-lg" style="height: 400px;width: 800px"></div>
-                                            <!--                                        <div class="img-preview preview-md"></div>
-                                                                                    <div class="img-preview preview-sm"></div>
-                                                                                    <div class="img-preview preview-xs"></div>-->
-                                        </div>
-
-                                        <!-- <h3>Data:</h3> -->
-                                        <!--                                    <div class="docs-data">
-                                                                                <div class="input-group input-group-sm">
-                                                                                    <label class="input-group-addon" for="dataX">X</label>
-                                                                                    <input type="text" class="form-control" id="dataX" placeholder="x">
-                                                                                    <span class="input-group-addon">px</span>
-                                                                                </div>
-                                                                                <div class="input-group input-group-sm">
-                                                                                    <label class="input-group-addon" for="dataY">Y</label>
-                                                                                    <input type="text" class="form-control" id="dataY" placeholder="y">
-                                                                                    <span class="input-group-addon">px</span>
-                                                                                </div>
-                                                                                <div class="input-group input-group-sm">
-                                                                                    <label class="input-group-addon" for="dataWidth">Width</label>
-                                                                                    <input type="text" class="form-control" id="dataWidth" placeholder="width">
-                                                                                    <span class="input-group-addon">px</span>
-                                                                                </div>
-                                                                                <div class="input-group input-group-sm">
-                                                                                    <label class="input-group-addon" for="dataHeight">Height</label>
-                                                                                    <input type="text" class="form-control" id="dataHeight" placeholder="height">
-                                                                                    <span class="input-group-addon">px</span>
-                                                                                </div>
-                                                                                <div class="input-group input-group-sm">
-                                                                                    <label class="input-group-addon" for="dataRotate">Rotate</label>
-                                                                                    <input type="text" class="form-control" id="dataRotate" placeholder="rotate">
-                                                                                    <span class="input-group-addon">deg</span>
-                                                                                </div>
-                                                                                <div class="input-group input-group-sm">
-                                                                                    <label class="input-group-addon" for="dataScaleX">ScaleX</label>
-                                                                                    <input type="text" class="form-control" id="dataScaleX" placeholder="scaleX">
-                                                                                </div>
-                                                                                <div class="input-group input-group-sm">
-                                                                                    <label class="input-group-addon" for="dataScaleY">ScaleY</label>
-                                                                                    <input type="text" class="form-control" id="dataScaleY" placeholder="scaleY">
-                                                                                </div>
-                                                                            </div>-->
-                                    </div>
-                                </div>
-                            </form>
-                        </section>
-                        <input type="button" class="btn btn-block bot_rojo"  onclick="window.close();"  value="Cerrar" style="width: 200px"/>
-<!--                        <table style="text-align: center;width: 100%">
-                            <tr>
-                                <td>
-                                    <input id="btnGuardar" class="btn  btn-block bot_gris" value="Guardar" onclick="guardarVehiculo()" disabled/>   
-                                    <label id="msjguardar" style="display: none;position: absolute"></label>
-                                </td>
-                                <td>
-                                    <input id="btnGuardarNuevo" type="button" class="btn btn-block bot_gris" type="submit"  value="Guardar y nuevo" onclick="guardarNuevo()" disabled/>   
-                                </td>
-                                <td>
-                                    <input id="btnGuardarFinalizar" type="button" class="btn btn-block bot_gris" type="submit"  value="Guardar y finalizar" onclick="guardarFinalizar()" disabled/>   
-                                </td>
-                                <td>
-                                    <input class="btn btn-block bot_verde" type="button"  value="Nuevo" onclick="location.reload()"/>   
-                                </td>
-                            </tr>
-                        </table>-->
-                        <br>
-
-                        <div style="text-align: center;color: gray">
-                            <?php echo $this->config->item('derechos'); ?>    
-                        </div>
-
-                    </div>
-                </section>
-            </div>
-
-
-            <!-- MAIN CONTENT AREA ENDS -->
-        </section>
-
-        <!-- END CONTENT -->
-        <div class="modal" id="colorModal" s tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog animated bounceInDown">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" >BUSCAR COLOR</h4>
-                    </div>
-                    <div class="modal-body" style="background: whitesmoke">
-                        <table class="table">
-                            <tr id="facturacion">
-                                <td style="width: 40%;text-align: right">
-                                    COLOR
-                                </td>
-                                <td style="width: 60%;text-align: left;padding-left: 10px">
-                                    <input id="textoColor" type="text" class="form-control"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 50%;text-align: left;padding-left: 10px">
-                                    <input class="btn btn-block bot_verde" onclick="buscarColores(this.title)" title="a" type="button"  style="height: 40px;padding: 5px"  value="Aproximado 🔎" />
-                                </td>
-                                <td style="width: 50%;text-align: left;padding-left: 10px">
-                                    <input class="btn btn-block bot_verde" onclick="buscarColores(this.title)" title="e" type="button"  style="height: 40px;padding: 5px"  value="Exacto 🔎" />
-                                </td>
-                            </tr>
-
-                        </table>
-                        <label id="mensaje"
-                               style="background: white;
-                               width: 100%;
-                               text-align: center;
-                               font-weight: bold;
-                               font-size: 15px;
-                               padding: 5px;border: solid gray 2px;
-                               border-radius:  15px 15px 15px 15px;color: SALMON"></label>
-                        <br>
-                        <h5>Coincidencias</h5>
-                        <table id="listaColores" class="table">
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button data-dismiss="modal" class="btn btn-default" type="button">CANCELAR</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal" id="marcaModal" s tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog animated bounceInDown">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" >BUSCAR MARCA</h4>
-                    </div>
-                    <div class="modal-body" style="background: whitesmoke">
-                        <table class="table">
-                            <tr id="facturacion">
-                                <td style="width: 40%;text-align: right">
-                                    MARCA
-                                </td>
-                                <td style="width: 60%;text-align: left;padding-left: 10px">
-                                    <input id="textoMarca" type="text" class="form-control"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 50%;text-align: left;padding-left: 10px">
-                                    <input class="btn btn-block bot_verde" onclick="buscarMarcas(this.title)" title="a" type="button"  style="height: 40px;padding: 5px"  value="Aproximado 🔎" />
-                                </td>
-                                <td style="width: 50%;text-align: left;padding-left: 10px">
-                                    <input class="btn btn-block bot_verde" onclick="buscarMarcas(this.title)" title="e" type="button"  style="height: 40px;padding: 5px"  value="Exacto 🔎" />
-                                </td>
-                            </tr>
-
-                        </table>
-                        <label id="mensajeM"
-                               style="background: white;
-                               width: 100%;
-                               text-align: center;
-                               font-weight: bold;
-                               font-size: 15px;
-                               padding: 5px;border: solid gray 2px;
-                               border-radius:  15px 15px 15px 15px;color: SALMON"></label>
-                        <br>
-                        <h5>Coincidencias</h5>
-                        <table id="listaMarcas" class="table">
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button data-dismiss="modal" class="btn btn-default" type="button">CANCELAR</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal" id="lineaModal" s tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog animated bounceInDown">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" >BUSCAR LINEA</h4>
-                    </div>
-                    <div class="modal-body" style="background: whitesmoke">
-                        <table class="table">
-                            <tr id="facturacion">
-                                <td style="width: 40%;text-align: right">
-                                    LINEA
-                                </td>
-                                <td style="width: 60%;text-align: left;padding-left: 10px">
-                                    <input id="textoLinea" type="text" class="form-control"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 50%;text-align: left;padding-left: 10px">
-                                    <input class="btn btn-block bot_verde" onclick="buscarLineas(this.title)" title="a" type="button"  style="height: 40px;padding: 5px"  value="Aproximado 🔎" />
-                                </td>
-                                <td style="width: 50%;text-align: left;padding-left: 10px">
-                                    <input class="btn btn-block bot_verde" onclick="buscarLineas(this.title)" title="e" type="button"  style="height: 40px;padding: 5px"  value="Exacto 🔎" />
-                                </td>
-                            </tr>
-
-                        </table>
-                        <label id="mensajeL"
-                               style="background: white;
-                               width: 100%;
-                               text-align: center;
-                               font-weight: bold;
-                               font-size: 15px;
-                               padding: 5px;border: solid gray 2px;
-                               border-radius:  15px 15px 15px 15px;color: SALMON"></label>
-                        <br>
-                        <h5>Coincidencias</h5>
-                        <table id="listaLineas" class="table">
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button data-dismiss="modal" class="btn btn-default" type="button">CANCELAR</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal" id="carroceriaModal" s tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog animated bounceInDown">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" >BUSCAR CARROCERIA</h4>
-                    </div>
-                    <div class="modal-body" style="background: whitesmoke">
-                        <table class="table">
-                            <tr id="facturacion">
-                                <td style="width: 40%;text-align: right">
-                                    CARROCERIA
-                                </td>
-                                <td style="width: 60%;text-align: left;padding-left: 10px">
-                                    <input id="textoCarroceria" type="text" class="form-control"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 50%;text-align: left;padding-left: 10px">
-                                    <input class="btn btn-block bot_verde" onclick="buscarCarroceria(this.title)" title="a" type="button"  style="height: 40px;padding: 5px"  value="Aproximado 🔎" />
-                                </td>
-                                <td style="width: 50%;text-align: left;padding-left: 10px">
-                                    <input class="btn btn-block bot_verde" onclick="buscarCarroceria(this.title)" title="e" type="button"  style="height: 40px;padding: 5px"  value="Exacto 🔎" />
-                                </td>
-                            </tr>
-
-                        </table>
-                        <label id="mensajeC"
-                               style="background: white;
-                               width: 100%;
-                               text-align: center;
-                               font-weight: bold;
-                               font-size: 15px;
-                               padding: 5px;border: solid gray 2px;
-                               border-radius:  15px 15px 15px 15px;color: SALMON"></label>
-                        <br>
-                        <h5>Coincidencias</h5>
-                        <table id="listaCarrocerias" class="table">
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button data-dismiss="modal" class="btn btn-default" type="button">CANCELAR</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal" id="modalOtroCda" s tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog animated bounceInDown">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" >INFORMACION IMPORTANTE</h4>
-                    </div>
-                    <div class="modal-body" style="background: whitesmoke">
-
-                        <label id="mensaje"
-                               style="background: white;
-                               width: 100%;
-                               text-align: center;
-                               font-weight: bold;
-                               font-size: 15px;
-                               padding: 5px;border: solid gray 2px;
-                               border-radius:  15px 15px 15px 15px;color: SALMON">EL VEHÍCULO ESTUVO EN OTRO CDA RECIENTEMENTE, COMUNIQUESE CON EL JEFE DE PISTA</label>
-                        <br>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button data-dismiss="modal" class="btn btn-default" type="button">CANCELAR</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- END CONTAINER -->
-        <!-- LOAD FILES AT PAGE END FOR FASTER LOADING -->
-
-
-        <!-- CORE JS FRAMEWORK - START --> 
-        <script src="<?php echo base_url(); ?>assets/js/jquery-3.2.1.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/js/popper.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/js/jquery.easing.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/pace/pace.min.js" type="text/javascript"></script>  
-        <script src="<?php echo base_url(); ?>assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/viewport/viewportchecker.js" type="text/javascript"></script>  
-        <script>window.jQuery || document.write('<script src="<?php echo base_url(); ?>assets/js/jquery-1.11.2.min.js"><\/script>');</script>
-        <!-- CORE JS FRAMEWORK - END --> 
-
-
-        <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START --> 
-
-        <script src="<?php echo base_url(); ?>assets/plugins/inputmask/min/jquery.inputmask.bundle.min.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>assets/plugins/jquery-ui/smoothness/jquery-ui.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/select2/select2.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/image-cropper/js/cropper.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>assets/plugins/image-cropper/js/main.js" type="text/javascript"></script>
-        <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END --> 
-
-
-        <!-- CORE TEMPLATE JS - START --> 
-        <script src="<?php echo base_url(); ?>assets/js/scripts.js" type="text/javascript"></script> 
-        <!-- END CORE TEMPLATE JS - END --> 
-
-        <script type="text/javascript">
-                                        function setFotos(src) {
-                                            document.getElementById("image").src = src;
-                                        }
-        </script>
-        <!-- General section box modal start -->
-        <div class="modal" id="modalPlaca" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog animated bounceInDown">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Ingrese la placa</h4>
-                    </div>
-                    <div class="modal-body" style="text-align: center">
-                        <input name="numero_placa" 
-                               id="num_placa"
-                               style="
-                               width: 100px;height: 50px;border: solid black;
-                               border-radius: 10px 10px 10px 10px;text-align: center;
-                               background: gold;font-size: 20px;font-weight: bold;
-                               text-transform: uppercase" type="text" >
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-success" type="button">Aceptar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- modal end -->
-    </body>
-    <!--</form>-->
-</html>
-
-
-
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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

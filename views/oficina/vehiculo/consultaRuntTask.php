@@ -1,235 +1,90 @@
-<!DOCTYPE html>
-<html class=" ">
-    <head>
-        <!-- 
-         * @Package: Complete Admin - Responsive Theme
-         * @Subpackage: Bootstrap
-         * @Version: BS4-1.0
-         * This file is part of Complete Admin Theme.
-        -->
-        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-        <meta charset="utf-8" />
-        <title>ADMINISTRAR VEHICULO</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <meta content="" name="description" />
-        <meta content="" name="author" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-        <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png" type="image/x-icon" />    <!-- Favicon -->
-        <link rel="apple-touch-icon-precomposed" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-57-precomposed.png">	<!-- For iPhone -->
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-114-precomposed.png">    <!-- For iPhone 4 Retina display -->
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-72-precomposed.png">    <!-- For iPad -->
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-144-precomposed.png">    <!-- For iPad Retina display -->
-
-
-
-
-        <!-- CORE CSS FRAMEWORK - START -->
-        <link href="<?php echo base_url(); ?>assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <!-- <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/> -->
-        <link href="<?php echo base_url(); ?>assets/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/css/animate.min.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" type="text/css"/>
-        <!-- CORE CSS FRAMEWORK - END -->
-
-        <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - START --> 
-        <link href="<?php echo base_url(); ?>assets/plugins/jquery-ui/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" media="screen"/>
-
-        <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - END --> 
-
-
-        <!-- CORE CSS TEMPLATE - START -->
-        <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/css/responsive.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/css/tecmmas.css" rel="stylesheet" type="text/css"/>
-        <!-- CORE CSS TEMPLATE - END -->
-
-    </head>
-    <!-- END HEAD -->
-
-    <!-- BEGIN BODY -->
-    <!--<form action="<?php echo base_url(); ?>index.php/oficina/vehiculo/Cvehiculo/gestionar" method="post">-->
-    <body class=" ">
-
-
-        <!-- END TOPBAR -->
-
-        <!-- START CONTENT -->
-        <section class="wrapper main-wrapper row" style=''>
-            <label id="mensaje"></label>
-
-        </section>
-
-        <!-- CORE JS FRAMEWORK - START --> 
-        <script src="<?php echo base_url(); ?>assets/js/jquery-3.2.1.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/js/popper.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/js/jquery.easing.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/pace/pace.min.js" type="text/javascript"></script>  
-        <script src="<?php echo base_url(); ?>assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/viewport/viewportchecker.js" type="text/javascript"></script>  
-        <script>window.jQuery || document.write('<script src="<?php echo base_url(); ?>assets/js/jquery-1.11.2.min.js"><\/script>');</script>
-        <!-- CORE JS FRAMEWORK - END --> 
-
-
-        <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START --> 
-
-        <script src="<?php echo base_url(); ?>assets/plugins/inputmask/min/jquery.inputmask.bundle.min.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>assets/plugins/jquery-ui/smoothness/jquery-ui.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/select2/select2.min.js" type="text/javascript"></script> 
-        <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END --> 
-
-
-        <!-- CORE TEMPLATE JS - START --> 
-        <script src="<?php echo base_url(); ?>assets/js/scripts.js" type="text/javascript"></script> 
-        <!-- END CORE TEMPLATE JS - END --> 
-
-        <script type="text/javascript">
-
-            var consultaRunt = '<?php
-if (isset($consultaRunt)) {
-    echo $consultaRunt;
-} else {
-    echo'0';
-}
-?>';
-            var activoSicov = '<?php
-if (isset($activoSicov)) {
-    echo $activoSicov;
-} else {
-    echo'0';
-}
-?>';
-            var ipSicovAlternativo = '<?php
-if (isset($ipSicovAlternativo)) {
-    echo $ipSicovAlternativo;
-} else {
-    echo'0';
-}
-?>';
-            var sicovModoAlternativo = '<?php
-if (isset($sicovModoAlternativo)) {
-    echo $sicovModoAlternativo;
-} else {
-    echo'0';
-}
-?>';
-            var ipSicov = '<?php
-if (isset($ipSicov)) {
-    echo $ipSicov;
-} else {
-    echo'0';
-}
-?>';
-            var usuarioSicov = '<?php
-if (isset($usuarioSicov)) {
-    echo $usuarioSicov;
-} else {
-    echo'0';
-}
-?>';
-            var claveSicov = '<?php
-if (isset($claveSicov)) {
-    echo $claveSicov;
-} else {
-    echo'0';
-}
-?>';
-            var sicov = '<?php
-if (isset($sicov)) {
-    echo $sicov;
-} else {
-    echo'0';
-}
-?>';
-            $(document).ready(function () {
-                buscarVehiculo();
-            });
-
-//            var vehiculo = new Object();
-
-            var buscarVehiculo = function () {
-                $("#mensaje").text('INICIANDO');
-                var proceso = setInterval(function () {
-                    $.ajax({
-                        url: '<?php echo base_url(); ?>index.php/oficina/vehiculo/Cvehiculo/buscarVehCRT',
-                        type: 'post',
-                        async: false,
-                        success: function (datos) {
-                            if (datos !== '') {
-                                var v = JSON.parse(datos);
-                                consultarRuntxCi2(v);
-                            } else {
-                                $("#mensaje").text('PROCESO FINALIZADO, POR FAVOR CIERRE ESTA VENTANA');
-                                clearInterval(proceso);
-                            }
-                        }
-                    });
-                }, 5000);
-            };
-
-            var consultarRuntxCi2 = function (ve) {
-                data = {
-                    placa: ve.numero_placa,
-                    usuario: usuarioSicov,
-                    clave: claveSicov
-                };
-                $.ajax({
-                    url: '<?php echo base_url() ?>index.php/OFCConsultarRunt/ConsultarXCi2',
-                    data: data,
-                    type: 'post',
-                    async: false,
-                    timeout: 3000,
-                    success: function (respuesta) {
-                        var v = JSON.parse(respuesta);
-                        if (v.ConsultaRUNTResult.CodigoRespuesta === '0000') {
-                            var data = {
-                                idlinearunt: v.ConsultaRUNTResult.idLinea,
-                                idcolorrunt: v.ConsultaRUNTResult.idColor,
-                                numero_placa: ve.numero_placa,
-                                fechainicial: ve.fechainicial
-                            };
-                            $.ajax({
-                                url: '<?php echo base_url(); ?>index.php/oficina/vehiculo/Cvehiculo/guardarCRT',
-                                type: 'post',
-                                data: data,
-                                async: false,
-                                success: function (rta) {
-                                    $("#mensaje").text(rta);
-                                }
-                            });
-                        } else {
-                            var data = {
-                                idlinearunt: "0",
-                                idcolorrunt: "0",
-                                numero_placa: ve.numero_placa,
-                                fechainicial: ve.fechainicial
-                            };
-                            $.ajax({
-                                url: '<?php echo base_url(); ?>index.php/oficina/vehiculo/Cvehiculo/guardarCRT',
-                                type: 'post',
-                                data: data,
-                                async: false,
-                                success: function (rta) {
-                                    $("#mensaje").text(rta);
-                                }
-                            });
-                        }
-                    }
-                });
-                return ve;
-            };
-
-
-        </script>
-        <!-- General section box modal start -->
-
-        <!-- modal end -->
-    </body>
-    <!--</form>-->
-</html>
-
-
-
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+DhzCMgbq1DbH0psvAWN/kN8=

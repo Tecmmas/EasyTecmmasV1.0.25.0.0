@@ -1,104 +1,39 @@
-<?php $this->load->view('./header'); ?>
-
-<!-- START CONTENT -->
-
-<section id="main-content" class=" ">
-    <section class="wrapper main-wrapper row">
-        <!--        <div class='col-12'>
-                    <div class="page-title">
-                    </div>
-                </div>
-                <div class="clearfix">
-        
-                </div>-->
-        <!-- MAIN CONTENT AREA STARTS -->
-        <div class="col-xl-12">
-            <section class="box ">
-
-                <div class="content-body">    
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-12">
-                            <section class="box ">
-                                <style>
-                                    .menu-barra:hover{
-                                        background-color: #b2e2f2;
-                                        font-size: 17px;
-                                        color: whitesmoke;
-                                        font-family: sans-serif;
-                                        border-radius: 10px 10px 10px 10px;
-                                    }
-                                    #a-color{
-                                        color: black;
-                                    }
-                                </style>
-                                <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #fdf9c4">
-                                    <div class="collapse navbar-collapse" id="navbarText">
-                                        <ul class="navbar-nav mr-auto">
-                                            <li class="nav-item">
-                                                <a class="nav-link menu-barra" id="a-color" href="<?php echo base_url(); ?>index.php/oficina/backup/Cbackup"><i>Backup</i></a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link menu-barra" id="a-color" href="<?php echo base_url(); ?>index.php/oficina/backup/Cbackup/viewreportbackup"><i>Reporte</i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </nav>
-                                <header class="panel_header">
-                                    <h2 class="title float-left">Reporte backup</h2>
-                                </header>
-                                <br>
-                                <br>
-                                <div class="content-body">    
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <form action="<?php echo base_url(); ?>index.php/oficina/backup/Cbackup/reporbackup" method="post">
-                                                <table class="table" >
-                                                    <thead>
-                                                        <tr>
-                                                            <th colspan="2">Generar</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="row">
-                                                                    <div class="form-group mx-sm-5" style="margin-top: 10px">
-                                                                        <label style="font-weight: bold; color: grey" for="nombres">Fecha inicial<br/>
-                                                                            <input type="text" class="form-control datepicker" id="fechainicial" name="fechainicial" data-format="yyyy-mm-dd " autocomplete="off" >
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-group mx-sm-5" style="margin-top: 10px">
-                                                                        <label style="font-weight: bold; color: grey" for="nombres">Fecha final<br/>
-                                                                            <input type="text" class="form-control datepicker" id="fechafinal" name="fechafinal" data-format="yyyy-mm-dd " autocomplete="off" >
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-group mx-sm-4" >
-                                                                        <label style="font-weight: bold; color: black"></label>
-                                                                        <input type="submit" name="consultar" id="btn-generar-carder" class="btn btn-accent btn-block" onclick="showSuccess('Generando el informe, por favor espere.')" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px"  value="Generar">
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-        </div>
-
-
-
-        <!-- MAIN CONTENT AREA ENDS -->
-    </section>
-</section>
-<!-- END CONTENT -->
-<?php $this->load->view('./footer'); ?>
-
-
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+x9DC7kLJ5cEfarY8Vm==

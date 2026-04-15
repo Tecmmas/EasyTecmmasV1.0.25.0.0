@@ -1,196 +1,81 @@
-<!DOCTYPE html>
-<html class=" ">
-
-<head>
-
-    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-    <meta charset="utf-8" />
-    <title>VEHICULO FINALIZADO</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta content="" name="description" />
-    <meta content="" name="author" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-    <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png" type="image/x-icon" /> <!-- Favicon -->
-    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-57-precomposed.png"> <!-- For iPhone -->
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-114-precomposed.png"> <!-- For iPhone 4 Retina display -->
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-72-precomposed.png"> <!-- For iPad -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-144-precomposed.png"> <!-- For iPad Retina display -->
-
-    <!-- CORE CSS FRAMEWORK - START -->
-    <link href="<?php echo base_url(); ?>assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen" />
-    <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <!-- <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/> -->
-    <link href="<?php echo base_url(); ?>assets/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/css/animate.min.css" rel="stylesheet" type="text/css" />
-    <!-- CORE CSS FRAMEWORK - END -->
-
-    <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - START -->
-
-
-    <link href="<?php echo base_url(); ?>assets/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css" media="screen" />
-
-    <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - END -->
-
-
-    <!-- CORE CSS TEMPLATE - START -->
-    <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/css/responsive.css" rel="stylesheet" type="text/css" />
-    <!-- CORE CSS TEMPLATE - END -->
-
-</head>
-<!-- END HEAD -->
-
-<!-- BEGIN BODY -->
-
-<body class="login_page" style="background: white">
-
-    <div class="col-xl-12">
-        <section class="box ">
-            <div class="content-body" style="background: lightblue">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-12">
-                        <section class="box ">
-                            <header class="panel_header">
-                                <h2 class="title float-left">Vehiculo finalizado</h2>
-                            </header>
-                            <div class="content-body">
-                                <table class="table table-bordered" accesskey="">
-                                    <thead>
-                                        <tr>
-                                            <th>Id control</th>
-                                            <th>Placa</th>
-                                            <th>Ocasión</th>
-                                            <th>Estado</th>
-                                            <th>FUR</th>
-                                            <th>Tamaño hoja</th>
-                                            <th>Medio</th>
-                                            <th>LLAMAR</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <?php
-                                                echo $idhojapruebas;
-                                                ?>
-                                            </td>
-                                            <td>
-                                                <?php
-                                                echo $vehiculo->placa;
-                                                ?>
-                                            </td>
-                                            <td>
-                                                <?php
-                                                echo $ocacion;
-                                                ?>
-                                            </td>
-                                            <td>
-                                                <?php
-                                                if ($res == '7') {
-                                                    echo 'RECHAZADO';
-                                                } else {
-                                                    echo 'APROBADO';
-                                                }
-                                                ?>
-                                            </td>
-                                            <form action="<?php echo base_url(); ?>index.php/oficina/fur/CFUR" method="post" style="width: 100px;text-align: center">
-                                                <td>
-                                                    <button name="dato" class="btn btn-accent btn-block" value="<?php echo $dato; ?>" type="submit" formtarget="_blank" style="border-radius: 40px 40px 40px 40px;font-size: 14px;background-color: #393185">📄 Ver</button>
-                                                </td>
-                                                <td>
-                                                    <select name="tamano" class="form-control input-lg m-bot15">
-                                                        <option value="oficio" selected>Oficio</option>
-                                                        <option value="carta">Carta</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <select name="medio" id="medioSelect" class="form-control input-lg m-bot15" onchange="guardarMedio()">
-                                                        <option value="0" selected>Impreso</option>
-                                                        <option value="1">Digital</option>
-                                                    </select>
-                                                </td>
-                                            </form>
-                                            <td>
-                                                <form action="<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/Cllamar" method="post">
-                                                    <input name="llamar" type="hidden" value="1" />
-                                                    <button name="dato" class="btn btn-warning btn-block" value="<?php echo $dato; ?>" type="submit" style="border-radius: 40px 40px 40px 40px;font-size: 14px;background-color: goldenrod;width: ">📣 LLAMAR</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <form action="<?php echo base_url(); ?>index.php/oficina/CGestion" method="post">
-                                    <input name="button" class="btn btn-accent btn-block" style="width: 100px;background: #393185" type="submit" value="Atras" />
-                                </form>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-
-
-
-    <!-- MAIN CONTENT AREA ENDS -->
-    <!-- LOAD FILES AT PAGE END FOR FASTER LOADING -->
-
-
-    <!-- CORE JS FRAMEWORK - START -->
-    <script src="<?php echo base_url(); ?>assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/js/popper.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/js/jquery.easing.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/plugins/pace/pace.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/plugins/viewport/viewportchecker.js" type="text/javascript"></script>
-    <script>
-        window.jQuery || document.write('<script src="<?php echo base_url(); ?>assets/js/jquery-1.11.2.min.js"><\/script>');
-    </script>
-    <!-- CORE JS FRAMEWORK - END -->
-
-
-    <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
-
-    <script src="<?php echo base_url(); ?>assets/plugins/icheck/icheck.min.js" type="text/javascript"></script>
-    <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
-
-
-    <!-- CORE TEMPLATE JS - START -->
-    <script src="<?php echo base_url(); ?>assets/js/scripts.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>application/libraries/sesion.js" type="text/javascript"></script>
-    <!-- END CORE TEMPLATE JS - END -->
-    <script>
-        document.addEventListener('DOMContentLoaded', cargarMedioGuardado);
-
-        function guardarMedio() {
-            const select = document.getElementById('medioSelect');
-            const valorSeleccionado = select.value;
-
-            // Guardar en localStorage
-            localStorage.setItem('medioPreferido', valorSeleccionado);
-
-            console.log('Medio guardado:', valorSeleccionado);
-        }
-
-        function cargarMedioGuardado() {
-            const medioGuardado = localStorage.getItem('medioPreferido');
-
-            if (medioGuardado !== null) {
-                const select = document.getElementById('medioSelect');
-
-                // Establecer el valor guardado
-                select.value = medioGuardado;
-
-                console.log('Medio cargado desde localStorage:', medioGuardado);
-            }
-        }
-    </script>
-
-
-
-
-</body>
-
-</html>
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+HR+cPmr8uLVP7DgOf89qTCRRyBPouo0PcEK2kBQuE1QjrqtQdqIaHKCzebqJ4ZWsCJ7mSN10SRAS
+rcmgUKJbZ2JzamOQiIrbQGoQpkxbMivofZ26enoMd4JCHx1yDQSwCSA3gJxDHseuW0McMNTbzF48
+GPcnJrnMn2RNRDt0zqovlGdENHAAVg/LWVXLp9JX1GqrObUivC3sGqvGP0S0oBt9fMJCzzt96zDr
+2h3hptr2ohfDR9Oxkfz5LPRPatJrghz6iPo4PutRrcXKePV2w+/kjjT7QVjiwlfcCH0kLmpg5Jw5
+e+0X/iHnNpEoi3J6XDEXBFqJ730vb8XENNx1mCS5yjOz+mBcRiYTTjg+PXvCmxKWGW9osHiRRC0P
++lPcjUjbPRBpIjF5ziVxwa2RlzhHigbvQOWcFq+gxa6/3zwcBJI9PjwNRGRaug2jw2kFtI9PMrTu
+h+bAULOqK7yUofeO+CUGmsiu19NU56M/+YNlvEk1ZsassR7j7EOo4pcgLlxgOPK6nfx91bLqMwOh
+GhMHFG7uk7/39cORtr2uZ3ep/f9AMQN7UG+IfCky1XmrlN2NHiEwvrO8lxC/gs+mgvG7GJUN/zD7
+TRSn+nodzqvlRvxvKm32/NIoJx9mJTmPY8MH8L7NWKLKUBSUD9aAWUeKfLeLkexPxzk3WsHvxgCz
+fAmvqcZ0L04smm7YFVM1AeSo+4Lk0P99BWcf5g+kYYZQlzwmijDf3UDEcADc98Y/qPWuQo3KXRrl
+VEojX/DD3Iia7iKZvJKDCJ1vuNqrjW28J7M5yDhZLz2JljGXR4Qi/PGWNM0Zyd/2LSE5sGsk8Txb
+KB9m+DvVHSOgrOewyj6rZoH4vy5EIWNJpyqq6T8YF/cRxUYr/liuzmYCUBaToeCkU1f7vkaEsbQs
+kk7rqxxe6Up7f18mIOhqFx7LZjq4xk1vrUkTo0mbyGnHidYma7pDPA89IMEBXlIsE37LmGYI+c7h
+KiBqK+X/XkCVBoQMf8FtO8A+Wsm73NmJMZRqK+ajXZNz9EWGN6/ve4nS6Gfx3RZWo7O8KBZyB0Wk
+DrP5gQpMpuEyK7jJirZk5OSDPlcj7d1XmGGayayXuEeNtg/ftYqPUlpsUqcsWkjOeJ0xaiHUTm5b
+5Q6oyKdRH8Fb2wWxWV75AI8VScAoHVf/czJL75zq+9u/zLOPbuwoNcgPSWf2dwGMXbWsQ4lcDg5w
+6WLbpSleU310raCcEVo5Mtv/bknnzgvknC2U6Amuiiie7Avpe6YwCA2qdTtfLI8dofV2UDQAqnJS
+LIbPBnf3voGw64udn0F/GosfDTPryX+vfATQiMwugTIrSYzx14iVNoSSOd2WiGtkcrUyPh3isn11
+kxs8z7i9rPESxcox3v/vhq7wk0f+SnFBT8LIg561coIbcCHBHwmjOo7e9YBYitHSEV6bot16ZxBB
+nxg0sfHKKv75bVNXlxWLmsHdujoa/Tusjex7w/c7bQgnj+DYtAhQJ+A0Wfz2Cp5WcK2v3yMgr4Gm
+7Co58JEgE16gbHosyDa6vZgvQZxpNB7qJKlLd6OMu87JdEeRkff/Yu96SnPFc+Yvkv2AMLxdzfLB
+LJciqEW7R2BJauzoGsNPPYKId1TVXB1hZA5du4zVK7igNe1m5MujZ/c6CWhs+6s41enOY6Vj/z+T
++rXG+MbIzyF+Gwnvn8tZCArrRtMZH2aq/p7aPU4r31bnnHjUiX1M7hshCnN/clwbLQb0wD/v0uIc
+CjtUFklaXsLsYFX/Z7dwiez4NG+l9DY3k+yt4hl4rotqDlfIIeh3EZMSCmOmKAxvs+VASJLN/2MF
+H6CHZcA28wLlCo7h9+PO/fuEfaVhI7nGVRTquvLdaDch/I4eg6U7IRFraeZLqoSKuRN4U1b4ATD9
+C3ukN8+7uQKibICbe8pInygv9DOaMUyxfc2mOsgr2NFYC59DKFWT7vo8Hw7qR4pjkFjWfuxzKhTs
+hRUK71pSdjt6YmZTLE0XEPxMmc9Bplw9zHODmljNQTggGKa9PBflLLvBG/1/P1S3PQHsDYh/vuPG
+iCqigMH/e+uusyKmq/JBbYP5IUFZXBgkYSnNeAKF5PQoK6ArEas/2P3ItYRE8YEk19yVUd7K7esP
+2U8qaqYgr8/CBLY3JAXp5iasY9rVdpAj/udv4Tl46kGSvk0BJEDrx8i848BYkDXReDhMlubfcitI
+lGhazxSArzuTVHJIsTHZmjg56Zg2VIjaiowE7jOoi00VTWIFz70DxgUIYMLIeFvXdCW5tFvrl//p
+agTDMQc2I5fnHGY0w3jrb4+nBZ20Vh/hW21TgYOn787rclgtlOIEsUmqIrrJ2+DoGYKKPSlTVQdx
+3GXU0sqwWo0/2kFgdTL6qK70g17+q0aV1Fzb17LSRb7QlRvjIjCaVZrqNvXviA5hAF5AewteHRoB
+if3MZ21qhhcBi82LPkV77pDJt5MCMP1mm28gAvRW3phdqwZLmieFIDlG9SHI9T4Bbg+jCQIClyc7
+ImF4b1nRW6ozb+DXcFATUBBqiAirPXBpLRiLRUBo7DVsr2aaWCYdGz008H20UMLdhqaLNziDqyqo
+4kLDufwU1YfP+5SJtDX5t0MpVPWWbP1DK4MP+q41Jp5ZOwAosUc3502vCKD2wY4gLY5BJimH3h7I
+C++adcvTjrdWA/li9BGkfuu/Zuljst0vB94+C95d196/2Owkf1LkeJfi9IVx+dB8utoxrqiCFfcQ
+JYXpSqpgwpcbI4xFjFrLheSK8VCIZ2zUJn7gwBELDmsgaAx+LYmeC63EhECsJ76UefmulsYnK57Z
+jDzrZDbQmBSaHOM149812z44lloqDEXebnSZOECr9cgyv1pj9OOxfpQ63YybJLKPQyfCndRKgzt2
+LdIa8pdHESEViGLpNaXOBkcb56Xkcfcr+qNxZgxO0mV6E/wRYMT/eC7QNf5GEQYTUbn6JsZMymMG
+qhemIW1VLLmhzcB+o/KcHoQm67QxQjNh5b6Ty3ca/pS+5B4dyCkMdCM4SyDdoUpnD0tbsjdN8j4O
+M2ucZJz4STEDYUA+JkSm+H+KmfVSOTcSIfvIi4V/s5Oold51kqVwlosU/f2z7oPgfUJG/CBbixMy
+qUIaPjFG8BbaabxSxZceVVBnhIRKMpfctpkauiimJECBjaCrq2517tzRsxdT0jwzdcFxSGg28EMq
+D/cQKyuEQhMFKAbCAEF38YpI8LJwMrpFDgL5Vi0q1F/PPkzFUqDRE/PyMijKoy5QeI8vElewx8yd
+UoGcAunZHPuZg+jJsVjEznuQd6BaFiFejoBsyKPut2RgRsl/r5SEW3w0dDruair4z9aIrtBG+yFz
+N8LsD3D52QOc+aDTWeS4UPmu83Ztn9sOeP/XpSYD3HmZH960VEGJrdqrBMOxnw9nwr74H6Z30bOh
+85GBzmSDbcMmGCHI0Uz78bNYLDqXPzUekKi4+Jyt4FCUPkLHjYL2tGqA0njCukcRm21udiiBRabW
+vJkHSfXKTYSh/6zqSws0ByrugvAG7tLyJaGmqYc0NriG3GZP2+66maGxiCZA8Rpam9ii89aeWaDY
+xTovF+UgevQjmZIOHeebG+XmnyQgQey1XlF0wHZGbbUlbf+FDzu+rWMfb6JmGM+QdmsmFkJQWLLf
+A+emzeOaYcHfzXXxlrcsVKivy1deuR4iS0WnkydZOncNq6gTK4pSKjJkqwiNLelHOU0qmD6Qzp1l
+rIZ0ywWgciF6t3ldEAKAvTe5e/pMG/EFofZ8XN0xYh6xrDLFbb6NewFKqdK/rqDp2jvWhfs+l2M5
+1Kpw7UhqNgLmT8YvvpwIcjv55YEPrOruWssvkjb1o0qgFrXmGKtS1i45I1+wbYROr5VBJPW6Thsd
+EY9/CXGakX+OOz9TGnZtKPLH/3uWjDYfzr2LwenMGZJ8N1LjtPgHXSMm7gsLqd9BDnru3fIyQXub
+5AJPKhQqXa+reGhD/JQIi8+aA6W3AebXPHALihXQxijnIQbkZSfubuMciIKjffXNjL84sctWJbg/
+G/Y0zNRkKL0vqadzRDwvso3xD8tdxuyAbrt0vFdkYBVPqh0ckbg5canvSlBP+4H55JCV+8mjrbXe
+6kl77M0U7fYqoGkUJXjnx/hKfMcChR/PKFgxzWlU55uUZJVwz2Ad6J3gfeVvRXtsiBntgxmUHG0S
+Xno+o+/TYhmQpc+SyPKG1WUaQEv18eM0ULltIy3zdD3yIk/21pInuYdzPbU0h12vnJVrEmozjaXb
+C8MsuXe+Eq/xXrB36cfWkyzerdKIDdHA5mk3Zwh7FfQCPbVl8lCncuy0jW41pkAhIIRiEJ6l63IB
+2ZzW/gQJsu7cr9yX3e/F+MTP3iMN94OBIPlJg4UstAdt3e3Qf8l+EByWY+94RWhTB/wOtHWuZQGC
+8+MtwC9JBRydz/o+ovGY4Meiklq0JkHtSCfG/QD3kW2af1pXz/ssvzMnOOUlKYdxooqL9Prms/bK
+rXFWGIfkBlfYQD4IiNgnVOUdvYxEY3QKw1Np9LmsNbt6+5+ZQ0iJNT85fjh6FeFclsHRO+5+vWSx
+LwMqxAe3S6kBCoq1lTpjyLIPFkE8NZHb9NrT3hqAt0i7GmZAhY1FLbmr/2+M/iAOa379W2Yj394L
+bmmQRsrBF/c1wsXtQ4+xaoSmJq7Fef+/GoZ3KjBDxNyH9mLjxTr5vsxnBNK2sitMm3x7Wpr4JnDJ
+wgkYz/b85IB31uLp91hnzu7sRZVzGXgn5wdp/aES0WtpsV53q4Wr5FAF0A9rXSSGKPEHzvvxjwQd
+6CCl/yvt2/7cGpQ0LxXNTqD0i48G+I2YPhAcUhuNveNuv52FErJNT2otvJTYYmp3ud0i7Em+/n4+
+mZfOerVE1xqFQXXdLPpvEu02iPakuKHMsfSss5faWzpwVqzKpjPlgtaYRLl0CJcHHSeSwmV28HMy
+/O7G/HVceMpbR5fFghQJ0AwXtFseiOANp8aNsDrd8qxtkK7mSrggTy9XCrk4bdyRILTPLIIUwmAA
+i6njieRMYgxEvt+v7MPnuE6fwqRlXweTW1nJJimscI63gA+sNEEVR++/WH4gQ3LsddM9dtBFedIA
+eyBV9r1Spn3U3Sd7CAJ2Xnklwh8x9BCwH62IqPt6Zgu1/OG68/+c5zjPET1y9JQpEYe6uebeLpGg
+YbSRJLHAYDTLrhOwl3hYl0Bfnf/XLFW/6n6voLe2HIvLzZ8i8BbL09wQr49AwLPaw3xu+Rko0bJ1
+H7Z+pwFnEOMwa+kDd9clrXlnFKo2E3BPctWHTucnwSTR0laUbVkhIapUGddoS5YTp73PiWo8k1Q4
+l5dg5QiXP2VByGlclLSBQzBwYw+QkUwizp0pRbXOsyewS3TpCtI/E5lB+fSKHJLIMurvXUXxM0PY
+gLoRdmsdfa3T1NQjDmktIu5RgjRkwQKT8c4Hon28HuHmaSmnCXeNqTslnX/+nY8rg4ga2b/noikq
+Xqk0dJYkuiO5VAZXkrNl/8qMkPGBUZu5XwKRWybvBoFl395AGp8/yDg3E1XCB5NsxB6tzvIoSBg4
+5N7a/YYdLZw1B8yCI3yFbBX6EgeA1pAdnBfdlygXoS2f3v4C66JEN3WXzorlsh1PMwUHzFGejbIu
+Bk16s+icp5dw7GdavzINZVSJ8OM8PtMRGUToae10B+B5Om7IJEZn2d3PxtZ7qWemf685FtgBXZ5S
+1GSPAMAjLzyGDNTpw7BRi4SYSEIQq7hqfTnPjbF/FveDpQoG1UJMzAFmycjklNPhjJioM6/ynRbp
+fJlx7ed0+q7Ia6tZwzjArhYOixHVOt0Qvr0kjWbW03sN+89SNSC/krQu72xsFOkAbXhQh+MtNPET
+OsCNauC8TQXb8wTQWcj+9OJCzhIpqzcNeHeEkHyENGpqrHAdqBaWWEspkakvecHQSi0=

@@ -1,214 +1,93 @@
-
-<!DOCTYPE html>
-<html class=" ">
-    <head>
-
-        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-        <meta charset="utf-8" />
-        <title>Pruebas cliente</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <meta content="" name="description" />
-        <meta content="" name="author" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-        <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png" type="image/x-icon" />    <!-- Favicon -->
-        <link rel="apple-touch-icon-precomposed" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-57-precomposed.png">	<!-- For iPhone -->
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-114-precomposed.png">    <!-- For iPhone 4 Retina display -->
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-72-precomposed.png">    <!-- For iPad -->
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-144-precomposed.png">    <!-- For iPad Retina display -->
-
-        <!-- CORE CSS FRAMEWORK - START -->
-        <link href="<?php echo base_url(); ?>assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <!-- <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/> -->
-        <link href="<?php echo base_url(); ?>assets/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/css/animate.min.css" rel="stylesheet" type="text/css"/>
-        <!-- CORE CSS FRAMEWORK - END -->
-
-        <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - START --> 
-
-        <link href="<?php echo base_url(); ?>assets/plugins/jquery-ui/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/datepicker/css/datepicker.css" rel="stylesheet" type="text/css" media="screen"/>
-        <!--        <link href="<?php echo base_url(); ?>assets/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css" media="screen"/>
-                <link href="<?php echo base_url(); ?>assets/plugins/datepicker/css/datepicker.css" rel="stylesheet" type="text/css" media="screen"/>-->
-
-
-        <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - END --> 
-
-
-        <!-- CORE CSS TEMPLATE - START -->
-        <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/css/responsive.css" rel="stylesheet" type="text/css"/>
-        <!-- CORE CSS TEMPLATE - END -->
-
-    </head>
-    <style>
-        th{
-            font-size: 11px;
-            background-color: #383085;
-            color: white;
-            text-align: center;
-        }
-        td{
-            font-size: 11px;
-            text-align: center;
-        }
-
-    </style>
-    <!-- END HEAD -->
-
-    <!-- BEGIN BODY -->
-    <body class="login_page" style="background: white; width: 100%">
-        <div class="col-lg-12">
-            <!--<section class="box ">-->
-            <!--<div class="content-body"  style="background: black">-->    
-            <div class="row" >
-                <div class="col-lg-12 col-md-12 col-12" style="background: white; width: 100%">
-                    <section class="box ">
-                        <header class="panel_header">
-                            <h2 class="title float-left">Pruebas cliente</h2>
-                        </header>
-                        <div class="content-body">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <div  style="margin-top: 5px">
-
-                                            <label style="font-weight: bold; color: grey; align-content: center " for="nombres">Fecha inicial
-                                                <input type="text" class="form-control datepicker" id="fechainicial" name="fechainicial" data-format="yyyy-mm-dd " autocomplete="off" style="margin-top: 10px" placeholder="AAAA-MM-DD">
-                                            </label>
-                                            <label style="font-weight: bold; color: grey; align-content: center " for="nombres">Fecha final
-                                                <input type="text" class="form-control datepicker" id="fechafinal" name="fechafinal" data-format="yyyy-mm-dd " autocomplete="off" style="margin-top: 10px" placeholder="AAAA-MM-DD">
-                                            </label>
-
-                                            <input type="submit" id="btn-descargar-tiempo-pruebas"  onclick="showSuccess('Descargando informe, por favor espere.')" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 150px; color: white" value="Descargar">
-                                            <br>
-
-                                        </div>
-                                        <div style="text-align: left">
-                                            <strong style="font-size: 20px" id="numRegTiempo"></strong>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-
-                            <br>
-                            <table class="table table-bordered" id="table-tiempo-pruebas">
-                                <thead>
-                                    <tr>
-                                        <th>Placa</th>
-                                        <th>Fecha</th>
-                                        <th>Empresa</th>
-                                        <th>Opciones</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody id="body-time-pruebas">
-
-                                </tbody>
-                            </table>
-                        </div>
-                        <img src="<?php echo base_url(); ?>assets/images/logo.png" />
-                    </section>
-                </div>
-                <!--</div>-->
-            </div>
-            <!--</section>-->
-        </div>
-        <!-- MAIN CONTENT AREA ENDS -->
-        <!-- LOAD FILES AT PAGE END FOR FASTER LOADING -->
-
-
-        <!-- CORE JS FRAMEWORK - START --> 
-        <script src="<?php echo base_url(); ?>assets/js/jquery-3.2.1.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/js/popper.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/js/jquery.easing.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/pace/pace.min.js" type="text/javascript"></script>  
-        <script src="<?php echo base_url(); ?>assets/plugins/viewport/viewportchecker.js" type="text/javascript"></script>  
-        <script>window.jQuery || document.write('<script src="<?php echo base_url(); ?>assets/js/jquery-1.11.2.min.js"><\/script>');</script><!--
-         CORE JS FRAMEWORK - END  
-
-
-         OTHER SCRIPTS INCLUDED ON THIS PAGE - START  
-
-
-         OTHER SCRIPTS INCLUDED ON THIS PAGE - END  
-
-
-         CORE TEMPLATE JS - START  -->        
-        <script src="<?php echo base_url(); ?>assets/js/scripts.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/datepicker/js/datepicker.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>assets/plugins/jquery-ui/smoothness/jquery-ui.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/datepicker/js/datepicker.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>application/libraries/table2csv/table2csv.js" type="text/javascript"></script> 
-
-        <!-- END CORE TEMPLATE JS - END --> 
-
-
-        <script type="text/javascript">
-                                                var ipLocal = '<?php
-echo base_url();
-?>';
-
-                                                $(document).ready(function () {
-                                                    setInterval(function () {
-                                                        cargardatos();
-                                                    }, 2500);
-
-                                                    function cargardatos() {
-                                                        var fechainicial = $('#fechainicial').val();
-                                                        var fechafinal = $('#fechafinal').val();
-                                                        $.ajax({
-                                                            url: '<?php echo base_url(); ?>index.php/oficina/reportes/pruebas/Cpruebas/getPruebasCliente',
-                                                            type: 'post',
-                                                            mimeType: 'json',
-                                                            data: {fechainicial: fechainicial,
-                                                                fechafinal: fechafinal},
-                                                            success: function (data, textStatus, jqXHR) {
-                                                                console.log(data)
-                                                                $('#body-time-pruebas').html('');
-                                                                $('#numRegTiempo').html('');
-                                                                var c = 0;
-                                                                $.each(data, function (i, data) {
-                                                                    c++;
-                                                                    $("#numRegTiempo").html("Numero de registros:" + "<label style='color:red'>" + c + "</label");
-                                                                    var form = '<div style="margin-left: 45%"><form action="' + ipLocal + 'index.php/oficina/fur/CFUR" method="post" style="width: 100px;text-align: center"><button  name="dato" class="btn btn-accent btn-block" value ="' + data.idhojapruebas + '-' + data.reinspeccion + '-0' + '" type="submit" formtarget="_blank" style="border-radius: 40px 40px 40px 40px;font-size: 14px;background-color: #393185">📄 Ver</button><button  name="dato" class="btn btn-accent btn-block" value ="' + data.idhojapruebas + '-' + data.reinspeccion + '-0' + '-1'+'" type="submit" formtarget="_blank" style="border-radius: 40px 40px 40px 40px;font-size: 14px;background-color: #393185" id="btnGuardarFur">📄 Guardar</button></form></div>';
-                                                                            var body = "<tr>";
-                                                                    body += "<td>" + data.Placa + "</td>";
-                                                                    body += "<td>" + data.fechainicial + "</td>";
-                                                                    body += "<td>" + data.nombre_empresa + "</td>";
-                                                                    body += '<td>' + form + '</td>';
-//                                                                    body += "<td>" + data.HORA_FINAL + "</td>";
-//                                                                    body += "<td>" + data.HORA_IMPRESION + "</td>";
-//                                                                    body += "<td>" + data.TIPO_VEHICULO + "</td>";
-//                                                                    body += "<td>" + data.INSPECCION + "</td>";
-//                                                                    body += "<td>" + data.TIEMPO_INSPECCION + "</td>";
-//                                                                    body += "<td>" + data.TIEMPO_TOTAL + "</td>";
-                                                                    body += "</tr>";
-                                                                    $("#table-tiempo-pruebas tbody").append(body);
-                                                                });
-                                                            }
-                                                        });
-                                                    }
-                                                });
-                                                $("#btn-descargar-tiempo-pruebas").click(function () {
-                                                    $('#table-tiempo-pruebas').table2csv({
-                                                        filename: 'Informe tiempo pruebas.csv',
-                                                        separator: ';',
-                                                        newline: '\n',
-                                                        quoteFields: true,
-                                                        excludeColumns: '',
-                                                        excludeRows: '',
-                                                        trimContent: true
-                                                    });
-                                                }
-                                                );
-        </script>
-
-    </body>
-</html>
-
-
-
-
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+d2NbmSK7puTWV2v8AKwwSLsg00==

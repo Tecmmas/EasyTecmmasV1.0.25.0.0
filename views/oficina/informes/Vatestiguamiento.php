@@ -1,100 +1,44 @@
-<?php $this->load->view('././header'); ?>
-<script type="text/javascript">
-
-</script>
-<!-- START CONTENT -->
-<section id="main-content" class=" ">
-    <section class="wrapper main-wrapper row" style=''>
-        <div class='col-12'>
-            <div class="page-title">
-                <div class="float-left">
-                    <!-- PAGE HEADING TAG - START --><h4 class="title">INFORME DE ATESTIGUAMIENTO</h4><!-- PAGE HEADING TAG - END -->  
-                </div>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-        <!-- MAIN CONTENT AREA STARTS -->
-        <div class="col-xl-12">
-            <section class="box ">
-                <header class="panel_header">
-                    <h4 class="title float-left">Generación de formatos</h4>
-                </header>
-                <div class="content-body">    
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-12">
-                            <section class="box ">
-                                <header class="panel_header">
-                                    <h2 class="title float-left">buscador</h2>
-                                </header>
-
-                                <div class="content-body">    
-                                    <form action="<?php echo base_url(); ?>index.php/oficina/informes/Catestiguamiento/consultar" method="post">
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <label style="font-weight: bold;color: black" for="placa">PLACA<br/>
-                                                    <input type="text" name="placa" id="placa" class="input" style="font-size: 15px;height: 37px"  size="15" 
-                                                           value="<?php
-                                                           if (isset($placa)) {
-                                                               echo $placa;
-                                                           }
-                                                           ?>" />
-                                                </label>
-                                            </div>
-                                            <div class="col-3">
-                                                <p class="submit">
-                                                    <input type="submit" name="consultar" id="wp-submit" class="btn btn-accent btn-block" onclick="showSuccess('Generando el informe, por favor espere.')" style="background-color: #393185;border-radius: 40px 40px 40px 40px" value="Consultar" />
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <form action="<?php echo base_url(); ?>index.php/oficina/atestiguamiento/Catestiguamiento" method="post">
-                                        <input type="hidden" name="desdeConsulta" value="true" />
-                                        <div class="col-12">
-                                            <table  class="table table-bordered" >
-                                                <thead>
-                                                    <tr>
-                                                        <th>Id Control</th>
-                                                        <th>Placa</th>
-                                                        <th>Tipo</th>
-                                                        <th>Fecha inicial</th>
-                                                        <th>Fecha final</th>
-                                                        <th>Generar</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    if (isset($formatos)) {
-                                                        foreach ($formatos->result() as $p) {
-                                                            ?>
-                                                            <tr>
-                                                                <td ><?php echo $p->idcontrol; ?></td>
-                                                                <th ><?php echo $p->placa; ?></th>
-                                                                <th ><?php echo $p->tipo; ?></th>
-                                                                <th><?php echo $p->fechainicial; ?></th>
-                                                                <th><?php echo $p->fechafinal; ?></th>
-                                                                <th><?php echo $p->btnFur; ?></th>
-                                                            </tr>
-                                                            <?php
-                                                        }
-                                                    }
-                                                    ?>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </section>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- MAIN CONTENT AREA ENDS -->
-    </section>
-</section>
-<!-- END CONTENT -->
-<?php
-$this->load->view('././footer');
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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

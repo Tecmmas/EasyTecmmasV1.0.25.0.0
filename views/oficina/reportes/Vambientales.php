@@ -1,704 +1,193 @@
-<?php $this->load->view('./header'); ?>
-<?php $informeNewAnt; ?>
-<!-- START CONTENT -->
-<script type="text/javascript">
-    window.onload = function() {
-
-        <?php if ($this->session->userdata('mesajeError')) { ?>;
-            var mensaje = "<?php echo $this->session->userdata('mesajeError'); ?>";
-            Swal.fire({
-                icon: "error",
-                title: 'Error',
-                text: mensaje,
-                showConfirmButton: true,
-            });
-        <?php
-            $this->session->unset_userdata('mesajeError');
-        }
-        ?>;
-    };
-</script>
-<section id="main-content" class=" ">
-    <section class="wrapper main-wrapper row">
-        <!--        <div class='col-12'>
-                    <div class="page-title">
-                    </div>
-                </div>
-                <div class="clearfix">
-        
-                </div>-->
-        <!-- MAIN CONTENT AREA STARTS -->
-        <div class="col-xl-12">
-            <section class="box ">
-                <?php $this->load->view('./nav'); ?>
-                <div class="content-body">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-12">
-                            <section class="box ">
-
-                                <header class="panel_header">
-                                    <h2 class="title float-left">Informe ambiental <?= $tipoinforme ?></h2>
-                                    <div class="title float-right" style="margin-right: 30px">
-                                        <?php if ($FugasCal == "NA") { ?>
-                                            <table>
-                                                <tbody>
-                                                    <tr>
-                                                        Tipo informe
-                                                    </tr>
-                                                    <tr>
-                                                        <select id="sel-tipo-informe-fugas-cal">
-                                                            <option value="0">Gases Anterior</option>
-                                                            <option value="1">Gases Nuevo</option>
-                                                        </select>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        <?php } ?>
-                                    </div>
-                                </header>
-
-                                <div class="content-body">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <?php if ($tipoinforme == 'Dagma') { ?>
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Id</th>
-                                                            <th>Pista</th>
-                                                            <th>Equipo</th>
-                                                            <th>Generar informe</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php
-                                                        $c = 0;
-                                                        foreach ($maquina as $item) :
-                                                        ?>
-
-                                                            <?php if (($item->prueba == 'analizador' || $item->prueba == 'opacidad') && $item->activo == 1) { ?>
-                                                                <tr>
-                                                                    <td><?= $item->idconf_maquina ?></td>
-                                                                    <td><?php
-                                                                        if ($item->idconf_linea_inspeccion == 1 || $item->idconf_linea_inspeccion == 7 || $item->idconf_linea_inspeccion == 8) {
-                                                                            echo 'Liviano';
-                                                                        } elseif ($item->idconf_linea_inspeccion == 4 || $item->idconf_linea_inspeccion == 11 || $item->idconf_linea_inspeccion == 12) {
-                                                                            echo 'Mixta';
-                                                                        } else {
-                                                                            echo 'Moto';
-                                                                        }
-                                                                        ?></td>
-                                                                    <td><?= $item->nombre . '-' . $item->marca . '<br>' . $item->serie_maquina . '-' . $item->serie_banco ?></td>
-
-                                                                    <td>
-                                                                        <form action="<?php echo base_url(); ?>index.php/oficina/reportes/Cambientales/informe_dagma" method="post">
-                                                                            <div class="row">
-                                                                                <div class="col-md-3 col-lg-3 col-sm-3">
-                                                                                    <div class="form-group">
-                                                                                        <label style="font-weight: bold; color: grey" for="nombres">Fecha inicial</label>
-                                                                                        <input type="text" class="form-control datepicker" id="fechainicial" name="fechainicial" data-format="yyyy-mm-dd " autocomplete="off">
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-3 col-lg-3 col-sm-3">
-                                                                                    <div class="form-group">
-                                                                                        <label style="font-weight: bold; color: grey" for="nombres">Fecha final</label>
-                                                                                        <input type="text" class="form-control datepicker" id="fechainicial" name="fechafinal" data-format="yyyy-mm-dd " autocomplete="off">
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-3 col-lg-3 col-sm-3" style="align-content:  center">
-                                                                                    <div class="form-group">
-                                                                                        <input name="check-cvc" type="checkbox" class="form-check-input" id="exampleCheck1" value="1" style="margin-top: 40px">
-                                                                                        <label class="form-check-label" for="exampleCheck1" style="margin-top: 35px">Informe para la CVC</label>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-3 col-lg-3 col-sm-3" style="align-content:  center">
-                                                                                    <div class="form-group">
-                                                                                        <label></label>
-                                                                                        <input type="hidden" id="idconf_maquina" name="idconf_maquina" value="<?= $item->idconf_maquina ?>">
-                                                                                        <input type="submit" id="btn-informe-dagma" name="consultar" id="btn-generar-carder" class="btn btn-accent btn-block" onclick="showSuccess('Generando el informe, por favor espere.')" style="background-color: #393185;border-radius: 40px 40px 40px 40px" value="Generar">
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </form>
-                                                                    </td>
-                                                                    <?php $c++; ?>
-                                                                <?php }; ?>
-                                                            <?php endforeach; ?>
-                                                                </tr>
-                                                    </tbody>
-                                                </table>
-                                            <?php } elseif ($tipoinforme == 'Superintendencia') { ?>
-                                                <form action="<?php echo base_url(); ?>index.php/oficina/reportes/Cambientales/informes" method="post">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Generar</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="row">
-                                                                        <div class="form-group mx-sm-5" style="margin-top: 10px">
-                                                                            <label style="font-weight: bold; color: grey" for="nombres">Fecha inicial<br />
-                                                                                <input type="text" class="form-control datepicker" id="fechainicial" name="fechainicial" data-format="yyyy-mm-dd " autocomplete="off">
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="form-group mx-sm-5" style="margin-top: 10px">
-                                                                            <label style="font-weight: bold; color: grey" for="nombres">Fecha final<br />
-                                                                                <input type="text" class="form-control datepicker" id="fechafinal" name="fechafinal" data-format="yyyy-mm-dd " autocomplete="off">
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="form-group mx-sm-5" style="margin-top: 10px">
-                                                                            <?php if ($tipoinforme == 'Corantioquia') : ?>
-                                                                                <div class="form-group col-md-2" style="margin-top: 22px;">
-                                                                                    <select id="tipo_inspeccion" name="tipo_inspeccion" style="height: 35px">
-                                                                                        <option value="1">Certificadas</option>
-                                                                                        <option value="8888">Pruebas libres</option>
-                                                                                        <option value="4444">Preventivas</option>
-                                                                                    </select>
-                                                                                </div>
-                                                                            <?php endif; ?>
-                                                                        </div>
-                                                                        <div class="form-group mx-sm-4">
-                                                                            <label style="font-weight: bold; color: black"></label>
-                                                                            <input type="hidden" id="tipoinforme" name="tipoinforme" value="<?= $tipoinforme ?>">
-                                                                            <div type="hidden" id="div-informeNewAnt2" name="div-informeNewAnt"></div>
-                                                                            <input type="submit" name="consultar" id="btn-generar-ambiental" class="btn btn-accent btn-block" onclick="showSuccess('Generando el informe, por favor espere.')" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px" value="Generar">
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </form>
-                                            <?php } elseif ($tipoinforme == 'Corantioquia' || $tipoinforme == 'Corpocesar' || $tipoinforme == 'Corpouraba' || $tipoinforme == 'Epa') { ?>
-                                                <form action="<?php echo base_url(); ?>index.php/oficina/reportes/Cambientales/generar" method="post">
-                                                    <div class="row">
-                                                        <div class="form-group col-md-3">
-                                                            <label style="font-weight: bold; color: grey" for="nombres">Fecha inicial<br />
-                                                                <input type="text" class="form-control datepicker" id="fechainicial" name="fechainicial" data-format="yyyy-mm-dd " autocomplete="off">
-                                                                <!--<strong style="color: #E31F24"><?php echo form_error('fechainicial'); ?></strong>-->
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-group col-md-3">
-                                                            <label style="font-weight: bold; color: grey" for="nombres">Fecha final<br />
-                                                                <input type="text" class="form-control datepicker" id="fechafinal" name="fechafinal" data-format="yyyy-mm-dd " autocomplete="off">
-                                                                <!--<strong style="color: #E31F24"><?php echo form_error('fechafinal'); ?></strong>-->
-                                                            </label>
-                                                        </div>
-
-                                                        <?php if ($tipoinforme == 'Corantioquia' || $tipoinforme == 'Corpocesar' || $tipoinforme == 'Corpouraba') : ?>
-                                                            <div class="form-group col-md-2" style="margin-top: 22px;">
-                                                                <select id="tipo_inspeccion" name="tipo_inspeccion" style="height: 35px">
-                                                                    <option value="1">Certificadas</option>
-                                                                    <option value="8888">Pruebas libres</option>
-                                                                    <option value="4444">Preventivas</option>
-                                                                </select>
-                                                            </div>
-                                                        <?php endif; ?>
-                                                        <div class="form-group col-md-2">
-                                                            <label style="font-weight: bold; color: black"></label>
-                                                            <input type="hidden" id="tipoinforme" name="tipoinforme" value="<?= $tipoinforme ?>">
-                                                            <div type="hidden" id="div-informeNewAntCorantioquia" name="div-informeNewAnt"></div>
-                                                            <button type="submit" style="margin-top: 18px;" class="btn btn-info" id="btnGeneral" onclick="showSuccess('Generando el informe, por favor espere.')">Generar</button>
-
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            <?php } else { ?>
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Id</th>
-                                                            <th>Pista</th>
-                                                            <th>Equipo</th>
-                                                            <th>Generar informe</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php
-                                                        $c = 0;
-                                                        foreach ($maquina as $item) :
-                                                        ?>
-
-                                                            <?php if (($item->prueba == 'analizador' || $item->prueba == 'opacidad') && $item->activo == 1) { ?>
-                                                                <tr>
-                                                                    <td><?= $item->idconf_maquina ?></td>
-                                                                    <td><?php
-                                                                        if ($item->idconf_linea_inspeccion == 1 || $item->idconf_linea_inspeccion == 7 || $item->idconf_linea_inspeccion == 8) {
-                                                                            echo 'Liviano';
-                                                                        } elseif ($item->idconf_linea_inspeccion == 4 || $item->idconf_linea_inspeccion == 11 || $item->idconf_linea_inspeccion == 12) {
-                                                                            echo 'Mixta';
-                                                                        } else {
-                                                                            echo 'Moto';
-                                                                        }
-                                                                        ?></td>
-                                                                    <td><?= $item->nombre . '-' . $item->marca . '<br>' . $item->serie_maquina . '-' . $item->serie_banco ?></td>
-
-                                                                    <td>
-                                                                        <form action="<?php echo base_url(); ?>index.php/oficina/reportes/Cambientales/generar" method="post">
-                                                                            <div class="row">
-                                                                                <div class="form-group col-md-3">
-                                                                                    <label style="font-weight: bold; color: grey" for="nombres">Fecha inicial<br />
-                                                                                        <input type="text" class="form-control datepicker" id="fechainicial" name="fechainicial" data-format="yyyy-mm-dd " autocomplete="off">
-                                                                                        <!--<strong style="color: #E31F24"><?php echo form_error('fechainicial'); ?></strong>-->
-                                                                                    </label>
-                                                                                </div>
-                                                                                <div class="form-group col-md-3">
-                                                                                    <label style="font-weight: bold; color: grey" for="nombres">Fecha final<br />
-                                                                                        <input type="text" class="form-control datepicker" id="fechafinal" name="fechafinal" data-format="yyyy-mm-dd " autocomplete="off">
-                                                                                        <!--<strong style="color: #E31F24"><?php echo form_error('fechafinal'); ?></strong>-->
-                                                                                    </label>
-                                                                                </div>
-
-                                                                                <!-- <?php if ($tipoinforme == 'Corantioquia' || $tipoinforme == 'Corpouraba') : ?>
-                                                                                    <div class="form-group col-md-2" style="margin-top: 22px;">
-                                                                                        <select id="tipo_inspeccion" name="tipo_inspeccion" style="height: 35px">
-                                                                                            <option value="1">Certificadas</option>
-                                                                                            <option value="8888">Pruebas libres</option>
-                                                                                            <option value="4444">Preventivas</option>
-                                                                                        </select>
-                                                                                    </div>
-                                                                                <?php endif; ?> -->
-                                                                                <div class="form-group col-md-2">
-                                                                                    <label style="font-weight: bold; color: black"></label>
-                                                                                    <input type="hidden" id="idconf_maquina" name="idconf_maquina" value="<?= $item->idconf_maquina ?>">
-                                                                                    <input type="hidden" id="prueba" name="prueba" value="<?= $item->prueba ?>">
-                                                                                    <input type="hidden" id="idconf_linea_inspeccion" name="idconf_linea_inspeccion" value="<?= $item->idconf_linea_inspeccion ?>">
-                                                                                    <input type="hidden" id="tipoinforme" name="tipoinforme" value="<?= $tipoinforme ?>">
-                                                                                    <input type="hidden" id="serieanalizador" name="serieanalizador" value="<?= $item->serie_maquina ?>">
-                                                                                    <div type="hidden" id="div-informeNewAnt<?php echo $c ?>" name="div-informeNewAnt"></div>
-                                                                                    <button type="submit" class="btn btn-info" onclick="variableNA(this)" id="btnGeneral<?= $c ?>" onclick="showSuccess('Generando el informe, por favor espere.')">Generar</button>
-
-                                                                                </div>
-                                                                                <?php if ($tipoinforme == 'Bogota' || $tipoinforme == 'Car') : ?>
-                                                                                    <div class="form-group col-md-2">
-                                                                                        <div id="div-btn-csv<?= $c ?>"></div>
-                                                                                        <input type="hidden" name="csvdowload" id="csvdowload<?= $c ?>" value="0">
-                                                                                    </div>
-                                                                                <?php endif; ?>
-                                                                            </div>
-                                                                        </form>
-                                                                        <?php $c++; ?>
-                                                                    <?php }; ?>
-                                                                <?php endforeach; ?>
-                                                                </tr>
-                                                    </tbody>
-                                                </table>
-                                            <?php } ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <?php if ($informeWebBogota == '1'): ?>
-                                <section class="box ">
-                                    <header class="panel_header">
-                                        <h2 class="title float-left">Envio de pruebas pendientes api <?= $tipoinforme ?></h2>
-                                    </header>
-
-                                    <div class="content-body">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <table class="table" id="tablePendientesBogota">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Id</th>
-                                                            <th>Placa</th>
-                                                            <th>Fecha</th>
-                                                            <th>Acciones</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-
-                            <?php endif; ?>
-
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-        </div>
-
-
-
-        <!-- MAIN CONTENT AREA ENDS -->
-    </section>
-</section>
-<!-- END CONTENT -->
-
-
-
-<?php $this->load->view('./footer'); ?>
-<script type="text/javascript">
-    var FugasCal = "<?php
-                    echo $FugasCal;
-                    ?>";
-    var c = "<?php
-                echo $c;
-                ?>";
-    var tipoInformeNew = "<?php
-                            echo $tipoinforme;
-                            ?>";
-    var informeWebBogota = "<?php
-                            echo $informeWebBogota;
-                            ?>";
-    var ipLocal = '<?php
-                    echo base_url();
-                    ?>';
-
-    var dominio = "";
-    $(document).ready(function() {
-        if (FugasCal == "NA") {
-            var tipoInforme = $('#sel-tipo-informe-fugas-cal option:selected').attr('value');
-            $("#div-informeNewAntCorantioquia").html("");
-            $("#div-informeNewAntCorantioquia").append('<input type="hidden" id="informeNewAnt" name="informeNewAnt" value="' + tipoInforme + '">');
-            for (var i = 0; i < c; i++) {
-                $("#div-informeNewAnt" + i + "").append('<input type="hidden" id="informeNewAnt" name="informeNewAnt" value="' + tipoInforme + '">');
-            }
-        }
-        if (tipoInformeNew == 'Bogota' || tipoInformeNew == 'Car') {
-            for (var i = 0; i < c; i++) {
-                $("#div-btn-csv" + i + "").append('<button type="submit" class="btn btn-success" onclick="Variable(this)" id="btnCsv' + i + '"  style="margin-top: 23px">Generar Csv</button>');
-            }
-        }
-
-        var text = new XMLHttpRequest();
-        text.open("GET", ipLocal + "system/dominio.dat", false);
-        text.send(null);
-        dominio = text.responseText;
-        if (parseInt(informeWebBogota) == 1) {
-            getTokenBogota();
-            getPendientes();
-        }
-        //saveSerCornare();
-
-    });
-
-    var getTokenBogota = function() {
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/Cindex/getTokenBogota',
-                type: 'post',
-                mimeType: 'json',
-                success: function(data) {
-                    // if (localStorage.getItem("tokenBogota") === null || localStorage.getItem("tokenBogota") === undefined) {
-                        localStorage.setItem("tokenBogota", data['access_token']);
-                    // }
-
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(jqXHR.responseText)
-                }
-            });
-        }
-
-    // var getPendientes = function() {
-    //     $.ajax({
-    //         type: 'GET',
-    //         url: "<?php echo base_url(); ?>index.php/oficina/reportes/Cambientales/getPendientes",
-    //         mimeType: 'json',
-    //         async: true,
-    //         success: function(data, textStatus, jqXHR) {
-    //             $("#tablePendientesBogota tbody").html('');
-    //             data.forEach(element => {
-    //                 $("#tablePendientesBogota").append('<tr><td>' + element.idprueba + '</td><td>' + element.placadata + '</td><td>' + element.fecha + '</td><td><button class="btn btn-danger me-2" onclick="mostrarError(this)"  dataMensaje="' + element.mensaje + '">Ver Error</button><button class="btn btn-primary" onclick="reenviarInforme(\'' + element.idcontrolenvioapi + '\',\'' + element.tipo_vehiculo + '\',\'' + element.idprueba + '\',\'' + element.idmaquina + '\',\'' + element.idtipocombustible + '\')">Reenviar</button></td></tr>');
-    //             });
-
-    //         },
-    //         error: function(jqXHR, textStatus, errorThrown) {
-    //             console.log(jqXHR.responseText)
-
-    //         }
-    //     });
-    // }
-
-    var getPendientes = function() {
-    $.ajax({
-        type: 'GET',
-        url: "<?php echo base_url(); ?>index.php/oficina/reportes/Cambientales/getPendientes",
-        mimeType: 'json',
-        async: true,
-        success: function(data, textStatus, jqXHR) {
-            // Limpiar el tbody correctamente
-            var tbody = $("#tablePendientesBogota tbody");
-            tbody.empty();
-            
-            // Construir todo el HTML primero
-            var html = '';
-            data.forEach(element => {
-                // Escapar las comillas en el mensaje para evitar problemas
-                var mensajeEscapado = element.mensaje.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-                
-                html += '<tr>' +
-                    '<td>' + element.idprueba + '</td>' +
-                    '<td>' + element.placadata + '</td>' +
-                    '<td>' + element.fecha + '</td>' +
-                    '<td>' +
-                    '<button class="btn btn-danger me-2" onclick="mostrarError(this)" data-mensaje="' + mensajeEscapado + '">Ver Error</button>' +
-                    '<button class="btn btn-primary" onclick="reenviarInforme(\'' + element.idcontrolenvioapi + '\',\'' + element.tipo_vehiculo + '\',\'' + element.idprueba + '\',\'' + element.idmaquina + '\',\'' + element.idtipocombustible + '\')">Reenviar</button>' +
-                    '</td>' +
-                    '</tr>';
-            });
-            
-            // Agregar todo el HTML de una vez
-            tbody.html(html);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log('Error:', jqXHR.responseText);
-        }
-    });
-}
-
-    var mostrarError = function(data) {
-        let mensaje = data.getAttribute('dataMensaje');
-        Swal.fire({
-            icon: "info",
-            title: "<div style='font-size:14px;'>Problemas en el envio del informe</div>",
-            html: mensaje,
-            // footer: footer,
-            width: "800px",
-        });
-    }
-
-    var reenviarInforme = function(idcontrolenvioapi, tipo_vehiculo, idprueba, idmaquina, idtipocombustible) {
-        Swal.fire({
-            title: 'Enviando informe',
-            text: 'Por favor espere...',
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            didOpen: () => {
-                Swal.showLoading();
-            }
-        });
-        $.ajax({
-            type: 'POST',
-            url: "<?php echo base_url(); ?>index.php/oficina/reportes/Cambientales/envioinformeBogota",
-            mimeType: 'json',
-            async: true,
-            data: {
-                idtipocombustible: idtipocombustible,
-                idmaquina: idmaquina,
-                idprueba: idprueba,
-                tipo_vehiculo: tipo_vehiculo,
-                token: localStorage.getItem("tokenBogota")
-            },
-            success: function(data, textStatus, jqXHR) {
-                console.log(data);
-                Swal.close();
-                if(data == null || data == ''){
-                    Swal.fire({
-                        icon: "error",
-                        title: "<div style='font-size:14px;'>Problemas en el envio</div>",
-                        html: "<div style='font-size:14px;'>No se recibió respuesta del servidor, por favor intente nuevamente.</div>",
-                        // footer: footer,
-                        width: "800px",
-                        confirmButtonText: "Aceptar"
-                    });
-                    return;
-                }
-                // Swal.close();
-                let mensaje = "";
-                let estado = 0;
-                if (typeof data.data.original.aErrores !== "undefined" && data.data.original.aErrores.length > 0) {
-                    // console.log(data.data.original.aErrores);
-                    if (Array.isArray(data.data.original.aErrores)) {
-                        mensaje = data.data.original.aErrores.map(function(e) {
-                            return "<div style='font-size:12px;'>" + e + "</div>";
-                        }).join("");
-                    } else {
-                        mensaje = "<div style='font-size:12px;'>" + data.data.original.aErrores + "</div>";
-                    }
-                    footer = "<div style='font-size:12px; color:red'>Si el envío no se realizó con éxito, por favor diríjase a la sección de informes ambientales y envíelo nuevamente una vez haya corregido los problemas reportados por el servidor.</div>";
-                    estado = 0;
-                } else {
-                    mensaje = data.data.original.message;
-                    footer = "";
-                    estado = 1;
-                }
-
-                Swal.fire({
-                    icon: "info",
-                    title: "<div style='font-size:14px;'>" + data.data.original.name + "</div>",
-                    html: "<div style='font-size:14px;'>" + data.data.original.message + "</div><br>" + mensaje,
-                    footer: footer,
-                    width: "800px",
-                });
-                updateInfoEnvioBogota(idcontrolenvioapi, mensaje, estado);
-                setTimeout(() => {
-                    getPendientes();
-                }, 1000);
-
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                // Swal.close();
-                Swal.close();
-                Swal.fire({
-                    icon: "error",
-                    title: "<div style='font-size:14px;'>Problemas en el envio</div>",
-                    html: "<div style='font-size:14px;'>" + jqXHR.responseText + "</div>",
-                    // footer: footer,
-                    width: "800px",
-                    confirmButtonText: "Aceptar"
-                });
-
-            }
-        });
-
-    }
-
-    function updateInfoEnvioBogota(idcontrolenvioapi, mensaje, estado) {
-        $.ajax({
-            type: 'POST',
-            url: "<?php echo base_url(); ?>index.php/oficina/reportes/Cambientales/updateInfoEnvioBogota",
-            mimeType: 'json',
-            async: true,
-            data: {
-                idcontrolenvioapi: idcontrolenvioapi,
-                mensaje: mensaje,
-                estado: estado
-            },
-            success: function(data, textStatus, jqXHR) {
-                console.log(data);
-
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR.responseText)
-
-            }
-        });
-    }
-
-
-    if (FugasCal == "NA") {
-        $("#sel-tipo-informe-fugas-cal").change(function() {
-            var tipoInforme = $('#sel-tipo-informe-fugas-cal option:selected').attr('value');
-            $("#div-informeNewAntCorantioquia").html("");
-            $("#div-informeNewAntCorantioquia").append('<input type="hidden" id="informeNewAnt" name="informeNewAnt" value="' + tipoInforme + '">');
-            for (var i = 0; i < c; i++) {
-                $("#div-informeNewAnt" + i + "").html("");
-                $("#div-informeNewAnt" + i + "").append('<input type="hidden" id="informeNewAnt" name="informeNewAnt" value="' + tipoInforme + '">');
-            }
-        });
-    }
-
-    var Variable = function(d) {
-        const id = d.id;
-        $("#csvdowload" + id.slice(-1) + "").val(1);
-    }
-
-    var variableNA = function(r) {
-        const id = r.id;
-        $("#csvdowload" + id.slice(-1) + "").val(0);
-    }
-
-    var saveSerCornare = function() {
-        var idprueba = 1507621748;
-        var tipoVehiculo = 2;
-        var idmaquina = 2;
-        $.ajax({
-            type: 'POST',
-            url: "<?php echo base_url(); ?>index.php/oficina/reportes/Cambientales/getInformeCronareWeb",
-            mimeType: 'json',
-            async: true,
-            data: {
-                idmaquina: idmaquina,
-                idprueba: idprueba,
-                tipoVehiculo: tipoVehiculo
-            },
-            success: function(data, textStatus, jqXHR) {
-                if (data !== "") {
-                    envioInformeCornare(data, idprueba, tipoVehiculo);
-                }
-
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                //console.log(jqXHR.responseText)
-
-            }
-        });
-    }
-    var envioInformeCornare = function(data, idprueba, tipoVehiculo) {
-        var datos = {
-            informe: data,
-            function: "saveDatos"
-        }
-        var norma = "";
-        if (tipoVehiculo == 1) {
-            norma = "NTC4983";
-        } else if (tipoVehiculo == 2) {
-            norma = "NTC4231";
-        } else {
-            norma = "NTC5365";
-        }
-        fetch("http://" + dominio + "/api/index.php/" + norma, {
-                method: "POST",
-                body: JSON.stringify(datos),
-                headers: {
-                    'Autorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.Ijg5NnNkYndmZTg3dmNzZGFmOTg0bmc4ZmdoMjRvMTI5MHIi.HraZ7y3eG3dGhKngzOWge-je8Y3lxZgldXjbRbcA7cA',
-                    'Content-Type': 'application/json'
-                },
-            }, 200)
-            .then(respuesta => respuesta)
-            .then((rta) => {
-                insertControl(idprueba);
-
-            })
-            .catch(error => {
-                console.log(error.message);
-
-            });
-
-
-
-        //        $.ajax({
-        //            type: 'POST',
-        //            url: "http://" + dominio + "/cda/index.php/" + norma,
-        //            mimeType: 'json',
-        //            async: true,
-        //            data: {informe: data},
-        //            success: function (data, textStatus, jqXHR) {
-        //                if (data == 1) {
-        //                    insertControl(idprueba);
-        //                }
-        //
-        //            },
-        //            error: function (jqXHR, textStatus, errorThrown) {
-        //                console.log(jqXHR.responseText)
-        //
-        //            }
-        //        });
-    }
-
-    var insertControl = function(idprueba) {
-        $.ajax({
-            type: 'POST',
-            url: "<?php echo base_url(); ?>index.php/oficina/reportes/Cambientales/insertControl",
-            mimeType: 'json',
-            async: true,
-            data: {
-                idprueba: idprueba
-            },
-            success: function(data, textStatus, jqXHR) {
-
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR.responseText)
-
-            }
-        });
-    }
-    //    $("#btnCsv" + c + "").click(function () {
-    //        $("#csvdowload" + c + "").val(1);
-    //        alert(c);
-    //    })
-    //    $("#btnGeneral" + c + "").click(function () {
-    //        $("#csvdowload" + c + "").val(0);
-    //    })
-</script>
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+CANZLbbGYIzyGNv9ki5miDW=

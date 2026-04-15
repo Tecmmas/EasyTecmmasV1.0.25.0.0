@@ -1,3495 +1,487 @@
-<?php $this->load->view('./header'); ?>
-
-<!-- START CONTENT -->
-<style>
-    .select-css {
-        display: block;
-        font-size: 16px;
-        font-family: 'Arial', sans-serif;
-        /*font-weight: 400;*/
-        color: #444;
-        line-height: 1.3;
-        padding: .4em 1.4em .3em .8em;
-        width: 190px;
-        height: 35px;
-        max-width: 100%;
-        box-sizing: border-box;
-        margin: 0;
-        border: 1px solid #aaa;
-        margin-top: 10px;
-
-        /*margin-left: 188px;*/
-        box-shadow: 0 1px 0 1px rgba(0, 0, 0, .03);
-        border-radius: .3em;
-        -moz-appearance: none;
-        -webkit-appearance: none;
-        appearance: none;
-        background-color: #fff;
-        background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
-            linear-gradient(to bottom, #ffffff 0%, #f7f7f7 100%);
-        background-repeat: no-repeat, repeat;
-        background-position: right .7em top 50%, 0 0;
-        background-size: .65em auto, 100%;
-    }
-
-    .select-css::-ms-expand {
-        display: none;
-    }
-
-    .select-css:hover {
-        border-color: #888;
-    }
-
-    .select-css:focus {
-        border-color: #aaa;
-        box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
-        box-shadow: 0 0 0 3px -moz-mac-focusring;
-        color: #222;
-        outline: none;
-    }
-
-    .select-css option {
-        font-weight: normal;
-    }
-
-    .table-wrapper {
-        /*width: 100%;*/
-        height: 500px;
-        overflow: auto;
-        white-space: nowrap;
-
-    }
-
-    .toast-custom {
-        z-index: 99999 !important;
-    }
-
-    .swal2-container {
-        z-index: 999999 !important;
-    }
-</style>
-
-<section id="main-content" class=" ">
-    <section class="wrapper main-wrapper row">
-        <!-- MAIN CONTENT AREA STARTS -->
-        <div class="col-xl-12">
-            <section class="box ">
-                <?php $this->load->view('./nav'); ?>
-                <div class="content-body">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-12">
-                            <section class="box ">
-                                <header class="panel_header">
-                                    <h2 class="title float-left">Informes de stats</h2>
-                                </header>
-                                <div class="content-body">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th colspan="1">
-                                                            <div class="form-group row">
-                                                                <label for="staticEmail" class="col-sm-4 col-form-label">Seleccione el reporte</label>
-                                                                <div class="col-sm-7">
-                                                                    <select class="select-css" name='idreportstats' id="idreportstats">
-                                                                        <option disabled="disabled" selected="selected">Seleccione</option>
-                                                                        <option value="1">Vehiculos</option>
-                                                                        <option value="2">Certificados</option>
-                                                                        <option value="3">Calibraciones</option>
-                                                                        <option value="4">Crm</option>
-                                                                        <option value="5">Bitacoras</option>
-                                                                        <option value="6">Informe pesv</option>
-                                                                        <option value="7">Pruebas</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!--informe pruebas-->
-                                <div style="display: none" id="div-report-pruebas">
-                                    <div class="content-body">
-                                        <header class="panel_header">
-                                            <div style="float: left; font-size: 1.57em">Informe Vehiculos</div>
-                                            <div style="color: red; text-align: center;">
-                                                <input type="submit" name="consultar" onclick="limpiarform()" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke;" value="Limpiar campos">
-                                            </div>
-                                        </header>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <form id="form-statspruebas">
-                                                    <table class="table">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Servicio
-                                                                            <select class="select-css" id="sel-serviciop" name="sel-serviciop">
-                                                                                <option selected="selected">Seleccionar</option>
-                                                                                <?php foreach ($servicio as $value): ?>
-                                                                                    <option value="<?= $value->idservicio ?>"><?= $value->nombre ?></option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Clase
-                                                                            <select class="select-css" id="sel-clasep" name="sel-clasep">
-                                                                                <option selected="selected">Seleccionar</option>
-                                                                                <?php foreach ($clase as $value): ?>
-                                                                                    <option value="<?= $value->idclase ?>"><?= $value->nombre ?></option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Marca
-                                                                            <select class="select-css" name="sel-marcap" id="sel-marcap">
-                                                                                <option disabled="disabled" selected="selected">Seleccionar</option>
-                                                                                <?php foreach ($marca as $value): ?>
-                                                                                    <option value="<?= $value->idmarcaR ?>"><?= $value->nombre ?></option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Linea
-                                                                            <select class="select-css" name="sel-lineap" id="sel-lineap" disabled>
-                                                                                <option disabled="disabled" selected="selected">Seleccionar</option>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <!--                                                                <td>
-                                                                    <div  style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Tipo prueba
-                                                                            <select class="select-css" id="sel-tipopruebap" name="sel-tipopruebap" >
-                                                                                <option disabled="disabled" selected="selected">Seleccionar</option>
-                                                                                <option value="1">Luxometro</option>
-                                                                                <option value="2">Opacimetro</option>
-                                                                                <option value="3">Analizador de gases</option>
-                                                                                <option value="4">Sonometro</option>
-                                                                                <option value="5">Camara</option>
-                                                                                <option value="6">Taximetro</option>
-                                                                                <option value="7">Frenometro</option>
-                                                                                <option value="8">Visual</option>
-                                                                                <option value="9">Suspension</option>
-                                                                                <option value="10">Alineador</option>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>-->
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Usuarios
-                                                                            <select class="select-css" id="sel-operariop" name="sel-operariop">
-                                                                                <option selected="selected">Seleccionar</option>
-                                                                                <?php foreach ($usuarios as $value): ?>
-                                                                                    <?php if ($value->idperfil !== '2') { ?>
-                                                                                        <option value="<?= $value->IdUsuario ?>"><?= $value->nombres ?></option>
-                                                                                    <?php } ?>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <!--                                                                <td>
-                                                                    <div  style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Estado de prueba
-                                                                            <select class="select-css" id="sel-estado-pruebas-p" name="sel-estado-pruebas-p" >
-                                                                                <option disabled="disabled" selected="selected">Seleccionar</option>
-                                                                                <option value="0">Asignado</option>
-                                                                                <option value="1">Rechazado</option>
-                                                                                <option value="2">Aprobado</option>
-                                                                                <option value="3">Reasignado</option>
-                                                                                <option value="5">Abortado</option>
-                                                                                <option value="9">Reasignado Individual</option>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>-->
-
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Tipo inpección
-                                                                            <select class="select-css" id="sel-reinpeccionp" name="sel-reinpeccionp">
-                                                                                <option selected="selected">Seleccionar</option>
-                                                                                <option value="0">Tec-1ra</option>
-                                                                                <option value="1">Tec-Reins</option>
-                                                                                <option value="4444">Prev-1ra</option>
-                                                                                <option value="44441">Prev-Reins</option>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Estado final
-                                                                            <select class="select-css" id="sel-estadop" name="sel-estadop">
-                                                                                <option selected="selected">Seleccionar</option>
-                                                                                <option value="2">Aprobado</option>
-                                                                                <option value="4">Certificado</option>
-                                                                                <option value="3">Rechazado</option>
-                                                                                <option value="5">Abortado</option>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Tipo Vehicúlo
-                                                                            <select class="select-css" id="sel-tipo-vehiculop" name="sel-tipo-vehiculop">
-                                                                                <option selected="selected">Seleccionar</option>
-                                                                                <?php foreach ($tipov as $value): ?>
-                                                                                    <option value="<?= $value->idtipo_vehiculo ?>"><?= $value->nombre ?></option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Combustible
-                                                                            <select class="select-css" id="sel-combustiblep" name="sel-combustiblep">
-                                                                                <option selected="selected">Seleccionar</option>
-                                                                                <?php foreach ($combustible as $value): ?>
-                                                                                    <option value="<?= $value->idtipocombustible ?>"><?= $value->nombre ?></option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Tiempos
-                                                                            <select class="select-css" id="sel-tiemposp" name="sel-tiemposp">
-                                                                                <option selected="selected">Seleccionar</option>
-                                                                                <option value="2">2 tiempos</option>
-                                                                                <option value="4">4 tiempos</option>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-
-                                                            </tr>
-                                                            <tr>
-
-
-
-                                                                <td>
-                                                                    <div style="margin-top: 10px">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center " for="nombres">Fecha inicial
-                                                                            <input type="text" class="form-control datepicker" id="fechainicialp" name="fechainicialp" data-format="yyyy-mm-dd " autocomplete="off" style="margin-top: 10px">
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Fecha final
-                                                                            <input type="text" class="form-control datepicker" id="fechafinalp" name="fechafinalp" data-format="yyyy-mm-dd" autocomplete="off" style="margin-top: 10px">
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 40px">
-                                                                        <label style="font-weight: bold; color: black; align-content: center"></label>
-                                                                        <input type="submit" name="consultar" id="btn-generar-statspruebas" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke;" value="Generar">
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <div id="valid-dato-p" style="color: red"></div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="display: none" id="div-pruebas">
-                                    <div class="content-body">
-                                        <br>
-                                        <header class="panel_header">
-                                            <div style="float: left; font-size: 1.57em">Informe Pruebas</div>
-                                            <div style="color: red; text-align: center;">
-                                                <input type="submit" name="consultar" onclick="limpiarform()" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke;" value="Limpiar campos">
-                                            </div>
-                                        </header>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <form id="form-statspruebas-data">
-                                                    <table class="table">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Servicio
-                                                                            <select class="select-css" id="sel-serviciopruebas" name="sel-serviciop">
-                                                                                <option selected="selected">Seleccionar</option>
-                                                                                <?php foreach ($servicio as $value): ?>
-                                                                                    <option value="<?= $value->idservicio ?>"><?= $value->nombre ?></option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Clase
-                                                                            <select class="select-css" id="sel-clasepruebas" name="sel-clasep">
-                                                                                <option selected="selected">Seleccionar</option>
-                                                                                <?php foreach ($clase as $value): ?>
-                                                                                    <option value="<?= $value->idclase ?>"><?= $value->nombre ?></option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Marca
-                                                                            <select class="select-css" name="sel-marcap" id="sel-marcapruebas">
-                                                                                <option disabled="disabled" selected="selected">Seleccionar</option>
-                                                                                <?php foreach ($marca as $value): ?>
-                                                                                    <option value="<?= $value->idmarcaR ?>"><?= $value->nombre ?></option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Linea
-                                                                            <select class="select-css" name="sel-lineap" id="sel-lineapruebas" disabled>
-                                                                                <option disabled="disabled" selected="selected">Seleccionar</option>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Tipo prueba
-                                                                            <select class="select-css" id="sel-tipopruebapruebas" name="sel-tipopruebap">
-                                                                                <option disabled="disabled" selected="selected">Seleccionar</option>
-                                                                                <option value="1">Luxometro</option>
-                                                                                <option value="2">Opacimetro</option>
-                                                                                <option value="3">Analizador de gases</option>
-                                                                                <option value="4">Sonometro</option>
-                                                                                <option value="5">Camara</option>
-                                                                                <option value="6">Taximetro</option>
-                                                                                <option value="7">Frenometro</option>
-                                                                                <option value="8">Visual</option>
-                                                                                <option value="9">Suspension</option>
-                                                                                <option value="10">Alineador</option>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Usuarios
-                                                                            <select class="select-css" id="sel-operariopruebas" name="sel-operariop">
-                                                                                <option selected="selected">Seleccionar</option>
-                                                                                <?php foreach ($usuarios as $value): ?>
-                                                                                    <option value="<?= $value->IdUsuario ?>"><?= $value->nombres ?></option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Estado de prueba
-                                                                            <select class="select-css" id="sel-estado-pruebas" name="sel-estado-pruebas-p">
-                                                                                <option disabled="disabled" selected="selected">Seleccionar</option>
-                                                                                <option value="0">Asignado</option>
-                                                                                <option value="1">Rechazado</option>
-                                                                                <option value="2">Aprobado</option>
-                                                                                <option value="3">Reasignado</option>
-                                                                                <option value="5">Abortado</option>
-                                                                                <option value="9">Reasignado Individual</option>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Tipo inpección
-                                                                            <select class="select-css" id="sel-reinpeccionpruebas" name="sel-reinpeccionp">
-                                                                                <option selected="selected">Seleccionar</option>
-                                                                                <option value="0">Tec-1ra</option>
-                                                                                <option value="1">Tec-Reins</option>
-                                                                                <option value="4444">Prev-1ra</option>
-                                                                                <option value="44441">Prev-Reins</option>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Estado final
-                                                                            <select class="select-css" id="sel-estadopruebas" name="sel-estadop">
-                                                                                <option selected="selected">Seleccionar</option>
-                                                                                <option value="2">Aprobado</option>
-                                                                                <option value="4">Certificado</option>
-                                                                                <option value="3">Rechazado</option>
-                                                                                <option value="5">Abortado</option>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Tipo Vehicúlo
-                                                                            <select class="select-css" id="sel-tipo-vehiculopruebas" name="sel-tipo-vehiculop">
-                                                                                <option selected="selected">Seleccionar</option>
-                                                                                <?php foreach ($tipov as $value): ?>
-                                                                                    <option value="<?= $value->idtipo_vehiculo ?>"><?= $value->nombre ?></option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-
-
-
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Tiempos
-                                                                            <select class="select-css" id="sel-tiempospruebas" name="sel-tiemposp">
-                                                                                <option selected="selected">Seleccionar</option>
-                                                                                <option value="2">2 tiempos</option>
-                                                                                <option value="4">4 tiempos</option>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Combustible
-                                                                            <select class="select-css" id="sel-combustiblepruebas" name="sel-combustiblep">
-                                                                                <option selected="selected">Seleccionar</option>
-                                                                                <?php foreach ($combustible as $value): ?>
-                                                                                    <option value="<?= $value->idtipocombustible ?>"><?= $value->nombre ?></option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center " for="nombres">Fecha inicial
-                                                                            <input type="text" class="form-control datepicker" id="fechainicialpruebas" name="fechainicialp" data-format="yyyy-mm-dd " autocomplete="off" style="margin-top: 10px">
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Fecha final
-                                                                            <input type="text" class="form-control datepicker" id="fechafinalpruebas" name="fechafinalp" data-format="yyyy-mm-dd" autocomplete="off" style="margin-top: 10px">
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 40px">
-                                                                        <label style="font-weight: bold; color: black; align-content: center"></label>
-                                                                        <input type="submit" name="consultar" id="btn-generar-stats-pruebasruebas" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke;" value="Generar">
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <div id="valid-dato-pruebas" style="color: red"></div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <section class="box" style="display: none" id="sec-info-statspruebas">
-                                    <div class="content-body">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <br>
-                                                <div class="form-group row">
-                                                    <input type="submit" name="consultar" id="btn-descargar-statspruebas" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke" value="Descargar">
-                                                    <div id="div-info-statspruebas" class="mx-sm-4" style="text-align: right"></div>
-                                                </div>
-                                                <br>
-                                                <div class="table-wrapper">
-                                                    <table class="table-bordered" id="table-statspruebas">
-                                                        <thead id="head-stats-pruebas">
-
-                                                        </thead>
-                                                        <tbody id="body-reg-statspruebas">
-
-                                                        </tbody>
-                                                    </table>
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                                <!--fin informe pruebas-->
-                                <!--inicio informe certificados-->
-                                <div style="display: none" id="div-report-certificados">
-                                    <div class="content-body">
-                                        <header class="panel_header">
-                                            <div style="float: left; font-size: 1.57em">Informe Certificados</div>
-                                            <div style="color: red; text-align: center;">
-                                                <input type="submit" name="consultar" onclick="limpiarform()" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke;" value="Limpiar campos">
-                                            </div>
-                                        </header>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <form id="form-statscertificados">
-                                                    <table class="table">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <label style="font-weight: bold; color: grey; align-content: center;margin-top: 10px" for="nombres">Placa</label>
-                                                                    <div style="margin-top: 5px;">
-                                                                        <input type="text" class="input" id="input-placa-c" style="height: 31px; width: 190px; text-transform: uppercase">
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Clase
-                                                                            <select class="select-css" id="sel-clasec" name="sel-clasec">
-                                                                                <option selected="selected">Seleccionar</option>
-                                                                                <?php foreach ($clase as $value): ?>
-                                                                                    <option value="<?= $value->idclase ?>"><?= $value->nombre ?></option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Marca
-                                                                            <select class="select-css" name="sel-marcac" id="sel-marcac">
-                                                                                <option disabled="disabled" selected="selected">Seleccionar</option>
-                                                                                <?php foreach ($marca as $value): ?>
-                                                                                    <option value="<?= $value->idmarcaR ?>"><?= $value->nombre ?></option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Linea
-                                                                            <select class="select-css" name="sel-lineac" id="sel-lineac" disabled>
-                                                                                <option disabled="disabled" selected="selected">Seleccionar</option>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Servicio
-                                                                            <select class="select-css" id="sel-servicioc" name="sel-servicioc">
-                                                                                <option selected="selected">Seleccionar</option>
-                                                                                <?php foreach ($servicio as $value): ?>
-                                                                                    <option value="<?= $value->idservicio ?>"><?= $value->nombre ?></option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Tipo inpección
-                                                                            <select class="select-css" id="sel-reinpeccionc" name="sel-reinpeccionc">
-                                                                                <option selected="selected">Seleccionar</option>
-                                                                                <option value="0">Tec-1ra</option>
-                                                                                <option value="1">Tec-Reins</option>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Estado final
-                                                                            <select class="select-css" id="sel-estadoc" name="sel-estadoc">
-                                                                                <option selected="selected">Seleccionar</option>
-                                                                                <option value="4">Certificado</option>
-                                                                                <option value="3">Rechazado</option>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Tipo Vehicúlo
-                                                                            <select class="select-css" id="sel-tipo-vehiculoc" name="sel-tipo-vehiculoc">
-                                                                                <option selected="selected">Seleccionar</option>
-                                                                                <?php foreach ($tipov as $value): ?>
-                                                                                    <option value="<?= $value->idtipo_vehiculo ?>"><?= $value->nombre ?></option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Combustible
-                                                                            <select class="select-css" id="sel-combustiblec" name="sel-combustiblec">
-                                                                                <option selected="selected">Seleccionar</option>
-                                                                                <?php foreach ($combustible as $value): ?>
-                                                                                    <option value="<?= $value->idtipocombustible ?>"><?= $value->nombre ?></option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-
-                                                                <td>
-                                                                    <div style="margin-top: 10px">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center " for="nombres">Fecha inicial
-                                                                            <input type="text" class="form-control datepicker" id="fechainicialc" name="fechainicialc" data-format="yyyy-mm-dd " autocomplete="off" style="margin-top: 10px">
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Fecha final
-                                                                            <input type="text" class="form-control datepicker" id="fechafinalc" name="fechafinalc" data-format="yyyy-mm-dd" autocomplete="off" style="margin-top: 10px">
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 40px">
-                                                                        <label style="font-weight: bold; color: black; align-content: center"></label>
-                                                                        <input type="submit" name="consultar" id="btn-generar-statscertificados" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke;" value="Generar">
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <div id="valid-dato-c" style="color: red"></div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <section class="box" style="display: none" id="sec-info-statscertificados">
-                                    <div class="content-body">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <br>
-                                                <div class="form-group row">
-                                                    <input type="submit" name="consultar" id="btn-descargar-statscertificados" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke" value="Descargar">
-                                                    <div id="div-info-statscertificados" class="mx-sm-4" style="text-align: right"></div>
-                                                </div>
-                                                <br>
-                                                <div class="table-wrapper">
-                                                    <table class="table-bordered" id="table-statscertificados">
-                                                        <thead>
-                                                            <tr>
-                                                                <th style="font-size: 13px; text-align: center;">Fecha</th>
-                                                                <th style="font-size: 13px; text-align: center;">Placa</th>
-                                                                <th style="font-size: 13px; text-align: center;">Numero fur</th>
-                                                                <th style="font-size: 13px; text-align: center;">Numero certificado</th>
-                                                                <th style="font-size: 13px; text-align: center;">Consecutivo runt</th>
-                                                                <th style="font-size: 13px; text-align: center;">Consecutivo rechazo</th>
-                                                                <th style="font-size: 13px; text-align: center;">Factura</th>
-                                                                <th style="font-size: 13px; text-align: center;">Fecha impresion</th>
-                                                                <th style="font-size: 13px; text-align: center;">Fecha vigencia</th>
-                                                                <th style="font-size: 13px; text-align: center;">Ingeniero Pista</th>
-                                                                <th style="font-size: 13px; text-align: center;">Nombre operario</th>
-                                                                <th style="font-size: 13px; text-align: center;">Nombres cliente</th>
-                                                                <th style="font-size: 13px; text-align: center;">Nombres propietario</th>
-                                                                <th style="font-size: 13px; text-align: center;">Documento</th>
-                                                                <th style="font-size: 13px; text-align: center;">Direccion</th>
-                                                                <th style="font-size: 13px; text-align: center;">Correo</th>
-                                                                <th style="font-size: 13px; text-align: center;">Telefono</th>
-                                                                <th style="font-size: 13px; text-align: center;">Marca</th>
-                                                                <th style="font-size: 13px; text-align: center;">Linea</th>
-                                                                <th style="font-size: 13px; text-align: center;">Color</th>
-                                                                <th style="font-size: 13px; text-align: center;">Estado final</th>
-                                                                <th style="font-size: 13px; text-align: center;">Ocacion</th>
-                                                                <th style="font-size: 13px; text-align: center;">Clase</th>
-                                                                <th style="font-size: 13px; text-align: center;">Servicio</th>
-                                                                <th style="font-size: 13px; text-align: center;">Combustible</th>
-                                                                <th style="font-size: 13px; text-align: center;">Modelo</th>
-                                                                <th style="font-size: 13px; text-align: center;">Cilindraje</th>
-                                                                <th style="font-size: 13px; text-align: center;">Tipo Vehiculo</th>
-                                                                <th style="font-size: 13px; text-align: center;">Numero motor</th>
-                                                                <th style="font-size: 13px; text-align: center;">Numero vin</th>
-                                                                <th style="font-size: 13px; text-align: center;">Numero serie</th>
-                                                                <th style="font-size: 13px; text-align: center;">Scooter</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody id="body-reg-statscertificados">
-
-                                                        </tbody>
-                                                    </table>
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                                <!--fin informe certificados-->
-                                <!--inicio calibraciones-->
-                                <div style="display: none" id="div-report-calibraciones">
-                                    <div class="content-body">
-                                        <header class="panel_header">
-                                            <div class="title float-left" style="font-size: 1.57em">Informe Calibraciones</div>
-                                            <div class="title float-center" style="color: red; text-align: center;">
-                                                <input type="submit" name="consultar" onclick="limpiarform()" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke; margin-left:  180px" value="Limpiar campos">
-                                            </div>
-                                            <div class="title float-right" style="margin-right: 30px">
-                                                <?php if ($tipoinforme == "NA") { ?>
-                                                    <table>
-                                                        <tbody>
-                                                            <tr>
-                                                                Tipo informe
-                                                            </tr>
-                                                            <tr>
-                                                                <select id="sel-tipo-informe-fugas-cal">
-                                                                    <option value="0">Gases Anterior</option>
-                                                                    <option value="1">Gases Nuevo</option>
-                                                                </select>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                <?php } ?>
-                                            </div>
-                                        </header>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <form id="form-statscalibraciones">
-                                                    <table class="table">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Analizadores
-                                                                            <select class="select-css" id="sel-analizador" name="sel-analizador">
-                                                                                <option disabled="disabled" selected="selected">Seleccionar</option>
-                                                                                <?php foreach ($maquina as $item): ?>
-                                                                                    <?php if ($item->prueba == 'analizador' && $item->activo == 1): ?>
-                                                                                        <option value="<?= $item->idconf_maquina ?>"><?= $item->nombre . '-' . $item->marca . $item->serie_maquina . '-' . $item->serie_banco ?></option>
-                                                                                    <?php endif; ?>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Tipo reporte gases
-                                                                            <select class="select-css" id="sel-tipo-reporte" name="sel-tipo-reporte">
-                                                                                <option disabled="disabled" selected="selected">Seleccionar</option>
-                                                                                <option value="1">Calibracion</option>
-                                                                                <option value="2">Fugas</option>
-                                                                                <option value="4">Log prueba gases</option>
-
-                                                                                <option value="3" id="option-verificacion">Verificacion</option>
-
-
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Opacimetros
-                                                                            <select class="select-css" id="sel-opacidad" name="sel-opacidad">
-                                                                                <option disabled="disabled" selected="selected">Seleccionar</option>
-                                                                                <?php foreach ($maquina as $item): ?>
-                                                                                    <?php if ($item->prueba == 'opacidad' && $item->activo == 1): ?>
-                                                                                        <option value="<?= $item->idconf_maquina ?>"><?= $item->nombre . '-' . $item->marca . $item->serie_maquina . '-' . $item->serie_banco ?></option>
-                                                                                    <?php endif; ?>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-
-                                                                <td id="tr-reporte-opacidad">
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Tipo reporte opacidad
-                                                                            <select class="select-css" id="sel-tipo-reporte-opacidad" name="sel-tipo-reporte-opacidad">
-                                                                                <option disabled="disabled" selected="selected">Seleccionar</option>
-                                                                                <option value="1">Linealidad</option>
-                                                                                <option value="2">Control Cero</option>
-                                                                                <option value="3">Tiempo pruebas</option>
-                                                                            </select>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div style="margin-top: 10px">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center " for="nombres">Fecha inicial
-                                                                            <input type="text" class="form-control datepicker" id="fechainicialca" name="fechainicialca" data-format="yyyy-mm-dd " autocomplete="off" style="margin-top: 10px">
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Fecha final
-                                                                            <input type="text" class="form-control datepicker" id="fechafinalca" name="fechafinalca" data-format="yyyy-mm-dd" autocomplete="off" style="margin-top: 10px">
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 40px">
-                                                                        <label style="font-weight: bold; color: black; align-content: center"></label>
-                                                                        <input type="submit" name="consultar" data="opaciemtro" id="btn-generar-statscalibraciones" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke;" value="Generar">
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <div id="valid-dato-ca" style="color: red"></div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <section class="box" style="display: none" id="sec-info-statscalibraciones">
-                                    <div class="content-body">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="table-wrapper" id="table-calibraciones" style="display: none">
-                                                    <div class="form-group row">
-                                                        <div style="float: left; font-size: 1.57em; margin-left: 15px">Resultados</div>
-                                                        <input type="submit" name="consultar" id="btn-descargar-statscalibraciones" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke; margin-left: 50px" value="Descargar">
-                                                    </div>
-                                                    <br>
-                                                    <table class="table-bordered" id="table-statscalibraciones">
-                                                        <thead id="head-reg-statscalibraciones">
-
-                                                        </thead>
-                                                        <tbody id="body-reg-statscalibraciones">
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div style="white-space: normal; height: 400px; overflow: auto; display: none" id="table-verificacion">
-                                                    <div class="form-group row">
-                                                        <div style="float: left; font-size: 1.57em; margin-left: 15px">Resultados</div>
-                                                        <input type="submit" name="consultar" id="btn-descargar-table-verificacion" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke; margin-left: 50px" value="Descargar">
-                                                    </div>
-                                                    <br>
-                                                    <table class="table" id="table-statsverificacion">
-                                                        <thead id="head-reg-statsverificacion">
-
-                                                        </thead>
-                                                        <tbody id="body-reg-statsverificacion">
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <br>
-                                                <div style="display: none" id="sec-info-resultadosverificacion">
-                                                    <div class="form-group row">
-                                                        <div style="float: left; font-size: 1.57em;">Resultados</div>
-                                                        <input type="submit" name="consultar" id="btn-descargar-verificaciones" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke; margin-left: 50px" value="Descargar">
-                                                    </div>
-                                                    <br>
-                                                    <div style="white-space: normal; height: 500px; overflow: auto;">
-                                                        <table class="table" id="table-stats-verificacion">
-                                                            <thead id="head-reg-stats-verifricacion">
-                                                                <tr>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody id="body-stats-verifricacion">
-
-                                                            </tbody>
-                                                        </table>
-
-                                                    </div>
-                                                </div>
-                                                <div style="display: none" id="sec-info-resultados-opa">
-                                                    <div class="form-group row">
-                                                        <div style="float: left; font-size: 1.57em;">Resultados</div>
-                                                        <input type="submit" name="consultar" id="btn-descargar-stats-resultados-opa" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke; margin-left: 50px" value="Descargar">
-                                                    </div>
-                                                    <br>
-                                                    <div style="white-space: normal; height: 500px; overflow: auto;">
-                                                        <table class="table" id="table-stats-verificacion-opa">
-                                                            <thead>
-
-                                                                <tr>
-                                                                    <th>Placa</th>
-                                                                    <th>Marca software</th>
-                                                                    <th>Version software</th>
-                                                                    <th>Cda</th>
-                                                                    <th>Nit</th>
-                                                                    <th>Marca</th>
-                                                                    <th>Modelo</th>
-                                                                    <th>Serial</th>
-                                                                    <th>Fecha y hora</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td id="thPlaca"></td>
-                                                                    <td id="thMarcaSoftware"></td>
-                                                                    <td id="thVersionSoftware"></td>
-                                                                    <td id="thCda"></td>
-                                                                    <td id="thNit"></td>
-                                                                    <td id="thMarca"></td>
-                                                                    <td id="thModelo"></td>
-                                                                    <td id="thSerial"></td>
-                                                                    <td id="thFechaHora"></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td colspan="8">
-                                                                        <!-- Tabla anidada -->
-                                                                        <table class="table">
-                                                                            <thead>
-
-                                                                                <tr id="tr-resultados-opa">
-
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody id="body-stats-verifricacion-opa">
-
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-
-
-
-                                                    </div>
-                                                </div>
-                                                <div style="display: none; " id="sec-info-resultadoslog">
-                                                    <div class="form-group row">
-                                                        <div style="float: left; font-size: 1.57em;">Resultados</div>
-                                                        <input type="submit" name="consultar" id="btn-descargar-logs" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke; margin-left: 50px" value="Descargar">
-                                                    </div>
-                                                    <br>
-                                                    <div style="white-space: normal; height: 500px; overflow: auto;">
-                                                        <table class="table" id="table-stats-logs">
-                                                            <thead id="headLogPruebas">
-
-                                                            </thead>
-                                                            <tbody id="body-stats-logs">
-
-                                                            </tbody>
-                                                        </table>
-
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-
-                                <!--fin calibraciones-->
-                                <!-- Inicio informe crm-->
-                                <div style="display: none" id="div-report-cmr">
-                                    <header class="panel_header">
-                                        <h2 class="title float-left">Informe Crm</h2>
-                                    </header>
-                                    <div class="content-body">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <table class="table">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div style="margin-top: 10px;">
-                                                                    <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Seleccione tipo de inspeccion
-                                                                        <select class="select-css" id="tipoinspeccion" name='tipoi'>
-                                                                            <option value="1">Certificadas</option>
-                                                                            <option value="2">Preventivas</option>
-                                                                        </select>
-                                                                    </label>
-                                                                </div>
-                                                            </td>
-
-                                                            <td>
-                                                                <div style="margin-top: 10px;">
-                                                                    <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Seleccione tipo de servicio
-                                                                        <select class="select-css" id="tiposervicio" name='tipov'>
-                                                                            <option value="1">Todos</option>
-                                                                            <option value="2">Público</option>
-                                                                            <option value="3">Particular</option>
-                                                                        </select>
-                                                                    </label>
-                                                                </div>
-                                                            </td>
-                                                            <td id="numero-meses" style="display: none">
-                                                                <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Seleccione meses de vencimiento
-                                                                    <select class="select-css" id="selectmeses">
-                                                                        <option value="1">1</option>
-                                                                        <option value="2">2</option>
-                                                                        <option value="3">3</option>
-                                                                        <option value="4">4</option>
-                                                                        <option value="5">5</option>
-                                                                        <option value="6">6</option>
-                                                                        <option value="7">7</option>
-                                                                        <option value="8">8</option>
-                                                                        <option value="9">9</option>
-                                                                        <option value="10">10</option>
-                                                                        <option value="11">11</option>
-                                                                        <option value="12">12</option>
-                                                                    </select>
-                                                                </label>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-
-                                                            <td>
-                                                                <div style="margin-top: 10px">
-                                                                    <label style="font-weight: bold; color: grey; " for="nombres">Fecha inicial<br />
-                                                                        <input type="text" class="form-control datepicker" id="fechainicial" name="fechainicial" data-format="yyyy-mm-dd " autocomplete="off" style="margin-top: 10px">
-                                                                    </label>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div style="margin-top: 10px">
-                                                                    <label style="font-weight: bold; color: grey" for="nombres">Fecha final<br />
-                                                                        <input type="text" class="form-control datepicker" id="fechafinal" name="fechafinal" data-format="yyyy-mm-dd" autocomplete="off" style="margin-top: 10px">
-                                                                    </label>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <div style="text-align: center">
-                                                    <label style="font-weight: bold; color: black"></label>
-                                                    <input type="hidden" id="get-fecha" value="<?= $fecha ?>">
-                                                    <input type="submit" name="consultar" id="btn-generar-crm" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke" value="Generar">
-                                                </div>
-                                                <br>
-                                                <div id="valid-dato" style="color: red"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <section class="box" style="display: none" id="sec-info-report">
-                                <div class="content-body">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <br>
-                                            <div class="form-group row">
-                                                <input type="submit" name="consultar" id="btn-descargar-crm" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke" value="Descargar">
-                                                <div id="div-info" class="mx-sm-4" style="text-align: right"></div>
-                                            </div>
-
-                                            <br>
-                                            <div class="table-wrapper">
-                                                <table class="table-bordered" id="table-crm">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="font-size: 13px; text-align: center;">Placa</th>
-                                                            <th style="font-size: 13px; text-align: center;">Tipo</th>
-                                                            <th style="font-size: 13px; text-align: center;">Cilindraje</th>
-                                                            <th style="font-size: 13px; text-align: center;">Certificado</th>
-                                                            <th style="font-size: 13px; text-align: center;">Fecha&nbsp;impresion</th>
-                                                            <th style="font-size: 13px; text-align: center;">Fecha&nbsp;vigencia</th>
-                                                            <th style="font-size: 13px; text-align: center;">Soat</th>
-                                                            <th style="font-size: 13px; text-align: center;">Indentificación</th>
-                                                            <th style="font-size: 13px; text-align: center;">Nombre&nbsp;clientes</th>
-                                                            <th style="font-size: 13px; text-align: center;">Telefono&nbsp;1</th>
-                                                            <th style="font-size: 13px; text-align: center;">Telefono&nbsp;2</th>
-                                                            <th style="font-size: 13px; text-align: center;">Correo</th>
-                                                            <th style="font-size: 13px; text-align: center;">Cumpleaños</th>
-                                                            <th style="font-size: 13px; text-align: center;">Ciudad</th>
-                                                            <th style="font-size: 13px; text-align: center;">Dirección</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="body-reg-crm">
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <!-- Fin informe crm-->
-                            <!--inicio bitacoras-->
-                            <section class="box" style="display: none" id="div-report-bitacoras">
-                                <div>
-
-                                    <div class="content-body">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <header class="panel_header">
-                                                    <div style="float: left; font-size: 1.57em">Informe Bitacoras</div>
-                                                    <div style="color: red; text-align: center;">
-                                                        <input type="submit" name="consultar" onclick="limpiarform()" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke;" value="Limpiar campos">
-                                                    </div>
-                                                </header>
-                                                <form id="form-bitacora">
-                                                    <table class="table">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Tipo bitacora
-                                                                            <select class="select-css" id="tipobi" name='tipobi'>
-                                                                                <option value="Calibracion">Calibracion</option>
-                                                                                <option value="Mantenimeinto">Mantenimeinto</option>
-                                                                                <option value="Fallas">Fallas</option>
-                                                                                <option value="Verificación">Verificación</option>
-                                                                            </select>
-                                                                            <strong style="color: #E31F24;font-size: 12px "><?php echo form_error('tipobi'); ?></strong>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-
-                                                                <td>
-                                                                    <div style="margin-top: 10px;">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Gravedad
-                                                                            <select class="select-css" id="gravedadbi" name='gravedadbi'>
-                                                                                <option value="Alta">Alta</option>
-                                                                                <option value="Media">Media</option>
-                                                                                <option value="Baja">Baja</option>
-                                                                            </select>
-                                                                            <strong style="color: #E31F24;font-size: 12px "><?php echo form_error('gravedadbi'); ?></strong>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td id="numero-meses">
-                                                                    <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Estado
-                                                                        <select class="select-css" id="estadobi" name="estadobi">
-                                                                            <option value="1">Abierto</option>
-                                                                            <option value="2">Cerrado</option>
-                                                                        </select>
-                                                                        <strong style="color: #E31F24;font-size: 12px "><?php echo form_error('estadobi'); ?></strong>
-                                                                    </label>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td id="numero-meses">
-                                                                    <label style="font-weight: bold; color: grey; align-content: center" for="nombres">Maquinas
-                                                                        <select class="select-css" id="maquinabi" name="maquinabi">
-                                                                            <?php foreach ($maquina as $item): ?>
-                                                                                <option value="<?= $item->idconf_maquina ?>"><?= $item->nombre . ' ' . $item->marca . $item->serie_maquina . ' ' . $item->serie_banco ?></option>
-                                                                            <?php endforeach; ?>
-                                                                        </select>
-                                                                        <strong style="color: #E31F24;font-size: 12px "><?php echo form_error('maquinabi'); ?></strong>
-                                                                    </label>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px">
-                                                                        <label style="font-weight: bold; color: grey; " for="nombres">Fecha inicial<br />
-                                                                            <input type="text" class="form-control datepicker" id="fechainicialbi" name="fechainicialbi" data-format="yyyy-mm-dd " autocomplete="off" style="margin-top: 10px">
-                                                                            <strong style="color: #E31F24;font-size: 12px "><?php echo form_error('fechainicialbi'); ?></strong>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div style="margin-top: 10px">
-                                                                        <label style="font-weight: bold; color: grey" for="nombres">Fecha final<br />
-                                                                            <input type="text" class="form-control datepicker" id="fechafinalbi" name="fechafinalbi" data-format="yyyy-mm-dd" autocomplete="off" style="margin-top: 10px">
-                                                                            <strong style="color: #E31F24;font-size: 12px "><?php echo form_error('fechafinalbi'); ?></strong>
-                                                                        </label>
-
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <table class="table">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <div style="margin-top: 10px; align-content:  center">
-                                                                        <label style="font-weight: bold; color: grey; align-content: center;">Descripción<br />
-                                                                            <textarea class="form-control" id="textbi" name="textbi" style="height: 100px; width: 950px"></textarea>
-                                                                            <strong style="color: #E31F24;font-size: 12px "><?php echo form_error('textbi'); ?></strong>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <div style="text-align: center">
-                                                        <label style="font-weight: bold; color: black"></label>
-                                                        <input type="hidden" id="get-fecha" value="<?= $fecha ?>">
-                                                        <input name="consultar" id="btn-guadar-bitacoras" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke; text-align: center" value="Guardar">
-                                                        <input name="consultar" id="btn-ver-bitacoras" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke; text-align: center" value="Ver historial">
-                                                    </div>
-                                                    <br>
-                                                    <div id="valid-dato-bi" style="color: red"></div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <section class="box" style="display: none" id="sec-info-bitacoras">
-                                <div class="content-body">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <br>
-                                            <div class="form-group row">
-                                                <input type="submit" name="consultar" id="btn-descargar-bitacoras" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke" value="Descargar">
-                                                <div id="div-info-bitacoras" class="mx-sm-4" style="text-align: right"></div>
-                                            </div>
-
-                                            <br>
-                                            <div class="table-wrapper">
-                                                <table class="table-bordered" id="table-bitacoras">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Nombre</th>
-                                                            <th>Fecha apertura</th>
-                                                            <th>Fecha cierre</th>
-                                                            <th>Usuario</th>
-                                                            <th>Comentario</th>
-                                                            <th>Tipo</th>
-                                                            <th>Gravedad</th>
-                                                            <th>Estado</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="body-reg-bitacoras">
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <section class="box" style="display: none" id="sec-info-bitacoras-cierre">
-                                <!--<section class="box"  id="sec-info-bitacoras-cierre">-->
-                                <div class="content-body">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <br>
-                                            <div style="text-align: center">
-                                                <strong style="color: black; font-size: 18px">BITACORAS ABIERTAS <label id="coutnBitacoras"></label></strong>
-                                            </div>
-
-                                            <br>
-                                            <div id="accordion" role="tablist" class="accordion-group">
-                                                <div id="data-bitacoras"></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <!--fin bitacoras-->
-                            <!--inicio bitacoras-->
-                            <section class="box" style="display: none" id="div-report-pesv">
-                                <div>
-                                    <div class="content-body">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <header class="panel_header">
-                                                    <div style="float: left; font-size: 1.57em">Informe pesv</div>
-                                                </header>
-                                                <form id="form-bitacora">
-                                                    <table class="table">
-                                                        <tbody>
-
-                                                            <tr>
-                                                                <div class="row">
-                                                                    <div class="col-md-4 col-lg-4 col-sm-3" style="text-align: center"><!-- comment -->
-                                                                        <label style="font-weight: bold; color: grey; " for="nombres">Fecha inicial<br />
-                                                                            <input type="text" class="form-control datepicker" id="fechainicial-pesv" name="fechainicial-pesv" data-format="yyyy-mm-dd " autocomplete="off" style="margin-top: 10px">
-                                                                            <strong style="color: #E31F24;font-size: 12px "><?php echo form_error('fechainicialbi'); ?></strong>
-                                                                        </label>
-                                                                    </div>
-
-
-                                                                    <div class="col-md-4 col-lg-4 col-sm-3" style="text-align: center"><!-- comment -->
-                                                                        <label style="font-weight: bold; color: grey" for="nombres">Fecha final<br />
-                                                                            <input type="text" class="form-control datepicker" id="fechafinal-pesv" name="fechafinal-pesv" data-format="yyyy-mm-dd" autocomplete="off" style="margin-top: 10px">
-                                                                            <strong style="color: #E31F24;font-size: 12px "><?php echo form_error('fechafinalbi'); ?></strong>
-                                                                        </label>
-                                                                    </div>
-
-
-                                                                    <div class="col-md-4 col-lg-4 col-sm-3" style="text-align: center"><!-- comment -->
-                                                                        <label style="font-weight: bold; color: grey" for="nombres"></label><br>
-                                                                        <input type="submit" name="consultar" id="btn-descargar-pesv" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke; margin-top: 12px" value="Generar">
-                                                                    </div>
-                                                                </div>
-
-
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <br>
-                                                    <div id="valid-dato-bi" style="color: red"></div>
-                                                </form>
-                                                <div style="display: none" id="sec-informe-pesv">
-                                                    <div class="form-group row">
-                                                        <div style="float: left; font-size: 1.57em;">Resultados</div>
-                                                        <input type="submit" name="consultar" id="btn-descargar-informe-pesv" style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke; margin-left: 50px" value="Descargar">
-                                                        <br>
-                                                        <div id="div-info-pesv" class="mx-sm-4" style="text-align: right"></div>
-                                                    </div>
-                                                    <br>
-                                                    <div style="white-space: normal; height: 500px; overflow: auto;">
-                                                        <table class="table" id="table-informe-pesv">
-                                                            <thead id="head-informe-pesv">
-
-                                                            </thead>
-                                                            <tbody id="body-informe-pesv">
-
-                                                            </tbody>
-                                                        </table>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-
-                        </div>
-
-            </section>
-
-
-
-
-
-            <!-- MAIN CONTENT AREA ENDS -->
-    </section>
-
-    <div class="modal" id="modal-resultados" role="dialog" aria-hidden="true" style="display: none" data-backdrop="false">
-        <div class="modal-dialog animated bounceInDown">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="titulo_">Resultados prueba</h4>
-                </div>
-                <div class="modal-body" id="modal-body-result">
-                    <div id="result" style="display: none">
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button data-dismiss="modal" class="btn btn-default" id="btn-close" type="button">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="Modal-token" s tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog animated bounceInDown">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="titulo_">Validar Token</h4>
-                </div>
-                <div class="modal-body">
-                    <label style="color: black; justify-content: center">Para poder ejecutar este comando, por favor comuniquese con el area de desarrollo para que le entregue un token y pueda continuar con el proceso</label>
-                    <br>
-                    <br>
-                    <div style="text-align: center">
-                        <input type="password" placeholder="Token" class="input" id="token" autocomplete="off">
-                    </div>
-                    <div id="valid-token" style="color: red"></div>
-                </div>
-                <div class="modal-footer">
-                    <button data-dismiss="modal" class="btn btn-default" type="button">CANCELAR</button>
-                    <button id="btnAsignar" class="btn btn-success" type="button" onclick="Validar()">Validar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- END CONTENT -->
-    <?php $this->load->view('./footer'); ?>
-    <script type="text/javascript">
-        var fechaPrueba = "";
-        var tipoinformeEntra = "<?php
-                                echo $tipoinforme;
-                                ?>";
-        var ipLocal = '<?php
-                        echo base_url();
-                        ?>';
-        var dominio = "";
-        const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.onmouseenter = Swal.stopTimer;
-                toast.onmouseleave = Swal.resumeTimer;
-            },
-            customClass: {
-                popup: 'toast-custom'
-            }
-        });
-
-        $(document).ready(function() {
-            if (tipoinformeEntra == "NA") {
-                console.log('entre por na');
-                var tipoinforme = $('#sel-tipo-informe-fugas-cal option:selected').attr('value');
-                localStorage.setItem("tipoInforme", tipoinforme);
-                if (tipoinforme == 1) {
-                    document.getElementById("option-verificacion").style.display = '';
-                    document.getElementById("tr-reporte-opacidad").style.display = '';
-                } else {
-                    document.getElementById("option-verificacion").style.display = 'none';
-                    document.getElementById("tr-reporte-opacidad").style.display = 'none';
-                }
-            } else {
-                if (tipoinformeEntra == 1) {
-                    document.getElementById("option-verificacion").style.display = '';
-                    document.getElementById("tr-reporte-opacidad").style.display = '';
-                } else {
-                    document.getElementById("option-verificacion").style.display = 'none';
-                    document.getElementById("tr-reporte-opacidad").style.display = 'none';
-                }
-                localStorage.setItem("tipoInforme", tipoinformeEntra);
-            }
-
-            var text = new XMLHttpRequest();
-            text.open("GET", ipLocal + "system/dominio.dat", false);
-            text.send(null);
-            dominio = text.responseText;
-
-
-        });
-
-
-        $("#sel-tipo-informe-fugas-cal").change(function() {
-            var tipoinforme = $('#sel-tipo-informe-fugas-cal option:selected').attr('value');
-            localStorage.setItem("tipoInforme", tipoinforme);
-            if (tipoinforme == 1) {
-                document.getElementById("option-verificacion").style.display = '';
-                document.getElementById("tr-reporte-opacidad").style.display = '';
-            } else {
-                document.getElementById("option-verificacion").style.display = 'none';
-                document.getElementById("tr-reporte-opacidad").style.display = 'none';
-            }
-        });
-
-
-        $('#idreportstats').change(function() {
-            var idreportstats = $('#idreportstats option:selected').attr('value');
-            switch (idreportstats) {
-                case '1':
-                    document.getElementById("div-report-pruebas").style.display = '';
-                    document.getElementById("div-report-calibraciones").style.display = 'none';
-                    document.getElementById("div-report-certificados").style.display = 'none';
-                    document.getElementById("div-report-cmr").style.display = 'none';
-                    document.getElementById("sec-info-statspruebas").style.display = 'none';
-                    document.getElementById("sec-info-report").style.display = 'none';
-                    document.getElementById("sec-info-statscertificados").style.display = 'none';
-                    document.getElementById("sec-info-statscalibraciones").style.display = 'none';
-                    document.getElementById("div-report-bitacoras").style.display = 'none';
-                    document.getElementById("sec-info-bitacoras").style.display = 'none';
-                    document.getElementById("div-pruebas").style.display = 'none';
-                    document.getElementById("div-report-pesv").style.display = 'none';
-                    document.getElementById("sec-informe-pesv").style.display = 'none';
-                    document.getElementById('sec-info-bitacoras-cierre').style.display = 'none';
-                    //                                        document.getElementById("sec-info-pruebas").style.display = 'none';
-                    break;
-                case '2':
-                    document.getElementById("div-report-pruebas").style.display = 'none';
-                    document.getElementById("div-report-calibraciones").style.display = 'none';
-                    document.getElementById("div-report-certificados").style.display = '';
-                    document.getElementById("div-report-cmr").style.display = 'none';
-                    document.getElementById("sec-info-statspruebas").style.display = 'none';
-                    document.getElementById("sec-info-report").style.display = 'none';
-                    document.getElementById("sec-info-statscertificados").style.display = 'none';
-                    document.getElementById("sec-info-statscalibraciones").style.display = 'none';
-                    document.getElementById("div-report-bitacoras").style.display = 'none';
-                    document.getElementById("sec-info-bitacoras").style.display = 'none';
-                    document.getElementById("div-pruebas").style.display = 'none';
-                    document.getElementById("div-report-pesv").style.display = 'none';
-                    document.getElementById("sec-informe-pesv").style.display = 'none';
-                    document.getElementById('sec-info-bitacoras-cierre').style.display = 'none';
-                    //                                        document.getElementById("sec-info-pruebas").style.display = 'none';
-                    break;
-                case '3':
-                    document.getElementById("div-report-calibraciones").style.display = '';
-                    document.getElementById("div-report-pruebas").style.display = 'none';
-                    document.getElementById("div-report-certificados").style.display = 'none';
-                    document.getElementById("div-report-cmr").style.display = 'none';
-                    document.getElementById("sec-info-statspruebas").style.display = 'none';
-                    document.getElementById("sec-info-report").style.display = 'none';
-                    document.getElementById("sec-info-statscertificados").style.display = 'none';
-                    document.getElementById("sec-info-statscalibraciones").style.display = 'none';
-                    document.getElementById("div-report-bitacoras").style.display = 'none';
-                    document.getElementById("sec-info-bitacoras").style.display = 'none';
-                    document.getElementById("div-pruebas").style.display = 'none';
-                    document.getElementById("div-report-pesv").style.display = 'none';
-                    document.getElementById("sec-informe-pesv").style.display = 'none';
-                    document.getElementById('sec-info-bitacoras-cierre').style.display = 'none';
-                    //                                        document.getElementById("sec-info-pruebas").style.display = 'none';
-                    break;
-                case '4':
-                    document.getElementById("div-report-cmr").style.display = '';
-                    document.getElementById("div-report-calibraciones").style.display = 'none';
-                    document.getElementById("div-report-certificados").style.display = 'none';
-                    document.getElementById("div-report-pruebas").style.display = 'none';
-                    document.getElementById("sec-info-report").style.display = 'none';
-                    document.getElementById("sec-info-statscertificados").style.display = 'none';
-                    document.getElementById("sec-info-statspruebas").style.display = 'none';
-                    document.getElementById("sec-info-statscalibraciones").style.display = 'none';
-                    document.getElementById("div-report-bitacoras").style.display = 'none';
-                    document.getElementById("sec-info-bitacoras").style.display = 'none';
-                    document.getElementById("div-pruebas").style.display = 'none';
-                    document.getElementById("div-report-pesv").style.display = 'none';
-                    document.getElementById("sec-informe-pesv").style.display = 'none';
-                    document.getElementById('sec-info-bitacoras-cierre').style.display = 'none';
-                    //                                        document.getElementById("sec-info-pruebas").style.display = 'none';
-                    break;
-                case '5':
-                    document.getElementById("div-report-calibraciones").style.display = 'none';
-                    document.getElementById("div-report-bitacoras").style.display = '';
-                    document.getElementById("div-report-pruebas").style.display = 'none';
-                    document.getElementById("div-report-certificados").style.display = 'none';
-                    document.getElementById("div-report-cmr").style.display = 'none';
-                    document.getElementById("sec-info-statspruebas").style.display = 'none';
-                    document.getElementById("sec-info-report").style.display = 'none';
-                    document.getElementById("sec-info-statscertificados").style.display = 'none';
-                    document.getElementById("sec-info-statscalibraciones").style.display = 'none';
-                    document.getElementById("sec-info-bitacoras").style.display = 'none';
-                    document.getElementById("div-pruebas").style.display = 'none';
-                    document.getElementById("div-report-pesv").style.display = 'none';
-                    document.getElementById("sec-informe-pesv").style.display = 'none';
-                    document.getElementById('sec-info-bitacoras-cierre').style.display = 'none';
-                    //                                        document.getElementById("sec-info-pruebas").style.display = 'none';
-                    bitacoraOpen();
-                    break;
-                case '6':
-                    document.getElementById("div-report-pesv").style.display = '';
-                    document.getElementById("div-report-calibraciones").style.display = 'none';
-                    document.getElementById("div-report-bitacoras").style.display = 'none';
-                    document.getElementById("div-report-pruebas").style.display = 'none';
-                    document.getElementById("div-report-certificados").style.display = 'none';
-                    document.getElementById("div-report-cmr").style.display = 'none';
-                    document.getElementById("sec-info-statspruebas").style.display = 'none';
-                    document.getElementById("sec-info-report").style.display = 'none';
-                    document.getElementById("sec-info-statscertificados").style.display = 'none';
-                    document.getElementById("sec-info-statscalibraciones").style.display = 'none';
-                    document.getElementById("sec-info-bitacoras").style.display = 'none';
-                    document.getElementById("div-pruebas").style.display = 'none';
-                    document.getElementById("sec-informe-pesv").style.display = 'none';
-                    document.getElementById('sec-info-bitacoras-cierre').style.display = 'none';
-
-
-                    break;
-                default:
-                    document.getElementById("div-report-calibraciones").style.display = 'none';
-                    document.getElementById("div-report-bitacoras").style.display = 'none';
-                    document.getElementById("div-report-pruebas").style.display = 'none';
-                    document.getElementById("div-report-certificados").style.display = 'none';
-                    document.getElementById("div-report-cmr").style.display = 'none';
-                    document.getElementById("sec-info-statspruebas").style.display = 'none';
-                    document.getElementById("sec-info-report").style.display = 'none';
-                    document.getElementById("sec-info-statscertificados").style.display = 'none';
-                    document.getElementById("sec-info-statscalibraciones").style.display = 'none';
-                    document.getElementById("sec-info-bitacoras").style.display = 'none';
-                    document.getElementById("div-report-pesv").style.display = 'none';
-                    document.getElementById("sec-informe-pesv").style.display = 'none';
-                    document.getElementById('sec-info-bitacoras-cierre').style.display = 'none';
-                    document.getElementById("div-pruebas").style.display = '';
-                    //                                        document.getElementById("sec-info-pruebas").style.display = '';
-                    break;
-            }
-        });
-        //carga de linea
-        $('#sel-marcap').change(function() {
-            var idmarca = $('#sel-marcap option:selected').attr('value');
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/infolinea',
-                type: 'post',
-                mimeType: 'json',
-                data: {
-                    idmarca: idmarca
-                },
-                success: function(data, textStatus, jqXHR) {
-                    console.log(data)
-                    $('#sel-lineap').html('');
-                    $('#sel-lineap').html('<option disabled="disabled" selected="selected">Seleccionar</option>');
-                    $.each(data, function(i, data) {
-                        $('#sel-lineap').append("<option value=" + data.lineaR + ">" + data.nombre + "</option>");
-                    });
-                    document.getElementById("sel-lineap").disabled = false;
-                }
-            });
-        });
-        $('#sel-marcac').change(function() {
-            var idmarca = $('#sel-marcac option:selected').attr('value');
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/infolinea',
-                type: 'post',
-                mimeType: 'json',
-                data: {
-                    idmarca: idmarca
-                },
-                success: function(data, textStatus, jqXHR) {
-                    $('#sel-lineac').html('');
-                    $('#sel-lineac').html('<option disabled="disabled" selected="selected">Seleccionar</option>');
-                    $.each(data, function(i, data) {
-                        $('#sel-lineac').append("<option value=" + data.lineaR + ">" + data.nombre + "</option>");
-                    });
-                    document.getElementById("sel-lineac").disabled = false;
-                }
-            });
-        });
-        // sel stats pruebas 
-        $('#sel-marcapruebas').change(function() {
-            var idmarca = $('#sel-marcapruebas option:selected').attr('value');
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/infolinea',
-                type: 'post',
-                mimeType: 'json',
-                data: {
-                    idmarca: idmarca
-                },
-                success: function(data, textStatus, jqXHR) {
-                    console.log(data)
-                    $('#sel-lineapruebas').html('');
-                    $('#sel-lineapruebas').html('<option disabled="disabled" selected="selected">Seleccionar</option>');
-                    $.each(data, function(i, data) {
-                        $('#sel-lineapruebas').append("<option value=" + data.lineaR + ">" + data.nombre + "</option>");
-                    });
-                    document.getElementById("sel-lineapruebas").disabled = false;
-                }
-            });
-        });
-        //inicio statsvehiculos
-        function limpiarform() {
-            $("#form-statscertificados")[0].reset();
-            $("#form-statspruebas")[0].reset();
-            $("#form-statscalibraciones")[0].reset();
-            $("#form-bitacora")[0].reset();
-            $("#form-statspruebas-data")[0].reset();
-            document.getElementById("sel-opacidad").disabled = false;
-            document.getElementById("sel-analizador").disabled = false;
-            document.getElementById("sel-tipo-reporte").disabled = false;
-        }
-
-        //inicio stats pruebas
-        $('#btn-generar-statspruebas').click(function(ev) {
-            ev.preventDefault();
-            document.getElementById("sec-info-statspruebas").style.display = 'none';
-            if ($('#fechainicialp').val().length == 0) {
-                $('#valid-dato-p').html('El campo fecha inicial es obligatorio.');
-            } else if ($('#fechafinalp').val().length == 0) {
-                $('#valid-dato-p').html('El campo fecha final es obligatorio.');
-            } else {
-                $('#valid-dato-p').html(' ');
-                showSuccess('Cargando resultados, por favor espere.');
-                var fechainicialp = $('#fechainicialp').val();
-                var fechafinalp = $('#fechafinalp').val();
-                var selserviciop = $('#sel-serviciop option:selected').attr('value');
-                var selclasep = $('#sel-clasep option:selected').attr('value');
-                var selmarcap = $('#sel-marcap option:selected').attr('value');
-                var sellineap = $('#sel-lineap option:selected').attr('value');
-                var seltipopruebap = $('#sel-tipopruebap option:selected').attr('value');
-                var selestadopruebasp = $('#sel-estado-pruebas-p option:selected').attr('value');
-                var seloperariop = $('#sel-operariop option:selected').attr('value');
-                var selestadop = $('#sel-estadop option:selected').attr('value');
-                var selreinpeccionp = $('#sel-reinpeccionp option:selected').attr('value');
-                var seltipovehiculop = $('#sel-tipo-vehiculop option:selected').attr('value');
-                var selcombustiblep = $('#sel-combustiblep option:selected').attr('value');
-                var seltiemposp = $('#sel-tiemposp option:selected').attr('value');
-                $.ajax({
-                    url: '<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/statspruebas',
-                    type: 'post',
-                    mimeType: 'json',
-                    data: {
-                        fechainicialp: fechainicialp,
-                        fechafinalp: fechafinalp,
-                        selserviciop: selserviciop,
-                        selclasep: selclasep,
-                        selmarcap: selmarcap,
-                        sellineap: sellineap,
-                        seltipopruebap: seltipopruebap,
-                        selestadopruebasp: selestadopruebasp,
-                        seloperariop: seloperariop,
-                        selestadop: selestadop,
-                        selreinpeccionp: selreinpeccionp,
-                        seltipovehiculop: seltipovehiculop,
-                        selcombustiblep: selcombustiblep,
-                        seltiemposp: seltiemposp,
-                        tipo: 1
-                    },
-                    success: function(data, textStatus, jqXHR) {
-                        //                    console.log(data);
-                        var html = "<tr><th style='font-size: 13px; text-align: center;'>Fecha inicial</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Placa</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Nombres cliente</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Nombres propietario</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Marca</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Linea</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Documento operario</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Nombres operario</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Estado final</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Ocacion</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Clase</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Servicio</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Combustible</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Modelo</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Tipo Vehiculo</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Numero pasajeros</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Cilindraje</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Cilindros</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Kilometraje</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Taximetro</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Tiempos</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Ensenanza</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Aborto</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Usuario aborto prueba</th>\n\
-                                                        </tr>";
-                        $("#head-stats-pruebas").html(html);
-                        document.getElementById("sec-info-statspruebas").style.display = '';
-                        $("#body-reg-statspruebas").html('');
-                        $('#div-info-statspruebas').html('');
-                        $('html, body').animate({
-                            scrollTop: $("#sec-info-statspruebas").offset().top
-                        }, 900);
-                        var dato = 0;
-                        $.each(data, function(i, data) {
-                            dato++;
-                            $('#div-info-statspruebas').html('Numero de registros: ' + dato);
-                            var razonAborto = "";
-                            switch (data.Razon_aborto) {
-                                case '1':
-                                    razonAborto = 'Fallas del equipo de medición';
-                                    break;
-                                case '2':
-                                    razonAborto = 'Falla súbita del fluido eléctrico';
-                                    break;
-                                case '3':
-                                    razonAborto = 'Bloqueo forzado del equipo';
-                                    break;
-                                case '4':
-                                    razonAborto = 'Ejecución incorrecta de la prueba';
-                                    break;
-
-                                default:
-                                    razonAborto = data.Razon_aborto;
-                                    break;
-                            }
-                            var body = "<tr>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Fecha_inicial + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Placa + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Cliente + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Propietario + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Marca + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Linea + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Documento + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Operario + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Estado_final + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Ocacion + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Clase + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Servicio + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Combustible + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Modelo + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Tipo_vehiculo + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Numero_pasajeros + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Cilindraje + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Cilindros + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.kilometraje + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Taximetro + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Tiempos + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Ensenanza + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + razonAborto + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Usuario_aborto_prueba + "</td>";
-                            //body += "<td style='font-size: 12px; text-align: center;'>" + data.prueba_cancelada + "</td>";
-                            body += "</tr>";
-                            $("#table-statspruebas tbody").append(body);
-                        });
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        $("#valid-dato-p").html(textStatus);
-                    }
-                });
-            }
-        });
-        //stats prueb                            as 
-        $('#btn-generar-stats-pruebasruebas').click(function(ev) {
-            ev.preventDefault();
-            //                                console.log('data');
-            document.getElementById("sec-info-statspruebas").style.display = 'none';
-            if ($('#fechainicialpruebas').val().length == 0) {
-                $('#valid-dato-pruebas').html('El campo fecha inicial es obligatorio.');
-            } else if ($('#fechafinalpruebas').val().length == 0) {
-                $('#valid-dato-pruebas').html('El campo fecha final es obligatorio.');
-            } else {
-                $('#valid-dato-pruebas').html(' ');
-                showSuccess('Cargando resultados, por favor espere.');
-                var fechainicialp = $('#fechainicialpruebas').val();
-                var fechafinalp = $('#fechafinalpruebas').val();
-                var selserviciop = $('#sel-serviciopruebas option:selected').attr('value');
-                var selclasep = $('#sel-clasepruebas option:selected').attr('value');
-                var selmarcap = $('#sel-marcapruebas option:selected').attr('value');
-                var sellineap = $('#sel-lineapruebas option:selected').attr('value');
-                var seltipopruebap = $('#sel-tipopruebapruebas option:selected').attr('value');
-                var selestadopruebasp = $('#sel-estado-pruebas option:selected').attr('value');
-                var seloperariop = $('#sel-operariopruebas option:selected').attr('value');
-                var selestadop = $('#sel-estadopruebas option:selected').attr('value');
-                var selreinpeccionp = $('#sel-reinpeccionpruebas option:selected').attr('value');
-                var seltipovehiculop = $('#sel-tipo-vehiculopruebas option:selected').attr('value');
-                var selcombustiblep = $('#sel-combustiblepruebas option:selected').attr('value');
-                var seltiemposp = $('#sel-tiempospruebas option:selected').attr('value');
-                $.ajax({
-                    url: '<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/statspruebas',
-                    type: 'post',
-                    mimeType: 'json',
-                    data: {
-                        fechainicialp: fechainicialp,
-                        fechafinalp: fechafinalp,
-                        selserviciop: selserviciop,
-                        selclasep: selclasep,
-                        selmarcap: selmarcap,
-                        sellineap: sellineap,
-                        seltipopruebap: seltipopruebap,
-                        selestadopruebasp: selestadopruebasp,
-                        seloperariop: seloperariop,
-                        selestadop: selestadop,
-                        selreinpeccionp: selreinpeccionp,
-                        seltipovehiculop: seltipovehiculop,
-                        selcombustiblep: selcombustiblep,
-                        seltiemposp: seltiemposp,
-                        tipo: 2
-                    },
-                    success: function(data, textStatus, jqXHR) {
-
-                        var html = "<tr><th style='font-size: 13px; text-align: center;'>Fecha inicial</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Placa</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Tipo Prueba</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Nombres cliente</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Nombres propietario</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Marca</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Linea</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Documento operario</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Nombres operario</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Estado prueba</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Clase</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Servicio</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Combustible</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Modelo</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Tipo Vehiculo</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Numero pasajeros</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Cilindraje</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Cilindros</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Kilometraje</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Taximetro</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Tiempos</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Ensenanza</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Aborto</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Usuario aborto prueba</th>\n\
-                                                            <th style='font-size: 13px; text-align: center;'>Opciones</th>\n\
-                                                        </tr>";
-                        $("#head-stats-pruebas").html(html);
-                        document.getElementById("sec-info-statspruebas").style.display = '';
-                        $("#body-reg-statspruebas").html('');
-                        $('#div-info-statspruebas').html('');
-                        $('html, body').animate({
-                            scrollTop: $("#sec-info-statspruebas").offset().top
-                        }, 900);
-                        var dato = 0;
-                        $.each(data, function(i, data) {
-                            dato++;
-                            var razonAborto = "";
-                            switch (data.Razon_aborto) {
-                                case '1':
-                                    razonAborto = 'Fallas del equipo de medición';
-                                    break;
-                                case '2':
-                                    razonAborto = 'Falla súbita del fluido eléctrico';
-                                    break;
-                                case '3':
-                                    razonAborto = 'Bloqueo forzado del equipo';
-                                    break;
-                                case '4':
-                                    razonAborto = 'Ejecución incorrecta de la prueba';
-                                    break;
-
-                                default:
-                                    razonAborto = data.Razon_aborto;
-                                    break;
-                            }
-                            $('#div-info-statspruebas').html('Numero de registros: ' + dato);
-                            var body = "<tr>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Fecha_inicial + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Placa + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Tipo_prueba + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Cliente + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Propietario + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Marca + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Linea + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Documento + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Operario + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Estado + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Clase + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Servicio + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Combustible + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Modelo + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Tipo_vehiculo + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.pasajeros + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Cilindraje + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Cilindros + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.kilometraje + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Taximetro + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Tiempos + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Ensenanza + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + razonAborto + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Usuario_aborto_prueba + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'><button data-toggle='modal' data-target='#modal-resultados' style='background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke' onclick='getresultados(" + data.idprueba + "," + data.idtipo_prueba + " )'>Ver resultados</button></td>";
-                            body += "</tr>";
-                            $("#table-statspruebas tbody").append(body);
-                        });
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        $("#valid-dato-p").html(textStatus);
-                    }
-                });
-            }
-        });
-
-        function getresultados(idprueba, idtipo_prueba) {
-
-            //                                console.log(idprueba)
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/getresultados',
-                type: 'post',
-                mimeType: 'json',
-                data: {
-                    idprueba: idprueba,
-                    idtipo_prueba: idtipo_prueba
-                },
-                success: function(data, textStatus, jqXHR) {
-                    console.log(data);
-                    $('#body-table-result').html('');
-                    $("#div-data-image").remove();
-                    if (idtipo_prueba !== 5) {
-                        //                                            document.getElementById("table-modal-resultados").style.display = "";
-                        var html = "<table class='table' id='table-modal-resultados'>\n\
-                                                            <thead>\n\
-                                                                <tr>\n\
-                                                                    <th>Descripcion</th>\n\
-                                                                    <th>Valor</th>\n\
-                                                                </tr>\n\
-                                                            </thead>\n\
-                                                            <tbody id='body-table-result'>\n\
-                                                            </tbody>\n\
-                                                        </table>";
-                        $("#modal-body-result").html(html);
-                        $.each(data, function(i, data) {
-                            var body = "<tr>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Descripcion + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Valor + "</td>";
-                            body += "</tr>";
-                            $("#table-modal-resultados tbody").append(body);
-                        });
-                    } else {
-                        //                                            document.getElementById("table-modal-resultados").style.display = "none"
-                        $("#modal-body-result").html("<div id='div-data-image'><img style='width: 90%; height: 90%' src=" + data[0].imagen + " /></div>")
-                    }
-
-                    //                                        
-
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    $("#valid-dato-p").html(textStatus);
-                }
-            });
-        }
-        $("#btn-descargar-statspruebas").click(function() {
-            var fecha = $('#get-fecha').val();
-            showSuccess('Descargando el informe, por favor espere.');
-            $('#table-statspruebas').table2csv({
-                filename: 'INFORME STATS VEHICULOS-PRUEBAS ' + fecha + '.csv',
-                separator: ';',
-                newline: '\n',
-                quoteFields: true,
-                excludeColumns: '1',
-                excludeRows: '',
-                trimContent: true
-            });
-        });
-        //fin stats pruebas
-        //inicio stats certificados
-        $('#btn-generar-statscertificados').click(function(ev) {
-            ev.preventDefault();
-            document.getElementById("sec-info-statscertificados").style.display = 'none';
-            if ($('#fechainicialc').val().length == 0) {
-                $('#valid-dato-c').html('El campo fecha inicial es obligatorio.');
-            } else if ($('#fechafinalc').val().length == 0) {
-                $('#valid-dato-c').html('El campo fecha final es obligatorio.');
-            } else {
-                $('#valid-dato-c').html(' ');
-                showSuccess('Cargando resultados, por favor espere.');
-                var fechainicialc = $('#fechainicialc').val();
-                var fechafinalc = $('#fechafinalc').val();
-                var inputplacac = $('#input-placa-c').val();
-                var selservicioc = $('#sel-servicioc option:selected').attr('value');
-                var selclasec = $('#sel-clasec option:selected').attr('value');
-                var selmarcac = $('#sel-marcac option:selected').attr('value');
-                var sellineac = $('#sel-lineac option:selected').attr('value');
-                var selestadoc = $('#sel-estadoc option:selected').attr('value');
-                var selreinpeccionc = $('#sel-reinpeccionc option:selected').attr('value');
-                var seltipovehiculoc = $('#sel-tipo-vehiculoc option:selected').attr('value');
-                var selcombustiblec = $('#sel-combustiblec option:selected').attr('value');
-                $.ajax({
-                    url: '<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/statscertificados',
-                    type: 'post',
-                    mimeType: 'json',
-                    data: {
-                        fechainicialc: fechainicialc,
-                        fechafinalc: fechafinalc,
-                        inputplacac: inputplacac,
-                        selservicioc: selservicioc,
-                        selclasec: selclasec,
-                        selmarcac: selmarcac,
-                        sellineac: sellineac,
-                        selestadoc: selestadoc,
-                        selreinpeccionc: selreinpeccionc,
-                        seltipovehiculoc: seltipovehiculoc,
-                        selcombustiblec: selcombustiblec,
-                    },
-                    success: function(data, textStatus, jqXHR) {
-                        console.log(data);
-                        document.getElementById("sec-info-statscertificados").style.display = '';
-                        $("#body-reg-statscertificados").html('');
-                        $('#div-info-statscertificados').html('');
-                        $('html, body').animate({
-                            scrollTop: $("#sec-info-statscertificados").offset().top
-                        }, 900);
-                        var dato = 0;
-                        $.each(data, function(i, data) {
-                            dato++;
-                            $('#div-info-statscertificados').html('Numero de registros: ' + dato);
-                            var body = "<tr>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Fecha + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Placa + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Numero_fur + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Numero_certificado + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Consecutivo_runt + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Consecutivo_runt_rechazado + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Factura + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Fecha_impresion + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Fecha_vigencia + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Ingeniero_pista + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Usuario_certificacion + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Cliente + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Propietario + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Documento + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Direccion + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Correo + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Telefono + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Marca + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Linea + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Color + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Estado_final + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Ocacion + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Clase + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Servicio + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Combustible + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Modelo + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.cilindraje + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Tipo_vehiculo + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.numero_motor + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.numero_vin + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.numero_serie + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.scooter + "</td>";
-                            body += "</tr>";
-                            $("#table-statscertificados tbody").append(body);
-                        });
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-
-                    }
-                });
-            }
-        });
-        $("#btn-descargar-statscertificados").click(function() {
-            var fecha = $('#get-fecha').val();
-            showSuccess('Descargando el informe, por favor espere.');
-            $('#table-statscertificados').table2csv({
-                filename: 'INFORME STATS CERTIFICADOS ' + fecha + '.csv',
-                separator: ';',
-                newline: '\n',
-                quoteFields: true,
-                excludeColumns: '1',
-                excludeRows: '',
-                trimContent: true
-            });
-        });
-        //fin stats certificados
-        //inicio stats calibraciones
-        $('#sel-analizador').change(function() {
-            document.getElementById("sel-opacidad").disabled = true;
-        });
-        $('#sel-opacidad').change(function() {
-            document.getElementById("sel-analizador").disabled = true;
-            document.getElementById("sel-tipo-reporte").disabled = true;
-        });
-        $('#sel-tipo-reporte').change(function() {
-            document.getElementById("sel-opacidad").disabled = true;
-        });
-        $('#sel-tipo-reporte').change(function() {
-            var seltiporeporte = $('#sel-tipo-reporte option:selected').attr('value');
-            if (seltiporeporte == 4) {
-                document.getElementById("table-calibraciones").style.display = 'none';
-                $('#table-statsverificacion tbody').html('');
-                //            document.getElementById("body-reg-statsverificacion").html('');
-                document.getElementById("sel-opacidad").disabled = true;
-                document.getElementById("sel-analizador").disabled = true;
-                document.getElementById("fechainicialca").disabled = true;
-                document.getElementById("fechafinalca").disabled = true;
-                document.getElementById("btn-generar-statscalibraciones").disabled = true;
-                $.ajax({
-                    url: '<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/logs',
-                    type: 'post',
-                    mimeType: 'json',
-                    //                data: {},
-                    success: function(data, textStatus, jqXHR) {
-                        showSuccess('Cargando resultados, por favor espere.');
-                        document.getElementById("sec-info-statscalibraciones").style.display = '';
-                        $("#body-reg-statsverificacion").html('');
-                        $("#body-stats-verifricacion-opa").html('');
-                        $('#div-info-statscalibraciones').html('');
-                        $('html, body').animate({
-                            scrollTop: $("#sec-info-statscalibraciones").offset().top
-                        }, 900);
-                        document.getElementById("table-verificacion").style.display = '';
-                        document.getElementById("sec-info-resultadosverificacion").style.display = 'none';
-                        document.getElementById("sec-info-resultados-opa").style.display = 'none';
-                        var html = '<tr>\n\
-<th style="font-size: 13px; text-align: center;">Placa</th> \n\
-<th style="font-size: 13px; text-align: center;">Fecha</th> \n\
-<th style="font-size: 13px; text-align: center;">Idprueba</th> \n\
-<th style="font-size: 13px; text-align: center;">Opciones</th> \n\
-</tr>';
-                        $('#head-reg-statsverificacion').html(html);
-                        var dato = 0;
-                        $.each(data, function(i, data) {
-                            var resul = '';
-                            dato++;
-                            $('#div-info-statscalibraciones').html('Numero de registros: ' + dato);
-                            var body = "<tr>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Placa + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Fecha_prueba + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.idprueba + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'><button style='background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke' onclick='getresultadoslog(" + data.idcontrol_prueba_gases + ")'>Ver Resultados</button></td>";
-                            body += "</tr>";
-                            $("#table-statsverificacion tbody").append(body);
-                        });
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-
-                    }
-                });
-            } else {
-                document.getElementById("fechainicialca").disabled = false;
-                document.getElementById("fechafinalca").disabled = false;
-                document.getElementById("btn-generar-statscalibraciones").disabled = false;
-                document.getElementById("sel-analizador").disabled = false;
-            }
-        });
-
-
-        function getresultadoslog(idcontrol_prueba_gases) {
-            document.getElementById("table-calibraciones").style.height = '130px';
-            document.getElementById("sec-info-resultadoslog").style.display = 'none';
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/getresultadoslog',
-                type: 'post',
-                mimeType: 'json',
-                data: {
-                    idcontrol_prueba_gases: idcontrol_prueba_gases
-                },
-                success: function(data, textStatus, jqXHR) {
-                    console.log(data);
-                    showSuccess('Cargando resultados, por favor espere.');
-                    document.getElementById("sec-info-resultadoslog").style.display = '';
-                    $('#body-stats-logs').html('');
-                    $('html, body').animate({
-                        scrollTop: $("#sec-info-resultadoslog").offset().top
-                    }, 900);
-                    fechaPrueba = data[0].Fecha;
-                    var tiempocru = 0;
-                    var cru = null;
-                    var crucero = "";
-                    var relen = JSON.parse(data[0].datos_ciclo_ralenti);
-
-                    if (data[0].datos_ciclo_crucero !== null && data[0].datos_ciclo_crucero !== "") {
-
-                        var cru = JSON.parse(data[0].datos_ciclo_crucero);
-                    }
-                    var arr = [];
-
-                    $('#headLogPruebas').html(`
-                                    <tr>
-                                        <th>MARCA SOFTWARE</th>
-                                        <th>VERSION SOTWARE</th>
-                                        <th>CDA</th>
-                                        <th>NIT</th>
-                                        <th>MARCA</th>
-                                        <th>MODELO</th>
-                                        <th>SERIAL</th>
-                                        <th>FECHA Y HORA</th>
-                                        <th>---</th>
-                                        <th>---</th>
-                                        <th>---</th>
-                                        <th>---</th>
-                                        <th>---</th>
-                                        <th>---</th>
-                                        <th>---</th>
-                                        <th>---</th>
-                                        
-                                    </tr>
-                                    <tr>
-                                        <td>${data.marcasoft.trim()}</td>
-                                        <td>${data.versionsoft.trim()}</td>
-                                        <td>${data[0].nombreCda}</td>
-                                        <td>${data[0].nit.trim()}</td>
-                                        <td>${data.marca.trim()}</td>
-                                        <td>${data.serie_banco.trim()}</td>
-                                        <td>${data.serie_maquina.trim()}</td>
-                                        <td>${fechaPrueba}</td>
-                                        <td>---</td>
-                                        <td>---</td>
-                                        <td>---</td>
-                                        <td>---</td>
-                                        <td>---</td>
-                                        <td>---</td>
-                                        <td>---</td>
-                                        <td>---</td>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <th>Ralenti</th>
-                                        <th>Placa</th>
-                                        <th>Tiempo (S)</th>
-                                        <th>Hc (Ppm)</th>
-                                        <th>Co (%)</th>
-                                        <th>Co2 (%)</th>
-                                        <th>O2 (%)</th>
-                                        <th>Rpm</th>
-                                        <th>-----</th>
-                                        <th>Crucero</th>
-                                        <th>Tiempo (S)</th>
-                                        <th>Hc (Ppm)</th>
-                                        <th>Co (%)</th>
-                                        <th>Co2 (%)</th>
-                                        <th>O2 (%)</th>
-                                        <th>Rpm</th>
-                                    </tr>
-                                `);
-                    if (cru !== null) {
-                        $.each(cru, function(i, cru) {
-                            //                        console.log(cru)
-                            var time = parseFloat(cru.tiempo) + 0.5;
-                            crucero = "<td style='font-size: 12px; text-align: center;'>Prueba Crucero</td>";
-                            crucero += "<td style='font-size: 12px; text-align: center;'>" + time + "</td>";
-                            crucero += "<td style='font-size: 12px; text-align: center;'>" + cru.hc + "</td>";
-                            crucero += "<td style='font-size: 12px; text-align: center;'>" + cru.co + "</td>";
-                            crucero += "<td style='font-size: 12px; text-align: center;'>" + cru.co2 + "</td>";
-                            crucero += "<td style='font-size: 12px; text-align: center;'>" + cru.o2 + "</td>";
-                            crucero += "<td style='font-size: 12px; text-align: center;'>" + cru.rpm + "</td>";
-                            arr.push(crucero);
-                        });
-                    } else {
-                        $.each(relen, function(i, relen) {
-                            crucero = "<td style='font-size: 12px; text-align: center;'>---</td>";
-                            crucero += "<td style='font-size: 12px; text-align: center;'>---</td>";
-                            crucero += "<td style='font-size: 12px; text-align: center;'>---</td>";
-                            crucero += "<td style='font-size: 12px; text-align: center;'>---</td>";
-                            crucero += "<td style='font-size: 12px; text-align: center;'>---</td>";
-                            crucero += "<td style='font-size: 12px; text-align: center;'>---</td>";
-                            crucero += "<td style='font-size: 12px; text-align: center;'>---</td>";
-                            arr.push(crucero);
-                        });
-                    }
-                    $.each(relen, function(i, relen) {
-
-
-
-                        var time = parseFloat(relen.tiempo) + 0.5;
-                        var body = "<tr>";
-
-                        body += "<td style='font-size: 12px; text-align: center;'>Prueba Ralenti</td>";
-                        body += "<td style='font-size: 12px; text-align: center;'>" + data[0].Placa + "</td>";
-                        body += "<td style='font-size: 12px; text-align: center;'>" + time + "</td>";
-                        body += "<td style='font-size: 12px; text-align: center;'>" + relen.hc + "</td>";
-                        body += "<td style='font-size: 12px; text-align: center;'>" + relen.co + "</td>";
-                        body += "<td style='font-size: 12px; text-align: center;'>" + relen.co2 + "</td>";
-                        body += "<td style='font-size: 12px; text-align: center;'>" + relen.o2 + "</td>";
-                        body += "<td style='font-size: 12px; text-align: center;'>" + relen.rpm + "</td>";
-                        body += "<td style='font-size: 12px; text-align: center;'>----</td>";
-                        body += arr[i];
-                        body += "</tr>";
-                        $("#table-stats-logs tbody").append(body);
-                    });
-                }
-            });
-        }
-
-        $('#btn-generar-statscalibraciones').click(function(ev) {
-            ev.preventDefault();
-            document.getElementById("sec-info-statscalibraciones").style.display = 'none';
-            if ($('#fechainicialca').val().length == 0) {
-                $('#valid-dato-ca').html('El campo fecha inicial es obligatorio.');
-            } else if ($('#fechafinalca').val().length == 0) {
-                $('#valid-dato-ca').html('El campo fecha final es obligatorio.');
-            } else {
-                $('#valid-dato-ca').html(' ');
-                showSuccess('Cargando resultados, por favor espere.');
-                var fechainicialca = $('#fechainicialca').val();
-                var fechafinalca = $('#fechafinalca').val();
-                var selanalizador = $('#sel-analizador option:selected').attr('value');
-                var selopcaidad = $('#sel-opacidad option:selected').attr('value');
-                var seltiporeporte = $('#sel-tipo-reporte option:selected').attr('value');
-                var seltiporeporteopacidad = $('#sel-tipo-reporte-opacidad option:selected').attr('value');
-                var tipoInforme = localStorage.getItem("tipoInforme");
-                $.ajax({
-                    url: '<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/statscalibraciones',
-                    type: 'post',
-                    mimeType: 'json',
-                    data: {
-                        fechainicialca: fechainicialca,
-                        fechafinalca: fechafinalca,
-                        selanalizador: selanalizador,
-                        selopcaidad: selopcaidad,
-                        seltiporeporte: seltiporeporte,
-                        seltiporeporteopacidad: seltiporeporteopacidad,
-                        tipoinforme: tipoInforme
-                    },
-                    success: function(data, textStatus, jqXHR) {
-                        //                    console.log(data);
-                        document.getElementById("sec-info-statscalibraciones").style.display = '';
-                        $("#body-reg-statscalibraciones").html('');
-                        $('#div-info-statscalibraciones').html('');
-                        $('html, body').animate({
-                            scrollTop: $("#sec-info-statscalibraciones").offset().top
-                        }, 900);
-                        switch (seltiporeporte) {
-                            case '1':
-                                document.getElementById("table-calibraciones").style.height = '';
-                                document.getElementById("sec-info-resultadosverificacion").style.display = 'none';
-                                document.getElementById("sec-info-resultados-opa").style.display = 'none';
-                                document.getElementById("sec-info-resultadoslog").style.display = 'none';
-                                document.getElementById("table-verificacion").style.display = 'none';
-                                document.getElementById("table-calibraciones").style.display = '';
-                                var html = '<tr>\n\
-<th style="font-size: 13px; text-align: center;">Fecha</th> \n\
-<th style="font-size: 13px; text-align: center;">Serie</th> \n\
-<th style="font-size: 13px; text-align: center;">Pef</th> \n\
-<th style="font-size: 13px; text-align: center;">Usuario</th> \n\
-<th style="font-size: 13px; text-align: center;">Span alto hc</th> \n\
-<th style="font-size: 13px; text-align: center;">Span alto co</th> \n\
-<th style="font-size: 13px; text-align: center;">Span alto co2</th> \n\
-<th style="font-size: 13px; text-align: center;">Span alto n</th> \n\
-<th style="font-size: 13px; text-align: center;">Cal alto hc</th> \n\
-<th style="font-size: 13px; text-align: center;">Cal alto co</th> \n\
-<th style="font-size: 13px; text-align: center;">Cal alto co2</th> \n\
-<th style="font-size: 13px; text-align: center;">Cal alto o2</th> \n\
-<th style="font-size: 13px; text-align: center;">Span bajo hc</th> \n\
-<th style="font-size: 13px; text-align: center;">Span bajo co</th> \n\
-<th style="font-size: 13px; text-align: center;">Span bajo co2</th> \n\
-<th style="font-size: 13px; text-align: center;">Span bajo n</th> \n\
-<th style="font-size: 13px; text-align: center;">Cal bajo hc</th> \n\
-<th style="font-size: 13px; text-align: center;">Cal bajo co</th> \n\
-<th style="font-size: 13px; text-align: center;">Cal bajo co2</th> \n\
-<th style="font-size: 13px; text-align: center;">Cal bajo o2</th> \n\
-<th style="font-size: 13px; text-align: center;">Resultado</th> \n\
-<th style="font-size: 13px; text-align: center;">Opciones</th> \n\
-</tr>';
-                                $('#head-reg-statscalibraciones').html(html);
-                                var dato = 0;
-                                $.each(data, function(i, data) {
-                                    //                                console.log(data);
-                                    var resul = '';
-                                    if (data.resultado == 'APROBADO') {
-                                        resul = "<td style= 'color: green '><strong>" + data.resultado + "</strong></td>";
-                                    } else {
-                                        resul = "<td style= 'color: #FA8072 '><strong>" + data.resultado + "</strong></td>";
-                                    }
-                                    var html = '<td>\n\
-<form action="<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/reportpdfcalibraciones" method="post" target="_blank"> \n\
-\                                               <input type="hidden" name="fecha" value="' + data.Fecha + '"> \n\
-<input type="hidden" name="id"  value="' + data.Id + '">\n\
-<input type="hidden" name="tipoInforme"  value="' + localStorage.getItem("tipoInforme") + '">\n\
-<button style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke"   >Generar pdf</button>\n\
-</form>\n\
-</td>';
-                                    dato++;
-                                    $('#div-info-statscalibraciones').html('Numero de registros: ' + dato);
-                                    var body = "<tr>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Fecha + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Serie + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Pef + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Responsable + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Span_alto_hc + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Span_alto_co + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Span_alto_co2 + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Span_alto_n + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Cal_alto_hc + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Cal_alto_co + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Cal_alto_co2 + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Cal_alto_o2 + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Span_bajo_hc + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Span_bajo_co + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Span_bajo_co2 + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Span_bajo_n + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Cal_bajo_hc + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Cal_bajo_co + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Cal_bajo_co2 + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Cal_bajo_o2 + "</td>";
-                                    body += resul;
-                                    body += html;
-                                    body += "</tr>";
-                                    $("#table-statscalibraciones tbody").append(body);
-                                });
-                                break;
-                            case '2':
-                                document.getElementById("table-calibraciones").style.height = '';
-                                document.getElementById("sec-info-resultadosverificacion").style.display = 'none';
-                                document.getElementById("sec-info-resultados-opa").style.display = 'none';
-                                document.getElementById("sec-info-resultadoslog").style.display = 'none';
-                                document.getElementById("table-verificacion").style.display = 'none';
-                                document.getElementById("table-calibraciones").style.display = '';
-                                var html = '<tr>\n\
-<th style="font-size: 13px; text-align: center;">Fecha</th> \n\
-<th style="font-size: 13px; text-align: center;">Serie</th> \n\
-<th style="font-size: 13px; text-align: center;">Pef</th> \n\
-<th style="font-size: 13px; text-align: center;">Usuario</th> \n\
-<th style="font-size: 13px; text-align: center;">Presion base</th> \n\
-<th style="font-size: 13px; text-align: center;">Presion bomba</th> \n\
-<th style="font-size: 13px; text-align: center;">Presion filtros</th> \n\
-<th style="font-size: 13px; text-align: center;">Total fugas #</th> \n\
-<th style="font-size: 13px; text-align: center;">Total fugas %</th> \n\
-<th style="font-size: 13px; text-align: center;">Vacio bomba apagada</th> \n\
-<th style="font-size: 13px; text-align: center;">Vacio bomba encendida</th> \n\
-<th style="font-size: 13px; text-align: center;">Resultado</th> \n\
-<th style="font-size: 13px; text-align: center;">Opciones</th> \n\
-</tr>';
-                                $('#head-reg-statscalibraciones').html(html);
-                                var dato = 0;
-                                $.each(data, function(i, data) {
-                                    var resul = '';
-                                    if (data.resultado == 'Aprobado') {
-                                        resul = "<td style= 'color: green '><strong>" + data.resultado + "</strong></td>";
-                                    } else {
-                                        resul = "<td style= 'color: #FA8072 '><strong>" + data.resultado + "</strong></td>";
-                                    }
-                                    var html = '<td>\n\
-<form action="<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/reportpdffugas" method="post" target="_blank"> \n\
-\                                               <input type="hidden" name="fecha" value="' + data.Fecha + '"> \n\
-<input type="hidden" name="id"  value="' + data.Id + '">\n\
-<input type="hidden" name="tipoInforme"  value="' + localStorage.getItem("tipoInforme") + '">\n\
-<button style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke">Generar pdf</button>\n\
-</form>\n\
-</td>';
-                                    dato++;
-                                    $('#div-info-statscalibraciones').html('Numero de registros: ' + dato);
-                                    var body = "<tr>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Fecha + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Serie + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Pef + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Responsable + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.presion_base + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.presion_bomba + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.presion_filtros + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.total_fugas_num + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.total_fugas_porc + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.vacio_bomba_apag + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.vacio_bomba_pren + "</td>";
-                                    body += resul;
-                                    body += html;
-                                    body += "</tr>";
-                                    $("#table-statscalibraciones tbody").append(body);
-                                });
-                                break;
-                            case '3':
-                                //                            document.getElementById("table-calibraciones").style.height = '10px';
-                                document.getElementById("sec-info-resultadosverificacion").style.display = 'none';
-                                document.getElementById("sec-info-resultados-opa").style.display = 'none';
-                                document.getElementById("sec-info-resultadoslog").style.display = 'none';
-                                document.getElementById("table-calibraciones").style.display = 'none';
-                                $('#table-statsverificacion tbody').html('');
-                                document.getElementById("table-verificacion").style.display = '';
-                                var html = '<tr>\n\
-<th style="font-size: 13px; text-align: center;">Fecha</th> \n\
-<th style="font-size: 13px; text-align: center;">Serie</th> \n\
-<th style="font-size: 13px; text-align: center;">Serie bench</th> \n\
-<th style="font-size: 13px; text-align: center;">Auditor 1</th> \n\
-<th style="font-size: 13px; text-align: center;">Auditor 2</th> \n\
-<th style="font-size: 13px; text-align: center;">Ip</th> \n\
-<th style="font-size: 13px; text-align: center;">Ciclo</th> \n\
-<th style="font-size: 13px; text-align: center;">Span</th> \n\
-<th style="font-size: 13px; text-align: center;">Opciones</th> \n\
-</tr>';
-                                $('#head-reg-statsverificacion').html(html);
-                                var dato = 0;
-                                $.each(data, function(i, data) {
-                                    var html = '<td>\n\
-<form action="<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/reportverificacion" method="post" target="_blank"> \n\
-\                                               <input type="hidden" name="id" value="' + data.idcontrol_verificacion + '"> \n\
-<button style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke">Ver resultados</button>\n\
-</form>\n\
-</td>';
-                                    dato++;
-                                    $('#div-info-statscalibraciones').html('Numero de registros: ' + dato);
-                                    var body = "<tr>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.fecha + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.serie + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.noSerieBench + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.auditor1 + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.auditor2 + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.ip + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.ciclo + "</td>";
-                                    body += "<td style='font-size: 12px; text-align: center;'>" + data.span + "</td>";
-                                    body += '<td style="font-size: 12px; text-align: center;"><button style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke" onclick="getresultadosverificacion(\'' + data.idcontrol_verificacion + '\',\'' + data.idmaquina + '\',\'' + data.fecha + '\')">Ver resultados</button></td>';
-                                    body += "</tr>";
-                                    $("#table-statsverificacion tbody").append(body);
-                                });
-                                break;
-                            default:
-                                if (typeof(seltiporeporteopacidad) === "undefined") {
-                                    document.getElementById("table-calibraciones").style.height = '';
-                                    document.getElementById("sec-info-resultadosverificacion").style.display = 'none';
-                                    document.getElementById("sec-info-resultados-opa").style.display = 'none';
-                                    document.getElementById("sec-info-resultadoslog").style.display = 'none';
-                                    document.getElementById("table-verificacion").style.display = 'none';
-                                    document.getElementById("table-calibraciones").style.display = '';
-                                    var html = '<tr>\n\
-<th style="font-size: 13px; text-align: center;">Fecha</th> \n\
-<th style="font-size: 13px; text-align: center;">Serie</th> \n\
-<th style="font-size: 13px; text-align: center;">Usuario</th> \n\
-<th style="font-size: 13px; text-align: center;">Lente 1 lectura</th> \n\
-<th style="font-size: 13px; text-align: center;">Lente 2 lectura</th> \n\
-<th style="font-size: 13px; text-align: center;">Lente 3 lectura</th> \n\
-<th style="font-size: 13px; text-align: center;">Lente 4 lectura</th> \n\
-<th style="font-size: 13px; text-align: center;">Lente 1 valor</th> \n\
-<th style="font-size: 13px; text-align: center;">Lente 2 valor</th> \n\
-<th style="font-size: 13px; text-align: center;">Lente 3 valor</th> \n\
-<th style="font-size: 13px; text-align: center;">Lente 4 valor</th> \n\
-<th style="font-size: 13px; text-align: center;">Lente 1 desviacion</th> \n\
-<th style="font-size: 13px; text-align: center;">Lente 2 desviacion</th> \n\
-<th style="font-size: 13px; text-align: center;">Lente 3 desviacion</th> \n\
-<th style="font-size: 13px; text-align: center;">Lente 4 desviacion</th> \n\
-<th style="font-size: 13px; text-align: center;">Error total lectura</th> \n\
-<th style="font-size: 13px; text-align: center;">Resultado</th> \n\
-<th style="font-size: 13px; text-align: center;">Opciones</th> \n\
-</tr>';
-                                    $('#head-reg-statscalibraciones').html(html);
-                                    var dato = 0;
-                                    $.each(data, function(i, data) {
-                                        var resul = '';
-                                        if (data.resultado == 'Aprobada') {
-                                            resul = "<td style= 'color: green '><strong>" + data.resultado + "</strong></td>";
-                                        } else {
-                                            resul = "<td style= 'color: #FA8072 '><strong>" + data.resultado + "</strong></td>";
-                                        }
-                                        var html = '<td>\n\
-<form action="<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/reportpdflinealidad" method="post" target="_blank"> \n\
-<input type="hidden" name="fecha" value="' + data.Fecha + '"> \n\
-<input type="hidden" name="id"  value="' + data.Id + '">\n\
-<input type="hidden" name="tipoInforme"  value="' + localStorage.getItem("tipoInforme") + '">\n\
-<button style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke">Generar pdf</button>\n\
-</form>\n\
-</td>';
-                                        dato++;
-                                        $('#div-info-statscalibraciones').html('Numero de registros: ' + dato);
-                                        var body = "<tr>";
-                                        body += "<td style='font-size: 12px; text-align: center;'>" + data.Fecha + "</td>";
-                                        body += "<td style='font-size: 12px; text-align: center;'>" + data.Serie + "</td>";
-                                        body += "<td style='font-size: 12px; text-align: center;'>" + data.Responsable + "</td>";
-                                        body += "<td style='font-size: 12px; text-align: center;'>" + data.Lente1_lectura + "</td>";
-                                        body += "<td style='font-size: 12px; text-align: center;'>" + data.Lente2_lectura + "</td>";
-                                        body += "<td style='font-size: 12px; text-align: center;'>" + data.Lente3_lectura + "</td>";
-                                        body += "<td style='font-size: 12px; text-align: center;'>" + data.Lente4_lectura + "</td>";
-                                        body += "<td style='font-size: 12px; text-align: center;'>" + data.Lente1_valor + "</td>";
-                                        body += "<td style='font-size: 12px; text-align: center;'>" + data.Lente2_valor + "</td>";
-                                        body += "<td style='font-size: 12px; text-align: center;'>" + data.Lente3_valor + "</td>";
-                                        body += "<td style='font-size: 12px; text-align: center;'>" + data.Lente4_valor + "</td>";
-                                        body += "<td style='font-size: 12px; text-align: center;'>" + data.Lente1_desviacion + "</td>";
-                                        body += "<td style='font-size: 12px; text-align: center;'>" + data.Lente2_desviacion + "</td>";
-                                        body += "<td style='font-size: 12px; text-align: center;'>" + data.Lente3_desviacion + "</td>";
-                                        body += "<td style='font-size: 12px; text-align: center;'>" + data.Lente4_desviacion + "</td>";
-                                        body += "<td style='font-size: 12px; text-align: center;'>" + data.Error_total_lectura + "</td>";
-                                        body += resul;
-                                        body += html;
-                                        body += "</tr>";
-                                        $("#table-statscalibraciones tbody").append(body);
-                                    });
-                                } else {
-                                    switch (seltiporeporteopacidad) {
-                                        case '1':
-                                            document.getElementById("table-calibraciones").style.height = '';
-                                            document.getElementById("sec-info-resultadosverificacion").style.display = 'none';
-                                            document.getElementById("sec-info-resultados-opa").style.display = 'none';
-                                            document.getElementById("sec-info-resultadoslog").style.display = 'none';
-                                            document.getElementById("table-verificacion").style.display = 'none';
-                                            document.getElementById("table-calibraciones").style.display = '';
-                                            var html = '<tr>\n\
-<th style="font-size: 13px; text-align: center;">Fecha</th> \n\
-<th style="font-size: 13px; text-align: center;">Usuario</th> \n\
-<th style="font-size: 13px; text-align: center;">Valor 1</th> \n\
-<th style="font-size: 13px; text-align: center;">Valor 2</th> \n\
-<th style="font-size: 13px; text-align: center;">Valor 3</th> \n\
-<th style="font-size: 13px; text-align: center;">Valor 4</th> \n\
-<th style="font-size: 13px; text-align: center;">Lectura 1</th> \n\
-<th style="font-size: 13px; text-align: center;">Lectura 2</th> \n\
-<th style="font-size: 13px; text-align: center;">Lectura 3</th> \n\
-<th style="font-size: 13px; text-align: center;">Lectura 4</th> \n\
-<th style="font-size: 13px; text-align: center;">Desviacion 1</th> \n\
-<th style="font-size: 13px; text-align: center;">Desviacion 2</th> \n\
-<th style="font-size: 13px; text-align: center;">Desviacion 3</th> \n\
-<th style="font-size: 13px; text-align: center;">Desviacion 4</th> \n\
-<th style="font-size: 13px; text-align: center;">Resultado</th> \n\
-<th style="font-size: 13px; text-align: center;">Opciones</th> \n\
-</tr>';
-                                            $('#head-reg-statscalibraciones').html(html);
-                                            var dato = 0;
-                                            $.each(data, function(i, data) {
-                                                var resul = '';
-                                                if (data.Resultado == 'Aprobado') {
-                                                    resul = "<td style= 'color: green '><strong>" + data.Resultado + "</strong></td>";
-                                                } else {
-                                                    resul = "<td style= 'color: #FA8072 '><strong>" + data.Resultado + "</strong></td>";
-                                                }
-
-                                                var html = '<td>\n\
-<form action="<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/reportpdflinealidad" method="post" target="_blank"> \n\
-\                                               <input type="hidden" name="fecha" value="' + data.Fecha + '"> \n\
-<input type="hidden" name="id"  value="' + data.Id + '">\n\
-<input type="hidden" name="tipoInforme"  value="' + localStorage.getItem("tipoInforme") + '">\n\
-<button style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke">Generar pdf</button>\n\
-</form>\n\
-</td>';
-                                                dato++;
-                                                $('#div-info-statscalibraciones').html('Numero de registros: ' + dato);
-                                                var body = "<tr>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.Fecha + "</td>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.Usuario + "</td>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.Valor1 + "</td>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.Valor2 + "</td>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.Valor3 + "</td>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.Valor4 + "</td>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.Lectura1 + "</td>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.Lectura2 + "</td>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.Lectura3 + "</td>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.Lectura4 + "</td>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.Desviacion1 + "</td>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.Desviacion2 + "</td>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.Desviacion3 + "</td>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.Desviacion4 + "</td>";
-                                                body += resul;
-                                                body += html;
-                                                body += "</tr>";
-                                                $("#table-statscalibraciones tbody").append(body);
-                                            });
-                                            break;
-                                        case '2':
-                                            document.getElementById("table-calibraciones").style.display = 'none';
-                                            document.getElementById("sec-info-statscalibraciones").style.display = '';
-                                            document.getElementById("table-verificacion").style.display = '';
-                                            document.getElementById("sec-info-resultadosverificacion").style.display = 'none';
-                                            document.getElementById("sec-info-resultados-opa").style.display = 'none';
-                                            var html = '<tr>\n\
-<th style="font-size: 13px; text-align: center;">Fecha</th> \n\
-<th style="font-size: 13px; text-align: center;">Usuario</th> \n\
-<th style="font-size: 13px; text-align: center;">Valor Antes</th> \n\
-<th style="font-size: 13px; text-align: center;">Valor Despues</th> \n\
-<th style="font-size: 13px; text-align: center;">Resultado</th> \n\
-<th style="font-size: 13px; text-align: center;">Opciones</th> \n\
-</tr>';
-                                            $('#head-reg-statsverificacion').html(html);
-                                            var dato = 0;
-                                            $("#body-reg-statsverificacion").html('');
-                                            $("#body-stats-verifricacion-opa").html('');
-                                            $('#div-info-statscalibraciones').html('');
-                                            $.each(data, function(i, data) {
-                                                var resul = '';
-                                                if (data.Resultado == 'Aprobada') {
-                                                    resul = "<td style= 'color: green '><strong>" + data.Resultado + "</strong></td>";
-                                                } else {
-                                                    resul = "<td style= 'color: #FA8072 '><strong>" + data.Resultado + "</strong></td>";
-                                                }
-                                                var html = '<td>\n\
-                                                                            <form action="<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/reportpdfcero" method="post" target="_blank"> \n\
-                                                                            \                                               <input type="hidden" name="fecha" value="' + data.Fecha + '"> \n\
-                                                                            <input type="hidden" name="id"  value="' + data.Id + '">\n\
-                                                                            <input type="hidden" name="tipoInforme"  value="' + localStorage.getItem("tipoInforme") + '">\n\
-                                                                            <button style="background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke"   >Generar pdf</button>\n\
-                                                                            </form>\n\
-                                                                            </td>'
-                                                dato++;
-                                                $('#div-info-statscalibraciones').html('Numero de registros: ' + dato);
-                                                var body = "<tr>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.Fecha + "</td>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.Usuario + "</td>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.Valorantes + "</td>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.Valordespues + "</td>";
-                                                body += resul;
-                                                body += html;
-                                                body += "</tr>";
-                                                $("#table-statsverificacion tbody").append(body);
-                                            });
-                                            break;
-                                        default:
-                                            document.getElementById("sec-info-statscalibraciones").style.display = '';
-                                            $("#body-reg-statsverificacion").html('');
-                                            $("#body-stats-verifricacion-opa").html('');
-                                            $('#div-info-statscalibraciones').html('');
-                                            $('html, body').animate({
-                                                scrollTop: $("#sec-info-statscalibraciones").offset().top
-                                            }, 900);
-                                            document.getElementById("table-verificacion").style.display = '';
-                                            document.getElementById("sec-info-resultadosverificacion").style.display = 'none';
-                                            document.getElementById("sec-info-resultados-opa").style.display = 'none';
-                                            var html = '<tr>\n\
-                                                                                <th style="font-size: 13px; text-align: center;">Placa</th> \n\
-                                                                                <th style="font-size: 13px; text-align: center;">Fecha</th> \n\
-                                                                                <th style="font-size: 13px; text-align: center;">Auditor 1</th> \n\
-                                                                                <th style="font-size: 13px; text-align: center;">Auditor 2</th> \n\
-                                                                                <th style="font-size: 13px; text-align: center;">Serie</th> \n\
-                                                                                <th style="font-size: 13px; text-align: center;">Opciones</th> \n\
-                                                                            </tr>';
-                                            $('#head-reg-statsverificacion').html(html);
-                                            var dato = 0;
-                                            $.each(data, function(i, data) {
-                                                var btn = "";
-
-                                                if (data.datos.length > 2) {
-                                                    btn = "<button style='background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke' onclick='getresultadosTiempo(" + data.idcontrol_respuesta + ")'>Ver Resultados</button>"
-                                                } else {
-                                                    btn = "Sin datos de log"
-                                                }
-                                                var resul = '';
-                                                dato++;
-                                                $('#div-info-statscalibraciones').html('Numero de registros: ' + dato);
-                                                var body = "<tr>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.placa + "</td>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.fecha + "</td>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.auditor1 + "</td>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.auditor2 + "</td>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + data.serie + "</td>";
-                                                body += "<td style='font-size: 12px; text-align: center;'>" + btn + "</td>";
-                                                body += "</tr>";
-                                                $("#table-statsverificacion tbody").append(body);
-                                            });
-                                            break;
-                                    }
-                                }
-                                break;
-                        }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-
-                    }
-                });
-            }
-        });
-
-        function getresultadosverificacion(idcontrol_verificacion, idmaquina, fecha) {
-            //                                console.log(idmaquina);
-            document.getElementById("sec-info-resultadosverificacion").style.display = '';
-            document.getElementById("sec-info-resultados-opa").style.display = 'none';
-            fechaPrueba = fecha;
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/reportverificacion',
-                type: 'post',
-                mimeType: 'json',
-                data: {
-                    idcontrol_verificacion: idcontrol_verificacion,
-                    idmaquina: idmaquina
-                },
-                success: function(data, textStatus, jqXHR) {
-                    //console.log(data);
-                    $('#body-stats-verifricacion').html('');
-                    $('html, body').animate({
-                        scrollTop: $("#sec-info-resultadosverificacion").offset().top
-                    }, 900);
-                    var html = '<tr>\n\
-                                                        <th style="font-size: 13px; text-align: center;">Toma de muestra realizada con el aplicativo: </th> \n\
-                                                        <th style="font-size: 13px; text-align: center;">' + data.marcasoft + '</th> \n\
-                                                        <th style="font-size: 13px; text-align: center;"></th> \n\
-                                                        <th style="font-size: 13px; text-align: center;"></th> \n\
-                                                        <th style="font-size: 13px; text-align: center;"></th> \n\
-                                                        <th style="font-size: 13px; text-align: center;"></th> \n\
-                                                    </tr>\n\\n\
-                                                    <tr>\n\
-                                                        <th style="font-size: 13px; text-align: center;">Fecha y hora de la toma de datos: </th> \n\
-                                                        <th style="font-size: 13px; text-align: center;">' + fecha + '</th> \n\
-                                                        <th style="font-size: 13px; text-align: center;"></th> \n\
-                                                        <th style="font-size: 13px; text-align: center;"></th> \n\
-                                                        <th style="font-size: 13px; text-align: center;"></th> \n\
-                                                        <th style="font-size: 13px; text-align: center;"></th> \n\
-                                                    </tr>\n\
-<tr>\n\
-                                                        <th style="font-size: 13px; text-align: center;">Numero de serie del analizador de gases: </th> \n\
-                                                        <th style="font-size: 13px; text-align: center;">' + data.seriemaquina + '</th> \n\
-                                                        <th style="font-size: 13px; text-align: center;"></th> \n\
-                                                        <th style="font-size: 13px; text-align: center;"></th> \n\
-                                                        <th style="font-size: 13px; text-align: center;"></th> \n\
-                                                        <th style="font-size: 13px; text-align: center;"></th> \n\
-                                                    </tr>\n\
-\n\<tr>\n\
-                                                        <th style="font-size: 13px; text-align: center;">Factor de equivalencia propano (PEF): </th> \n\
-                                                        <th style="font-size: 13px; text-align: center;">' + data.pef + '</th> \n\
-                                                        <th style="font-size: 13px; text-align: center;"></th> \n\
-                                                        <th style="font-size: 13px; text-align: center;"></th> \n\
-                                                        <th style="font-size: 13px; text-align: center;"></th> \n\
-                                                        <th style="font-size: 13px; text-align: center;"></th> \n\
-                                                    </tr>\n\
-\n\
-                                                        <th style="font-size: 13px; text-align: center;">Analizador de gases propiedad de: </th> \n\
-                                                        <th style="font-size: 13px; text-align: center;">' + data.nombrecda + '</th> \n\
-                                                        <th style="font-size: 13px; text-align: center;"></th> \n\
-                                                        <th style="font-size: 13px; text-align: center;"></th> \n\
-                                                        <th style="font-size: 13px; text-align: center;"></th> \n\
-                                                        <th style="font-size: 13px; text-align: center;"></th> \n\
-                                                    </tr>\n\
-                                                     <tr>\n\
-                                                        <th style="font-size: 13px; text-align: center;">Prueba</th> \n\
-                                                        <th style="font-size: 13px; text-align: center;">Tiempo (S)</th> \n\
-                                                        <th style="font-size: 13px; text-align: center;">Hc (Ppm)</th> \n\
-                                                        <th style="font-size: 13px; text-align: center;">Co (%)</th> \n\
-                                                        <th style="font-size: 13px; text-align: center;">Co2 (%)</th> \n\
-                                                        <th style="font-size: 13px; text-align: center;">O2 (%)</th> \n\
-                                                    </tr>';
-                    $('#head-reg-stats-verifricacion').html(html);
-                    $.each(data.verificacion, function(i, data) {
-                        var info = JSON.parse(data.datos);
-                        //console.log(info);
-                        $.each(info, function(i, info) {
-                            var body = "<tr>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + info.prueba + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + info.tiempo + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + info.hc + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + info.co + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + info.co2 + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + info.o2 + "</td>";
-                            body += "</tr>";
-                            $("#table-stats-verificacion tbody").append(body);
-                        });
-                    });
-                }
-            });
-        }
-
-        function getresultadosTiempo(id) {
-            document.getElementById("sec-info-resultados-opa").style.display = 'none';
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/resTiempoRespuesta',
-                type: 'post',
-                dataType: 'json', // Cambiado de mimeType a dataType
-                data: {
-                    id: id
-                },
-                success: function(data, textStatus, jqXHR) {
-                    console.log(data);
-                    document.getElementById("sec-info-resultados-opa").style.display = '';
-
-                    // Limpiar contenido previo
-                    $('#body-stats-verifricacion-opa').html('');
-                    $('#tr-resultados-opa').nextAll().remove(); // Limpiar filas de datos
-
-                    // Obtener datos parseados
-                    var datos = JSON.parse(data[0].datos);
-
-                    // Llenar los datos adicionales en la tabla
-
-
-                    $("#thMarcaSoftware").text(data.marcasoft)
-                    $("#thVersionSoftware").text(data.versionsoft)
-                    $("#thCda").text(data[0].cda)
-                    $("#thNit").text(data[0].nit)
-                    $("#thPlaca").text(data[0].placa)
-                    $("#thMarca").text(data.marca)
-                    $("#thModelo").text(data.serie_banco)
-                    $("#thSerial").text(data.serie_maquina)
-                    $("#thFechaHora").text(data[0].fecha)
-
-
-                    // Crear encabezados dinámicos
-                    if (datos.length > 0) {
-                        var firstItem = datos[0];
-                        $.each(firstItem, function(key, value) {
-                            var html = "<th style='font-size: 13px; text-align: center;'>" +
-                                key.charAt(0).toUpperCase() + key.slice(1) + "</th>";
-                            $('#tr-resultados-opa').append(html);
-                        });
-
-                        // Llenar filas de datos
-                        $.each(datos, function(index, item) {
-                            var row = "<tr>";
-                            $.each(item, function(key, value) {
-                                row += "<td style='font-size: 12px; text-align: center;'>" + value + "</td>";
-                            });
-                            row += "</tr>";
-                            $('#body-stats-verifricacion-opa').append(row);
-                        });
-                    }
-
-                    $('html, body').animate({
-                        scrollTop: $("#sec-info-resultados-opa").offset().top
-                    }, 900);
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
-                }
-            });
-        }
-
-
-        $("#btn-descargar-statscalibraciones").click(function() {
-            var fecha = $('#get-fecha').val();
-            showSuccess('Descargando el informe, por favor espere.');
-            $('#table-statscalibraciones').table2csv({
-                filename: 'INFORME STATS ' + fecha + '.csv',
-                separator: ';',
-                newline: '\n',
-                quoteFields: true,
-                excludeColumns: '',
-                excludeRows: '',
-                trimContent: true
-            });
-        });
-
-        $("#btn-descargar-table-verificacion").click(function() {
-            var fecha = $('#get-fecha').val();
-            showSuccess('Descargando el informe, por favor espere.');
-            $('#table-statsverificacion').table2csv({
-                filename: 'INFORME STATS ' + fecha + '.csv',
-                separator: ';',
-                newline: '\n',
-                quoteFields: true,
-                excludeColumns: '',
-                excludeRows: '',
-                trimContent: true
-            });
-        });
-
-        $("#btn-descargar-stats-resultados-opa").click(function() {
-            // var fecha = $('#get-fecha').val();
-            // showSuccess('Descargando el informe, por favor espere.');
-            // $('#table-stats-verificacion-opa').table2csv({
-            //     filename: 'INFORME STATS RESULTADOS OPA ' + fechaPrueba + '.csv',
-            //     separator: ';',
-            //     newline: '\n',
-            //     quoteFields: true,
-            //     excludeColumns: '1',
-            //     excludeRows: '',
-            //     trimContent: true
-            // });
-
-            var csv = [];
-            var rows = $('#table-stats-verificacion-opa tr:not(:has(table))');
-
-            rows.each(function() {
-                var row = [];
-                $(this).find('td, th').each(function() {
-                    row.push('"' + $(this).text().trim().replace(/"/g, '""') + '"');
-                });
-                csv.push(row.join(';'));
-            });
-
-            // Añadir datos de la tabla anidada
-            csv.push("\nDetalles adicionales:");
-            $('#table-stats-verificacion-opa table tr').each(function() {
-                var row = [];
-                $(this).find('td, th').each(function() {
-                    row.push('"' + $(this).text().trim().replace(/"/g, '""') + '"');
-                });
-                csv.push(row.join(';'));
-            });
-
-            var csvContent = csv.join('\n');
-            var blob = new Blob([csvContent], {
-                type: 'text/csv;charset=utf-8;'
-            });
-            var link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'INFORME COMPLETO ' + $('#get-fecha').val() + '.csv';
-            link.click();
-        });
-        $("#btn-descargar-verificaciones").click(function() {
-            var fecha = $('#get-fecha').val();
-            showSuccess('Descargando el informe, por favor espere.');
-            $('#table-stats-verificacion').table2csv({
-                filename: 'INFORME STATS RESULTADOS OPA' + fechaPrueba + '.csv',
-                separator: ';',
-                newline: '\n',
-                quoteFields: true,
-                excludeColumns: '',
-                excludeRows: '',
-                trimContent: true
-            });
-        });
-        $("#btn-descargar-logs").click(function() {
-            var fecha = $('#get-fecha').val();
-            showSuccess('Descargando el informe, por favor espere.');
-            $('#table-stats-logs').table2csv({
-                filename: 'INFORME LOG PRUEBA GASES ' + fechaPrueba + '.csv',
-                separator: ';',
-                newline: '\n',
-                quoteFields: true,
-                excludeColumns: '',
-                excludeRows: '',
-                trimContent: true
-            });
-        });
-        $("#btn-descargar-informe-pesv").click(function() {
-            var fecha = $('#get-fecha').val();
-            showSuccess('Descargando el informe, por favor espere.');
-            $('#table-informe-pesv').table2csv({
-                filename: 'INFORME PESV ' + fechaPrueba + '.csv',
-                separator: ';',
-                newline: '\n',
-                quoteFields: true,
-                excludeColumns: '',
-                excludeRows: '',
-                trimContent: true
-            });
-        });
-        //fin stats calibraciones
-        //inicio informe crm
-        $('#tipoinspeccion').change(function() {
-            var tipoinspeccion = $('#tipoinspeccion option:selected').attr('value');
-            if (tipoinspeccion == 1) {
-                document.getElementById("numero-meses").style.display = 'none';
-            } else {
-                document.getElementById("numero-meses").style.display = '';
-            }
-        });
-
-        var tokenval = "";
-        $('#btn-generar-crm').click(function() {
-            console.log('dominio:', dominio)
-             if (dominio == 'cdalaestacion.tecmmas.com' || dominio == 'cdalamesa.tecmmas.com')
-                $('#Modal-token').show();
-             else
-                getCrm();
-
-        });
-
-        function Validar() {
-            var token = $("#token").val();
-            $("#valid-token").html('');
-            $.ajax({
-                url: 'https://atalayasoft.tecmmas.com/atalaya/index.php/Ctriguer/validToken',
-                type: 'post',
-                mimeType: 'json',
-                data: {
-                    token: token
-                },
-                success: function(data, textStatus, jqXHR) {
-                    if (data == 1) {
-                        tokenval = token;
-                        $('#Modal-token').hide();
-                        $("#Modal-token-data").show();
-                        getCrm();
-                    } else {
-                        Toast.fire({
-                            icon: "info",
-                            title: "El token no es correcto",
-                            position: 'top-end'
-                        });
-                        // $("#valid-token").html('El token no es correcto');
-                    }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    alert('Error: ' + jqXHR);
-                }
-            });
-        }
-
-        function getCrm() {
-            document.getElementById("sec-info-report").style.display = 'none';
-            if ($('#fechainicial').val().length == 0) {
-                $('#valid-dato').html('El campo fecha inicial es obligatorio.');
-            } else if ($('#fechafinal').val().length == 0) {
-                $('#valid-dato').html('El campo fecha final es obligatorio.');
-            } else {
-                $('#valid-dato').html('');
-                showSuccess('Generando el informe, por favor espere.');
-                var fechainicial = $('#fechainicial').val();
-                var fechafinal = $('#fechafinal').val();
-                var tiposervicio = $('#tiposervicio option:selected').attr('value');
-                var tipoinspeccion = $('#tipoinspeccion option:selected').attr('value');
-                var selectmeses = $('#selectmeses option:selected').attr('value');
-                var dato = 0;
-                $.ajax({
-                    url: '<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/get_informe_crm',
-                    type: 'post',
-                    mimeType: 'json',
-                    data: {
-                        fechainicial: fechainicial,
-                        fechafinal: fechafinal,
-                        tiposervicio: tiposervicio,
-                        tipoinspeccion: tipoinspeccion,
-                        selectmeses: selectmeses
-                    },
-                    success: function(data, textStatus, jqXHR) {
-                        $("#body-reg-crm").html('');
-                        $('#div-info').html('');
-                        console.log(data);
-                        document.getElementById("sec-info-report").style.display = '';
-                        $('html, body').animate({
-                            scrollTop: $("#sec-info-report").offset().top
-                        }, 900);
-                        $.each(data, function(i, data) {
-                            if (data.Certificado == null) {
-                                data.Certificado = 'N/A';
-                            }
-                            dato++;
-                            $('#div-info').html('Numero de registros: ' + dato);
-                            var body = "<tr>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Placa + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Tipo_vehiculo + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Cilindraje + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Certificado + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Fecha_impresion + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Fecha_vigencia + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Fecha_vencimiento_soat + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Numero_identidficacion + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Cliente + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Telefono_1 + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Telefono_2 + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Correo + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Cumpleanos + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Ciudad + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Direccion + "</td>";
-                            body += "</tr>";
-                            $("#table-crm tbody").append(body);
-                        });
-                    }
-                });
-            }
-        }
-        // descargar informe
-        $("#btn-descargar-crm").click(function() {
-            var fecha = $('#get-fecha').val();
-            showSuccess('Descargando el informe, por favor espere.');
-            $('#table-crm').table2csv({
-                filename: 'INFORME CRM ' + fecha + '.csv',
-                separator: ';',
-                newline: '\n',
-                quoteFields: true,
-                excludeColumns: '',
-                excludeRows: '',
-                trimContent: true
-            });
-        });
-        //Fin informe crm
-
-        //inicio bitacora
-        $('#btn-guadar-bitacoras').click(function(ev) {
-            document.getElementById("sec-info-bitacoras").style.display = 'none';
-            $('#valid-dato-bi').html('');
-            ev.preventDefault();
-            var html = $('#textbi').val();
-            var fechainicialbi = $('#fechainicialbi').val();
-            var fechafinalbi = $('#fechafinalbi').val();
-            var tipobi = $('#tipobi option:selected').attr('value');
-            var gravedadbi = $('#gravedadbi option:selected').attr('value');
-            var estadobi = $('#estadobi option:selected').attr('value');
-            var maquinabi = $('#maquinabi option:selected').attr('value');
-            if (html.length <= 0 || fechainicialbi.length <= 0 || fechafinalbi.length <= 0) {
-                $('#valid-dato-bi').html('Todos los campos son obligatorios.');
-            } else {
-                $.ajax({
-                    url: '<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/bitacoras',
-                    type: 'post',
-                    mimeType: 'json',
-                    data: {
-                        fechainicialbi: fechainicialbi,
-                        fechafinalbi: fechafinalbi,
-                        tipobi: tipobi,
-                        gravedadbi: gravedadbi,
-                        estadobi: estadobi,
-                        maquinabi: maquinabi,
-                        html: html
-                    },
-                    success: function(data, textStatus, jqXHR) {
-                        console.log(data);
-                        if (data == 1) {
-                            $('#valid-dato-bi').html('<div style="color: green">Datos guardados</div>');
-                        } else {
-                            $('#valid-dato-bi').html('<div style="color: red">Problemas al guardar los datos.</div>');
-                        }
-                    }
-                });
-            }
-        });
-        $('#btn-ver-bitacoras').click(function() {
-            document.getElementById("sec-info-bitacoras").style.display = 'none';
-            var dato = 0;
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/getBitacoras',
-                type: 'post',
-                mimeType: 'json',
-                success: function(data, textStatus, jqXHR) {
-                    $("#body-reg-bitacoras").html('');
-                    $('#div-info-bitacoras').html('');
-                    document.getElementById("sec-info-bitacoras").style.display = '';
-                    $('html, body').animate({
-                        scrollTop: $("#sec-info-bitacoras").offset().top
-                    }, 900);
-                    $.each(data, function(i, data) {
-                        dato++;
-                        $('#div-info-bitacoras').html('Numero de registros: ' + dato);
-                        var body = "<tr>";
-                        body += "<td style='font-size: 12px; text-align: center;'>" + data.nombre + "</td>";
-                        body += "<td style='font-size: 12px; text-align: center;'>" + data.fecha_apertura + "</td>";
-                        body += "<td style='font-size: 12px; text-align: center;'>" + data.fecha_cierre + "</td>";
-                        body += "<td style='font-size: 12px; text-align: center;'>" + data.usuario + "</td>";
-                        body += "<td style='font-size: 12px; text-align: center;'>" + data.comentario + "</td>";
-                        body += "<td style='font-size: 12px; text-align: center;'>" + data.tipo + "</td>";
-                        body += "<td style='font-size: 12px; text-align: center;'>" + data.gravedad + "</td>";
-                        body += "<td style='font-size: 12px; text-align: center;'>" + data.estado + "</td>";
-                        body += "</tr>";
-                        $("#body-reg-bitacoras").append(body);
-                    });
-                }
-            });
-        });
-        $("#btn-descargar-bitacoras").click(function() {
-            var fecha = $('#get-fecha').val();
-            showSuccess('Descargando el informe, por favor espere.');
-            $('#table-bitacoras').table2csv({
-                filename: 'INFORME BITACORAS ' + fecha + '.csv',
-                separator: ';',
-                newline: '\n',
-                quoteFields: true,
-                excludeColumns: '',
-                excludeRows: '',
-                trimContent: true
-            });
-        });
-        var maquina = "";
-
-        function bitacoraOpen() {
-            $.ajax({
-                url: "<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/bitacorasOpen",
-                //        url:  localStorage.getItem('urlserver') + "/et/index.php/oficina/reportes/stats/Cstats/bitacorasOpen",
-                type: 'post',
-                mimeType: 'json',
-                //            data: {idusuario: 2},
-                success: function(data, textStatus, jqXHR) {
-                    console.log(data)
-                    document.getElementById('sec-info-bitacoras-cierre').style.display = '';
-                    $('#data-bitacoras').html('');
-                    var c = 0;
-                    $.each(data, function(i, data) {
-                        //                    busacarMaquina(data.idmaquina);
-                        c++;
-                        $('#data-bitacoras').append("\
-                                                <div class='card'>\n\
-                                                    <div class='card-header' role='tab' id='heading1_0_10'>\n\
-                                                    <h5 class='mb-0'>\n\
-                                                    <a data-toggle='collapse' href='#collapse1_0_10' role='button' aria-expanded='true' aria-controls='collapse1_0_10'>\n\
-                                                    <strong>" + data.fecha_apertura + "-" + data.user + "</strong>\n\
-                                                    </a>\n\
-                                                    </h5>\n\
-                                                    <div>\n\
-                                                    <div id='collapse1_0_10' class='collapse show' role='tabpanel' aria-labelledby='heading1_0_10' data-parent='#accordion'>\n\
-                                                    <div class='card-body'>\n\
-                                                    <div>\n\
-                                                    <label style='color: black'><b>Gravedad</b> - " + data.gravedad + " </label><br />\n\
-                                                    <label style='color: black'><b>Tipo</b> - " + data.tipo + "</label><br />\n\
-                                                    <label style='color: black'><b>Descripcion inicial</b> <br> " + data.comentario + " </label><br />\n\
-                                                    </div>\n\
-                                                    <h6 style='text-align: center'><b>Fecha cierre</b></h6>\n\
-                                                    <p>\n\
-                                                    <input type='date' class='form-control datepicker' id='fecha_cierre_final' name='fechafinalbi' data-format='yyyy-mm-dd' autocomplete='off' >\n\
-                                                    </p>\n\
-                                                    <h6 style='text-align: center'><b>Descripción</b></h6>\n\
-                                                    <p>\n\
-                                                    <textarea id='descripcion_final' class='textarea textarea--transparent' rows='5' style='width: 100%;  border: solid 1px black'></textarea>\n\
-                                                    </p>\n\
-                                                    <div style='display: flex; justify-content: center'>\n\
-                                                    <input type='submit' onclick='updateBitacora(" + data.id + ")'  name='consultar' id='btn-descargar-bitacoras'   style='background-color: #393185;border-radius: 40px 40px 40px 40px; width: 180px; color: whitesmoke' value='Guardar'>\n\
-                                                    </div>\n\
-                                                    </div>\n\
-                                                    </div>\n\
-                                                </div>");
-                    });
-                    $('#coutnBitacoras').html(c);
-                    if (c == 0) {
-                        document.getElementById('sec-info-bitacoras-cierre').style.display = 'none';
-                    }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    ons.notification.alert(textStatus, {
-                        title: 'Error' + jqXHR
-                    });
-                }
-            });
-        }
-
-        function updateBitacora(idbitacora) {
-            var fechacierre = $("#fecha_cierre_final").val();
-            var descripcion = $("#descripcion_final").val();
-            var valid = true;
-            var mesaje = "";
-            if (fechacierre == "" || fechacierre == null) {
-                valid = false;
-                mesaje = mesaje + "Fecha cierre obligatoria. <br>"
-            }
-            if (descripcion == "" || descripcion == null) {
-                valid = false;
-                mesaje = mesaje + "Decripción obligatoria. <br>"
-            }
-            if (!valid) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Validación de campos',
-                    html: mesaje,
-                })
-            } else {
-                $.ajax({
-                    url: "<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/updateBitacoras",
-                    //            url: localStorage.getItem('urlserver') + "/et/index.php/oficina/reportes/stats/Cstats/updateBitacoras",
-                    type: 'post',
-                    mimeType: 'json',
-                    data: {
-                        fechacierre: fechacierre,
-                        descripcion: descripcion,
-                        idbitacora: idbitacora
-                    },
-                    success: function(data, textStatus, jqXHR) {
-                        bitacoraOpen()
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Exitoso',
-                            text: 'Bitacora guardada.',
-                        })
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: jqXHR,
-                        })
-                    }
-                });
-            }
-        }
-
-        $("#btn-descargar-pesv").click(function(ev) {
-            ev.preventDefault();
-            var fechainicial = $("#fechainicial-pesv").val()
-            var fechafinal = $("#fechafinal-pesv").val()
-            var valid = true;
-            var msj = "";
-            if (fechainicial == null || fechafinal == "") {
-                valid = false;
-                msj += "Ingrese la fechainicial <br>";
-            }
-
-            if (fechafinal == null || fechafinal == "") {
-                valid = false;
-                msj += "Ingrese la fechafinal <br>";
-            }
-
-            if (!valid) {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: 'Campo obligatorio.',
-                    html: msj,
-                    showConfirmButton: true,
-                    //                                                    timer: 1500
-                });
-            } else {
-                document.getElementById("sec-informe-pesv").style.display = 'none';
-                showSuccess('Cargando resultados, por favor espere.');
-                $.ajax({
-                    url: "<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/informePesv",
-                    type: 'post',
-                    mimeType: 'json',
-                    data: {
-                        fechainicial: fechainicial,
-                        fechafinal: fechafinal
-                    },
-                    success: function(data, textStatus, jqXHR) {
-                        console.log(data)
-                        $("#body-informe-pesv").html('');
-                        $('#div-info-pesv').html('');
-                        document.getElementById("sec-informe-pesv").style.display = '';
-                        $('html, body').animate({
-                            scrollTop: $("#sec-informe-pesv").offset().top
-                        }, 900);
-                        var html = '<tr>\n\
-                                                                                <th style="font-size: 13px; text-align: center;">Fecha</th> \n\
-                                                                                <th style="font-size: 13px; text-align: center;">Placa</th> \n\
-                                                                                <th style="font-size: 13px; text-align: center;">Clase</th> \n\
-                                                                                <th style="font-size: 13px; text-align: center;">Inspector</th> \n\
-                                                                                <th style="font-size: 13px; text-align: center;">Identificacion</th> \n\
-                                                                                <th style="font-size: 13px; text-align: center;">Aux-prerevision</th> \n\
-                                                                                <th style="font-size: 13px; text-align: center;">Identificacion-prerevision</th> \n\
-                                                                                <th style="font-size: 13px; text-align: center;">Aprobado/Reprobado</th> \n\
-                                                                                <th style="font-size: 13px; text-align: center;">Consecutivo runt</th> \n\
-                                                                            </tr>';
-                        $('#head-informe-pesv').html(html);
-                        var dato = 0;
-                        $.each(data, function(i, data) {
-                            dato++;
-                            $('#div-info-pesv').html('Numero de registros: ' + dato);
-                            var body = "<tr>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.fechainicial + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.numeroPlaca + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Clase + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Inspector + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.Identificacion + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.AuxPrerevision + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.IdentificacionP + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.AprobadoReprobado + "</td>";
-                            body += "<td style='font-size: 12px; text-align: center;'>" + data.ConsecutivoRunt + "</td>";
-                            body += "</tr>";
-                            $("#table-informe-pesv tbody").append(body);
-                        });
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: jqXHR,
-                        })
-                    }
-                });
-            }
-        })
-        //fin bitacota
-    </script>
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+VM4xOMXt5nKHgh8qHMfC

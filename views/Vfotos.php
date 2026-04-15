@@ -1,61 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vista de Imágenes con Canvas</title>
-</head>
-
-<body>
-    <h1>Vista de Imágenes con Canvas</h1>
-    <canvas id="cFoto1" width="800" height="600" style="border:1px solid #000;"></canvas>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        var ipLocal = '<?php
-                        echo base_url();
-                        ?>';
-        // Cargar una imagen completa en base64 y asignarla a una variable
-
-        $.ajax({
-            type: 'POST',
-            url: "<?php echo base_url(); ?>index.php/Cindex_/consultarImagen",
-            mimeType: 'json',
-            async: true,
-            success: function(data, textStatus, jqXHR) {
-                imagen(data.imagen)
-
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR.responseText)
-
-            }
-        });
-
-
-        var imagen = function(base64Image) {
-            var canvas = document.getElementById('cFoto1');
-            var context = canvas.getContext('2d');
-            var numero_placa = "AAA001";
-            var f1 = new Image();
-            f1.src = base64Image;
-            f1.onload = function() {
-                context.font = "22px Arial";
-                context.drawImage(f1, 0, 0, 650, 490);
-                context.fillRect(5, 450, 322, 33);
-                context.strokeStyle = "#FFFFFF";
-                context.strokeText("2025-01-01, " + numero_placa + " " + "10:00", 10, 472);
-                context.strokeStyle = "#000000";
-                var foto1 = document.getElementById('foto1');
-                console.log(foto1);
-                var foto = canvas.toDataURL('image/jpeg', 0.6);
-                 foto1.style.backgroundImage = "url('" + foto + "')";
-                 foto1.value = '';
-                // guardarFoto(fotografia1.idprueba, foto, localStorage.getItem('IdUsuario'));
-                //evaluarSiFinaliza();
-            };
-        }
-    </script>
-</body>
-
-</html>
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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

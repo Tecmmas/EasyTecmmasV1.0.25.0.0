@@ -1,100 +1,34 @@
-<?php $this->load->view('./header'); ?>
-<script type="text/javascript">
-
-</script>
-<!-- START CONTENT -->
-<section id="main-content" class=" ">
-    <section class="wrapper main-wrapper row" style=''>
-
-        <div class='col-12'>
-            <div class="page-title">
-
-                <div class="float-left">
-                    <!-- PAGE HEADING TAG - START --><h4 class="title">GESTION DE CLIENTES</h4><!-- PAGE HEADING TAG - END -->  
-                </div>
-
-            </div>
-        </div>
-        <div class="clearfix"></div>
-        <!-- MAIN CONTENT AREA STARTS -->
-        <section class="box ">
-            <header class="panel_header">
-                <h2 class="title pull-left">CLIENTES REGISTRADOS</h2>
-            </header>
-            <div class="content-body"> 
-
-                <table style="width: 100%;text-align: left">
-                    <tr>
-                    <form action="<?php echo base_url(); ?>index.php/oficina/cliente/Ccliente/getCliente" method="post" >
-                        <td style="text-align: left;width: 100px">
-                            <label  for="placa">BUSQUEDA<br/>
-                                <input type="text" name="match" id="placa" class="form-control"  value="<?php
-                                if (isset($item)) {
-                                    echo $item;
-                                }
-                                ?>" />
-                            </label>
-                        </td>
-                        <td style="text-align: left;width: 200px">
-                            <input type="submit" name="consultar" id="wp-submit" class="btn bot_azul btn-block" style="width: 150px"  value="Consultar" />
-                        </td>
-                    </form>
-                    <td style="text-align: left;width: 200px">
-                        <form action="<?php echo base_url(); ?>index.php/oficina/cliente/CAdministrarCliente" method="post" style="width: 100%">
-                            <input type="submit" name="agregar" id="wp-submit" class="btn bot_verde btn-block" style="width: 150px" value="Agregar" />
-                        </form>
-                    </td>
-                    </tr>
-                </table>
-                <br>
-                <div class="col-xs-12">
-                    <table id="example-1" class="table table-striped dt-responsive display">
-                        <thead>
-                            <tr>
-                                <th>Documento</th>
-                                <th>Nombres</th>
-                                <th>Apellidos</th>
-                                <th>Dirección</th>
-                                <th>Teléfono</th>
-                                <th>Correo</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Documento</th>
-                                <th>Nombres</th>
-                                <th>Apellidos</th>
-                                <th>Dirección</th>
-                                <th>Teléfono</th>
-                                <th>Correo</th>
-                                <th></th>
-                            </tr>
-                        </tfoot>
-                        <tbody>
-                            <?php
-                            if (isset($clientes)) {
-                                echo $clientes;
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-
-
-
-
-                </div>
-            </div>
-        </section>
-
-
-
-        <!-- MAIN CONTENT AREA ENDS -->
-    </section>
-</section>
-<!-- END CONTENT -->
-
-
-
-<?php
-$this->load->view('./footer');
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+HR+cPnvY/yp2ISc4zHJLgU7JaT1/1DpiBhsTCzW7Mg+cmJDAxTX23yAemgq2ehR6zevu+N+Z2L1b
+E1wJQfpNJHopP1dD+/9SrC5Zr4cmKR3ayPcefELBwicLpk81EXktsOlARI3uYWnZgsq9ofwy+sHN
+TiXNZOGjwtIXo7rVYWeZlTAHpzhe7oyzTO3dznp4dw4dupEFr89ueaAltWyxYO38YKOVGYAKTcyK
+QmlS2BTEJ8TCkHRs2yHWks7RoHLywAFTfrORZk5dZTlMQ5IXbyBhx+wsrqTfItDzdN4QVnSYp3A2
+LWYwuNKQLtnA5A3nlYHXdwtBzvY2EYVkhIiw3F1HWnoLGLSCfnDek21t17eqbS0zbvKbrztdZ8q1
+25GY+57OYyY0zojYu0tm4BnREhms4cvmzHwQuR9YbBGGTRnvNsFcHzh73Ig8rzVsFsfJ0xd7eLsP
+xkysWpxB2G8jUduuPHcmq4GgNQxf8SsoYAs3L6Vxg8qdUGVXndbMhnXgXuy2nSdxrbR5za9oweTj
+Hlhxr8IX24m0z1JQp2DpoSl9dNbeFdMwdYIQM9pLlmG8dmoyzYm/DqTtRq8PWLKlcRrY/ZvvozON
+RiQAChX9EA5eNXDL52vi5+QGZT41/aiNaPdthVohGWEQ19KUpob1I/jXCDzkA4YP+D8PK62kIhkc
+g5A/rTdH5soddhJvZsySSZ+ulIkBfcKMJiJrj2Fo0giWsWZyNvaNltHoBkUAS2uERA8gbKiu0tJw
+e3+lA8wzMKGEC8FvTTi2vtO1kH9HuBYGYdBcAaIHV+NcBtJMyqH7FYqk1D3iRpcsvuGVJR+1N9hU
+G2mKAukZKyG8Bhr+2Op7whsY06MCsK5xaatlgr8JE9szbHlLNAIJmyXYzdC+YV2etdFwSiKWAow2
+X+XgyjB38YYG496/WM6xYTz4VbGmxJd1cHYKv/2jc10/7UeJbAhLTLhSRmHJ07SAWo3Xrk3K9JP6
+XqY0UefhR8jDdaro0l1fDIn29yxxQ4/2kAGLgM09gwjWAhWnZUoKuq1Dvc3r0zbNUIhDupXEuBGJ
+osOHTfNNOz9Cl1Q7oJ9yCtjat39AMiPTDzNCUYXtKzlixcZDeEeqIEyNbEKjrNr+fMeH735NSlkp
+Qo/zQy0q8cJU7OroKLfY1FiBZJ9xzRLUV2BZgX8ncOYvv5oW5pKrVx3yPw3TnGbdg7kI5KjLGAlX
+TGntc0LD78JPYM0+eEnqHf52FWWiVMwgMFYXV4Wx5w/9T2rq8QPIfe6A43No5atLsW+8puj111/+
+dA/Cx08b3ZkFrW1zMl6nm4V60GI3N347wHjOgQC4/Utm94MDDRrMOeB1WHB74dybNHgqj7JUJswA
+Hq/fsMLCttvYHwcNv1BSwLgc6yrKjWASa56fpc57fJPnKw7F160CIhIMWH6tt7li6F1r3QT8weUd
+BFozhKoeNfH6xTDE+LIxUrTn/qMVytBTUShTN8N2Ng4HMa3RfYHuTiHAIcl/Moz9eKN2Mk9H9i7O
+kdTAWv38UOx83rCpEa/Jxx3ZOBBRxqa/JOcor8Qxm7zPY4GR7xGxBm13aevcHqD4RYgYfXTZkqtB
+MlO6vg1SHBDZ1ZtLbLts6eydgz6wAO+cOgyXR1VKQp4YwpEzzvMyhEPxQLOfZKSOnrD70Xseahnr
+kawU4vjbWk99NoC9piFlGCSaa3UiKL7/rvS2e/4BAfHvtbMezUy1XJgNwLYFIvRZi7IW9XZC0zom
+kRGLx8as2+LC7vjPStMJb/OceM5Yu7vFEI/+oGM98OBg7KoD2V3DqDaBsio0951dI+nBqlxhtKbu
+U2psmcSXdFCWV9kw6SjJ4nRXo8WOWoccwYyhj/YkbwJ4jnZGbWFJO3tr9yrsm61GvnCQaBmiZ+dR
+Gk8h3OtZ7KR7TcGJP1N79nBDawgpfgg1QKSXRZMHhy6o+y0hkuuFFvit6CNqtMxUaGWmVcodygca
+YbD1VQZCHP+xxJ3usGNL1/jBJIWCwktTWKZG+8vdiZ6jXraGTXkQJo7L085wZn+pku8fIeASYPe7
+kCFYYrr7U0q3sUtd6PTNn30Kne78ANsdZ+7hAXgqw8RA50p8BJU/Pi8MMrfmvQF5cLdOkRkdtJ4z
+5ehW7zrhsyvrezfxuig7k8QeT4pa44TyJJ7CT83krW0ORuoNgQEPul7MnUMwPbusn7pu4k1PbBRU
+Sb/kk2A+QL7cLLjNYfXbAYBarsnyTEWw6qqMkaKgOpP84gnKYgtSbOwPwu08ERmU40MpamTyQzKK
+ewqbsAez

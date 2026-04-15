@@ -1,483 +1,430 @@
-<?php
-
-set_time_limit(0);
-ini_set('memory_limit', '-1');
-
-//$pdf = new TCPDF('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-
-//$titulo = "NÃºmero de registro visual: " . $this->session->userdata('idhojapruebas') . "-" . $this->session->userdata('idprueba') . " \nFecha inspeccion: " . $fechafinal . "\nPlaca: " . $this->session->userdata('numero_placa');
-$hoy = getdate();
-$pdf->SetTitle($titulo);
-$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, $nombreCda . " - Estadística de aprobaciones y rechazos por año de matrícula", "Fecha inicial: " . $fechainicial . "            Fecha final: " . $fechafinal . " \nFecha de generación de este informe: " . $fechageneracion);
-//$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, "prueba", "prueba");
-// set header and footer fonts
-$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-
-// set default monospaced font
-$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
-// set margins
-$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-
-// set auto page breaks
-$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
-// set image scale factor
-$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-// set some language-dependent strings (optional)
-if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
-    require_once(dirname(__FILE__) . '/lang/eng.php');
-    $pdf->setLanguageArray($l);
-}
-
-// ---------------------------------------------------------
-//
-$style = array('width' => 0.5, 'cap' => 'butt', 'join' => 'miter', 'dash' => '10,20,5,10', 'phase' => 10, 'color' => array(255, 0, 0));
-$style4 = array('L' => 0,
-//    'T' => array('width' => 0.25, 'cap' => 'butt', 'join' => 'miter', 'dash' => '20,10', 'phase' => 10, 'color' => array(100, 100, 255)),
-    'R' => array('width' => 0.50, 'cap' => 'round', 'join' => 'miter', 'dash' => 0, 'color' => array(50, 50, 127)),
-    'B' => array('width' => 0.75, 'cap' => 'square', 'join' => 'miter', 'dash' => '30,10,5,10'));
-// set font
-$pdf->SetFont('helvetica', '', 10);
-$style4 = "";
-
-// add a page
-
-$pdf->AddPage();
-$tbl1 = ' 
-        <table >
-            <thead>
-            <tr >
-                    <th style="width: 140px"></th>
-                    <th style="text-align: center;border-width: 1px;font-weight: bold;width: 200px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Inspecciones</th>
-                    <th style="text-align: center;border-width: 1px;font-weight: bold;width: 200px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Reinspecciones</th>
-                    <th style="text-align: center;border-width: 1px;font-weight: bold;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Total</th>
-                </tr>
-                <tr >
-                    <th style="text-align: center;border-width: 1px;width: 140px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Año matrícula</th>
-                    <th style="text-align: center;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Aprobados</th>
-                    <th style="text-align: center;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Rechazados</th>
-                    <th style="text-align: center;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Aprobados</th>
-                    <th style="text-align: center;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Rechazados</th>
-                    <th style="text-align: center;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Veic. Insp</th>
-                </tr>
-            </thead>
-            <tbody>';
-
-$tbl2 = '
-                    <tr >
-                        <td style="text-align: center;vertical-align: middle;width: 140px;border-width: 1px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Menor o igual a 1993</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ai1993 . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ri1993 . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ar1993 . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $rr1993 . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $total1993 . '</td>
-                    </tr>
-                    <tr >
-                        <td style="text-align: center;vertical-align: middle;border-width: 1px;width: 140px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">1994 - 1998</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ai19941998 . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ri19941998 . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ar19941998 . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $rr19941998 . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $total19941998 . '</td>
-                    </tr>
-                    <tr >
-                        <td style="text-align: center;vertical-align: middle;border-width: 1px;width: 140px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">1999 - 2003</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ai19992003 . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ri19992003 . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ar19992003 . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $rr19992003 . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $total19992003 . '</td>
-                    </tr>
-                    <tr >
-                        <td style="text-align: center;vertical-align: middle;border-width: 1px;width: 140px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">2004 - 2008</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ai20042008 . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ri20042008 . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ar20042008 . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $rr20042008 . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $total20042008 . '</td>
-                    </tr>
-                    <tr >
-                        <td style="text-align: center;vertical-align: middle;border-width: 1px;width: 140px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">Mayor o igual a 2009</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ai2009 . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ri2009 . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $ar2009 . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $rr2009 . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px">' . $total2009 . '</td>
-                    </tr>
-                    <tr >
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 140px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px;color: #cd0a0a">Total</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px;color: #cd0a0a">' . $totalAprobadosInpeccion . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px;color: #cd0a0a">' . $totalRechazadosInpeccion . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px;color: #cd0a0a">' . $totalAprobadosReinpeccion . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px;color: #cd0a0a">' . $totalRechazadosReinpeccion . '</td>
-                        <td style="text-align: center;vertical-align: middle;font-weight: bold;border-width: 1px;width: 100px;border-left-width: 1px;border-bottom-width: 1px;border-right-width: 1px;color: #cd0a0a">' . $total . '</td>
-                    </tr>
-                    
-';
-
-$tbl3 = ' </tbody>
-        </table>';
-
-$tbl = $tbl1 . $tbl2 . $tbl3;
-
-$pdf->writeHTML($tbl, true, false, false, false, '');
-
-$txt = 'Resultados por año de matrícula';
-
-$pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
-
-$pdf->Ln();
-$pdf->Ln();
-$txt = 'Mayor igual 2009';
-$pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
-$pdf->Ln();
-$pdf->Ln();
-$pdf->Ln();
-$txt = '2004 - 2008';
-$pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
-$txt = '                                                                                                                                                    Leyenda';
-$pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
-$txt = '                                                                                                                                                      Ins. Aprobadas';
-$pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
-$txt = '                                                                                                                                                      Ins. Rechazadas';
-$pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
-$txt = '1999 - 2003                                                                                                                                   Reins. Aprobadas';
-$pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
-$txt = '                                                                                                                                                      Reins. Rechazadas';
-$pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
-$pdf->Ln();
-$pdf->Ln();
-$txt = '1994 - 1998';
-$pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
-$pdf->Ln();
-$pdf->Ln();
-$pdf->Ln();
-$txt = 'Menor igual 1993';
-$pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
-//$pdf->SetLineStyle(array('width' => 0.5, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
-$pdf->Line(44, 75, 44, 160);
-$pdf->Line(44, 160, 150, 160);
-$pdf->Rect(155, 100, 40, 25, 'D', $style4, array(15, 3, 137));
-$pdf->Rect(156, 120, 5, 3, 'F', $style4, array(15, 3, 137));
-$pdf->Rect(156, 116, 5, 3, 'F', $style4, array(21, 0, 255));
-$pdf->Rect(156, 112, 5, 3, 'F', $style4, array(29, 139, 7));
-$pdf->Rect(156, 108, 5, 3, 'F', $style4, array(210, 16, 16));
-//------------------------------------------------------------------------------BARRAS DE 2009 HACIA ARRIBA
-$pdf->Rect(45, 77, $rr2009Por, 3, 'F', $style4, array(15, 3, 137));
-$pdf->Rect(45 + $rr2009Por, 77, 5, 3, 'D', $style4, array(210, 16, 16));
-$pdf->SetFontSize(8);
-$pdf->Text(44 + $rr2009Por, 77, $rr2009);
-
-
-$pdf->Rect(45, 80, $ar2009Por, 3, 'F', $style4, array(21, 0, 255));
-$pdf->Rect(45 + $ar2009Por, 80, 5, 3, 'D', $style4, array(210, 16, 16));
-$pdf->SetFontSize(8);
-$pdf->Text(44 + $ar2009Por, 80, $ar2009);
-
-
-$pdf->Rect(45, 83, $ri2009Por, 3, 'F', $style4, array(29, 139, 7));
-$pdf->Rect(45 + $ri2009Por, 83, 5, 3, 'D', $style4, array(210, 16, 16));
-$pdf->SetFontSize(8);
-$pdf->Text(44 + $ri2009Por, 83, $ri2009);
-
-$pdf->Rect(45, 86, $ai2009Por, 3, 'F', $style4, array(210, 16, 16));
-$pdf->Rect(45 + $ai2009Por, 86, 5, 3, 'D', $style4, array(210, 16, 16));
-$pdf->SetFontSize(8);
-$pdf->Text(44 + $ai2009Por, 86, $ai2009);
-
-//------------------------------------------------------------------------------BARRAS DE 2004 - 2008
-$pdf->Rect(45, 93, $rr20042008Por, 3, 'F', $style4, array(15, 3, 137));
-$pdf->Rect(45 + $rr20042008Por, 93, 5, 3, 'D', $style4, array(210, 16, 16));
-$pdf->SetXY(44 + $rr20042008Por, 93);
-$pdf->SetFontSize(8);
-$pdf->Write(0, $rr20042008, '', 0, 'L', true, 0, false, false, 0);
-
-$pdf->Rect(45, 96, $ar20042008Por, 3, 'F', $style4, array(21, 0, 255));
-$pdf->Rect(45 + $ar20042008Por, 96, 5, 3, 'D', $style4, array(210, 16, 16));
-$pdf->SetXY(44 + $ar20042008Por, 96);
-$pdf->SetFontSize(8);
-$pdf->Write(0, $ar20042008, '', 0, 'L', true, 0, false, false, 0);
-
-$pdf->Rect(45, 99, $ri20042008Por, 3, 'F', $style4, array(29, 139, 7));
-$pdf->Rect(45 + $ri20042008Por, 99, 5, 3, 'D', $style4, array(210, 16, 16));
-$pdf->SetXY(44 + $ri20042008Por, 99);
-$pdf->SetFontSize(8);
-$pdf->Write(0, $ri20042008, '', 0, 'L', true, 0, false, false, 0);
-
-$pdf->Rect(45, 102, $ai20042008Por, 3, 'F', $style4, array(210, 16, 16));
-$pdf->Rect(45 + $ai20042008Por, 102, 5, 3, 'D', $style4, array(210, 16, 16));
-$pdf->SetXY(44 + $ai20042008Por, 102);
-$pdf->SetFontSize(8);
-$pdf->Write(0, $ai20042008, '', 0, 'L', true, 0, false, false, 0);
-//------------------------------------------------------------------------------BARRAS DE 1999 - 2003
-$pdf->Rect(45, 111, $rr19992003Por, 3, 'F', $style4, array(15, 3, 137));
-$pdf->Rect(45 + $rr19992003Por, 111, 5, 3, 'D', $style4, array(210, 16, 16));
-$pdf->SetXY(44 + $rr19992003Por, 111);
-$pdf->SetFontSize(8);
-$pdf->Write(0, $rr19992003, '', 0, 'L', true, 0, false, false, 0);
-
-$pdf->Rect(45, 114, $ar19992003Por, 3, 'F', $style4, array(21, 0, 255));
-$pdf->Rect(45 + $ar19992003Por, 114, 5, 3, 'D', $style4, array(210, 16, 16));
-$pdf->SetXY(44 + $ar19992003Por, 114);
-$pdf->SetFontSize(8);
-$pdf->Write(0, $ar19992003, '', 0, 'L', true, 0, false, false, 0);
-
-$pdf->Rect(45, 117, $ri19992003Por, 3, 'F', $style4, array(29, 139, 7));
-$pdf->Rect(45 + $ri19992003Por, 117, 5, 3, 'D', $style4, array(210, 16, 16));
-$pdf->SetXY(44 + $ri19992003Por, 117);
-$pdf->SetFontSize(8);
-$pdf->Write(0, $ri19992003, '', 0, 'L', true, 0, false, false, 0);
-
-$pdf->Rect(45, 120, $ai19992003Por, 3, 'F', $style4, array(210, 16, 16));
-$pdf->Rect(45 + $ai19992003Por, 120, 5, 3, 'D', $style4, array(210, 16, 16));
-$pdf->SetXY(44 + $ai19992003Por, 120);
-$pdf->SetFontSize(8);
-$pdf->Write(0, $ai19992003, '', 0, 'L', true, 0, false, false, 0);
-//------------------------------------------------------------------------------BARRAS DE 1994 - 1998
-$pdf->Rect(45, 128, $rr19941998Por, 3, 'F', $style4, array(15, 3, 137));
-$pdf->Rect(45 + $rr19941998Por, 128, 5, 3, 'D', $style4, array(210, 16, 16));
-$pdf->SetXY(44 + $rr19941998Por, 128);
-$pdf->SetFontSize(8);
-$pdf->Write(0, $rr19941998, '', 0, 'L', true, 0, false, false, 0);
-
-$pdf->Rect(45, 131, $ar19941998Por, 3, 'F', $style4, array(21, 0, 255));
-$pdf->Rect(45 + $ar19941998Por, 131, 5, 3, 'D', $style4, array(210, 16, 16));
-$pdf->SetXY(44 + $ar19941998Por, 131);
-$pdf->SetFontSize(8);
-$pdf->Write(0, $ar19941998, '', 0, 'L', true, 0, false, false, 0);
-
-$pdf->Rect(45, 134, $ri19941998Por, 3, 'F', $style4, array(29, 139, 7));
-$pdf->Rect(45 + $ri19941998Por, 134, 5, 3, 'D', $style4, array(210, 16, 16));
-$pdf->SetXY(44 + $ri19941998Por, 134);
-$pdf->SetFontSize(8);
-$pdf->Write(0, $ri19941998, '', 0, 'L', true, 0, false, false, 0);
-
-$pdf->Rect(45, 137, $ai19941998Por, 3, 'F', $style4, array(210, 16, 16));
-$pdf->Rect(45 + $ai19941998Por, 137, 5, 3, 'D', $style4, array(210, 16, 16));
-$pdf->SetXY(44 + $ai19941998Por, 137);
-$pdf->SetFontSize(8);
-$pdf->Write(0, $ai19941998, '', 0, 'L', true, 0, false, false, 0);
-//------------------------------------------------------------------------------MENOR QUE 1993
-$pdf->Rect(45, 146, $rr1993Por, 3, 'F', $style4, array(15, 3, 137));
-$pdf->Rect(45 + $rr1993Por, 146, 5, 3, 'D', $style4, array(210, 16, 16));
-$pdf->SetXY(44 + $rr1993Por, 146);
-$pdf->SetFontSize(8);
-$pdf->Write(0, $rr1993, '', 0, 'L', true, 0, false, false, 0);
-
-
-
-$pdf->Rect(45, 149, $ar1993Por, 3, 'F', $style4, array(21, 0, 255));
-$pdf->Rect(45 + $ar1993Por, 149, 5, 3, 'D', $style4, array(210, 16, 16));
-$pdf->SetXY(44 + $ar1993Por, 149);
-$pdf->SetFontSize(8);
-$pdf->Write(0, $ar1993, '', 0, 'L', true, 0, false, false, 0);
-
-
-$pdf->Rect(45, 152, $ri1993Por, 3, 'F', $style4, array(29, 139, 7));
-$pdf->Rect(45 + $ri1993Por, 152, 5, 3, 'D', $style4, array(210, 16, 16));
-$pdf->SetXY(44 + $ri1993Por, 152);
-$pdf->SetFontSize(8);
-$pdf->Write(0, $ri1993, '', 0, 'L', true, 0, false, false, 0);
-
-
-$pdf->Rect(45, 155, $ai1993Por, 3, 'F', $style4, array(210, 16, 16));
-$pdf->Rect(45 + $ai1993Por, 155, 5, 3, 'D', $style4, array(210, 16, 16));
-$pdf->SetXY(44 + $ai1993Por, 155);
-$pdf->SetFontSize(8);
-$pdf->Write(0, $ai1993, '', 0, 'L', true, 0, false, false, 0);
-$pdf->Ln();
-$pdf->Ln();
-$txt = 'Total de inspecciones por año de matrícula';
-$pdf->SetFontSize(10);
-$pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
-
-$pdf->Rect(155, 185, 30, 15, 'D', $style4, array(15, 3, 137));
-$pdf->Rect(156, 193, 5, 3, 'F', $style4, array(210, 16, 16));
-
-$pdf->Line(20, 175, 20, 230);
-$pdf->Line(20, 230, 150, 230);
-$pdf->Rect(25, 229, 20, -$total1993Por, 'F', $style4, array(210, 16, 16));
-
-
-$pdf->Rect(50, 229, 20, -$total19941998Por, 'F', $style4, array(210, 16, 16));
-
-$pdf->Rect(75, 229, 20, -$total19992003Por, 'F', $style4, array(210, 16, 16));
-
-$pdf->Rect(100, 229, 20, -$total20042008Por, 'F', $style4, array(210, 16, 16));
-
-$pdf->Rect(125, 229, 20, -$total2009Por, 'F', $style4, array(210, 16, 16));
-$pdf->Ln();
-$pdf->Ln();
-$pdf->Ln();
-$pdf->Ln();
-$txt = '                                                                                                                                               Leyenda';
-$pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
-$txt = '                                                                                                                                                      Total';
-$pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
-$pdf->Ln();
-$pdf->Ln();
-$pdf->Ln();
-$pdf->Ln();
-$pdf->Ln();
-$pdf->Ln();
-$pdf->Ln();
-$pdf->Ln();
-
-
-$txt = '           Menor igual 1993         1994-1998              1999-2003               2004-2008           Mayor igual 2009';
-$pdf->SetFontSize(8);
-$pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
-
-$pdf->SetFontSize(10);
-$pdf->Text(30, 225 - $total1993Por, $total1993);
-$pdf->Text(55, 225 - $total19941998Por, $total19941998);
-$pdf->Text(80, 225 - $total19992003Por, $total19992003);
-$pdf->Text(105, 225 - $total20042008Por, $total20042008);
-$pdf->Text(130, 225 - $total2009Por, $total2009);
-
-
-$pdf->Text(15, 240, 'Porcentaje de inspecciones aprobadas y rechazadas por año de matrícula');
-$pdf->SetFontSize(8);
-$pdf->Text(15, 248, '           Menor igual 1993         1994-1998              1999-2003               2004-2008           Mayor igual 2009');
-
-
-$xc1993 = 35;
-$yc1993 = 265;
-$r1993 = 10;
-
-$aprobadas1993 = $ar1993 + $ai1993;
-$rechazadas1993 = $rr1993 + $ri1993;
-
-$aprobadas1993Por = round(($aprobadas1993 / $total1993) * 100);
-$recchazadas1993Por = round(($rechazadas1993 / $total1993) * 100);
-
-$aprobadas1993Gr = round(($aprobadas1993 / $total1993) * 360);
-$recchazadas1993Gr = round(($rechazadas1993 / $total1993) * 360);
-
-$pdf->SetFillColor(210, 16, 16);
-$pdf->PieSector($xc1993, $yc1993, $r1993, 0, $aprobadas1993Gr, 'F', false, 0, 2);
-
-$pdf->SetFillColor(29, 139, 7);
-$pdf->PieSector($xc1993, $yc1993, $r1993, $aprobadas1993Gr, 360, 'F', false, 0, 2);
-
-$pdf->SetTextColor(210, 16, 16);
-$pdf->Text(24, 253, $aprobadas1993Por . '%');
-$pdf->SetTextColor(29, 139, 7);
-$pdf->Text(43.5, 268, $recchazadas1993Por . '%');
-
-$xc19941998 = 60;
-$yc19941998 = 265;
-$r19941998 = 10;
-
-$aprobadas19941998 = $ar19941998 + $ai19941998;
-$rechazadas19941998 = $rr19941998 + $ri19941998;
-
-$aprobadas19941998Por = round(($aprobadas19941998 / $total19941998) * 100);
-$recchazadas19941998Por = round(($rechazadas19941998 / $total19941998) * 100);
-
-$aprobadas19941998Gr = round(($aprobadas19941998 / $total19941998) * 360);
-$recchazadas19941998Gr = round(($rechazadas19941998 / $total19941998) * 360);
-
-$pdf->SetFillColor(210, 16, 16);
-$pdf->PieSector($xc19941998, $yc19941998, $r19941998, 0, $aprobadas19941998Gr, 'F', false, 0, 2);
-
-$pdf->SetFillColor(29, 139, 7);
-$pdf->PieSector($xc19941998, $yc19941998, $r19941998, $aprobadas19941998Gr, 360, 'F', false, 0, 2);
-
-$pdf->SetTextColor(210, 16, 16);
-$pdf->Text(49, 253, $aprobadas19941998Por . '%');
-$pdf->SetTextColor(29, 139, 7);
-$pdf->Text(68.5, 268, $recchazadas19941998Por . '%');
-
-$xc19992003 = 85;
-$yc19992003 = 265;
-$r19992003 = 10;
-
-$aprobadas19992003 = $ar19992003 + $ai19992003;
-$rechazadas19992003 = $rr19992003 + $ri19992003;
-
-$aprobadas19992003Por = round(($aprobadas19992003 / $total19992003) * 100);
-$recchazadas19992003Por = round(($rechazadas19992003 / $total19992003) * 100);
-
-$aprobadas19992003Gr = round(($aprobadas19992003 / $total19992003) * 360);
-$recchazadas19992003Gr = round(($rechazadas19992003 / $total19992003) * 360);
-
-$pdf->SetFillColor(210, 16, 16);
-$pdf->PieSector($xc19992003, $yc19992003, $r19992003, 0, $aprobadas19992003Gr, 'F', false, 0, 2);
-
-$pdf->SetFillColor(29, 139, 7);
-$pdf->PieSector($xc19992003, $yc19992003, $r19992003, $aprobadas19992003Gr, 360, 'F', false, 0, 2);
-
-$pdf->SetTextColor(210, 16, 16);
-$pdf->Text(74, 253, $aprobadas19992003Por . '%');
-$pdf->SetTextColor(29, 139, 7);
-$pdf->Text(93.5, 268, $recchazadas19992003Por . '%');
-
-$xc20042008 = 110;
-$yc20042008 = 265;
-$r20042008 = 10;
-
-$aprobadas20042008 = $ar20042008 + $ai20042008;
-$rechazadas20042008 = $rr20042008 + $ri20042008;
-
-$aprobadas20042008Por = round(($aprobadas20042008 / $total20042008) * 100);
-$recchazadas20042008Por = round(($rechazadas20042008 / $total20042008) * 100);
-
-$aprobadas20042008Gr = round(($aprobadas20042008 / $total20042008) * 360);
-$recchazadas20042008Gr = round(($rechazadas20042008 / $total20042008) * 360);
-
-$pdf->SetFillColor(210, 16, 16);
-$pdf->PieSector($xc20042008, $yc20042008, $r20042008, 0, $aprobadas20042008Gr, 'F', false, 0, 2);
-
-$pdf->SetFillColor(29, 139, 7);
-$pdf->PieSector($xc20042008, $yc20042008, $r20042008, $aprobadas20042008Gr, 360, 'F', false, 0, 2);
-
-$pdf->SetTextColor(210, 16, 16);
-$pdf->Text(99, 253, $aprobadas20042008Por . '%');
-$pdf->SetTextColor(29, 139, 7);
-$pdf->Text(118.5, 268, $recchazadas20042008Por . '%');
-
-$xc2009 = 135;
-$yc2009 = 265;
-$r2009 = 10;
-
-$aprobadas2009 = $ar2009 + $ai2009;
-$rechazadas2009 = $rr2009 + $ri2009;
-
-$aprobadas2009Por = round(($aprobadas2009 / $total2009) * 100);
-$recchazadas2009Por = round(($rechazadas2009 / $total2009) * 100);
-
-$aprobadas2009Gr = round(($aprobadas2009 / $total2009) * 360);
-$recchazadas2009Gr = round(($rechazadas2009 / $total2009) * 360);
-
-$pdf->SetFillColor(210, 16, 16);
-$pdf->PieSector($xc2009, $yc2009, $r2009, 0, $aprobadas2009Gr, 'F', false, 0, 2);
-
-$pdf->SetFillColor(29, 139, 7);
-$pdf->PieSector($xc2009, $yc2009, $r2009, $aprobadas2009Gr, 360, 'F', false, 0, 2);
-
-$pdf->SetTextColor(210, 16, 16);
-$pdf->Text(124, 253, $aprobadas2009Por . '%');
-$pdf->SetTextColor(29, 139, 7);
-$pdf->Text(143.5, 268, $recchazadas2009Por . '%');
-
-$pdf->SetFontSize(10);
-$pdf->SetTextColor(0, 0, 0);
-$pdf->Text(156, 255, 'Leyenda');
-$pdf->Rect(155, 255, 32, 15, 'D', $style4, array(210, 16, 16));
-$pdf->Rect(156, 260, 5, 3, 'F', $style4, array(210, 16, 16));
-$pdf->Rect(156, 265, 5, 3, 'F', $style4, array(29, 139, 7));
-$pdf->SetTextColor(210, 16, 16);
-$pdf->Text(161, 260, '% Aprobadas');
-$pdf->SetTextColor(29, 139, 7);
-$pdf->Text(161, 265, '% Rechazadas');
-
-
-$pdf->Output($titulo. '_' . $fechageneracion . ".pdf", 'I');
-
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+GSLiT4Of/hwnw34p2qw1UyeTVRu01x7U

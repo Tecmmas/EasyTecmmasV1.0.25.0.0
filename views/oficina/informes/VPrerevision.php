@@ -1,218 +1,76 @@
-<?php $this->load->view('././header'); ?>
-<script type="text/javascript">
-
-</script>
-<!-- START CONTENT -->
-<section id="main-content" class=" ">
-    <section class="wrapper main-wrapper row" style=''>
-        <div class='col-12'>
-            <div class="page-title">
-                <div class="float-left">
-                    <!-- PAGE HEADING TAG - START --><h4 class="title">INFORME DE PREREVISION</h4><!-- PAGE HEADING TAG - END -->  
-                </div>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-        <!-- MAIN CONTENT AREA STARTS -->
-        <div class="col-xl-12">
-            <section class="box ">
-                <header class="panel_header">
-                    <h4 class="title float-left">módulo para la generación de informes de prerevisión</h4>
-                </header>
-                <div class="content-body">    
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-12">
-                            <section class="box ">
-                                <header class="panel_header">
-                                    <h2 class="title float-left">buscador</h2>
-                                </header>
-
-                                <div class="content-body">    
-                                    <form action="<?php echo base_url(); ?>index.php/oficina/informes/CPrerevision/consultar" method="post">
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <label style="font-weight: bold;color: black" for="placa">PLACA<br/>
-                                                    <input type="text" name="placa" id="placa" class="input" style="font-size: 15px;height: 37px"  size="15" value="<?php echo $placa; ?>" />
-                                                </label>
-                                            </div>
-                                            <div class="col-4">
-                                                <label style="font-weight: bold;color: black" for="daterange-2">FECHA<br/>
-                                                    <input type="text" name="rango" id="daterange-2" class="form-control daterange" data-format="YYYY-DD-MM" data-separator="," value="<?php echo $rango; ?>">
-                                                </label>
-                                            </div>
-                                            <div class="col-3">
-                                                <p class="submit">
-                                                    <input type="submit" name="consultar" id="wp-submit" class="btn btn-accent btn-block" onclick="showSuccess('Generando el informe, por favor espere.')" style="background-color: #393185;border-radius: 40px 40px 40px 40px" value="Consultar" />
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </form>
-
-                                    <div class="col-12">
-                                        <table  class="table table-bordered" >
-                                            <thead>
-                                                <tr>
-                                                    <th>Placa</th>
-                                                    <th>Fecha y hora</th>
-                                                    <th>Ocasión</th>
-                                                    <th>Generar informe</th>
-                                                    <th>Estado del vehículo</th>
-                                                    <th>Enviar formato al cliente</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                if ($prerevision !== '') {
-                                                    foreach ($prerevision->result() as $p) {
-                                                        ?>
-                                                        <tr>
-                                                            <td ><?php echo $p->placa; ?></td>
-                                                            <th ><?php echo $p->fecha_prerevision; ?></th>
-                                                            <th><?php echo $p->ocacion; ?></th>
-                                                            <td>
-                                                                <form action="<?php echo base_url(); ?>index.php/oficina/informes/CPrerevision/generar" method="post">
-                                                                    <input type="hidden" value="0" name="savePdf" >
-                                                                    <input type="hidden" value="" name="email" >
-                                                                    <input type="hidden" value="<?php echo $p->tipo_inspeccion; ?>" name="tipo_inspeccion" >
-                                                                    <button class="btn btn-primary btn-block" name="idpre_prerevision" value ="<?php echo $p->idpre_prerevision; ?>" type="submit" formtarget="_blank" style="border-radius: 40px 40px 40px 40px">Generar</button>
-                                                                </form>    
-                                                            </td>
-                                                            <td>
-                                                                <form action="<?php echo base_url(); ?>index.php/oficina/informes/CPrerevision/verEstado" method="post">
-                                                                    <button class="btn btn-primary btn-block" name="idpre_prerevision" value ="<?php echo $p->idpre_prerevision; ?>" type="submit" formtarget="_blank" style="border-radius: 40px 40px 40px 40px">Ver</button>
-                                                                </form>
-                                                            </td>
-                                                            <td>
-                                                                <!--<form action="<?php echo base_url(); ?>index.php/oficina/informes/CPrerevision/generar" method="post">-->
-                                                                <input type="hidden" value="1" name="savePdf" >
-                                                                <button class="btn btn-primary btn-block" name="idpre_prerevision" onclick="enviarEmail(<?php echo $p->idpre_prerevision; ?>, ' <?php echo $p->email; ?>')" value ="<?php echo $p->idpre_prerevision; ?>" type="submit" data-toggle='modal' data-target='#envioEmail'  style="border-radius: 40px 40px 40px 40px">Enviar email</button>
-                                                                <!--</form>-->
-                                                            </td>
-                                                        </tr>
-                                                        <?php
-                                                    }
-                                                }
-                                                ?>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                            </section>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!--<button ></button>-->
-        <!-- MAIN CONTENT AREA ENDS -->
-    </section>
-</section>
-<div class="modal" id="envioEmail" s tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog animated bounceInDown">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="titulo_">ENVIO DE FORMATO</h4>
-            </div>
-            <div class="modal-body" style="background: whitesmoke">
-                <label id="mensaje"
-                       style="background: white;
-                       width: 100%;
-                       text-align: center;
-                       font-weight: bold;
-                       font-size: 15px;
-                       padding: 5px;border: solid gray 2px;
-                       border-radius:  15px 15px 15px 15px;color: gray">Bienvenido</label>
-                <br>
-                <table class="table">
-                    <tr id="pin">
-                        <td style="text-align: right">
-                            Email
-                        </td>
-                        <td colspan="3" style="text-align: left;padding-left: 10px">
-                            <input id="datEmail" type="email" class="form-control"/>
-                        </td>
-
-                    </tr>
-
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button data-dismiss="modal" id="cancelar" class="btn btn-default" type="button">Cancelar</button>
-                <button class="btn btn-success" id="btnEnviar" type="submit" onclick="enviarEmailData()">Enviar</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- END CONTENT -->
-<?php
-$this->load->view('././footer');
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
 ?>
-<script type="text/javascript">
-
-    var envioCorreo = '<?php
-if (isset($envioCorreo)) {
-    echo $envioCorreo;
-} else {
-    echo'0';
-}
-?>';
-    var idpred = 0;
-    function enviarEmail(idpre, email) {
-        document.getElementById('btnEnviar').disabled = false;
-        $('#datEmail').val(email);
-        idpred = idpre;
-    }
-
-    function enviarEmailData() {
-        var emaild = $('#datEmail').val();
-        if (envioCorreo === "1") {
-            document.getElementById('btnEnviar').disabled = true;
-            $('#mensaje').html('Enviado Información, por favor espere.');
-//        console.log(emaild, idpred);
-            if ((idpred === null || idpred === "") || (emaild === null || emaild === "")) {
-                $('#cancelar').click();
-                Swal.fire({
-                    icon: 'error',
-                    text: 'Campo email vacio.'
-                });
-            } else {
-                $.ajax({
-                    url: '<?php echo base_url(); ?>index.php/oficina/informes/CPrerevision/generar',
-                    type: 'post',
-                    mimeType: 'json',
-                    data: {savePdf: 1,
-                        idpre_prerevision: idpred,
-                        email: emaild
-                    },
-                    success: function (data, textStatus, jqXHR) {
-//                        console.log(data)
-                        $('#cancelar').click();
-                        Swal.fire({
-                            icon: 'success',
-                            text: 'Email enviado con exito.',
-                        })
-
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        $('#cancelar').click();
-                        Swal.fire({
-                            icon: 'error',
-                            html: 'No se pudo enviar el email.<br>'.jqXHR.text,
-                        })
-                    }
-                })
-            }
-        } else {
-            $('#cancelar').click();
-            Swal.fire({
-                icon: 'error',
-                html: 'Apreciado usuario, usted no tiene habilitado este módulo de envío. por favor comuníquese con TECMMAS SAS<br>',
-            });
-        }
-
-    }
-
-</script>
+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

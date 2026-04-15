@@ -1,135 +1,107 @@
-<?php
-
-set_time_limit(0);
-ini_set('memory_limit', '-1');
-
-//$pdf = new TCPDF('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-
-//$titulo = "NÃºmero de registro visual: " . $this->session->userdata('idhojapruebas') . "-" . $this->session->userdata('idprueba') . " \nFecha inspeccion: " . $fechafinal . "\nPlaca: " . $this->session->userdata('numero_placa');
-$pdf->SetTitle($titulo);
-
-$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, $nombreCda . " - LISTA DE DEFECTOS ", "Fecha de generación de este informe: " . $fechageneracion);
-//$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, "prueba", "prueba");
-// set header and footer fonts
-$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-
-// set default monospaced font
-$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
-// set margins
-$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-
-// set auto page breaks
-//$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-// set image scale factor
-$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-// set some language-dependent strings (optional)
-if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
-    require_once(dirname(__FILE__) . '/lang/eng.php');
-    $pdf->setLanguageArray($l);
-}
-
-// ---------------------------------------------------------
-//
-$style = array('width' => 0.5, 'cap' => 'butt', 'join' => 'miter', 'dash' => '10,20,5,10', 'phase' => 10, 'color' => array(255, 0, 0));
-//$style4 = array('L' => 0,
-//    'T' => array('width' => 0.25, 'cap' => 'butt', 'join' => 'miter', 'dash' => '20,10', 'phase' => 10, 'color' => array(100, 100, 255)),
-//    'R' => array('width' => 0.50, 'cap' => 'round', 'join' => 'miter', 'dash' => 0, 'color' => array(50, 50, 127)),
-//    'B' => array('width' => 0.75, 'cap' => 'square', 'join' => 'miter', 'dash' => '30,10,5,10'));
-// set font
-$pdf->SetFont('helvetica', '', 10);
-
-// add a page
-
-$pdf->AddPage();
-$tbl1 = ' 
-        <table border="1" >
-            <thead>
-                <tr >
-                    <th style="text-align: center;"><strong>Codigo</strong></th>
-                    <th style="text-align: center;width: 370px;"><strong>Descripción</strong></th>
-                    <th style="text-align: center;width: 25px;"><strong>Gra</strong></th>
-                    <th style="text-align: center;width: 25px;"><strong>Ins</strong></th>
-                    <th style="text-align: center;width: 25px;"><strong>Liv</strong></th>
-                    <th style="text-align: center;width: 25px;"><strong>Pes</strong></th>
-                    <th style="text-align: center;width: 25px;"><strong>Mot</strong></th>
-                    <th style="text-align: center;width: 25px;"><strong>Mcr</strong></th>
-                    <th style="text-align: center;width: 25px;"><strong>Ser</strong></th>
-                    <th style="text-align: center;width: 25px;"><strong>Ens</strong></th>
-                </tr>
-            </thead>
-            <tbody>';
-
-$tbl2 = '';
-$livianopesado = "";
-$motocarro = "";
-$moto = "";
-$visual = "";
-$ensenanza = "";
-if ($defectos != FALSE) {
-    foreach ($defectos as $value) {
-        if ($value->nombre_defecto == 'liviano pesado' || $value->nombre_defecto == 'motocarro' || $value->nombre_defecto == 'gasolina-motos' || $value->nombre_defecto == 'motocicletas y motociclos') {
-            if ($value->nombre_defecto == 'liviano pesado') {
-                $motocarro = '';
-                $moto = '';
-                $livianopesado = 'X';
-            } elseif ($value->nombre_defecto == 'motocarro') {
-                $livianopesado = '';
-                $moto = '';
-                $motocarro = 'X';
-            } else {
-                $livianopesado = '';
-                $motocarro = '';
-                $moto = 'X';
-            }
-            if ($value->visual == 1) {
-                $visual = 'V';
-            } else {
-                $visual = 'M';
-            }
-            $tbltmp = '<tr >
-                        <td >' . $value->codigo . '</td>
-                        <td style="text-align: left;width: 370px;">' . $value->descripcion . '</td>
-                        <td style="text-align: center;width: 25px;">' . $value->tipo . '</td>
-                        <td style="text-align: center;width: 25px;">' . $visual . '</td>
-                        <td style="text-align: center;width: 25px;">' . $livianopesado . '</td>
-                        <td style="text-align: center;width: 25px;">' . $livianopesado . '</td>
-                        <td style="text-align: center;width: 25px;">' . $moto . '</td>
-                        <td style="text-align: center;width: 25px;">' . $motocarro . '</td>
-                        <td style="text-align: center;width: 25px;">' . $value->publico . '</td>
-                        <td style="text-align: center;width: 25px;">' . $value->ensenanza . '</td>
-                    </tr>';
-            $tbl2 = $tbl2 . $tbltmp;
-        }
-    }
-}
-
-
-$tbl3 = ' </tbody>
-        </table>';
-
-$tbl = $tbl1 . $tbl2 . $tbl3;
-
-$pdf->writeHTML($tbl, true, false, false, false, '');
-$pdf->Ln();
-
-
-
-$pdf->Ln();
-$pdf->Write(0, 'Gra: Gravedad', '', 0, 'L', true, 0, false, false, 0);
-$pdf->Write(0, 'Ins: Tipo inpeccion. V. Visual M. Mecanzado', '', 0, 'L', true, 0, false, false, 0);
-$pdf->Write(0, 'Mot: Motos', '', 0, 'L', true, 0, false, false, 0);
-$pdf->Write(0, 'Liv: Livianos', '', 0, 'L', true, 0, false, false, 0);
-$pdf->Write(0, 'Pes: Pesados', '', 0, 'L', true, 0, false, false, 0);
-$pdf->Write(0, 'Mcr: Motocarros', '', 0, 'L', true, 0, false, false, 0);
-$pdf->Write(0, 'Ser: Servicio. 0. Particular 1.Público', '', 0, 'L', true, 0, false, false, 0);
-$pdf->Write(0, 'Ens: Enseñanza', '', 0, 'L', true, 0, false, false, 0);
-
-
-$pdf->Output("listaDefectos.pdf", 'I');
-
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+mW==

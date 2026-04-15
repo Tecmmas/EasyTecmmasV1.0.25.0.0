@@ -1,185 +1,135 @@
-<?php
-
-class MyTCPDF extends TCPDF {
-
-    var $htmlHeader;
-    var $fechaAprobacionPre;
-    var $versionPre;
-
-    public function setHtmlHeader($htmlHeader) {
-        $this->htmlHeader = $htmlHeader;
-    }
-
-    public function setHtmlFooter($fechaAprobacionPre, $versionPre) {
-        $this->fechaAprobacionPre = $fechaAprobacionPre;
-        $this->versionPre = $versionPre;
-    }
-
-    public function Header() {
-        $this->writeHTMLCell(
-                $w = 0, $h = 0, $x = '', $y = '', $this->htmlHeader, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = 'top', $autopadding = true);
-    }
-
-    public function Footer() {
-        $this->SetFont('helvetica', 'I', 8);
-        if ($this->fechaAprobacionPre == "") {
-            $this->SetY(-15);
-            $this->Cell(0, 10, $this->getAliasNumPage() . ' de ' . $this->getAliasNbPages(),
-                    0, false, 'R', 0, '', 0, false, 'T', 'M');
-        } else {
-            $this->SetY(-20);
-            $this->writeHTML('<table><tr><td width="460px"></td><td><table  border="1" style="text-align:center" nobr="true"><tr><td width="105px"><strong>Versión</strong></td><td width="80px">' . $this->versionPre . '</td></tr><tr><td><strong>Fecha de aprobación</strong></td><td>' . $this->fechaAprobacionPre . '</td></tr><tr><td><strong>Páginas</strong></td><td>' . $this->getAliasNumPage() . ' de ' . $this->getAliasNbPages() . '</td></tr></table></td></tr></table>', false, true, false, true, 'R');
-        }
-    }
-
-}
-
-$pdf = new MyTCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-
-//$titulo = "PRE-REVISIÓN VEHICULOS - CODIGO: P.IV.002-R1 - VERSION: 7 - FECHA: 2019/07/30";
-//$logo = "data:image/jpg;base64," . base64_encode($cda->logo);
-//$logo = $pdf->Image('@' . $logo);
-//$pdf->SetHeaderData($logo, PDF_HEADER_LOGO_WIDTH, "CDA MI CARRERA SAS", $titulo);
-//$logo = "data:image/jpg;base64," . base64_encode($cda->logo);
-//$file = fopen($_SERVER['DOCUMENT_ROOT'] . 'et/application/libraries/tcpdf_logo.jpg', "wb");
-//fwrite($file, $cda->logo);
-//fclose($file);
-
-$pdf->SetCreator(PDF_CREATOR);
-// set default header data
-
-$pdf->setHtmlHeader($encabezado);
-$pdf->setHtmlFooter($fechaAprobacionPre, $versionPre);
-
-//$logo = "data:image/jpg;base64," . base64_encode($cda->logo);
-//$logo = file_get_contents($logo);
-//$path = tempnam(sys_get_temp_dir(), 'prefix');
-//file_put_contents($path, $logo);
-//$pdf->SetHeaderData($path, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE . ' 009', PDF_HEADER_STRING);
-//$pdf->SetHeaderData($path, PDF_HEADER_LOGO_WIDTH, "CDA MI CARRERA SAS", $titulo);
-// set header and footer fonts
-$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-
-// set default monospaced font
-$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
-// set margins
-$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-$pdf->SetHeaderMargin(3);
-//$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-
-// set auto page breaks
-$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
-// set image scale factor
-$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-// set some language-dependent strings (optional)
-if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
-    require_once(dirname(__FILE__) . '/lang/eng.php');
-    $pdf->setLanguageArray($l);
-}
-
-// -------------------------------------------------------------------
-// set font
-$pdf->SetFont('helvetica', '', 8);
-
-// add a page
-$pdf->AddPage();
-//------------------------------------------------------------------------------INFORMACION DEL VEHICULO
-$html = <<<EOF
-$datoVehiculo
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-//------------------------------------------------------------------------------PRESION DE AIRE
-$html = <<<EOF
-<p><strong>Presión de inflado (Psi)</strong></p>
-<table cellpadding="1" cellspacing="1" border="1" style="text-align:center" nobr="true">
-    $presion_llantas
-</table>
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-////------------------------------------------------------------------------------II. REQUISITOS PARA INSPECCION
-
-$html = <<<EOF
-        $lista_chequeo
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-//------------------------------------------------------------------------------III. ESTADO FÍSICO DEL VEHÍCULO
-$html = <<<EOF
-<div style="background-color: black;color:white;text-align: center"><strong>III. ESTADO FÍSICO DEL VEHÍCULO</strong></div>
-        $fotos<br>
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-$html = <<<EOF
-<strong>Observaciones:</strong> $observaciones<br>
-        <div>
-            <table   width="155" cellpadding="1" cellspacing="1" border="1" style="text-align:center;vertical-align: middle" nobr="true">
-                <tr>
-                    <td><label><strong>Funcionario que diligencia</strong></label></td>
-                </tr>
-                <tr>
-                    <td><img  width="200" height="100"  src="@$firmaEncargado" /></td>
-                    
-                </tr>
-                <tr>
-                    <td>Nombre: $nombreUser</td>
-                </tr>
-                <tr>
-                    <td>C.C: $identificacionUser</td>
-                </tr>
-            </table>
-        </div>
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-//
-//
-////------------------------------------------------------------------------------IV. CONDICIONES GENERALES (POR FAVOR LEALAS ANTES DE FIRMAR)
-
-$html = <<<EOF
-    $condiciones
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-
-if(isset($condicionesadicionales) && $condicionesadicionales !== ''){
-    $html = <<<EOF
-    $condicionesadicionales
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-}
-
-
-////------------------------------------------------------------------------------V. ACEPTACIÓN DEL SERVICIO
-$pdf->writeHTML($aceptacion, true, false, true, false, '');
-////------------------------------------------------------------------------------VI. RESULTADO Y ENTREGA DE RESULTADOS/ DOCUMENTOS
-if ($resultados !== '') {
-    $html = <<<EOF
-<div style="background-color: black;color:white;text-align: center"><strong>VI. RESULTADO Y ENTREGA DE RESULTADOS/ DOCUMENTOS</strong></div>
-EOF;
-    $pdf->writeHTML($html, true, false, true, false, '');
-    $pdf->writeHTML($resultados, true, false, true, false, '');
-    $op = "<table style='margin-top:5px'><tr><td>" . $operarios . "</td><td>" . $documentos . "</td></tr></table>";
-} else {
-    $op = '';
-}
-$pdf->writeHTML($op, true, false, true, false, '');
-
-$html = <<<EOF
------------------------------------------------------------------------------------- Fin del informe --------------------------------------------------------------------------------------
-EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-
-//------------------------------------------------------------------------------VII. FIRMA DEL CLIENTE
-//$html = <<<EOF
-//<div style="background-color: black;color:white;text-align: center"><strong>VII. FIRMA DEL CLIENTE</strong></div>
-//EOF;
-$pdf->writeHTML($html, true, false, true, false, '');
-if ($tipo == 1) {
-    $pdf->Output($url . $file, 'F');
-} else {
-    $pdf->Output("prerevision.pdf", 'I');
-}
-
-
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+kYfC39e0M06G34N4U8MaTBlZz9aA

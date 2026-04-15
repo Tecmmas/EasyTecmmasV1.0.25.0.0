@@ -1,1857 +1,312 @@
-<!DOCTYPE html>
-<html class=" ">
-
-<head>
-    <!--
-                 * @Package: Complete Admin - Responsive Theme
-                 * @Subpackage: Bootstrap
-                 * @Version: BS4-1.0
-                 * This file is part of Complete Admin Theme.
-        -->
-    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-    <meta charset="utf-8" />
-    <title>ADMINISTRAR VEHICULO</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta content="" name="description" />
-    <meta content="" name="author" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-    <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png" type="image/x-icon" />
-    <!-- Favicon -->
-    <link rel="apple-touch-icon-precomposed"
-        href="<?php echo base_url(); ?>assets/images/apple-touch-icon-57-precomposed.png"> <!-- For iPhone -->
-    <link rel="apple-touch-icon-precomposed" sizes="114x114"
-        href="<?php echo base_url(); ?>assets/images/apple-touch-icon-114-precomposed.png">
-    <!-- For iPhone 4 Retina display -->
-    <link rel="apple-touch-icon-precomposed" sizes="72x72"
-        href="<?php echo base_url(); ?>assets/images/apple-touch-icon-72-precomposed.png"> <!-- For iPad -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144"
-        href="<?php echo base_url(); ?>assets/images/apple-touch-icon-144-precomposed.png">
-    <!-- For iPad Retina display -->
-
-
-
-
-    <!-- CORE CSS FRAMEWORK - START -->
-    <link href="<?php echo base_url(); ?>assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css"
-        media="screen" />
-    <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"
-        type="text/css" />
-    <!-- <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/> -->
-    <link href="<?php echo base_url(); ?>assets/fonts/font-awesome/css/font-awesome.css" rel="stylesheet"
-        type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/css/animate.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/plugins/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet"
-        type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css"
-        media="screen" />
-    <!-- CORE CSS FRAMEWORK - END -->
-
-    <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - START -->
-    <link href="<?php echo base_url(); ?>assets/plugins/jquery-ui/smoothness/jquery-ui.min.css" rel="stylesheet"
-        type="text/css" media="screen" />
-    <link href="<?php echo base_url(); ?>assets/plugins/select2/select2.css" rel="stylesheet" type="text/css"
-        media="screen" />
-
-    <link href="<?php echo base_url(); ?>assets/plugins/datatables/css/datatables.min.css" rel="stylesheet"
-        type="text/css" media="screen" />
-    <!--<link href="<?php echo base_url(); ?>assets/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.min.css" rel="stylesheet" type="text/css" media="screen"/>-->
-    <!--        <link href="<?php echo base_url(); ?>assets/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet" type="text/css" media="screen"/>
-                  <link href="<?php echo base_url(); ?>assets/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" type="text/css" media="screen"/>-->
-
-    <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - END -->
-
-
-    <!-- CORE CSS TEMPLATE - START -->
-    <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/css/responsive.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/css/tecmmas.css" rel="stylesheet" type="text/css" />
-    <!-- CORE CSS TEMPLATE - END -->
-
-</head>
-<!-- END HEAD -->
-<!--<form action="<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/gestionar" method="post" >-->
-<!-- BEGIN BODY -->
-
-<body class=" ">
-
-    <!-- START TOPBAR -->
-    <div class='page-topbar '>
-        <div class='logo-area'>
-
-        </div>
-        <div class='quick-area'>
-            <div class='float-left'>
-                <ul class="info-menu left-links list-inline list-unstyled">
-                    <li class="message-toggle-wrapper list-inline-item">
-                        <ul class="dropdown-menu messages animated fadeIn">
-                            <li class="list dropdown-item">
-                            </li>
-                        </ul>
-                    </li>
-            </div>
-        </div>
-
-    </div>
-    <!-- END TOPBAR -->
-    <br><br>
-    <!-- START CONTENT -->
-
-    <section class="box ">
-        <header class="panel_header">
-            <h2 class="title pull-left">GESTION DE PRUEBAS</h2>
-        </header>
-        <div class="content-body">
-            <input type="button" class="btn btn-block bot_azul" style="width: 100px"
-                onclick="location.href = '../CPrincipal';" value="Atras" /><br>
-            <table style="width: 100%;text-align: left">
-                <tr>
-
-                    <td style="text-align: left;width: 100px">
-                        <label for="placa">PLACA<br />
-                            <input type="text" id="placa" name="placa" class="form-control" value="<?php
-                                                                                                    if (isset($placa)) {
-                                                                                                        echo $placa;
-                                                                                                    }
-                                                                                                    ?>" />
-                        </label>
-                    </td>
-                    <td style="text-align: left;width: 200px">
-                        <input type="button" onclick="consultar();" name="button" class="btn bot_azul btn-block"
-                            style="width: 150px" value="Consultar" />
-                    </td>
-                </tr>
-            </table>
-            <br>
-            <div class="col-xs-12">
-                <table id="example-1" class="table table-striped dt-responsive display">
-                    <thead>
-                        <tr>
-                            <th>Placa</th>
-                            <th>Tipo</th>
-                            <th>Clase</th>
-                            <th>Combustible</th>
-                            <th>RTMec</th>
-                            <th>Preventiva</th>
-                            <th>Prueba libre</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Placa</th>
-                            <th>Tipo</th>
-                            <th>Clase</th>
-                            <th>Combustible</th>
-                            <th>RTMec</th>
-                            <th>Preventiva</th>
-                            <th>Prueba libre</th>
-                        </tr>
-                    </tfoot>
-                    <tbody id="resulVehiculo">
-                    </tbody>
-                </table>
-                <div id="div_error"></div>
-            </div>
-        </div>
-    </section>
-    </section>
-    <!-- END CONTENT -->
-
-
-    <!-- END CONTAINER -->
-    <!-- LOAD FILES AT PAGE END FOR FASTER LOADING -->
-
-    <!-- CORE JS FRAMEWORK - START -->
-    <script src="<?php echo base_url(); ?>assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/js/popper.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/js/jquery.easing.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/plugins/pace/pace.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js"
-        type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/plugins/viewport/viewportchecker.js" type="text/javascript"></script>
-    <script>
-        window.jQuery || document.write('<script src="<?php echo base_url(); ?>assets/js/jquery-1.11.2.min.js"><\/script>');
-    </script>
-    <!-- CORE JS FRAMEWORK - END -->
-
-    <script src="<?php echo base_url(); ?>assets/plugins/autosize/autosize.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/plugins/icheck/icheck.min.js" type="text/javascript"></script>
-    <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
-
-    <script src="<?php echo base_url(); ?>assets/plugins/inputmask/min/jquery.inputmask.bundle.min.js"
-        type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/plugins/jquery-ui/smoothness/jquery-ui.min.js" type="text/javascript">
-    </script>
-    <script src="<?php echo base_url(); ?>assets/plugins/select2/select2.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/plugins/datatables/js/dataTables.min.js" type="text/javascript">
-    </script>
-    <!--    <script src="<?php echo base_url(); ?>assets/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url(); ?>assets/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url(); ?>assets/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>-->
-    <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
-
-
-    <!-- CORE TEMPLATE JS - START -->
-    <script src="<?php echo base_url(); ?>assets/js/scripts.js" type="text/javascript"></script>
-
-    <!-- END CORE TEMPLATE JS - END -->
-
-
-    <!-- General section box modal start -->
-    <div class="modal" id="RTmecModal" s tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog animated bounceInDown">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="titulo_">REVISION TECNICOMECÁNICA</h4>
-                </div>
-                <div class="modal-body" style="background: whitesmoke">
-                    <table class="table">
-                        <tr id="facturacion">
-                            <td style="width: 25%;text-align: right">
-                                FACTURA No
-                            </td>
-                            <td style="width: 30%;text-align: left;padding-left: 10px">
-                                <input id="noFactura" type="text" class="form-control" />
-                            </td>
-                            <td style="width: 20%;text-align: right">
-                                COSTO $
-                            </td>
-                            <td style="width: 25%;text-align: left;padding-left: 10px">
-                                <input id="costo" type="text" class="form-control" />
-                            </td>
-                        </tr>
-                        <tr id="pin">
-                            <td style="text-align: right">
-                                PIN
-                            </td>
-                            <td colspan="3" style="text-align: left;padding-left: 10px">
-                                <input id="pin_" type="text" class="form-control" />
-                            </td>
-                        </tr>
-                        <tr id="pinQuemado">
-                            <td style="text-align: right">
-                                <input id="chkpinQuemado" tabindex="1" type="checkbox" style="transform: scale(2.0)" />
-                            </td>
-                            <td style="text-align: left;padding-left: 10px" colspan="3">
-                                PIN QUEMADO DESDE AUDIWEB
-                            </td>
-                        </tr>
-                        <tr id="moduloPrerevision">
-                            <td style="text-align: right">
-                                <input id="chkModuloPre" tabindex="1" type="checkbox" style="transform: scale(2.0)" />
-                            </td>
-                            <td style="text-align: left;padding-left: 10px" colspan="4">
-                                PREREVISION FÍSICA
-                            </td>
-                        </tr>
-
-                        <tr id="aplicares2703">
-                            <td style="text-align: right">
-                                <input id="chkAplicaRes2703" tabindex="1" type="checkbox"
-                                    style="transform: scale(2.0)" />
-                            </td>
-                            <td style="text-align: left;padding-left: 10px" colspan="2">
-                                Aplica Resolución 2703 de 2023 <a
-                                    href="https://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?i=152048"
-                                    target="_blank">Más información</a><br>
-                            </td>
-                        </tr>
-                        <tr id="autoregulado">
-                            <td style="text-align: right">
-                                <input id="chkAutoregulado" tabindex="1" onchange="chkAutoregulado(this.value)"
-                                    type="checkbox" style="transform: scale(2.0)" />
-                            </td>
-                            <td style="text-align: left;padding-left: 10px" colspan="2">
-                                El vehículo pertenece al programa de autoregulación.<br>
-                            </td>
-                        </tr>
-                        <tr id="infoRes">
-                            <td style="text-align: justify">
-                                <label><strong>Nota: </strong> Para dar cumplimiento con la resolución 2703 de 2023
-                                    asegúrese de realizar la prueba de opacidad con la versión >= 1.0.20.0.0 en los
-                                    dispositivos móviles.</label>
-                            </td>
-                        </tr>
-                    </table><br>
-                    <label id="mensaje" style="background: white;
-                           width: 100%;
-                           text-align: center;
-                           font-weight: bold;
-                           font-size: 15px;
-                           padding: 5px;border: solid gray 2px;
-                           border-radius:  15px 15px 15px 15px;color: gray">ESPERANDO ASIGNACIÓN</label>
-                    <br>
-                    <h5 id="titPruebas">Pruebas</h5>
-                    <table id="tabPruebas" class="table">
-                        <tr>
-
-                            <td><input type="checkbox" style="transform: scale(2.0)" id="luxometro" disabled /></td>
-                            <td style="padding-left: 10px">LUXÓMETRO</td>
-                            <td><input type="checkbox" style="transform: scale(2.0)" id="opacidad" disabled /></td>
-                            <td style="padding-left: 10px">OPACIDAD</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" style="transform: scale(2.0)" id="gases" disabled /></td>
-                            <td style="padding-left: 10px">GASES</td>
-                            <td><input type="checkbox" style="transform: scale(2.0)" id="camara" disabled /></td>
-                            <td style="padding-left: 10px">CAMARA</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" style="transform: scale(2.0)" id="taximetro" disabled /></td>
-                            <td style="padding-left: 10px">TAXIMETRO</td>
-                            <td><input type="checkbox" style="transform: scale(2.0)" id="frenometro" disabled /></td>
-                            <td style="padding-left: 10px">FRENOMETRO</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" style="transform: scale(2.0)" id="visual" disabled /></td>
-                            <td style="padding-left: 10px">VISUAL</td>
-                            <td><input type="checkbox" style="transform: scale(2.0)" id="suspension" disabled /></td>
-                            <td style="padding-left: 10px">SUSPENSIÓN</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" style="transform: scale(2.0)" id="alineacion" disabled /></td>
-                            <td style="padding-left: 10px">ALINEACIÓN</td>
-                            <td><input type="checkbox" style="transform: scale(2.0)" id="sonometro" disabled /></td>
-                            <td style="padding-left: 10px">SONOMETRIA</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button data-dismiss="modal" class="btn btn-default" type="button">CANCELAR</button>
-                    <button id="btnAsignar" class="btn btn-success" type="button"
-                        onclick="asignarPrueba()">ASIGNAR</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal" id="Modal-token" s tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog animated bounceInDown">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="titulo_">Validar Token</h4>
-                </div>
-                <div class="modal-body">
-                    <label style="color: black; justify-content: center">Para poder ejecutar este comando, por favor
-                        comuniquese con el area de desarrollo para que le entregue un token y pueda continuar con el
-                        proceso</label>
-                    <br>
-                    <br>
-                    <div style="text-align: center">
-                        <input type="text" placeholder="Token" class="input" id="token" autocomplete="off">
-                    </div>
-                    <div id="valid-token" style="color: red"></div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-default" type="button" onclick="location.reload()">CANCELAR</button>
-                    <button id="btnAsignar" class="btn btn-success" type="button" onclick="Validar()">Validar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- modal end -->
-    <!--<script src="<?php echo base_url(); ?>assets/sesion.js"  type="text/javascript"></script>-->}
-    <!--<script src="<?php echo base_url(); ?>application/libraries/sesion.js"  type="text/javascript"></script>-->
-    <script type="text/javascript">
-        var facturacion = '<?php
-                            if (isset($facturacion)) {
-                                echo $facturacion;
-                            } else {
-                                echo '0';
-                            }
-                            ?>';
-        var valorRtmecLiviano = '<?php
-                                    if (isset($valorRtmecLiviano)) {
-                                        echo $valorRtmecLiviano;
-                                    } else {
-                                        echo '0';
-                                    }
-                                    ?>';
-        var valorRtmecPesado = '<?php
-                                if (isset($valorRtmecPesado)) {
-                                    echo $valorRtmecPesado;
-                                } else {
-                                    echo '0';
-                                }
-                                ?>';
-        var valorRtmecMoto = '<?php
-                                if (isset($valorRtmecMoto)) {
-                                    echo $valorRtmecMoto;
-                                } else {
-                                    echo '0';
-                                }
-                                ?>';
-        var valorPreventivaLiviano = '<?php
-                                        if (isset($valorPreventivaLiviano)) {
-                                            echo $valorPreventivaLiviano;
-                                        } else {
-                                            echo '0';
-                                        }
-                                        ?>';
-        var valorPreventivaPesado = '<?php
-                                        if (isset($valorPreventivaPesado)) {
-                                            echo $valorPreventivaPesado;
-                                        } else {
-                                            echo '0';
-                                        }
-                                        ?>';
-        var valorPreventivaMoto = '<?php
-                                    if (isset($valorPreventivaMoto)) {
-                                        echo $valorPreventivaMoto;
-                                    } else {
-                                        echo '0';
-                                    }
-                                    ?>';
-        var valorPreventivaMoto = '<?php
-                                    if (isset($valorPreventivaMoto)) {
-                                        echo $valorPreventivaMoto;
-                                    } else {
-                                        echo '0';
-                                    }
-                                    ?>';
-        var activoSicov = '<?php
-                            if (isset($activoSicov)) {
-                                echo $activoSicov;
-                            } else {
-                                echo '0';
-                            }
-                            ?>';
-        var idCdaRUNT = '<?php
-                            if (isset($idCdaRUNT)) {
-                                echo $idCdaRUNT;
-                            } else {
-                                echo '0';
-                            }
-                            ?>';
-        var idSoftwareRunt = '<?php
-                                if (isset($idSoftwareRunt)) {
-                                    echo $idSoftwareRunt;
-                                } else {
-                                    echo '0';
-                                }
-                                ?>';
-        var idConsecutivoRunt = '<?php
-                                    if (isset($idConsecutivoRunt)) {
-                                        echo $idConsecutivoRunt;
-                                    } else {
-                                        echo '0';
-                                    }
-                                    ?>';
-        var ipSicovAlternativo = '<?php
-                                    if (isset($ipSicovAlternativo)) {
-                                        echo $ipSicovAlternativo;
-                                    } else {
-                                        echo '0';
-                                    }
-                                    ?>';
-        var sicovModoAlternativo = '<?php
-                                    if (isset($sicovModoAlternativo)) {
-                                        echo $sicovModoAlternativo;
-                                    } else {
-                                        echo '0';
-                                    }
-                                    ?>';
-        var ipSicov = '<?php
-                        if (isset($ipSicov)) {
-                            echo $ipSicov;
-                        } else {
-                            echo '0';
-                        }
-                        ?>';
-        var usuarioSicov = '<?php
-                            if (isset($usuarioSicov)) {
-                                echo $usuarioSicov;
-                            } else {
-                                echo '0';
-                            }
-                            ?>';
-        var claveSicov = '<?php
-                            if (isset($claveSicov)) {
-                                echo $claveSicov;
-                            } else {
-                                echo '0';
-                            }
-                            ?>';
-        var moduloPrerevision = '<?php
-                                    if (isset($moduloPrerevision)) {
-                                        echo $moduloPrerevision;
-                                    } else {
-                                        echo '0';
-                                    }
-                                    ?>';
-        var sicov = '<?php
-                        if (isset($sicov)) {
-                            echo strtoupper($sicov);
-                        } else {
-                            echo '0';
-                        }
-                        ?>';
-        var asignarNoFactura = '<?php
-                                if (isset($asignarNoFactura)) {
-                                    echo $asignarNoFactura;
-                                } else {
-                                    echo '0';
-                                }
-                                ?>';
-        var numFactura = '<?php
-                            if (isset($numFactura)) {
-                                echo $numFactura;
-                            } else {
-                                echo '0';
-                            }
-                            ?>';
-        var moduloCaptador = '<?php
-                                if (isset($moduloCaptador)) {
-                                    echo $moduloCaptador;
-                                } else {
-                                    echo '1';
-                                }
-                                ?>';
-        var pedirSonometro = '<?php
-                                if (isset($pedirSonometro)) {
-                                    echo $pedirSonometro;
-                                } else {
-                                    echo '0';
-                                }
-                                ?>';
-        var salaEspera = '<?php
-                            if (isset($salaEspera2)) {
-                                echo $salaEspera2;
-                            } else {
-                                echo '0';
-                            }
-                            ?>';
-        var ipCAR = '<?php
-                        if (isset($ipCAR)) {
-                            echo $ipCAR;
-                        } else {
-                            echo '0';
-                        }
-                        ?>';
-        var eTh = '<?php
-                    if (isset($eTh)) {
-                        echo $eTh;
-                    } else {
-                        echo '0';
-                    }
-                    ?>';
-        var idCdaRUNT = '<?php
-                            if (isset($idCdaRUNT)) {
-                                echo $idCdaRUNT;
-                            } else {
-                                echo '0';
-                            }
-                            ?>';
-        var facturaCero = '<?php
-                            if (isset($facturaCero)) {
-                                echo $facturaCero;
-                            } else {
-                                echo '0';
-                            }
-                            ?>';
-        var obligatorio2703 = '<?php
-                                if (isset($obligatorio2703)) {
-                                    echo $obligatorio2703;
-                                } else {
-                                    echo '0';
-                                }
-                                ?>';
-        var verificarPin = '<?php
-                            if (isset($verificarPinIndra)) {
-                                echo $verificarPinIndra;
-                            } else {
-                                echo '1';
-                            }
-                            ?>';
-        var ipLocal = '<?php
-                        echo base_url();
-                        ?>';
-
-
-        var facturaActual;
-
-
-        $(document).ready(function() {
-            evalTh();
-            document.getElementById('aplicares2703').style.display = 'none';
-            document.getElementById('aplicares2703').style.position = 'absolute';
-            document.getElementById('autoregulado').style.display = 'none';
-            document.getElementById('autoregulado').style.position = 'absolute';
-            document.getElementById('infoRes').style.display = 'none';
-            document.getElementById('infoRes').style.position = 'absolute';
-            let date = new Date()
-            if (localStorage.getItem("contador") == undefined || localStorage.getItem("contador") == "NAN" ||
-                localStorage.getItem("contador") == 0) {
-                localStorage.setItem("contador", 0);
-            }
-            // let day = date.getDate()
-            // let month = date.getMonth() + 1
-            // let year = date.getFullYear()
-
-            // var hora = date.getHours();
-            // var min = date.getMinutes();
-            // var horaMinuto = `${hora}:${min}`;
-            // if (horaMinuto <= '07:00' && (localStorage.getItem("contador") !== null && localStorage.getItem("contador") !== 0)) {
-            //     // let fecha = "";
-            //     // if (month < 10) {
-            //     //     fecha = `${year}-0${month}-${day}`;
-            //     // } else {
-            //     //     fecha = `${year}-${month}-${day}`;
-            //     // }
-            //     // localStorage.setItem('fechaAnterior', fecha);
-            //     localStorage.setItem('contador', "0");
-            // }
-        });
-        var getNumFactura = function() {
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/getNumFactura',
-                type: 'post',
-                async: false,
-                success: function(numFactura) {
-                    $('#noFactura').val(numFactura);
-                    facturaActual = parseInt(numFactura) - 1;
-                }
-            });
-        };
-        var ifRemolque = false;
-        var consultar = function() {
-            unChekedAll();
-            var placa = $("#placa").val();
-            if (placa !== '') {
-                var data = {
-                    placa: placa
-                };
-                $.ajax({
-                    url: '<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/consultar',
-                    data: data,
-                    type: 'post',
-                    success: function(rta) {
-                        document.getElementById("resulVehiculo").innerHTML = rta;
-                        if (rta.includes("REMOLQUE") || rta.includes("SEMIREMOLQUE")) {
-                            ifRemolque = true;
-                        }
-                    }
-                });
-            }
-        };
-
-        var vehiculo;
-        var tipoTipoInspeccion;
-        var reinspeccion;
-
-        var evalTh = function() {
-            //        alert(eTh);
-            if (eTh !== "0") {
-                //                $("#RTmecModal").hide();
-                Swal.fire({
-                    html: "<label style='font-size: 22px'>Verificación importante</label> <br><br><div style='text-align: justify' ><strong>Para continuar con la inspección debe comunicarse con TECMMAS para una verificación en la actualización del software.</strong></div>",
-                    confirmButtonText: 'Aceptar',
-                    allowOutsideClick: false
-                }).then((result) => {
-                    history.back();
-                });
-            }
-        };
-
-        var configurar2703 = function() {
-            const date1 = Date.parse('2024-06-01');
-            const date2 = Date.now();
-            //            console.log(vehiculo);
-            //            console.log(date1);
-            //            console.log(date2);
-            if (date2 >= date1) {
-                document.getElementById('aplicares2703').style.display = 'none';
-                document.getElementById('aplicares2703').style.position = 'absolute';
-                document.getElementById('autoregulado').style.display = 'none';
-                document.getElementById('autoregulado').style.position = 'absolute';
-                document.getElementById('infoRes').style.display = 'none';
-                document.getElementById('infoRes').style.position = 'absolute';
-                if (vehiculo.idtipocombustible === '1') {
-                    document.getElementById('aplicares2703').style.display = 'block';
-                    document.getElementById('aplicares2703').style.position = 'relative';
-                    document.getElementById('autoregulado').style.display = 'block';
-                    document.getElementById('autoregulado').style.position = 'relative';
-                    document.getElementById('infoRes').style.display = 'block';
-                    document.getElementById('infoRes').style.position = 'relative';
-                    document.getElementById('chkAplicaRes2703').checked = false;
-                    document.getElementById('chkAutoregulado').checked = false;
-                    if (vehiculo.aplicares2703 === "1")
-                        document.getElementById('chkAplicaRes2703').checked = true;
-                    if (vehiculo.autoregulado === "1")
-                        document.getElementById('chkAutoregulado').checked = true;
-                    if (obligatorio2703 === '1') {
-                        document.getElementById('chkAplicaRes2703').checked = true;
-                        document.getElementById('chkAplicaRes2703').disabled = true;
-                    }
-                }
-            }
-        };
-        var chkAutoregulado = function(value) {
-            if (value)
-                document.getElementById('chkAplicaRes2703').checked = true;
-        };
-
-
-        var asignarRTMec1ra = function(e) {
-
-            mostrarComponente();
-            $('#titulo_').text("REVISION TECNICOMECANICA");
-            tipoTipoInspeccion = 'RTMec';
-            reinspeccion = '0';
-            idhojapruebas = '';
-            var placa = e.title.toString().replace("A-", "");
-            var data = {
-                numero_placa: e.title
-            };
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/asignarRTMec1ra',
-                data: data,
-                type: 'post',
-                success: function(r) {
-
-                    var v = JSON.parse(r);
-
-                    vehiculo = new Object();
-                    vehiculo = v;
-                    configurar2703();
-
-                    if ($('#libre-' + vehiculo.numero_placa).val() !== 'Prueba libre') {
-                        setMensaje('El vehículo con placa ' + vehiculo.numero_placa +
-                            ' se encuentra actualmente en proceso de prueba libre y no se le puede asignar un tipo de inspección diferente',
-                            '');
-                        ocultarComponente();
-                    } else {
-                        setMensaje('PRIMERA VEZ PARA ' + vehiculo.numero_placa, '');
-                        if (v.tipo_vehiculo === 'Liviano') {
-                            $('#costo').val(valorRtmecLiviano);
-                            setLiviano();
-                        } else if (v.tipo_vehiculo === 'Moto') {
-                            $('#costo').val(valorRtmecMoto);
-                            setMoto();
-                        } else {
-                            $('#costo').val(valorRtmecPesado);
-                            setPesado();
-                        }
-                        if (facturacion === '0') {
-                            document.getElementById('facturacion').style.display = 'none';
-                            document.getElementById('facturacion').style.position = 'absolute';
-                        }
-                        if (moduloPrerevision === '0') {
-                            document.getElementById('moduloPrerevision').style.display = 'none';
-                            document.getElementById('moduloPrerevision').style.position = 'absolute';
-                        }
-
-                        if (activoSicov === '1' && sicov === 'CI2') {} else {
-                            document.getElementById('pinQuemado').style.display = 'none';
-                            document.getElementById('pinQuemado').style.position = 'absolute';
-                            document.getElementById('pin').style.display = 'none';
-                            document.getElementById('pin').style.position = 'absolute';
-                        }
-                        if (asignarNoFactura === '1') {
-                            getNumFactura();
-                        }
-                    }
-
-                }
-            });
-        };
-        var idhojapruebas;
-
-        var asignarRTMec2da = function(placa, idhojatrabajo) {
-
-            mostrarComponente();
-            $('#titulo_').text("REVISION TECNICOMECANICA");
-            tipoTipoInspeccion = 'RTMec';
-            reinspeccion = '1';
-            idhojapruebas = idhojatrabajo;
-            var data = {
-                numero_placa: placa,
-                idhojapruebas: idhojatrabajo
-            };
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/asignarRTMec2da',
-                data: data,
-                type: 'post',
-                success: function(r) {
-                    var dat = JSON.parse(r);
-                    vehiculo = new Object();
-                    vehiculo = dat.vehiculo;
-                    configurar2703();
-                    if ($('#libre-' + vehiculo.numero_placa).val() !== 'Prueba libre') {
-                        setMensaje('El vehículo con placa ' + vehiculo.numero_placa +
-                            ' se encuentra actualmente en proceso de prueba libre y no se le puede asignar un tipo de inspección diferente',
-                            '');
-                        ocultarComponente();
-                    } else {
-                        setMensaje('SEGUNDA VEZ PARA ' + vehiculo.numero_placa, '');
-                        document.getElementById('facturacion').style.display = 'none';
-                        document.getElementById('facturacion').style.position = 'absolute';
-                        if (moduloPrerevision === '0') {
-                            document.getElementById('moduloPrerevision').style.display = 'none';
-                            document.getElementById('moduloPrerevision').style.position = 'absolute';
-                        }
-                        if (activoSicov === '1' && sicov === 'CI2') {
-                            $('#pin_').val(dat.pruebas[0].pin);
-                        } else {
-                            document.getElementById('pinQuemado').style.display = 'none';
-                            document.getElementById('pinQuemado').style.position = 'absolute';
-                            document.getElementById('pin').style.display = 'none';
-                            document.getElementById('pin').style.position = 'absolute';
-
-                        }
-                        dat.pruebas[0].camara = '1';
-                        dat.pruebas[0].visual = '1';
-                        setPrueba("luxometro", dat.pruebas[0].luxometro);
-                        setPrueba("opacidad", dat.pruebas[0].opacidad);
-                        setPrueba("gases", dat.pruebas[0].gases);
-                        setPrueba("sonometro", dat.pruebas[0].sonometro);
-                        setPrueba("camara", dat.pruebas[0].camara);
-                        setPrueba("taximetro", dat.pruebas[0].taximetro);
-                        setPrueba("frenometro", dat.pruebas[0].frenometro);
-                        setPrueba("visual", dat.pruebas[0].visual);
-                        setPrueba("suspension", dat.pruebas[0].suspension);
-                        setPrueba("alineacion", dat.pruebas[0].alineacion);
-                    }
-                }
-            });
-        };
-
-
-        var mostrarComponente = function() {
-            var btnAsignar = document.getElementById("btnAsignar");
-            btnAsignar.disabled = false;
-            document.getElementById('facturacion').style.display = 'block';
-            document.getElementById('facturacion').style.position = 'relative';
-            document.getElementById('pinQuemado').style.display = 'block';
-            document.getElementById('pinQuemado').style.position = 'relative';
-            document.getElementById('pin').style.display = 'block';
-            document.getElementById('pin').style.position = 'relative';
-            document.getElementById('moduloPrerevision').style.display = 'block';
-            document.getElementById('moduloPrerevision').style.position = 'relative';
-        };
-
-        var ocultarComponente = function() {
-            //            var btnAsignar = document.getElementById("btnAsignar");
-            //            btnAsignar.disabled = true;
-            document.getElementById('titPruebas').style.display = 'none';
-            document.getElementById('titPruebas').style.position = 'abosolute';
-            document.getElementById('tabPruebas').style.display = 'none';
-            document.getElementById('tabPruebas').style.position = 'abosolute';
-            document.getElementById('btnAsignar').style.display = 'none';
-            document.getElementById('btnAsignar').style.position = 'abosolute';
-            document.getElementById('facturacion').style.display = 'none';
-            document.getElementById('facturacion').style.position = 'abosolute';
-            document.getElementById('pinQuemado').style.display = 'none';
-            document.getElementById('pinQuemado').style.position = 'abosolute';
-            document.getElementById('pin').style.display = 'none';
-            document.getElementById('pin').style.position = 'abosolute';
-            document.getElementById('moduloPrerevision').style.display = 'none';
-            document.getElementById('moduloPrerevision').style.position = 'abosolute';
-        };
-
-
-
-        var asignarPreventiva1ra = function(e) {
-            mostrarComponente();
-            $('#titulo_').text("PREVENTIVA");
-            tipoTipoInspeccion = 'Preventiva';
-            reinspeccion = '4444';
-            idhojapruebas = '';
-            var data = {
-                numero_placa: e.title
-            };
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/asignarRTMec1ra',
-                data: data,
-                type: 'post',
-                success: function(r) {
-                    var v = JSON.parse(r);
-                    vehiculo = new Object();
-                    vehiculo = v;
-                    configurar2703();
-                    if ($('#rtmec-' + vehiculo.numero_placa).val() !== 'Primera vez') {
-                        setMensaje('El vehículo con placa ' + vehiculo.numero_placa +
-                            ' se encuentra actualmente en proceso de inspección tecnicomecánica y no se le puede asignar un tipo de inspección diferente',
-                            '');
-                        ocultarComponente();
-                    } else {
-                        setMensaje('PRIMERA VEZ PARA ' + vehiculo.numero_placa, '');
-                        if (v.tipo_vehiculo === 'Liviano') {
-                            $('#costo').val(valorPreventivaLiviano);
-                        } else if (v.tipo_vehiculo === 'Moto') {
-                            $('#costo').val(valorPreventivaMoto);
-                        } else {
-                            $('#costo').val(valorPreventivaPesado);
-                        }
-                        setPl();
-                        if (facturacion === '0') {
-                            document.getElementById('facturacion').style.display = 'none';
-                            document.getElementById('facturacion').style.position = 'absolute';
-                        }
-                        document.getElementById('moduloPrerevision').style.display = 'none';
-                        document.getElementById('moduloPrerevision').style.position = 'absolute';
-                        document.getElementById('pinQuemado').style.display = 'none';
-                        document.getElementById('pinQuemado').style.position = 'absolute';
-                        document.getElementById('pin').style.display = 'none';
-                        document.getElementById('pin').style.position = 'absolute';
-                        if (asignarNoFactura === '1') {
-                            getNumFactura();
-                        }
-                    }
-                }
-            });
-        };
-
-
-        var asignarPreventiva2da = function(placa, idhojatrabajo) {
-            mostrarComponente();
-            $('#titulo_').text("PREVENTIVA");
-            tipoTipoInspeccion = 'Preventiva';
-            reinspeccion = '44441';
-            idhojapruebas = idhojatrabajo;
-            var data = {
-                numero_placa: placa,
-                idhojapruebas: idhojatrabajo
-            };
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/asignarRTMec2da',
-                data: data,
-                type: 'post',
-                success: function(r) {
-                    var dat = JSON.parse(r);
-                    vehiculo = new Object();
-                    vehiculo = dat.vehiculo;
-                    configurar2703();
-                    if ($('#rtmec-' + vehiculo.numero_placa).val() !== 'Primera vez') {
-                        setMensaje('El vehículo con placa ' + vehiculo.numero_placa +
-                            ' se encuentra actualmente en proceso de inspección tecnicomecánica y no se le puede asignar un tipo de inspección diferente',
-                            '');
-                        ocultarComponente();
-                    } else {
-                        setMensaje('SEGUNDA VEZ PARA ' + vehiculo.numero_placa, '');
-                        document.getElementById('facturacion').style.display = 'none';
-                        document.getElementById('facturacion').style.position = 'absolute';
-                        document.getElementById('moduloPrerevision').style.display = 'none';
-                        document.getElementById('moduloPrerevision').style.position = 'absolute';
-                        document.getElementById('pinQuemado').style.display = 'none';
-                        document.getElementById('pinQuemado').style.position = 'absolute';
-                        document.getElementById('pin').style.display = 'none';
-                        document.getElementById('pin').style.position = 'absolute';
-                        dat.pruebas[0].camara = '1';
-                        dat.pruebas[0].visual = '1';
-                        setPrueba("luxometro", dat.pruebas[0].luxometro);
-                        setPrueba("opacidad", dat.pruebas[0].opacidad);
-                        setPrueba("gases", dat.pruebas[0].gases);
-                        setPrueba("camara", dat.pruebas[0].camara);
-                        setPrueba("sonometro", dat.pruebas[0].sonometro);
-                        setPrueba("taximetro", dat.pruebas[0].taximetro);
-                        setPrueba("frenometro", dat.pruebas[0].frenometro);
-                        setPrueba("visual", dat.pruebas[0].visual);
-                        setPrueba("suspension", dat.pruebas[0].suspension);
-                        setPrueba("alineacion", dat.pruebas[0].alineacion);
-                    }
-
-                }
-            });
-        };
-
-
-        var asignarPruebaLibre = function(e) {
-            //            console.log($('#rtmec-' + vehiculo.numero_placa));
-            mostrarComponente();
-            $('#titulo_').text("PRUEBA LIBRE");
-            tipoTipoInspeccion = 'Prueba libre';
-            reinspeccion = '8888';
-            idhojapruebas = '';
-            var data = {
-                numero_placa: e.title
-            };
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/asignarRTMec1ra',
-                data: data,
-                type: 'post',
-                success: function(r) {
-                    //                    console.log('hola');
-                    var v = JSON.parse(r);
-                    vehiculo = new Object();
-                    vehiculo = v;
-                    configurar2703();
-                    if ($('#rtmec-' + vehiculo.numero_placa).val() !== 'Primera vez') {
-                        setMensaje('El vehículo con placa ' + vehiculo.numero_placa +
-                            ' se encuentra actualmente en proceso de inspección tecnicomecánica y no se le puede asignar un tipo de inspección diferente',
-                            '');
-                        ocultarComponente();
-                    } else {
-                        setMensaje('PRUEBA LIBRE PARA ' + vehiculo.numero_placa, '');
-                        setPl();
-                        document.getElementById('facturacion').style.display = 'none';
-                        document.getElementById('facturacion').style.position = 'absolute';
-                        document.getElementById('moduloPrerevision').style.display = 'none';
-                        document.getElementById('moduloPrerevision').style.position = 'absolute';
-                        document.getElementById('pinQuemado').style.display = 'none';
-                        document.getElementById('pinQuemado').style.position = 'absolute';
-                        document.getElementById('pin').style.display = 'none';
-                        document.getElementById('pin').style.position = 'absolute';
-                    }
-
-
-                }
-            });
-        };
-
-        var setPrueba = function(prueba, valor) {
-            switch (valor) {
-                case '1':
-                    habilitarComponente(prueba, true);
-                    checkComponente(prueba, true);
-                    break;
-                case '2':
-                    habilitarComponente(prueba, true);
-                    checkComponente(prueba, false);
-                    break;
-                case '3':
-                    habilitarComponente(prueba, false);
-                    checkComponente(prueba, false);
-                    break;
-            }
-        };
-
-        var setMoto = function() {
-            habilitarComponente('luxometro', false);
-            checkComponente('luxometro', true);
-            habilitarComponente('opacidad', false);
-            checkComponente('opacidad', false);
-            if (pedirSonometro === "1") {
-                habilitarComponente('sonometro', false);
-                checkComponente('sonometro', true);
-            } else {
-                habilitarComponente('sonometro', true);
-                checkComponente('sonometro', false);
-            }
-            if (vehiculo.tipo_combustible !== 'Gasolina') {
-                habilitarComponente('gases', true);
-                checkComponente('gases', false);
-                habilitarComponente('sonometro', true);
-                checkComponente('sonometro', true);
-            } else {
-                habilitarComponente('gases', false);
-                checkComponente('gases', true);
-            }
-            habilitarComponente('camara', false);
-            checkComponente('camara', true);
-            habilitarComponente('taximetro', false);
-            checkComponente('taximetro', false);
-            habilitarComponente('frenometro', false);
-            checkComponente('frenometro', true);
-            habilitarComponente('visual', false);
-            checkComponente('visual', true);
-            habilitarComponente('suspension', false);
-            checkComponente('suspension', false);
-          //  if (vehiculo.idclase == 30) {
-           //     habilitarComponente('alineacion', false);
-           //     checkComponente('alineacion', true);
-           // } else {
-                habilitarComponente('alineacion', false);
-                checkComponente('alineacion', false);
-           // }
-
-        };
-
-
-
-        var setLiviano = function() {
-
-            habilitarComponente('luxometro', false);
-            checkComponente('luxometro', true);
-            if (pedirSonometro === "1") {
-                habilitarComponente('sonometro', false);
-                checkComponente('sonometro', true);
-            } else {
-                habilitarComponente('sonometro', true);
-                checkComponente('sonometro', false);
-            }
-            if (vehiculo.tipo_combustible === 'Diesel') {
-                habilitarComponente('opacidad', false);
-                checkComponente('opacidad', true);
-            } else {
-                if (vehiculo.tipo_combustible !== 'Gasolina') {
-                    habilitarComponente('gases', true);
-                    checkComponente('gases', false);
-                    habilitarComponente('sonometro', true);
-                    checkComponente('sonometro', true);
-                    if (vehiculo.idtipocombustible === '4' || vehiculo.idtipocombustible === '3') {
-                        checkComponente('gases', true);
-                        checkComponente('sonometro', true);
-                    }
-                } else {
-                    habilitarComponente('gases', false);
-                    checkComponente('gases', true);
-                }
-            }
-            habilitarComponente('camara', false);
-            checkComponente('camara', true);
-            habilitarComponente('taximetro', false);
-            if (vehiculo.taximetro === '1') {
-                checkComponente('taximetro', true);
-            } else {
-                checkComponente('taximetro', false);
-            }
-            habilitarComponente('frenometro', false);
-            checkComponente('frenometro', true);
-            habilitarComponente('visual', false);
-            checkComponente('visual', true);
-            habilitarComponente('suspension', false);
-            checkComponente('suspension', true);
-            habilitarComponente('alineacion', false);
-            checkComponente('alineacion', true);
-        };
-
-        var setPesado = function() {
-            habilitarComponente('luxometro', false);
-            checkComponente('luxometro', true);
-            if (pedirSonometro === "1") {
-                habilitarComponente('sonometro', false);
-                checkComponente('sonometro', true);
-            } else {
-                habilitarComponente('sonometro', true);
-                checkComponente('sonometro', false);
-            }
-            if (vehiculo.tipo_combustible === 'Diesel') {
-                habilitarComponente('opacidad', false);
-                checkComponente('opacidad', true);
-            } else {
-                if (vehiculo.tipo_combustible !== 'Gasolina') {
-                    habilitarComponente('gases', true);
-                    checkComponente('gases', false);
-                    habilitarComponente('sonometro', true);
-                    checkComponente('sonometro', true);
-                    if (vehiculo.idtipocombustible === '4' || vehiculo.idtipocombustible === '3') {
-                        checkComponente('gases', true);
-                        checkComponente('sonometro', true);
-                    }
-                } else {
-                    habilitarComponente('gases', false);
-                    checkComponente('gases', true);
-                }
-            }
-
-            habilitarComponente('camara', false);
-            checkComponente('camara', true);
-            habilitarComponente('taximetro', false);
-            if (vehiculo.taximetro === '1') {
-                checkComponente('taximetro', true);
-            } else {
-                checkComponente('taximetro', false);
-            }
-            habilitarComponente('frenometro', false);
-            checkComponente('frenometro', true);
-            habilitarComponente('visual', false);
-            checkComponente('visual', true);
-            habilitarComponente('suspension', false);
-            checkComponente('suspension', false);
-            habilitarComponente('alineacion', false);
-            checkComponente('alineacion', true);
-        };
-
-        var setPl = function() {
-            habilitarComponente('luxometro', true);
-            checkComponente('luxometro', false);
-            habilitarComponente('opacidad', true);
-            checkComponente('opacidad', false);
-            habilitarComponente('gases', true);
-            checkComponente('gases', false);
-            habilitarComponente('sonometro', true);
-            checkComponente('sonometro', false);
-            habilitarComponente('camara', true);
-            checkComponente('camara', true);
-            habilitarComponente('taximetro', true);
-            checkComponente('taximetro', false);
-            habilitarComponente('frenometro', true);
-            checkComponente('frenometro', false);
-            habilitarComponente('visual', true);
-            checkComponente('visual', true);
-            habilitarComponente('suspension', true);
-            checkComponente('suspension', false);
-            habilitarComponente('alineacion', true);
-            checkComponente('alineacion', false);
-        };
-
-        var habilitarComponente = function(id, valor) {
-            if (valor) {
-                document.getElementById(id).disabled = false;
-            } else {
-                document.getElementById(id).disabled = true;
-            }
-        };
-
-        var checkComponente = function(id, valor) {
-            if (valor) {
-                document.getElementById(id).checked = true;
-            } else {
-                document.getElementById(id).checked = false;
-            }
-
-
-
-        };
-
-        var unChekedAll = function() {
-            checkComponente('luxometro', false);
-            checkComponente('opacidad', false);
-            checkComponente('gases', false);
-            checkComponente('camara', true);
-            checkComponente('sonometro', true);
-            checkComponente('taximetro', false);
-            checkComponente('frenometro', true);
-            checkComponente('visual', true);
-            checkComponente('suspension', false);
-            checkComponente('alineacion', false);
-        };
-
-        var asignarPrueba = function() {
-            // if (ifRemolque) {
-            // 		alert("Remolques y semiremolques no pueden ser inspeccionados en este módulo.");
-            // 		return;
-            // }
-            var asignar = true;
-            var btnAsignar = document.getElementById("btnAsignar");
-            btnAsignar.disabled = true;
-            switch (tipoTipoInspeccion) {
-                case 'RTMec':
-                    if (facturacion === '1' && reinspeccion === '0') {
-                        if ($("#noFactura").val() === '') {
-                            setMensaje('INGRESE EL NÚMERO DE FACTURA', 'salmon');
-                            asignar = false;
-                            btnAsignar.disabled = false;
-                        }
-                        if (!$.isNumeric($("#costo").val())) {
-                            setMensaje('INGRESE UN VALOR DE COSTO VÁLIDO', 'salmon');
-                            asignar = false;
-                            btnAsignar.disabled = false;
-                        }
-                        if ($("#costo").val() === '' || $("#costo").val() === '0') {
-                            setMensaje('INGRESE EL COSTO DE LA INSPECCION', 'salmon');
-                            asignar = false;
-                            btnAsignar.disabled = false;
-                        }
-                        //                        validarFactura();
-                        //                        if (existeFactura === "1") {
-                        //                            setMensaje('EXISTE UNA FACTURA ASOCIADA A ESTE NÚMERO, INTENTE CON EL SIGUIENTE.', 'salmon');
-                        //                            asignar = false;
-                        //                            btnAsignar.disabled = false;
-                        //                        }
-                        //
-                        //                        if (parseInt($('#noFactura').val()) - (parseInt(facturaActual)) > 5) {
-                        //                            setMensaje('EL NÚMERO DE FACTURA SUPERA EL RANGO PERMITIDO, ACTUAL: ' + (parseInt(facturaActual) + 1), 'salmon');
-                        //                            asignar = false;
-                        //                            btnAsignar.disabled = false;
-                        //                        }
-
-                    }
-
-                    if (moduloPrerevision === '1') {
-                        validarPrerevision();
-                        if (existePrerevision === '0' && !document.getElementById('chkModuloPre').checked) {
-                            setMensaje(
-                                'EL VEHÍCULO NO TIENE PREREVISIÓN DIGITAL ASIGNADA, PARA CONTINUAR, HABILITE "PREREVISIÓN FÍSICA"',
-                                'salmon');
-                            asignar = false;
-                            btnAsignar.disabled = false;
-                        }
-                    }
-
-                    if (activoSicov === '1' && sicov === 'CI2' && $("#pin_").val() === '') {
-                        setMensaje('INGRESE EL PIN', 'salmon');
-                        asignar = false;
-                    }
-                    //                    var btnAsignar = document.getElementById("btnAsignar");
-                    //                    btnAsignar.disabled = true;
-                    var segundos = 1;
-                    if (asignar) {
-
-                        //EVALUAR SEGURIDAD TH
-
-
-                        if (activoSicov === '1' && sicov === 'CI2') {
-                            var proceso = setInterval(function() {
-                                setMensaje('Por favor espere...', 'black');
-                                if (segundos === 0) {
-                                    clearInterval(proceso);
-                                    var e = document.getElementById('chkpinQuemado');
-                                    if (!e.checked) {
-                                         quemarPin();
-                                    } else {
-                                        consultarPinQuemado();
-                                    }
-                                }
-                                segundos--;
-                            }, 500);
-                        } else if (activoSicov === '1' && sicov === 'INDRA') {
-                            var proceso = setInterval(function() {
-                                setMensaje('Por favor espere...', 'black');
-                                if (segundos === 0) {
-                                    clearInterval(proceso);
-                                    if (verificarPin === "1")
-                                        verificarPinIndra();
-                                    else
-                                        insertarPruebas();
-                                }
-                                segundos--;
-                            }, 500);
-                        } else {
-                            var proceso = setInterval(function() {
-                                setMensaje('Por favor espere...', 'black');
-                                if (segundos === 0) {
-                                    clearInterval(proceso);
-                                    insertarPruebas();
-                                    //                                    btnAsignar.disabled = false;
-                                }
-                                segundos--;
-                            }, 500);
-                        }
-                    }
-                    break;
-                case 'Preventiva':
-                    if (facturacion === '1' && (reinspeccion === '4444')) {
-                        if ($("#noFactura").val() === '') {
-                            setMensaje('INGRESE EL NÚMERO DE FACTURA', 'salmon');
-                            asignar = false;
-                        }
-                        if (!$.isNumeric($("#costo").val())) {
-                            setMensaje('INGRESE UN VALOR DE COSTO VÁLIDO', 'salmon');
-                            asignar = false;
-                            btnAsignar.disabled = false;
-                        }
-                        if ($("#costo").val() === '' || $("#costo").val() === '0') {
-                            setMensaje('INGRESE EL COSTO DE LA INSPECCION', 'salmon');
-                            asignar = false;
-                            btnAsignar.disabled = false;
-                        }
-                        //                        validarFactura();
-                        //                        if (existeFactura === "1") {
-                        //                            setMensaje('EXISTE UNA FACTURA ASOCIADA A ESTE NÚMERO, INTENTE CON EL SIGUIENTE.', 'salmon');
-                        //                            asignar = false;
-                        //                        }
-                        //                        if (parseInt($('#noFactura').val()) - (parseInt(facturaActual)) > 5) {
-                        //                            setMensaje('EL NÚMERO DE FACTURA SUPERA EL RANGO PERMITIDO, ACTUAL: ' + (parseInt(facturaActual) + 1), 'salmon');
-                        //                            asignar = false;
-                        //                        }
-                    }
-
-                    if (asignar) {
-                        insertarPruebas();
-                    }
-                    break;
-                case 'Prueba libre':
-                    // var text = new XMLHttpRequest();
-                    // text.open("GET", ipLocal + "system/dominio.dat", false);
-                    // text.send(null);
-                    // var dominio = text.responseText;
-                    // if (dominio === "cdalamesa.tecmmas.com" ||
-                    //     dominio === "cdalaestacion.tecmmas.com" ||
-                    //     dominio === "cdacarreraexpress.tecmmas.com"
-                    // ) {
-                    //     $('#RTmecModal').hide();
-                    //     $('#Modal-token').show();
-                    // } else
-                    insertarPruebas();
-                    break;
-                default:
-
-                    break;
-            }
-        };
-        var tokenval = "";
-
-
-        function Validar() {
-            var token = $("#token").val();
-            $("#valid-token").html('');
-            $.ajax({
-                url: 'https://atalayasoft.tecmmas.com/atalaya/index.php/Ctriguer/validToken',
-                type: 'post',
-                mimeType: 'json',
-                data: {
-                    token: token
-                },
-                success: function(data, textStatus, jqXHR) {
-                    if (data === 1) {
-                        tokenval = token;
-                        $('#Modal-token').hide();
-                        insertarPruebas();
-                    } else {
-                        $("#valid-token").html('El token no es correcto');
-                    }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    alert('Error: ' + jqXHR);
-                }
-            });
-        }
-        var setMensaje = function(msj, color) {
-            document.getElementById("mensaje").style.color = color;
-            $("#mensaje").text(msj);
-        };
-        var existePrerevision = '0';
-
-        var validarPrerevision = function() {
-            var numero_placa = vehiculo.numero_placa;
-            var data = {
-                numero_placa: numero_placa
-            };
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/validarPrerevision',
-                data: data,
-                type: 'post',
-                async: false,
-                success: function(rta) {
-                    existePrerevision = rta;
-                }
-            });
-        };
-
-        var existeFactura = '0';
-        var validarFactura = function() {
-            var noFactura = $('#noFactura').val();
-            if (noFactura !== '0') {
-                var data = {
-                    noFactura: noFactura
-                };
-
-                $.ajax({
-                    url: '<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/validarFactura',
-                    data: data,
-                    type: 'post',
-                    async: false,
-                    success: function(rta) {
-                        existeFactura = rta;
-                    }
-                });
-            }
-        };
-
-        var quemarPin = function () {
-            var pin = $('#pin_').val();
-            var tipo_rtm = '1';
-            if (reinspeccion === '1') {
-                tipo_rtm = '2';
-            }
-			const url = '<?php echo base_url(); ?>index.php/oficina/ci2/Cci2/utilizar_pin';
-            var data = {
-				tipoRtm: tipo_rtm,
-                pPin: pin,
-                pPlaca: vehiculo.numero_placa.toUpperCase(),
-            };
-            $.ajax({
-                url: url,
-                data: JSON.stringify(data),
-                type: 'post',
-                contentType: 'application/json; charset=UTF-8',
-                dataType: 'json',
-                processData: false,
-                async: false,
-                success: function (rta) {
-					if(rta.codigo==="0000"){
-						setMensaje(rta.mensaje, 'green');
-						insertarPruebas();
-					}else{
-						setMensaje(rta.mensaje, 'red');
-					}
-                }
-            });
-        };
-
-		function consultarPinQuemado() {
-			const url = '<?php echo base_url(); ?>index.php/oficina/ci2/Cci2/consulta_pin';
-            var data = {
-                pPin: $('#pin_').val(),
-                pPlaca: vehiculo.numero_placa.toUpperCase(),
-            };
-            $.ajax({
-                url: url,
-                data: JSON.stringify(data),
-                type: 'post',
-                contentType: 'application/json; charset=UTF-8',
-                dataType: 'json',
-                processData: false,
-                async: false,
-                success: function (rta) {
-					if(rta.success && rta.codigo==="2007"){
-						insertarPruebas();
-						// quemadoSICOV();
-					}else{
-						setMensaje(rta.mensaje, 'red');
-					}
-                }
-            });
-		}
-
-		
-
-
-        var verificarPinIndra = function () {
-            setMensaje('POR FAVOR ESPERE....', 'black');
-            //            var pin = $('#pin_').val();
-            //            var tipo_rtm = '1';
-            //            if (reinspeccion === '1') {
-            //                tipo_rtm = '2';
-            //            }
-
-            var data = {
-                placa: vehiculo.numero_placa,
-                codigoRUNT: idCdaRUNT,
-                sicovModoAlternativo: localStorage.getItem("sicovModoAlternativo"),
-                ipSicovAlternativo: localStorage.getItem("ipSicovAlternativo"),
-                // sicovModoAlternativo: sicovModoAlternativo,
-                // ipSicovAlternativo: ipSicovAlternativo,
-                ipSicov: ipSicov
-            };
-            console.log(data);
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/verificarPIN',
-                data: data,
-                type: 'post',
-                async: false,
-                success: function(rta) {
-                    if (rta !== "") {
-                        var pin = JSON.parse(rta);
-                        if (parseInt(pin.codRespuesta) === 1) {
-                            insertarPruebas();
-                        } else {
-                            setMensaje("MENSAJE DE SICOV INDRA PIN: " + pin.msjRespuesta, 'salmon');
-                        }
-                    } else {
-                        setMensaje("NO HAY CONEXIÓN CON SICOV PARA VERIFICACIÓN DE PIN", 'salmon');
-                    }
-
-                    // insertarPruebas();
-                }
-            });
-        };
-
-        var quemadoSICOV = function() {
-            var data = {
-                idhojapruebas: idhojapruebas,
-                placa: vehiculo.numero_placa,
-                reinspeccion: reinspeccion
-            };
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/quemadoSICOV',
-                data: data,
-                type: 'post',
-                async: false
-            });
-        };
-
-        var insertarPruebas = function() {
-            var pruebas = new Object();
-            pruebas.luxometro = document.getElementById('luxometro').checked;
-            pruebas.opacidad = document.getElementById('opacidad').checked;
-            pruebas.gases = document.getElementById('gases').checked;
-            pruebas.sonometro = document.getElementById('sonometro').checked;
-            pruebas.camara = document.getElementById('camara').checked;
-            pruebas.taximetro = document.getElementById('taximetro').checked;
-            pruebas.frenometro = document.getElementById('frenometro').checked;
-            pruebas.visual = document.getElementById('visual').checked;
-            pruebas.suspension = document.getElementById('suspension').checked;
-            pruebas.alineacion = document.getElementById('alineacion').checked;
-            //            if ((reinspeccion === '0' || reinspeccion === '1' || reinspeccion === '8888') && pruebas.visual) {
-            if (pruebas.visual) {
-                if (pruebas.gases || pruebas.opacidad) {
-                    pruebas.termohigrometro = true;
-                    if (moduloCaptador === '1')
-                        pruebas.captador = true;
-                    else
-                        pruebas.captador = false;
-                } else {
-                    pruebas.captador = false;
-                    pruebas.termohigrometro = false;
-                    //                    checkComponente('sonometro', true);
-                    //                    pruebas.sonometro = true;
-                    //                    alert('Entra');
-                    //                    pruebas.sonometro = false;
-                    //                    document.getElementById('sonometro').checked = true;
-                }
-                pruebas.profundimetro = true;
-                if (vehiculo.tipo_combustible === 'Diesel') {
-                    pruebas.piederey = true;
-                } else {
-                    pruebas.piederey = false;
-                }
-                if (vehiculo.tipo_vehiculo === 'Moto' && vehiculo.clase === 'MOTOCICLETA') {
-                    pruebas.elevador = true;
-                    pruebas.detectorholguras = false;
-                } else {
-                    pruebas.elevador = false;
-                    pruebas.detectorholguras = true;
-                }
-            } else {
-                pruebas.piederey = false;
-                pruebas.profundimetro = false;
-                pruebas.termohigrometro = false;
-                pruebas.detectorholguras = false;
-                pruebas.elevador = false;
-                pruebas.captador = false;
-            }
-
-            //            pruebas.piederey = false;
-            //            pruebas.profundimetro = false;
-            //            pruebas.termohigrometro = false;
-            //            pruebas.detectorholguras = false;
-            //            pruebas.elevador = false;
-            //            pruebas.captador = false;
-
-            pruebas.idvehiculo = vehiculo.idvehiculo;
-            pruebas.reinspeccion = reinspeccion;
-            if (reinspeccion === '0' || reinspeccion === '4444') {
-                pruebas.factura = $('#noFactura').val();
-                pruebas.pin1 = $('#costo').val();
-            } else {
-                pruebas.factura = '';
-                pruebas.pin1 = '';
-            }
-            pruebas.pin0 = $('#pin_').val();
-            pruebas.idhojapruebas = idhojapruebas;
-
-            var data = {
-                pruebas: pruebas,
-                aplicares2703: document.getElementById('chkAplicaRes2703').checked,
-                autoregulado: document.getElementById('chkAutoregulado').checked,
-                numero_placa: vehiculo.numero_placa
-            };
-
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/insertarPruebas',
-                data: data,
-                type: 'post',
-                mimeType: 'json',
-                async: false,
-                success: function(rta) {
-                    console.log(rta)
-                    if (rta.cadena !== "") {
-                        envioBasicCAr(rta.cadena, rta.idhojapruebas);
-                    }
-                    var idHPr = rta.idhojapruebas;
-                    if (idHPr === "FALSE") {
-                        //                        location.reload();
-                    } else {
-                        $.ajax({
-                            url: '<?php echo base_url(); ?>index.php/Cconfiguracion/getDominio',
-                            type: 'post',
-                            success: function(dominio) {
-                                var tipo_inspeccion = "1";
-                                if (tipoTipoInspeccion === 'Preventiva') {
-                                    tipo_inspeccion = '2';
-                                } else if (tipoTipoInspeccion === 'Prueba libre') {
-                                    tipo_inspeccion = '3';
-                                }
-                                var reins = reinspeccion;
-                                if (reinspeccion === '4444' || reinspeccion === '8888') {
-                                    reins = '0';
-                                } else if (vehiculo.reinspeccion === '44441') {
-                                    reins = '1';
-                                }
-
-                                var data = {
-                                    placa: vehiculo.numero_placa + "-" + reins,
-                                    tipo_vehiculo: vehiculo.idtipo_vehiculo,
-                                    clase: vehiculo.idclase,
-                                    servicio: vehiculo.idservicio,
-                                    taximetro: vehiculo.taximetro,
-                                    tipo_inspeccion: tipo_inspeccion,
-                                    valor: $('#costo').val()
-
-                                };
-                                console.log(data)
-
-                                if (parseInt(localStorage.getItem("contador")) < parseInt(
-                                        localStorage.getItem("actualizado")) && data
-                                    .tipo_inspeccion == "2") {
-                                    console.log("entra por if");
-
-                                    //if (dominio == "cdatecmmas.tecmmas.com" && localStorage.getItem("contador") < 80 && data.tipo_inspeccion == "2") {
-                                    console.log("entras");
-                                    localStorage.setItem("contador", parseInt(localStorage
-                                        .getItem("contador")) + 1)
-                                    $.ajax({
-                                        url: "http://" + dominio +
-                                            "/cda/index.php/Cservicio/insertMercadeo",
-                                        data: data,
-                                        type: 'post',
-                                        async: false,
-                                        success: function(rta) {}
-                                    });
-                                } else {
-                                    console.log(data.tipo_inspeccion);
-                                    if (data.tipo_inspeccion !== "2") {
-                                        console.log("entra por else");
-                                        $.ajax({
-                                            url: "http://" + dominio +
-                                                "/cda/index.php/Cservicio/insertMercadeo",
-                                            data: data,
-                                            type: 'post',
-                                            async: false,
-                                            success: function(rta) {}
-                                        });
-                                    }
-
-                                }
-
-                                //                                console.log(salaEspera);
-                                if (salaEspera === "1") {
-                                    var vehiculo_ = new Object();
-                                    vehiculo_.idhojapruebas = idHPr;
-                                    vehiculo_.placa = vehiculo.numero_placa;
-                                    vehiculo_.marca = vehiculo.marca;
-                                    vehiculo_.linea = vehiculo.linea;
-                                    vehiculo_.modelo = vehiculo.ano_modelo;
-                                    vehiculo_.clase = vehiculo.clase;
-                                    vehiculo_.color = vehiculo.color;
-                                    vehiculo_.servicio = vehiculo.idservicio;
-                                    vehiculo_.reinspeccion = reinspeccion;
-
-                                    if (pruebas.luxometro)
-                                        vehiculo_.luces = "1";
-                                    else
-                                        vehiculo_.luces = "0";
-                                    if (pruebas.opacidad)
-                                        vehiculo_.opacidad = "1";
-                                    else
-                                        vehiculo_.opacidad = "0";
-                                    if (pruebas.gases)
-                                        vehiculo_.gases = "1";
-                                    else
-                                        vehiculo_.gases = "0";
-                                    if (pruebas.sonometro)
-                                        vehiculo_.sonometro = "1";
-                                    else
-                                        vehiculo_.sonometro = "0";
-                                    if (pruebas.camara)
-                                        vehiculo_.camara = "1";
-                                    else
-                                        vehiculo_.camara = "0";
-                                    if (pruebas.taximetro)
-                                        vehiculo_.taximetro = "1";
-                                    else
-                                        vehiculo_.taximetro = "0";
-                                    if (pruebas.frenometro)
-                                        vehiculo_.frenos = "1";
-                                    else
-                                        vehiculo_.frenos = "0";
-                                    if (pruebas.visual)
-                                        vehiculo_.visual = "1";
-                                    else
-                                        vehiculo_.visual = "0";
-                                    if (pruebas.suspension)
-                                        vehiculo_.suspension = "1";
-                                    else
-                                        vehiculo_.suspension = "0";
-                                    if (pruebas.alineacion)
-                                        vehiculo_.alineacion = "1";
-                                    else
-                                        vehiculo_.alineacion = "0";
-                                    vehiculo_.certificado = "0";
-                                    vehiculo_.llamar = "0";
-                                    var data_ = {
-                                        vehiculo: vehiculo_
-                                    };
-                                    //                                    $.ajax({
-                                    //                                        url: "<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/insertVisor",
-                                    //                                        data: data_,
-                                    //                                        type: 'post',
-                                    //                                        mimeType: 'json',
-                                    //                                        async: false,
-                                    //                                        success: function (data, textStatus, jqXHR) {
-                                    //
-                                    //                                        }, error: function (jqXHR, textStatus, errorThrown) {
-                                    //                                            $('#div_error').html('Error:' + jqXHR.responseText + " - " + textStatus);
-                                    //                                        }
-                                    ////                                        ,
-                                    ////                                        success: function (rta) {
-                                    ////                                        }
-                                    //                                    });
-                                    $.ajax({
-                                        url: "http://" + dominio +
-                                            "/cda/index.php/Csala/insertar",
-                                        data: data_,
-                                        type: 'post',
-                                        async: false
-                                        //                                        ,
-                                        //                                        success: function (rta) {
-                                        //                                        }
-                                    });
-
-                                }
-                            }
-                        });
-                        var segundos = 2;
-                        var proceso = setInterval(function() {
-                            setMensaje('ASIGNADO EXITOSAMENTE.', 'green');
-                            if (segundos === 0) {
-                                clearInterval(proceso);
-                                location.reload();
-                            }
-                            segundos--;
-                        }, 1000);
-                    }
-                },
-                error(rta) {
-                    console.log(rta.responseText);
-                }
-            });
-        };
-
-
-        function envioBasicCAr(basic, idprueba) {
-            $.ajax({
-                type: "POST",
-                url: "http://" + ipCAR + "/cdapp/rest/basico/registro",
-                headers: {
-                    "Authorization": "b56c19aa217e36a6c182be3ce6fab1851c32a6860f74a312f2cf6d230f6c1573",
-                    "Content-Type": "application/json"
-                },
-                timeout: 3000,
-
-                data: basic,
-                success: function(rta) {
-                    console.log(rta)
-                    if (rta.resp == "OK") {
-                        var estado = 1;
-                        var tipo = 'Envio basic exitoso.';
-                        guardarTabla(estado, tipo, idprueba);
-                    } else {
-                        var estado = 0;
-                        var tipo = 'Envio basic fallido.';
-                        guardarTabla(estado, tipo, idprueba);
-                    }
-                },
-                errors: function(rta) {
-                    console.log(rta);
-                }
-            });
-        }
-
-        function guardarTabla(estado, tipo, idprueba) {
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url(); ?>index.php/oficina/fur/CFUR/saveControl",
-                data: {
-                    estado: estado,
-                    tipo: tipo,
-                    idprueba: idprueba
-                },
-                success: function(rta) {
-                    console.log(rta);
-                },
-                errors: function(rta) {
-                    console.log(rta);
-                }
-            });
-        }
-    </script>
-    <script src="<?php echo base_url(); ?>/application/libraries/package/dist/sweetalert2.all.min.js"></script>
-</body>
-<!--</form>-->
-
-</html>
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+QlArWJylmB7Sikjy

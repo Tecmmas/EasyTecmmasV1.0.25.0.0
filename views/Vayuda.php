@@ -1,813 +1,196 @@
-<!DOCTYPE html>
-<html class=" ">
-    <head>
-        <!-- 
-         * @Package: Complete Admin - Responsive Theme
-         * @Subpackage: Bootstrap
-         * @Version: BS4-1.0
-         * This file is part of Complete Admin Theme.
-        -->
-        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-        <meta charset="utf-8" />
-        <title>PANEL DE AYUDA</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <meta content="" name="description" />
-        <meta content="" name="author" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-        <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png" type="image/x-icon" />    <!-- Favicon -->
-        <link rel="apple-touch-icon-precomposed" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-57-precomposed.png">	<!-- For iPhone -->
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-114-precomposed.png">    <!-- For iPhone 4 Retina display -->
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-72-precomposed.png">    <!-- For iPad -->
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-144-precomposed.png">    <!-- For iPad Retina display -->
-
-
-
-
-        <!-- CORE CSS FRAMEWORK - START -->
-        <link href="<?php echo base_url(); ?>assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <!-- <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/> -->
-        <link href="<?php echo base_url(); ?>assets/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/css/animate.min.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" type="text/css"/>
-
-        <!-- CORE CSS FRAMEWORK - END -->
-
-        <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - START --> 
-        <link href="<?php echo base_url(); ?>assets/plugins/jquery-ui/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" media="screen"/>
-
-        <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - END --> 
-
-
-        <!-- CORE CSS TEMPLATE - START -->
-        <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/css/responsive.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/css/tecmmas.css" rel="stylesheet" type="text/css"/>
-        <!-- CORE CSS TEMPLATE - END -->
-
-    </head>
-    <!-- END HEAD -->
-
-    <!-- BEGIN BODY -->
-    <!--<form action="<?php echo base_url(); ?>index.php/oficina/vehiculo/Cvehiculo/gestionar" method="post">-->
-    <body class=" ">
-
-        <!-- START TOPBAR -->
-        <div class='page-topbar '>
-            <div class='logo-area'>
-
-            </div>
-            <div class='quick-area'>
-                <div class='float-left'>
-                    <ul class="info-menu left-links list-inline list-unstyled">
-                        <li class="message-toggle-wrapper list-inline-item">
-                            <ul class="dropdown-menu messages animated fadeIn">
-                                <li class="list dropdown-item">
-                                </li>
-                            </ul>
-                        </li>
-                </div>		
-            </div>
-
-        </div>
-        <!-- END TOPBAR -->
-
-        <!-- START CONTENT -->
-        <section class="wrapper main-wrapper row" style=''>
-            <input type="button" class="btn btn-block bot_azul"  style="width: 100px" onclick="location.href = './Cindex';"  value="Atras" />
-            <!--<h4 style="color: brown">Versiones EasyTecmmas v1.0</h4>-->
-            <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
-                   style='width:100%;border-collapse:collapse;border:none;mso-border-alt:solid windowtext .5pt;
-                   mso-padding-alt:0cm 3.5pt 0cm 3.5pt;mso-border-insideh:.5pt solid windowtext;
-                   mso-border-insidev:.5pt solid windowtext'>
-                <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
-                    height:21.4pt'>
-                    <td width=142 rowspan=3 style='width:106.35pt;border:solid windowtext 1.0pt;
-                        mso-border-alt:solid windowtext .5pt;background:#D9D9D9;mso-background-themecolor:
-                        background1;mso-background-themeshade:217;padding:0cm 3.5pt 0cm 3.5pt;
-                        height:21.4pt'>
-                        <p class=MsoNormal align=center style='text-align:center'><span
-                                style='mso-ansi-language:EN-US;mso-no-proof:yes'><!--[if gte vml 1]><v:shapetype
-                                 id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
-                                 path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
-                                 <v:stroke joinstyle="miter"/>
-                                 <v:formulas>
-                                  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
-                                  <v:f eqn="sum @0 1 0"/>
-                                  <v:f eqn="sum 0 0 @1"/>
-                                  <v:f eqn="prod @2 1 2"/>
-                                  <v:f eqn="prod @3 21600 pixelWidth"/>
-                                  <v:f eqn="prod @3 21600 pixelHeight"/>
-                                  <v:f eqn="sum @0 0 1"/>
-                                  <v:f eqn="prod @6 1 2"/>
-                                  <v:f eqn="prod @7 21600 pixelWidth"/>
-                                  <v:f eqn="sum @8 21600 0"/>
-                                  <v:f eqn="prod @7 21600 pixelHeight"/>
-                                  <v:f eqn="sum @10 21600 0"/>
-                                 </v:formulas>
-                                 <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
-                                 <o:lock v:ext="edit" aspectratio="t"/>
-                                </v:shapetype><v:shape id="Imagen_x0020_1" o:spid="_x0000_i1026" type="#_x0000_t75"
-                                 style='width:99.75pt;height:26.25pt;visibility:visible;mso-wrap-style:square'>
-                                 <v:imagedata src="DS-FR-001%20Formato%20de%20diseño%20y%20desarrollo_archivos/image001.png"
-                                  o:title=""/>
-                                </v:shape><![endif]--><![if !vml]><img width=133 height=35
-                                                                       src="DS-FR-001%20Formato%20de%20diseño%20y%20desarrollo_archivos/image002.jpg"
-                                                                       v:shapes="Imagen_x0020_1"><![endif]></span><span lang=ES><o:p></o:p></span></p>
-                        <p class=MsoNormal align=center style='text-align:center'><span
-                                style='font-size:7.0pt;line-height:107%;font-family:"Trebuchet MS",sans-serif;
-                                mso-bidi-font-family:Arial;mso-ansi-language:EN-US'><o:p>&nbsp;</o:p></span></p>
-                    </td>
-                    <td width=369 style='width:276.4pt;border:solid windowtext 1.0pt;border-left:
-                        none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
-                        background:#D9D9D9;mso-background-themecolor:background1;mso-background-themeshade:
-                        217;padding:0cm 3.5pt 0cm 3.5pt;height:21.4pt'>
-                        <p class=MsoHeader align=center style='text-align:center'><b><span lang=ES
-                                                                                           style='font-size:14.0pt;mso-bidi-font-size:12.0pt;font-family:"Tahoma",sans-serif'>SISTEMA
-                                    DE GESTIÓN INTEGRAL</span></b><b style='mso-bidi-font-weight:normal'><span
-                                    lang=ES style='font-size:14.0pt;mso-bidi-font-size:12.0pt;font-family:"Tahoma",sans-serif'><o:p></o:p></span></b></p>
-                    </td>
-                    <td width=132 style='width:99.2pt;border:solid windowtext 1.0pt;border-left:
-                        none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
-                        background:#D9D9D9;mso-background-themecolor:background1;mso-background-themeshade:
-                        217;padding:0cm 3.5pt 0cm 3.5pt;height:21.4pt'>
-                        <p class=MsoHeader><span lang=ES style='mso-bidi-font-size:8.0pt;font-family:
-                                                 "Tahoma",sans-serif'>ISO9001:8.3<o:p></o:p></span></p>
-                    </td>
-                </tr>
-                <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:25.5pt'>
-                    <td width=369 rowspan=2 style='width:276.4pt;border-top:none;border-left:
-                        none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-                        mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
-                        mso-border-alt:solid windowtext .5pt;background:#D9D9D9;mso-background-themecolor:
-                        background1;mso-background-themeshade:217;padding:0cm 3.5pt 0cm 3.5pt;
-                        height:25.5pt'>
-                        <p class=MsoHeader align=center style='text-align:center'><b><span lang=ES
-                                                                                           style='font-size:14.0pt;mso-bidi-font-size:11.0pt;font-family:"Tahoma",sans-serif'>MANUAL DE USUARIO EASYTECMMAS<o:p></o:p></span></b></p>
-                    </td>
-                    <td width=132 style='width:99.2pt;border-top:none;border-left:none;
-                        border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-                        mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
-                        mso-border-alt:solid windowtext .5pt;background:#D9D9D9;mso-background-themecolor:
-                        background1;mso-background-themeshade:217;padding:0cm 3.5pt 0cm 3.5pt;
-                        height:25.5pt'>
-                        <p class=MsoHeader><span lang=ES style='mso-bidi-font-size:8.0pt;font-family:
-                                                 "Tahoma",sans-serif;mso-bidi-font-weight:bold'>Versión 1.01<o:p></o:p></span></p>
-                    </td>
-                </tr>
-                <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes;page-break-inside:avoid;
-                    height:25.5pt'>
-                    <td width=132 style='width:99.2pt;border-top:none;border-left:none;
-                        border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-                        mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
-                        mso-border-alt:solid windowtext .5pt;background:#D9D9D9;mso-background-themecolor:
-                        background1;mso-background-themeshade:217;padding:0cm 3.5pt 0cm 3.5pt;
-                        height:25.5pt'>
-                        <p class=MsoHeader align=center style='text-align:center'><b><span lang=ES
-                                                                                           style='mso-bidi-font-size:8.0pt;font-family:"Tahoma",sans-serif'><o:p>&nbsp;</o:p></span></b></p>
-                        <p class=MsoHeader align=center style='text-align:center'><b><span lang=ES
-                                                                                           style='mso-bidi-font-size:8.0pt;font-family:"Tahoma",sans-serif'>DS-FR-001<o:p></o:p></span></b></p>
-                    </td>
-                </tr>
-            </table>
-            <!--            <div id="accordion" role="tablist" class="accordion-group">
-                            <div class="card">
-                                <div class="card-header" role="tab" id="heading1_0_10">
-                                    <h5 class="mb-0">
-                                        <a data-toggle="collapse" href="#collapse1_0_10" role="button" aria-expanded="true" aria-controls="collapse1_0_10">
-                                            1.0.11 - <strong>04 de Mayo de 2021</strong>
-                                        </a>
-                                    </h5>
-                                </div>
-                                <div id="collapse1_0_10" class="collapse show" role="tabpanel" aria-labelledby="heading1_0_10" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <p style="text-align: justify">
-                                            Novedades de la versión: <br><br>
-                                            <strong style="color: brown">Módulos de oficina</strong> <br>
-                                            - Gestión de usuarios.<br>
-                                            - Reasignación individual.<br>
-                                            - Cancelación de pruebas.<br>
-                                            - Reconfiguración de pruebas.<br>
-                                            - Actualización de pin.<br>
-                                            - Informes de stats.<br>
-                                            - Informes ambientales.<br>
-                                            - Informes calibraciónes, fugas, linealidad -- con su respectivo pdf.<br>
-                                            - Informe pruebas.<br>
-                                            - Informes estadisticos.<br>
-                                            - Informes crm.<br>
-                                            - Generador y restaurador de backup -- Se requiere activación y configuración.<br>
-                                            - Módulo para sala de espera.<br>
-                                            - Actualización de audtoria SICOV de acuerdo a los lineamientos de la resolución 3625.<br>
-                                            <strong style="color: brown">Formatos.</strong><br>
-                                            - Registro de entrada.<br>
-                                            - Tiempo pruebas.<br>
-                                        </p>
-                                        <p style="text-align: justify">
-                                            <strong style="color: brown">Módulos de dispositivos móviles</strong> <br>
-                                            - Modulo luxómetro marca MOON (requiere activación).<br>
-                                            - Modulo gases marca CAPELEC (requiere activación).<br>
-                                            - Actualización mejoras del formato de prerevisión.<br>
-                                        </p>
-                                        <p style="text-align: justify">
-                                            <strong style="color: brown">Formato uniforme</strong> <br>
-                                            - Implementación en listado de equipos de la báscula.<br>
-                                            - Logo de ONAC a color o monocromatico de acuerdo a configuración.<br>
-                                            - Logo de SUPER a color o monocromatico de acuerdo a configuración.<br>
-                                            - Ajuste del logo de la SUPER de acuerdo al manual técnico.<br>
-                                            - Retiro de dispositivos móviles en el listado de maquinas que intervienen en la inspección.<br>
-                                            - Observaciones de correción de oxigeno valores anteriores de Co y HC para motos (Opcional).<br>
-                                            - Observaciones de conmutación de las luces (Opcional).<br>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" role="tab" id="heading1_0_10">
-                                    <h5 class="mb-0">
-                                        <a data-toggle="collapse" href="#collapse1_0_10" role="button" aria-expanded="true" aria-controls="collapse1_0_10">
-                                            1.0.10 - <strong>30 de Octubre de 2020</strong>
-                                        </a>
-                                    </h5>
-                                </div>
-                                <div id="collapse1_0_10" class="collapse show" role="tabpanel" aria-labelledby="heading1_0_10" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <p style="text-align: justify">
-                                            Novedades de la versión: <br><br>
-                                            <strong style="color: brown">Módulos de dispositivos móviles</strong> <br>
-                                            - Implementación de periféticos en inspección sensorial.<br>
-                                            - Filtro de máquinas que intervienen en la inspección.<br>
-                                            - Se incluye llanta de respuesto 2 en el módulo de prerevisión.<br>
-                                        </p>
-                                        <p style="text-align: justify">
-                                            <strong style="color: brown">Módulos de oficina</strong> <br>
-                                            - Actualización general de formato de prerevisión según resolución 20203040003625.<br>
-                                            - Retira datos de la entrega de documentos en el informe de prerevisión si no se realiza la posrevisión.<br>
-                                        </p>
-                                        <p style="text-align: justify">
-                                            <strong style="color: brown">Formato uniforme</strong> <br>
-                                            - Implementación de periféricos en inspección sensorial.<br>
-                                            - Filtro de máquinas que intervienen en la inspección.<br>
-                                            - Logo de ONAC en escala monocromátoca segun RAC. Validar en la página 20 del documento oficial. <a href="https://onac.org.co/images/2020/RAC/RAC-3.0-03_Reglamento_de_uso_de_los_s%C3%ADmbolos_de_acreditado_yo_asociado_v5.pdf">RAC-3.0-03 ONAC</a><br>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" role="tab" id="heading1_0_9">
-                                    <h5 class="mb-0">
-                                        <a data-toggle="collapse" href="#collapse1_0_9" role="button" aria-expanded="false" aria-controls="collapse1_0_9">
-                                            1.0.9 - <strong>19 de Octubre de 2020</strong>
-                                        </a>
-                                    </h5>
-                                </div>
-                                <div id="collapse1_0_9" class="collapse show" role="tabpanel" aria-labelledby="heading1_0_9" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <p style="text-align: justify">
-                                            Novedades de la versión: <br><br>
-                                            <strong style="color: brown">Módulos de dispositivos móviles</strong> <br>
-                                            - Compresión de imágenes en la captura de fotos para ocupar menos espacio en la base de datos<br>
-                                        </p>
-                                        <p style="text-align: justify">
-                                            <strong style="color: brown">Módulos de oficina</strong> <br>
-                                            - Almacenamiento de eventos de Sicov en bases de datos alternativas. <br>
-                                            - Ingreso de presión de inflado en el módulo de vehículos en pista. <br>
-                                            - Mejora del rendimiento del sistema basado en la administración de tamaño de base de datos con respecto a las imágenes (Requiere activación y apoyo de TECMMAS para esta mejora, es necesario parar actividades de revisión por 15 minutos). <br>
-                                        </p>
-                                        <p style="text-align: justify">
-                                            <strong style="color: brown">Formato uniforme</strong> <br>
-                                            - Datos históricos para la trazabilidad de datos en el Formato Uniforme. <br>
-                                            - Recuadro en el logo de la superintendencia. <br>
-                                            - Fecha y hora de inicio y final de la prueba (Requiere activación). <br>
-                                            - Paginación de hojas basado en el numeral (u) de la resolución 3625. <br>
-                                            - Retiro de leyenda de simultaneidad a luces antiniebla si no aplica. <br>
-                                            - Retiro de leyenda de simultaneidad de luces en motos. <br>
-                                            - Configuración correcta de los logotipos de onac y de cda, teniendo en cuenta el documento oficial del ente en su versión RAC-3.0-03 en su página 21 acotando en la NOTA “la dimensión mínima del símbolo de acreditado” y la opción 1 de posición del logotipo, se puede consultar en el siguiente link: <a href="https://onac.org.co/images/2020/RAC/RAC-3.0-03_Reglamento_de_uso_de_los_s%C3%ADmbolos_de_acreditado_yo_asociado_v5.pdf">https://onac.org.co/images/2020/RAC/RAC-3.0-03_Reglamento_de_uso_de_los_s%C3%ADmbolos_de_acreditado_yo_asociado_v5.pdf</a><br>
-                                            - Ajuste de resolución de RPM en base 10 de diésel. <br>
-                                            - Evita replica de máquina de frenómetro en el listado de máquinas (Requiere asistencia de TECMMAS para la actualización del Core EasyTecmmas). <br>
-                                            - Permite reasignación de prueba Preventiva. <br>
-                                            - Evita asignación de gases y sonometría para vehículos eléctricos. <br>
-                                            - Observación de “Luces no encienden” en rechazo de gases. <br>
-                                            - Observación de “No tiene soporte central” en rechazo de gases. <br>
-                                            - Retiro de norma de desequilibrio para vehículos tipo MOTOCICLETA. <br>
-            
-            
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" role="tab" id="heading1_0_8">
-                                    <h5 class="mb-0">
-                                        <a data-toggle="collapse" href="#collapse1_0_8" role="button" aria-expanded="false" aria-controls="collapse1_0_8">
-                                            1.0.8 - <strong>5 de Octubre de 2020</strong>
-                                        </a>
-                                    </h5>
-                                </div>
-                                <div id="collapse1_0_8" class="collapse show" role="tabpanel" aria-labelledby="heading1_0_8" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <p style="text-align: justify">
-                                            Novedades de la versión: <br><br>
-                                            <strong style="color: brown">Módulos de dispositivos móviles</strong> <br>
-                                            - Asignación automática de periféricos en la inspección sensorial, Según la línea y el tipo del vehículo seleccionado en los filtros de inspección. <br>
-                                        </p>
-                                        <p style="text-align: justify">
-                                            <strong style="color: brown">Módulos de oficina</strong> <br>
-                                            - Se establece búsqueda exacta de la placa en el módulo de asignación de pruebas para evitar la preparación de una placa diferente.<br>
-                                            - Aviso en el evento de quema de PIN desde otra aplicación en el log del visor<br>
-                                            - Botón de “El FUR ya está firmado” en aprobados y rechazados sin firmar en los casos de haber firmado el FUR en SICOV sin que la placa cambie de estado<br>
-                                            - Botón de “Anular FUR” en aprobados y rechazados sin consecutivo en los casos de requerir reenviar los resultados del fur a SICOV<br>
-                                        </p>
-                                        <p style="text-align: justify">
-                                            <strong style="color: brown">Formato uniforme</strong> <br>
-                                            - Cambio del valor del LTOE standar del diámetro del equipo por el diámetro del exosto del vehículo en el numeral 9b<br>
-                                            - Se incluyen los valores de presión de llantas en el numeral F como observaciones adicionales (para el ingreso de estos valores requiere activar el módulo de prerevisión). <br>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" role="tab" id="heading1_0_7">
-                                    <h5 class="mb-0">
-                                        <a data-toggle="collapse" href="#collapse1_0_7" role="button" aria-expanded="false" aria-controls="collapse1_0_7">
-                                            1.0.7 - <strong>28 de Septiembre de 2020</strong>
-                                        </a>
-                                    </h5>
-                                </div>
-                                <div id="collapse1_0_7" class="collapse show" role="tabpanel" aria-labelledby="heading1_0_7" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <p style="text-align: justify">
-                                            <label style="color: brown">Característica principal: </label> Esta versión está homologada para funcionar con los Centros de Control y vigilancia CI2 e INDRA, para más detalle, diríjase al tutorial # 9<br><br>
-                                            Novedades de la versión: <br><br>
-                                            <strong style="color: brown">Módulos de dispositivos móviles</strong> <br>
-                                            - Se incluyó el campo de texto para observaciones adicionales en la inspección sensorial.<br>
-                                            - Se ajustó el filtro de las líneas de inspección según la configuración de cada CDA.<br>
-                                            - Se corrigió el rechazo de la prueba en la inspección sensorial cuando se elegía el ítem NA (No aplica).<br>
-                                            - Se corrigió el desborde de la aplicación cuando se seleccionaba uno de los defectos de "Salida de emergencia".<br>
-                                        </p>
-                                        <p style="text-align: justify">
-                                            <strong style="color: brown">Módulos de oficina</strong> <br>
-                                            - Se ajustan los formatos de resultados, según el tipo de inspección: Prueba libre, Preventiva y RTMec.<br>
-                                            - Se mejora la usabilidad del visor con respecto a la persistencia del tipo de filtro seleccionado.<br>
-                                            - Se corrigió la compatibilidad de datos entre el web service de Ci2 donde se consumen de los datos del RUNT y los datos de TECMMAS SAS.<br>
-                                            - Se incluyó el módulo de sonometría.<br>
-                                        </p>
-                                        <p style="text-align: justify">
-                                            <strong style="color: brown">Formato uniforme</strong> <br>
-                                            - Se alineó el ítem (k) del anexo técnico número uno de la resolución 20203040003625 con respecto a las cifras significativas decimales.<br>
-                                            - Se alineó el ítem (p) del anexo técnico número uno de la resolución 20203040003625 con respecto a la dimensión de las fotografías.<br>
-                                            - Se incluye el valor y la maquina de sonometría.<br>
-                                            - El item de kilometraje se ajusta a "NO FUNCIONAL" cuando su valor es (0) cero o vacío.<br>
-                                            - El item de potencia se ajusta a "No aplica" cuando su valor es (0) cero o vacío.<br>
-                                            - Se corrigió la no visualización del defecto de desequilibrio en frenos.<br>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" role="tab" id="heading1_0_6">
-                                    <h5 class="mb-0">
-                                        <a data-toggle="collapse" href="#collapse1_0_6" role="button" aria-expanded="false" aria-controls="collapse1_0_6">
-                                            1.0.6 - <strong>15 de Septiembre de 2020</strong>
-                                        </a>
-                                    </h5>
-                                </div>
-                                <div id="collapse1_0_6" class="collapse show" role="tabpanel" aria-labelledby="heading1_0_6" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <p style="text-align: justify">
-                                            <label style="color: brown">Característica principal: </label> Ajustes de hallazgos en el formato uniforme, mejoras en el sistema de inspección visual y prerevisión.<br><br>
-                                            Novedades de la versión: <br><br>
-                                            <strong style="color: brown">Módulos de dispositivos móviles</strong> <br>
-                                            - Evita el rechazo de la inspección visual cuando se selecciona un defecto de tipo no aplica (NA)<br>
-                                            - Se incluye campo de observaciones adicionales en la inspección visual.<br>
-                                        </p>
-                                        <p style="text-align: justify">
-                                            <strong style="color: brown">Módulos de oficina</strong> <br>
-                                            - Implantación de extracción de datos de la información del vehículo desde el RUNT por intermedio del WebService de CI2 (requiere activación de parte de CI2 y TECMMAS SAS). <br>
-                                            - Implantación de procesos de quema de PIN para CI2. <br>
-                                        </p>
-                                        <p style="text-align: justify">
-                                            <strong style="color: brown">Formato uniforme</strong> <br>
-                                            - Corrección del dato LTOE en el formato uniforme. <br>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" role="tab" id="1_0_5">
-                                    <h5 class="mb-0">
-                                        <a class="collapsed" data-toggle="collapse" href="#collapse1_0_5" role="button" aria-expanded="false" aria-controls="collapse1_0_5">
-                                            1.0.5 - <strong>2 de Septiembre de 2020</strong>
-                                        </a>
-                                    </h5>
-                                </div>
-                                <div id="collapse1_0_5" class="collapse show" role="tabpanel" aria-labelledby="heading1_0_5" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <p style="text-align: justify">
-                                            <label style="color: brown">Para tener en cuenta: </label> esta versión esta enfocada en la realización de pruebas piloto para la validación de los nuevos procesos y la verificación del nuevo Formato Uniforme. Las sugerencias y correcciones las puede enviar al correo electrónico sistemas@tecmmas.com <br><br>
-                                            <strong style="color: brown">ADVERTENCIA: ESTA VERSIÓN TIENE COMO FINALIDAD LA CAPACITACIÓN DE LOS NUEVOS PROCESOS Y LA VALIDACIÓN DEL NUEVO FORMATO UNIFORME, MAS NO, BUSCA REEMPLAZAR CUALQUIER PROCESO ACTUAL DENTRO DE LA INSPECCIÓN TECNICOMECÁNICA EN LA GESTIÓN DE PRUEBAS NI EN LA GESTIÓN ADMINISTRATIVA. EN LOS PROXIMOS DÍAS SE REALIZARÁ EL PROCESO DE ACTIVACIÓN PARA INICIAR LA GESTIÓN CON SICOV</strong> <br><br>
-                                            Novedades de la versión: <br><br>
-                                            <strong style="color: brown">Módulos de dispositivos móviles</strong> <br>
-                                            - Incorporación de formato de prerevisión digital. (Requiere activación previa)<br>
-                                            - Incorporación de formato de posrevisión digital. (Requiere activación previa)<br>
-                                            - Incorporación del módulo de cámara. <br>
-                                            - Incorporación del módulo de inspección sensorial. <br>
-                                            - Incorporación del módulo de luxómetro marca Combi (Requiere activación previa). <br>
-                                        </p>
-                                        <p style="text-align: justify">
-                                            <strong style="color: brown">Módulos de oficina</strong> <br>
-                                            - Módulo de gestión de usuario. <br>
-                                            - Módulo de gestión de vehículo. <br>
-                                            - Módulo de gestión de asignación de pruebas. <br>
-                                            - Monitoreo de placas en tiempo real. <br>
-                                            - Generación de formato uniforme bajo los parámetros de la resolución 20203040003625 expedida por el ministerio de transporte. <br>
-                                            - Generación de formato de prerevisión digital. <br>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-            
-                        </div>-->
-            <div id="accordion" role="tablist" class="accordion-group">
-                <div class="card">
-                    <div class="card-header" role="tab" id="001">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" href="#collapse001" role="button" aria-expanded="false" aria-controls="collapse001">
-                                001 - <strong>INSTALACION EASYTECMMAS APK</strong>
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapse001" class="collapse" role="tabpanel" aria-labelledby="heading001" data-parent="#accordion">
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" role="tab" id="002">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" href="#collapse002" role="button" aria-expanded="false" aria-controls="collapse002">
-                                002 - <strong>CONFIGURACION INICIAL DEL SISTEMA</strong>
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapse002" class="collapse" role="tabpanel" aria-labelledby="heading002" data-parent="#accordion">
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" role="tab" id="003">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" href="#collapse003" role="button" aria-expanded="false" aria-controls="collapse003">
-                                003 - <strong>INGRESO AL SISTEMA</strong>
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapse003" class="collapse" role="tabpanel" aria-labelledby="heading003" data-parent="#accordion">
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" role="tab" id="004_1">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" href="#collapse004_1" role="button" aria-expanded="false" aria-controls="collapse004_1">
-                                004_1 - <strong>FORMULARIO PRINCIPAL</strong>
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapse004_1" class="collapse" role="tabpanel" aria-labelledby="heading004_1" data-parent="#accordion">
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" role="tab" id="004_2">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" href="#collapse004_2" role="button" aria-expanded="false" aria-controls="collapse004_2">
-                                004_2 - <strong>FILTROS DE INSPECCION</strong>
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapse004_2" class="collapse" role="tabpanel" aria-labelledby="heading004_2" data-parent="#accordion">
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" role="tab" id="005">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" href="#collapse005" role="button" aria-expanded="false" aria-controls="collapse005">
-                                005 - <strong>FIRMA MANUSCRITA DIGITAL</strong>
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapse005" class="collapse" role="tabpanel" aria-labelledby="heading005" data-parent="#accordion">
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" role="tab" id="006">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" href="#collapse006" role="button" aria-expanded="false" aria-controls="collapse006">
-                                006 - <strong>PREREVISION Y POSREVISION</strong>
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapse006" class="collapse" role="tabpanel" aria-labelledby="heading006" data-parent="#accordion">
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" role="tab" id="007_1">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" href="#collapse007_1" role="button" aria-expanded="false" aria-controls="collapse007_1">
-                                007_1 - <strong>PRUEBA DE LUCES CARROS LUX COMBI</strong>
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapse007_1" class="collapse" role="tabpanel" aria-labelledby="heading007_1" data-parent="#accordion">
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" role="tab" id="007_2">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" href="#collapse007_2" role="button" aria-expanded="false" aria-controls="collapse007_2">
-                                007_2 - <strong>PRUEBA DE LUCES MOTOS LUX COMBI</strong>
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapse007_2" class="collapse" role="tabpanel" aria-labelledby="heading007_2" data-parent="#accordion">
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" role="tab" id="008">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" href="#collapse008" role="button" aria-expanded="false" aria-controls="collapse008">
-                                008 - <strong>PRUEBA DE LUCES LUX MOON</strong>
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapse008" class="collapse" role="tabpanel" aria-labelledby="heading008" data-parent="#accordion">
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" role="tab" id="009">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" href="#collapse009" role="button" aria-expanded="false" aria-controls="collapse009">
-                                009 - <strong>PRUEBA DE LUCES LUX CAPELEC</strong>
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapse009" class="collapse" role="tabpanel" aria-labelledby="heading009" data-parent="#accordion">
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" role="tab" id="010">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" href="#collapse010" role="button" aria-expanded="false" aria-controls="collapse010">
-                                010 - <strong>PRUEBA DE OPACIDAD</strong>
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapse010" class="collapse" role="tabpanel" aria-labelledby="heading010" data-parent="#accordion">
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" role="tab" id="011">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" href="#collapse011" role="button" aria-expanded="false" aria-controls="collapse011">
-                                011 - <strong>PRUEBA DE EMISIONES CICLO OTTO</strong>
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapse011" class="collapse" role="tabpanel" aria-labelledby="heading011" data-parent="#accordion">
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" role="tab" id="012">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" href="#collapse012" role="button" aria-expanded="false" aria-controls="collapse012">
-                                012 - <strong>PRUEBA DE EMISIONES CICLO 4T Y 2T</strong>
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapse012" class="collapse" role="tabpanel" aria-labelledby="heading012" data-parent="#accordion">
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" role="tab" id="013">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" href="#collapse013" role="button" aria-expanded="false" aria-controls="collapse013">
-                                013 - <strong>PRUEBA DE SONOMETRIA</strong>
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapse013" class="collapse" role="tabpanel" aria-labelledby="heading013" data-parent="#accordion">
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" role="tab" id="014">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" href="#collapse014" role="button" aria-expanded="false" aria-controls="collapse014">
-                                014 - <strong>REGISTRO FOTOGRAFICO</strong>
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapse014" class="collapse" role="tabpanel" aria-labelledby="heading014" data-parent="#accordion">
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" role="tab" id="015">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" href="#collapse015" role="button" aria-expanded="false" aria-controls="collapse015">
-                                015 - <strong>PRUEBA DE TAXIMETRO</strong>
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapse015" class="collapse" role="tabpanel" aria-labelledby="heading015" data-parent="#accordion">
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" role="tab" id="016">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" href="#collapse016" role="button" aria-expanded="false" aria-controls="collapse016">
-                                016 - <strong>PRUEBA DE FRENOS ALINEACION Y-O SUSPENSION CARROS</strong>
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapse016" class="collapse" role="tabpanel" aria-labelledby="heading016" data-parent="#accordion">
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" role="tab" id="017">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" href="#collapse017" role="button" aria-expanded="false" aria-controls="collapse017">
-                                017 - <strong>PRUEBA DE FRENOS MOTOS</strong>
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapse017" class="collapse" role="tabpanel" aria-labelledby="heading017" data-parent="#accordion">
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" role="tab" id="018">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" href="#collapse018" role="button" aria-expanded="false" aria-controls="collapse018">
-                                018 - <strong>PRUEBA DE INSPECCION SENSORIAL</strong>
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapse018" class="collapse" role="tabpanel" aria-labelledby="heading018" data-parent="#accordion">
-                        <div class="card-body">
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" role="tab" id="019">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" href="#collapse019" role="button" aria-expanded="false" aria-controls="collapse019">
-                                019 - <strong>DETECTOR DE HOLGURAS</strong>
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapse019" class="collapse" role="tabpanel" aria-labelledby="heading019" data-parent="#accordion">
-                        <div class="card-body">
-                            <video width="640" height="360" controls>
-                            <source src="http://atalayasoft.tecmmas.com/tutoriales/detectorholguras.mp4" type="video/mp4">
-                        </video>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br><br>
-
-
-            <!--            <h4 style="color: brown">TUTORIALES</h4>
-                        <p style="text-align: justify">
-                            A continuación encontrará los tutoriales de cada unos de los procesos de inspección incoparados a la versión actual del software.
-                        </p>
-                        <h5>TUTORIAL 1: FORMATO DE PREREVISIÓN</h5>
-                        <video width="640" height="360" controls>
-                            <source src="http://atalayasoft.tecmmas.com/tutoriales/prerevision.mp4" type="video/mp4">
-                        </video>
-                        <h5>TUTORIAL 2: FORMATO DE POSREVISIÓN</h5>
-                        <video width="640" height="360" controls>
-                            <source src="http://atalayasoft.tecmmas.com/tutoriales/posrevision.mp4" type="video/mp4">
-                        </video>
-                        <h5>TUTORIAL 3: MÓDULO DE CAMARA</h5>
-                        <video width="640" height="360" controls>
-                            <source src="http://atalayasoft.tecmmas.com/tutoriales/fotos.mp4" type="video/mp4">
-                        </video>
-                        <h5>TUTORIAL 4: MÓDULO DE INSPECCIÓN SENSORIAL</h5>
-                        <video width="640" height="360" controls>
-                            <source src="http://atalayasoft.tecmmas.com/tutoriales/sensorial.mp4" type="video/mp4">
-                        </video>
-                        <h5>TUTORIAL 5: MÓDULO DE GESTIÓN DE USUARIOS</h5>
-                        <video width="640" height="360" controls>
-                            <source src="http://atalayasoft.tecmmas.com/tutoriales/usuarios.mp4" type="video/mp4">
-                        </video>
-                        <h5>TUTORIAL 6: MÓDULO DE GESTIÓN DE VEHÍCULO</h5>
-                        <video width="640" height="360" controls>
-                            <source src="http://atalayasoft.tecmmas.com/tutoriales/vehiculo.mp4" type="video/mp4">
-                        </video>
-                        <h5>TUTORIAL 7: MÓDULO DE ASIGNACIÓN DE PRUEBAS</h5>
-                        <video width="640" height="360" controls>
-                            <source src="http://atalayasoft.tecmmas.com/tutoriales/pruebas.mp4" type="video/mp4">
-                        </video>
-                        <h5>TUTORIAL 8: GENERACIÓN DE FORMATO UNIFORME</h5>
-                        <video width="640" height="360" controls>
-                            <source src="http://atalayasoft.tecmmas.com/tutoriales/revisionfinal.mp4" type="video/mp4">
-                        </video>
-                        <h5>TUTORIAL 9: GESTION DE SICOV</h5>
-                        <video width="640" height="360" controls>
-                            <source src="http://atalayasoft.tecmmas.com/tutoriales/gestionsicov.mp4" type="video/mp4">
-                        </video>-->
-        </section>
-
-
-
-        <!-- CORE JS FRAMEWORK - START --> 
-        <script src="<?php echo base_url(); ?>assets/js/jquery-3.2.1.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/js/popper.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/js/jquery.easing.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/pace/pace.min.js" type="text/javascript"></script>  
-        <script src="<?php echo base_url(); ?>assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/viewport/viewportchecker.js" type="text/javascript"></script>  
-        <script>window.jQuery || document.write('<script src="<?php echo base_url(); ?>assets/js/jquery-1.11.2.min.js"><\/script>');</script>
-        <!-- CORE JS FRAMEWORK - END --> 
-
-
-        <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START --> 
-
-        <script src="<?php echo base_url(); ?>assets/plugins/inputmask/min/jquery.inputmask.bundle.min.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>assets/plugins/jquery-ui/smoothness/jquery-ui.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/select2/select2.min.js" type="text/javascript"></script> 
-        <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END --> 
-
-
-        <!-- CORE TEMPLATE JS - START --> 
-        <script src="<?php echo base_url(); ?>assets/js/scripts.js" type="text/javascript"></script> 
-        <!-- END CORE TEMPLATE JS - END --> 
-
-        <script type="text/javascript">
-
-        </script>
-        <!-- General section box modal start -->
-        <div class="modal" id="modalPlaca" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog animated bounceInDown">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Ingrese la placa</h4>
-                    </div>
-                    <div class="modal-body" style="text-align: center">
-                        <input name="numero_placa" 
-                               id="num_placa"
-                               style="
-                               width: 100px;height: 50px;border: solid black;
-                               border-radius: 10px 10px 10px 10px;text-align: center;
-                               background: gold;font-size: 20px;font-weight: bold;
-                               text-transform: uppercase" type="text" >
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-success" type="button">Aceptar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- modal end -->
-    </body>
-    <!--</form>-->
-</html>
-
-
-
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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

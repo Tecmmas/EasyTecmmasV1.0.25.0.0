@@ -1,1058 +1,196 @@
-<!DOCTYPE html>
-<html class=" ">
-    <head>
-
-        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-        <meta charset="utf-8" />
-        <title>DESCARGA DE CONFIGURACION</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <meta content="" name="description" />
-        <meta content="" name="author" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-        <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png" type="image/x-icon" />    <!-- Favicon -->
-        <link rel="apple-touch-icon-precomposed" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-57-precomposed.png">	<!-- For iPhone -->
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-114-precomposed.png">    <!-- For iPhone 4 Retina display -->
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-72-precomposed.png">    <!-- For iPad -->
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-144-precomposed.png">    <!-- For iPad Retina display -->
-
-        <!-- CORE CSS FRAMEWORK - START -->
-        <link href="<?php echo base_url(); ?>assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <!-- <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/> -->
-        <link href="<?php echo base_url(); ?>assets/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/css/animate.min.css" rel="stylesheet" type="text/css"/>
-        <!-- CORE CSS FRAMEWORK - END -->
-
-        <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - START --> 
-        <link href="<?php echo base_url(); ?>assets/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css" media="screen"/>
-        <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - END --> 
-
-
-        <!-- CORE CSS TEMPLATE - START -->
-        <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/css/responsive.css" rel="stylesheet" type="text/css"/>
-        <!-- CORE CSS TEMPLATE - END -->
-    </head>
-    <!-- END HEAD -->
-
-    <!-- BEGIN BODY -->
-    <body class="login_page" style="background: white">
-
-        <div class="col-xl-12">
-            <section class="box ">
-                <div class="content-body"  style="background: lightgrey">    
-                    <div class="row" >
-                        <div class="col-lg-12 col-md-12 col-12">
-                            <section class="box ">
-                                <header class="panel_header">
-                                    <h2 class="title float-left">configuración del sistema</h2>
-                                </header>
-                                <div class="content-body" >
-                                    <strong style="color: salmon">Advertencia:</strong> Esta acción puede alterar el funcionamiento normal del sistema, se recomienda que se ponga en contacto con el área técnica de TECMMAS SAS.<br><br>
-                                    <form action="<?php echo base_url(); ?>index.php/oficina/login/Cconf/solicitar" method="post" style="width: 100%">
-                                        <table style="width: 100%;text-align: center" >
-                                            <tr>
-                                                <td width="30%">
-                                                    <label for="url">URL CLIENTE (aliascda.tecmmas.com)<br/>
-                                                        <input type="text" name="url" id="dominio" class="form-control"  size="50" value="<?php
-                                                        if (isset($url)) {
-                                                            echo $url;
-                                                        } else {
-                                                            echo "";
-                                                        }
-                                                        ?>"/>
-                                                        <strong style="color: #E31F24"><?php echo form_error('url'); ?></strong>
-                                                    </label>            
-                                                </td >
-                                                <td width="20%">
-                                                    <input name="button" id="registrar" class="btn btn-accent btn-block" style="width: 300px;background: #393185"  value="Registrar equipo" />
-                                                </td>
-                                                <td width="10%">
-                                                    <label for="url">ACTUALIZACION DE TABLAS<br/>
-                                                        <input type="button" class="btn btn-accent btn-block" id="btn_conf_tablas"  style="width: 300px;background: #393185"   value="Actualizar tablas"  size="50" />
-                                                    </label>
-                                                    <label id="msjatributos" style="color: brown;font-weight: bold"></label>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </form>
-
-                                    <label id="mensaje" style="color: brown;font-weight: bold"></label>
-                                    <?php
-                                    if (isset($mensaje)) {
-                                        echo $mensaje;
-                                    }
-                                    ?><br>
-                                    <?php
-                                    if (isset($conf)) {
-                                        $encrptopenssl = New Opensslencryptdecrypt();
-                                        $json = $encrptopenssl->decrypt($conf, true);
-                                        $dat = json_decode($json, true);
-                                        if ($dat) {
-                                            ?>
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Valor</th>
-                                                        <th>Descripción</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    foreach ($dat as $d) {
-                                                        ?>   
-                                                        <tr>
-                                                            <td>
-                                                                <?php
-                                                                echo $d["valor"];
-                                                                ?>                
-                                                            </td>
-                                                            <td>
-                                                                <?php
-                                                                echo $d["descripcion"];
-                                                                ?>                
-                                                            </td>
-                                                        </tr>
-                                                        <?php
-                                                    }
-                                                    ?>   
-                                                </tbody>
-                                            </table>
-                                            <?php
-                                        }
-                                    }
-                                    ?>
-                                    <br>
-                                    <br>
-                                    <form action="<?php echo base_url(); ?>index.php/" method="post">
-                                        <input name="button" class="btn btn-accent btn-block" style="width: 100px;background: #393185" type="submit"  value="Atras" />
-                                    </form>
-                                    <br>
-                                    <h5 class="title float-left">ACTUALIZACIÓN DE PARAMETROS</h5>
-                                    <table class="table" style="width: 100%;text-align: center" >
-                                        <tr>
-                                            <td width="25%">
-                                                <strong>PROCESO</strong>
-                                            </td>
-                                            <td width="15%">
-                                                <strong>FECHA PROCESO</strong>
-                                            </td>
-                                            <td width="15%">
-                                                <strong>INICIAR</strong>
-                                            </td>
-                                            <td width="45%">
-                                                <strong>DESCRIPCION</strong>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td >
-                                                ACTUALIZAR LINEAS VEHICULOS A 745 RUNT<br>
-                                                <label id="msjActLineas" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td >
-                                                <label id="ActLineas"></label>
-                                            </td>
-                                            <td >
-                                                <input name="button" id="ActLineas" onclick="getActualizacionParametro(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td >
-                                                Solo aplica para establecimientos que manejen descarga de datos directamente del runt o que tengan la prerevisión EasyTecmmas.
-                                            </td>
-                                        </tr>
-
-                                    </table>
-                                    <br>
-                                    <h5 class="title float-left">DESCARGA DE ARCHIVOS DE CONFIGURACIÓN</h5>
-                                    <table class="table" style="width: 100%;text-align: center" >
-                                        <tr>
-                                            <td width="40%">
-                                                <strong>PARAMETRO</strong>
-                                            </td>
-                                            <td width="25%">
-                                                <strong>FECHA ACTUALIZACION</strong>
-                                            </td>
-                                            <td width="20%">
-                                                <strong>ACTUALIZAR</strong>
-                                            </td>
-                                            <td width="20%">
-                                                <strong>VER</strong>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                CONFIGURACIÓN ADMINISTRATIVA<br>
-                                                <label id="msjoficina" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td>
-                                                <label id="oficina"></label>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" id="oficina" onclick="getActualizacionArchivo(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" title="oficina" onclick="verConfiguracion(this.title)" class="btn btn-accent btn-block" style="background: #393185"  value="Ver" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                CONFIGURACIÓN LUXOMETROS<br>
-                                                <label id="msjluxometro" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td>
-                                                <label id="luxometro"></label>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" id="luxometro" onclick="getActualizacionArchivo(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" title="luxometro" onclick="verConfiguracion(this.title)"  class="btn btn-accent btn-block" style="background: #393185"  value="Ver" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                CONFIGURACIÓN OPACIMETROS<br>
-                                                <label id="msjopacimetro" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td>
-                                                <label id="opacimetro"></label>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" id="opacimetro" onclick="getActualizacionArchivo(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" title="opacimetro" onclick="verConfiguracion(this.title)"  class="btn btn-accent btn-block" style="background: #393185"  value="Ver" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                CONFIGURACIÓN ANALIZADORES<br>
-                                                <label id="msjanalizador" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td>
-                                                <label id="analizador"></label>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" id="analizador" onclick="getActualizacionArchivo(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" title="analizador" onclick="verConfiguracion(this.title)"  class="btn btn-accent btn-block" style="background: #393185"  value="Ver" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                CONFIGURACIÓN SONOMETRÍA<br>
-                                                <label id="msjsonometro" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td>
-                                                <label id="sonometro"></label>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" id="sonometro" onclick="getActualizacionArchivo(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" title="sonometro" onclick="verConfiguracion(this.title)"  class="btn btn-accent btn-block" style="background: #393185"  value="Ver" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                CONFIGURACIÓN CAMARAS<br>
-                                                <label id="msjcamara" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td>
-                                                <label id="camara"></label>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" id="camara" onclick="getActualizacionArchivo(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" title="camara" onclick="verConfiguracion(this.title)"  class="btn btn-accent btn-block" style="background: #393185"  value="Ver" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                CONFIGURACIÓN TAXIMETROS<br>
-                                                <label id="msjtaximetro" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td>
-                                                <label id="taximetro"></label>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" id="taximetro" onclick="getActualizacionArchivo(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" title="taximetro" onclick="verConfiguracion(this.title)"  class="btn btn-accent btn-block" style="background: #393185"  value="Ver" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                CONFIGURACIÓN FRENOMETROS<br>
-                                                <label id="msjfrenometro" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td>
-                                                <label id="frenometro"></label>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" id="frenometro" onclick="getActualizacionArchivo(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" title="frenometro" onclick="verConfiguracion(this.title)"  class="btn btn-accent btn-block" style="background: #393185"  value="Ver" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                CONFIGURACIÓN BASCULAS<br>
-                                                <label id="msjbascula" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td>
-                                                <label id="bascula"></label>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" id="bascula" onclick="getActualizacionArchivo(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" title="bascula" onclick="verConfiguracion(this.title)"  class="btn btn-accent btn-block" style="background: #393185"  value="Ver" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                CONFIGURACIÓN VISUAL<br>
-                                                <label id="msjvisual" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td>
-                                                <label id="visual"></label>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" id="visual" onclick="getActualizacionArchivo(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" title="visual" onclick="verConfiguracion(this.title)"  class="btn btn-accent btn-block" style="background: #393185"  value="Ver" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                CONFIGURACIÓN BANCO SUSPENSIÓN<br>
-                                                <label id="msjbanco_suspension" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td>
-                                                <label id="banco_suspension"></label>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" id="banco_suspension" onclick="getActualizacionArchivo(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" title="banco_suspension" onclick="verConfiguracion(this.title)"  class="btn btn-accent btn-block" style="background: #393185"  value="Ver" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                CONFIGURACIÓN ALINEADORES<br>
-                                                <label id="msjalineador" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td>
-                                                <label id="alineador"></label>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" id="alineador" onclick="getActualizacionArchivo(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" title="alineador" onclick="verConfiguracion(this.title)"  class="btn btn-accent btn-block" style="background: #393185"  value="Ver" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                CONFIGURACIÓN CAPTADOR<br>
-                                                <label id="msjcaptador" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td>
-                                                <label id="captador"></label>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" id="captador" onclick="getActualizacionArchivo(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" title="captador" onclick="verConfiguracion(this.title)"  class="btn btn-accent btn-block" style="background: #393185"  value="Ver" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                CONFIGURACIÓN TERMOHIGROMETROS<br>
-                                                <label id="msjtermohigrometro" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td>
-                                                <label id="termohigrometro"></label>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" id="termohigrometro" onclick="getActualizacionArchivo(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" title="termohigrometro" onclick="verConfiguracion(this.title)"  class="btn btn-accent btn-block" style="background: #393185"  value="Ver" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                CONFIGURACIÓN PROFUNDIMETROS<br>
-                                                <label id="msjprofundimetro" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td>
-                                                <label id="profundimetro"></label>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" id="profundimetro" onclick="getActualizacionArchivo(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" title="profundimetro" onclick="verConfiguracion(this.title)"  class="btn btn-accent btn-block" style="background: #393185"  value="Ver" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                CONFIGURACIÓN PIE DE REY<br>
-                                                <label id="msjpie_de_rey" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td>
-                                                <label id="pie_de_rey"></label>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" id="pie_de_rey" onclick="getActualizacionArchivo(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" title="pie_de_rey" onclick="verConfiguracion(this.title)"  class="btn btn-accent btn-block" style="background: #393185"  value="Ver" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                CONFIGURACIÓN DETECTOR DE HOLGURAS<br>
-                                                <label id="msjdetector_holguras" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td>
-                                                <label id="detector_holguras"></label>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" id="detector_holguras" onclick="getActualizacionArchivo(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" title="detector_holguras" onclick="verConfiguracion(this.title)"  class="btn btn-accent btn-block" style="background: #393185"  value="Ver" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                CONFIGURACIÓN ELEVADOR DE MOTOS<br>
-                                                <label id="msjelevador" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td>
-                                                <label id="elevador"></label>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" id="elevador" onclick="getActualizacionArchivo(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" title="elevador" onclick="verConfiguracion(this.title)"  class="btn btn-accent btn-block" style="background: #393185"  value="Ver" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                CONFIGURACIÓN SENSOR VIBRACION<br>
-                                                <label id="msjsensor_vibracion" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td>
-                                                <label id="sensor_vibracion"></label>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" id="sensor_vibracion" onclick="getActualizacionArchivo(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" title="sensor_vibracion" onclick="verConfiguracion(this.title)"  class="btn btn-accent btn-block" style="background: #393185"  value="Ver" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                CONFIGURACIÓN SENSOR BATERIA<br>
-                                                <label id="msjsensor_bateria" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td>
-                                                <label id="sensor_bateria"></label>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" id="sensor_bateria" onclick="getActualizacionArchivo(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" title="sensor_bateria" onclick="verConfiguracion(this.title)"  class="btn btn-accent btn-block" style="background: #393185"  value="Ver" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                CONFIGURACIÓN SENSOR INDUCCIÓN<br>
-                                                <label id="msjsensor_induccion" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td>
-                                                <label id="sensor_induccion"></label>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" id="sensor_induccion" onclick="getActualizacionArchivo(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" title="sensor_induccion" onclick="verConfiguracion(this.title)"  class="btn btn-accent btn-block" style="background: #393185"  value="Ver" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                CONFIGURACIÓN SONDA TEMPERATURA<br>
-                                                <label id="msjsonda_temperatura" style="color: brown;font-weight: bold"></label>
-                                            </td>
-                                            <td>
-                                                <label id="sonda_temperatura"></label>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" id="sonda_temperatura" onclick="getActualizacionArchivo(this)" class="btn btn-accent btn-block" style="background: #393185"  value="Actualizar" />
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input name="button" title="sonda_temperatura" onclick="verConfiguracion(this.title)"  class="btn btn-accent btn-block" style="background: #393185"  value="Ver" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <h4 id="titulo_conf"></h4>
-                                    <div class="col-xs-12">
-                                        <table id="example-1" class="table table-striped dt-responsive display">
-                                            <thead>
-                                                <tr>
-                                                    <th>Id</th>
-                                                    <th>Linea</th>
-                                                    <th>Nombre</th>
-                                                    <th>Marca</th>
-                                                    <th>Serie</th>
-                                                    <th>Referencia</th>
-                                                    <th>Nombre</th>
-                                                    <th>Valor</th>
-                                                    <th>Descripción</th>
-                                                </tr>
-                                            </thead>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>Id</th>
-                                                    <th>Nombre</th>
-                                                    <th>Marca</th>
-                                                    <th>Serie</th>
-                                                    <th>Referencia</th>
-                                                    <th>Nombre</th>
-                                                    <th>Valor</th>
-                                                    <th>Descripción</th>
-                                                </tr>
-                                            </tfoot>
-                                            <tbody id="configuracion"></tbody>
-                                        </table>
-                                    </div>
-                                    <form action="<?php echo base_url(); ?>index.php/" method="post">
-                                        <input name="button" class="btn btn-accent btn-block" style="width: 100px;background: #393185" type="submit"  value="Atras" />
-                                    </form>
-                                </div>
-
-                                <img src="<?php echo base_url(); ?>assets/images/logo.png" />
-                                <div class="modal" id="Modal-token" s tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog animated bounceInDown">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" id="titulo_">Validar Token</h4>
-                                            </div>
-                                            <div class="modal-body" >
-                                                <label style="color: black; justify-content: center">Para poder ejecutar este comando, por favor comuniquese con el area de desarrollo para que le entregue un token y pueda continuar con el proceso</label>
-                                                <br>
-                                                <br>
-                                                <div style="text-align: center">
-                                                    <input type="text" placeholder="Token" class="input" id="token" autocomplete="off">
-                                                </div>
-                                                <div id="valid-token" style="color: red"></div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button data-dismiss="modal" class="btn btn-default" type="button">CANCELAR</button>
-                                                <button id="btnAsignar" class="btn btn-success" type="button" onclick="Validar()">Validar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="modal" id="Modal-token-data" s tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog animated bounceInDown">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" id="titulo_">Ingrese los siguientes datos</h4>
-                                            </div>
-                                            <div class="modal-body" >
-                                                <div style="text-align: center">
-                                                    <input type="text" placeholder="Nombre usuario" class="input" autocomplete="off" id="usuario" style=" width: 90%">
-                                                    <br>
-                                                    <br>
-                                                    <input type="text" placeholder="Nombre cda" class="input" id="cda" autocomplete="off" style=" width: 90%">
-                                                    <br>
-                                                    <br>
-                                                    <textarea type="text" placeholder="Descripcion" class="input" id="descripcion" autocomplete="off" style=" width: 90%; height: 160px"></textarea>
-                                                </div>
-                                                <div id="valid-data" style="color: red"></div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button data-dismiss="modal" class="btn btn-default" type="button">CANCELAR</button>
-                                                <button id="btnAsignar" class="btn btn-success" type="button" onclick="enviar()">Enviar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </section>
-                            <?php echo $this->config->item('derechos'); ?>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-
-        <!-- MAIN CONTENT AREA ENDS -->
-        <!-- LOAD FILES AT PAGE END FOR FASTER LOADING -->
-
-
-        <!-- CORE JS FRAMEWORK - START --> 
-        <script src="<?php echo base_url(); ?>assets/js/jquery-3.2.1.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/js/popper.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/js/jquery.easing.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script> 
-        <script src="<?php echo base_url(); ?>assets/plugins/pace/pace.min.js" type="text/javascript"></script>  
-        <script src="<?php echo base_url(); ?>assets/plugins/viewport/viewportchecker.js" type="text/javascript"></script>  
-        <script>window.jQuery || document.write('<script src="<?php echo base_url(); ?>assets/js/jquery-1.11.2.min.js"><\/script>');</script>
-        <!-- CORE JS FRAMEWORK - END --> 
-
-
-        <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START --> 
-        <script src="<?php echo base_url(); ?>assets/plugins/icheck/icheck.min.js" type="text/javascript"></script>
-        <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END --> 
-
-
-        <!-- CORE TEMPLATE JS - START --> 
-        <script src="<?php echo base_url(); ?>assets/js/scripts.js" type="text/javascript"></script> 
-        <!-- END CORE TEMPLATE JS - END --> 
-
-        <script type="text/javascript">
-                                                    var app = {
-                                                        registrar: function () {
-                                                            validar1();
-                                                        },
-                                                        load: function () {
-                                                            if (localStorage.getItem('urlserver') !== null && localStorage.getItem('urlserver') !== '') {
-                                                                var url = localStorage.getItem('urlserver');
-                                                                url = url.split(':');
-                                                                $("#ip").val(url[1].toString().substr(2));
-                                                                $("#puerto").val(url[2]);
-                                                            }
-                                                            if (localStorage.getItem('dominio') !== null && localStorage.getItem('urlserver') !== '')
-                                                                $("#dominio").val(localStorage.getItem('dominio'));
-                                                            if (localStorage.getItem('serial') !== null && localStorage.getItem('serial') !== '') {
-                                                                var serial = localStorage.getItem('serial');
-                                                                var serial1 = serial.substring(0, 5);
-                                                                var serial2 = serial.substring(5, 10);
-                                                                var serial3 = serial.substring(10, 15);
-                                                                var serial4 = serial.substring(15, 20);
-                                                                $("#serial").text(serial1 + '-' + serial2 + '-' + serial3 + '-' + serial4);
-                                                            } else {
-                                                                $("#serial").text("NO REGISTRA SERIAL");
-                                                            }
-                                                        },
-                                                        init: function () {
-                                                            this.load();
-                                                            getDominio();
-                                                            setFechaActualizacion("system-oficina.json", 'oficina');
-                                                            setFechaActualizacion("system-luxometro.dat", 'luxometro');
-                                                            setFechaActualizacion("system-opacimetro.dat", 'opacimetro');
-                                                            setFechaActualizacion("system-analizador.dat", 'analizador');
-                                                            setFechaActualizacion("system-sonometro.dat", 'sonometro');
-                                                            setFechaActualizacion("system-camara.dat", 'camara');
-                                                            setFechaActualizacion("system-taximetro.dat", 'taximetro');
-                                                            setFechaActualizacion("system-frenometro.dat", 'frenometro');
-                                                            setFechaActualizacion("system-bascula.dat", 'bascula');
-                                                            setFechaActualizacion("system-visual.dat", 'visual');
-                                                            setFechaActualizacion("system-banco_suspension.dat", 'banco_suspension');
-                                                            setFechaActualizacion("system-alineador.dat", 'alineador');
-                                                            setFechaActualizacion("system-captador.dat", 'captador');
-                                                            setFechaActualizacion("system-termohigrometro.dat", 'termohigrometro');
-                                                            setFechaActualizacion("system-profundimetro.dat", 'profundimetro');
-                                                            setFechaActualizacion("system-pie_de_rey.dat", 'pie_de_rey');
-                                                            setFechaActualizacion("system-detector_holguras.dat", 'detector_holguras');
-                                                            setFechaActualizacion("system-elevador.dat", 'elevador');
-                                                            setFechaActualizacion("system-sensor_vibracion.dat", 'sensor_vibracion');
-                                                            setFechaActualizacion("system-sensor_bateria.dat", 'sensor_bateria');
-                                                            setFechaActualizacion("system-sensor_induccion.dat", 'sensor_induccion');
-                                                            setFechaActualizacion("system-sonda_temperatura.dat", 'sonda_temperatura');
-                                                            document.getElementById('registrar').addEventListener('click', this.registrar, false);
-                                                        }
-                                                    };
-
-                                                    $(document).ready(function () {
-                                                        app.init();
-//                console.log("Hola");
-                                                    });
-
-                                                    function validar1() {
-                                                        $.ajax({
-                                                            url: '<?php echo base_url(); ?>index.php/Cconfiguracion/getCda',
-                                                            type: 'post',
-                                                            success: function (rta) {
-                                                                validar2(rta);
-                                                            },
-                                                            timeout: 5000,
-                                                            error: function (rta, status, err) {
-                                                                hideAlert();
-                                                                if (status === "timeout") {
-                                                                    $("#mensaje").text('Su petición demoro mas de lo permitido (urlserver). ' + err);
-                                                                } else {
-                                                                    $("#mensaje").text('Verifique la direccion del servidor (urlserver). ' + err);
-                                                                }
-
-                                                            }
-                                                        });
-                                                    }
-
-                                                    function validar2(cda) {
-                                                        $.ajax({
-                                                            url: "http://" + $('#dominio').val() + "/cda/index.php/Cservicio/getCda",
-                                                            type: 'post',
-                                                            success: function (rta) {
-                                                                if (cda === rta) {
-                                                                    validar3();
-                                                                } else {
-                                                                    $("#mensaje").text('Error de dominio', 'Por favor verifique si el dominio es correcto o si pertenece al presente CDA.');
-                                                                }
-                                                            },
-                                                            timeout: 5000,
-                                                            error: function (rta, status, err) {
-                                                                if (status === "timeout") {
-                                                                    $("#mensaje").text('Su petición demoro mas de lo permitido (dominio). ' + err);
-                                                                } else {
-                                                                    $("#mensaje").text('Verifique la direccion del servidor (dominio). ' + err);
-                                                                }
-                                                            }
-                                                        });
-                                                    }
-
-                                                    function validar3() {
-                                                        $.ajax({
-                                                            url: '<?php echo base_url(); ?>index.php/Cconfiguracion/getMac',
-                                                            type: 'post',
-                                                            success: function (mac) {
-                                                                
-                                                                if (mac !== '') {
-                                                                    alert(mac);
-                                                                    var data = {
-                                                                        serial: mac,
-                                                                        descripcion: 'Dispositivo oficina'
-                                                                    };
-                                                                    $.ajax({
-                                                                        url: "http://" + $('#dominio').val() + "/cda/index.php/Cservicio/guardarDispositivo",
-                                                                        type: 'post',
-                                                                        data: data,
-                                                                        success: function (rta) {
-                                                                            if (rta === 'SI') {
-                                                                                $("#mensaje").text('El dispositivo ya esta registrado, comuníquese con TECMMAS SAS para validar su activación.');
-                                                                            } else {
-                                                                                $("#mensaje").text('El dispositivo se ha resgistrado, comuníquese con TECMMAS SAS para validar su activación.');
-                                                                            }
-                                                                            saveDominio();
-                                                                        },
-                                                                        timeout: 5000,
-                                                                        error: function (rta, status, err) {
-                                                                            hideAlert();
-                                                                            if (status === "timeout") {
-                                                                                $("#mensaje").text('Su peticion demoro mas de lo permitido (dominio). ' + err);
-                                                                            } else {
-                                                                                $("#mensaje").text('Verifique la direccion del servidor (dominio). ' + err);
-                                                                            }
-                                                                        }
-                                                                    });
-                                                                } else {
-                                                                    validar4();
-                                                                }
-
-                                                            },
-                                                            timeout: 5000,
-                                                            error: function (rta, status, err) {
-                                                                hideAlert();
-                                                                if (status === "timeout") {
-                                                                    showAlert('Error de conexion', 'Su peticion demoro mas de lo permitido (dominio). ' + err, 'error', false);
-                                                                } else {
-                                                                    showAlert('Error de conexion', 'Verifique la direccion del servidor (dominio). ' + err, 'error', false);
-                                                                }
-                                                            }
-                                                        });
-                                                    }
-
-                                                    function validar4() {
-                                                        $.ajax({
-                                                            url: '<?php echo base_url(); ?>index.php/Cconfiguracion/getMacServer',
-                                                            type: 'post',
-                                                            success: function (mac) {
-                                                                if (mac !== '') {
-                                                                    var data = {
-                                                                        serial: mac,
-                                                                        descripcion: 'Servidor'
-                                                                    };
-                                                                    $.ajax({
-                                                                        url: "http://" + $('#dominio').val() + "/cda/index.php/Cservicio/guardarDispositivo",
-                                                                        type: 'post',
-                                                                        data: data,
-                                                                        success: function (rta) {
-                                                                            if (rta === 'SI') {
-                                                                                $("#mensaje").text('El dispositivo ya esta registrado, comuníquese con TECMMAS SAS para validar su activación.');
-                                                                            } else {
-                                                                                $("#mensaje").text('El dispositivo se ha resgistrado, comuníquese con TECMMAS SAS para validar su activación.');
-                                                                            }
-                                                                            saveDominio();
-                                                                        },
-                                                                        timeout: 5000,
-                                                                        error: function (rta, status, err) {
-                                                                            hideAlert();
-                                                                            if (status === "timeout") {
-                                                                                $("#mensaje").text('Su peticion demoro mas de lo permitido (dominio). ' + err);
-                                                                            } else {
-                                                                                $("#mensaje").text('Verifique la direccion del servidor (dominio). ' + err);
-                                                                            }
-                                                                        }
-                                                                    });
-                                                                } else {
-                                                                    $("#mensaje").text('El sistema no reconoce la MAC de este equipo');
-                                                                }
-                                                            },
-                                                            timeout: 5000,
-                                                            error: function (rta, status, err) {
-                                                                hideAlert();
-                                                                if (status === "timeout") {
-                                                                    showAlert('Error de conexion', 'Su peticion demoro mas de lo permitido (dominio). ' + err, 'error', false);
-                                                                } else {
-                                                                    showAlert('Error de conexion', 'Verifique la direccion del servidor (dominio). ' + err, 'error', false);
-                                                                }
-                                                            }
-                                                        });
-
-                                                    }
-
-                                                    var saveDominio = function () {
-                                                        var data = {
-                                                            dominio: $('#dominio').val()
-                                                        };
-                                                        $.ajax({
-                                                            url: '<?php echo base_url(); ?>index.php/Cconfiguracion/saveDominio',
-                                                            type: 'post',
-                                                            data: data
-                                                        });
-                                                    };
-
-                                                    var getDominio = function () {
-                                                        $.ajax({
-                                                            url: '<?php echo base_url(); ?>index.php/Cconfiguracion/getDominio',
-                                                            type: 'post',
-                                                            success: function (dominio) {
-                                                                if (dominio !== '') {
-                                                                    $("#dominio").val(dominio);
-                                                                }
-                                                            }
-                                                        });
-                                                    };
-
-                                                    var setFechaActualizacion = function (archivo, campo) {
-                                                        var data = {
-                                                            archivo: archivo
-                                                        };
-                                                        $.ajax({
-                                                            url: '<?php echo base_url(); ?>index.php/Cconfiguracion/getFechaArchivo',
-                                                            type: 'post',
-                                                            data: data,
-                                                            success: function (fecha) {
-                                                                $("#" + campo).text(fecha);
-                                                            }
-                                                        });
-                                                    };
-
-                                                    var verConfiguracion = function (tipo) {
-                                                        var data = {
-                                                            tipo: tipo
-                                                        };
-                                                        $.ajax({
-                                                            url: '<?php echo base_url(); ?>index.php/Cconfiguracion/verConfiguracion',
-                                                            type: 'post',
-                                                            data: data,
-                                                            success: function (conf) {
-                                                                document.getElementById("configuracion").innerHTML = conf;
-                                                                document.getElementById("titulo_conf").innerHTML = "CONFIGURACIÓN DE " + tipo.toString().toUpperCase();
-                                                            }
-                                                        });
-                                                    };
-
-                                                    var getActualizacionArchivo = function (e) {
-                                                        document.getElementById("msj" + e.id).style.color = 'black';
-                                                        e.disabled = true;
-                                                        $("#msj" + e.id).text('Actualizando configuración ' + e.id + ' por favor espere..');
-
-                                                        $.ajax({
-                                                            url: "https://" + $("#dominio").val() + "/cda/index.php/Cservicio/getLineas",
-                                                            success: function (datos) {
-                                                                var data = {
-                                                                    tipo: e.id,
-                                                                    url: $("#dominio").val(),
-                                                                    datos: datos
-                                                                };
-                                                                $.ajax({
-                                                                    url: '<?php echo base_url(); ?>index.php/Cconfiguracion/getActualizacionArchivoNew',
-                                                                    type: 'post',
-                                                                    data: data,
-                                                                    success: function (data, textStatus, jqXHR) {
-                                                                        if (e.id === 'oficina') {
-                                                                            setFechaActualizacion("system-oficina.json", 'oficina');
-                                                                        } else {
-                                                                            setFechaActualizacion("system-" + e.id + ".dat", e.id);
-                                                                        }
-                                                                        document.getElementById("msj" + e.id).style.color = 'green';
-                                                                        $("#msj" + e.id).text('Actualización de configuración para ' + e.id + ' exitosa.');
-                                                                        e.disabled = false;
-                                                                    }
-                                                                });
-
-                                                            },
-                                                            timeout: 60000,
-                                                            error: function (rta, status, err) {
-                                                                console.log(rta)
-                                                                document.getElementById("msj" + e.id).style.color = 'red';
-                                                                if (status === "timeout") {
-                                                                    $("#msj" + e.id).text('Su petición demoro mas de lo permitido. Este problema puede estar ligado a que el dispositivo no tiene conexión con el servidor local o su conexión a internet no responde -> ' + err);
-                                                                } else {
-                                                                    $("#msj" + e.id).text('Verifique la conexión con su servidor local. ' + err);
-                                                                }
-                                                                e.disabled = false;
-                                                            }
-                                                        });
-                                                    };
-
-                                                    var getActualizacionParametro = function (e) {
-                                                        document.getElementById("msj" + e.id).style.color = 'black';
-                                                        e.disabled = true;
-                                                        var data = {
-                                                            tipo: e.id
-                                                        };
-                                                        $.ajax({
-                                                            url: '<?php echo base_url(); ?>index.php/Cconfiguracion/getActualizacionParametro',
-                                                            type: 'post',
-                                                            data: data,
-                                                            success: function () {
-                                                                if (e.id === 'oficina') {
-                                                                    setFechaActualizacion("system-oficina.json", 'oficina');
-                                                                } else {
-                                                                    setFechaActualizacion("system-" + e.id + ".dat", e.id);
-                                                                }
-                                                                document.getElementById("msj" + e.id).style.color = 'green';
-                                                                $("#msj" + e.id).text('Actualización de configuración para ' + e.id + ' exitosa.');
-                                                                e.disabled = false;
-                                                            },
-                                                            error: function (rta, status, err) {
-                                                                document.getElementById("msj" + e.id).style.color = 'red';
-                                                                if (status === "timeout") {
-                                                                    $("#msj" + e.id).text('Su petición demoro mas de lo permitido. Este problema puede estar ligado a que el dispositivo no tiene conexión con el servidor local o su conexión a internet no responde -> ' + err);
-                                                                } else {
-                                                                    $("#msj" + e.id).text('Verifique la conexión con su servidor local. ' + err);
-                                                                }
-                                                                e.disabled = false;
-                                                            }
-                                                        });
-                                                    };
-
-                                                    $('#btn_conf_tablas').click(function () {
-                                                        $('#Modal-token').show();
-                                                    });
-                                                    var tokenval = "";
-
-                                                    function Validar() {
-                                                        var token = $("#token").val();
-                                                        $("#valid-token").html('');
-                                                        $.ajax({
-                                                            url: 'https://atalayasoft.tecmmas.com/atalaya/index.php/Ctriguer/validToken',
-                                                            type: 'post',
-                                                            mimeType: 'json',
-                                                            data: {token: token},
-                                                            success: function (data, textStatus, jqXHR) {
-                                                                if (data == 1) {
-                                                                    tokenval = token;
-                                                                    $('#Modal-token').hide();
-                                                                    $("#Modal-token-data").show();
-                                                                } else {
-                                                                    $("#valid-token").html('El token no es correcto');
-                                                                }
-                                                            },
-                                                            error: function (jqXHR, textStatus, errorThrown) {
-                                                                alert('Error: ' + jqXHR);
-                                                            }
-                                                        });
-                                                    }
-
-                                                    function enviar() {
-                                                        $("#valid-data").html('');
-                                                        var usuario = $("#usuario").val();
-                                                        var cda = $("#cda").val();
-                                                        var descripcion = $("#descripcion").val();
-                                                        if ((usuario == "" || usuario == null) || (cda == "" || cda == null) || (descripcion == "" || descripcion == null)) {
-                                                            $("#valid-data").html('Todos los campos son obligatorios.');
-                                                        } else {
-                                                            $.ajax({
-                                                                url: 'https://atalayasoft.tecmmas.com/atalaya/index.php/Ctriguer/UpdateToken',
-                                                                type: 'post',
-                                                                mimeType: 'json',
-                                                                data: {token: tokenval,
-                                                                    usuario: usuario,
-                                                                    cda: cda,
-                                                                    descripcion: descripcion},
-                                                                success: function (data, textStatus, jqXHR) {
-//                                                                    alert(data);
-                                                                    configurarTablas();
-                                                                    $("#Modal-token-data").hide();
-                                                                },
-                                                                error: function (jqXHR, textStatus, errorThrown) {
-                                                                    alert('Error: ' + jqXHR);
-                                                                }
-                                                            });
-                                                        }
-                                                    }
-
-                                                    var configurarTablas = function () {
-                                                        var e = document.getElementById("btn_conf_tablas");
-//                            e.disabled = true;
-                                                        $("#btn_conf_tablas").attr("disabled", true);
-                                                        $.ajax({
-                                                            url: '<?php echo base_url(); ?>index.php/Cconfiguracion/configurarTablas',
-                                                            success: function () {
-                                                                crearTablas();
-                                                                document.getElementById("msj" + e.id).style.color = 'green';
-                                                                $("#msj" + e.id).text('Actualización de configuración para ' + e.id + ' exitosa.');
-                                                                e.disabled = false;
-                                                            },
-                                                            error: function () {
-                                                                crearTablas();
-                                                                document.getElementById("msj" + e.id).style.color = 'red';
-                                                                $("#msj" + e.id).text('Esta actualización ya ha sido aplicada.');
-//                                                                e.disabled = false;
-                                                            }
-                                                        });
-                                                    };
-
-                                                    var crearTablas = function () {
-                                                        $.ajax({
-                                                            url: '<?php echo base_url(); ?>index.php/Cconfiguracion/getDominio',
-                                                            type: 'post',
-                                                            success: function (dominio) {
-                                                                $.ajax({
-                                                                    url: "http://" + dominio + "/cda/index.php/Cservicio/createtable",
-                                                                    async: false,
-                                                                    success: function (r) {
-                                                                    }
-                                                                });
-                                                            }
-                                                        });
-                                                    };
-        </script>
-
-    </body>
-</html>
-
-
-
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+HUkhtIIKIxbyJktaqO0WDV+ry1VW7W==

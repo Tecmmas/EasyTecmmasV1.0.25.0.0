@@ -1,375 +1,100 @@
-<?php $this->load->view('./header'); ?>
-
-
-<section id="main-content" class=" ">
-    <section class="wrapper main-wrapper row">
-        <!--        <div class='col-12'>
-                    <div class="page-title">
-                    </div>
-                </div>
-                <div class="clearfix">
-        
-                </div>-->
-        <!-- MAIN CONTENT AREA STARTS -->
-        <div class="col-xl-12">
-
-            <section class="box ">
-                <div class="content-body">    
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-12">
-                            <section class="box ">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-
-                                    <h4>Modulos adicionales</h4>
-
-                                    <div class="panel-group collapsed active" id="accordion-4" role="tablist" aria-multiselectable="true">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading" role="tab" id="headingOne4">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion-4" href="#collapseOne-4" aria-expanded="true" aria-controls="collapseOne-4">
-                                                        <i class='fa fa-list'></i>Metrologia de equipos
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapseOne-4" class="panel-collapse collapse in active" role="tabpanel" aria-labelledby="headingOne4">
-                                                <div class="panel-body">
-                                                    <br>
-                                                    <div class="row">
-                                                        <div class="col-md-3 col-lg-3 col-sm-3">
-                                                            <div style="text-align: center; font-size: 18px">Tipo</div>
-                                                            <select class="form-control input-lg m-bot15" id="tipo">
-                                                                <option value="0">Calibración</option>
-                                                                <option value="1">Verificación</option>
-
-                                                            </select>
-
-                                                        </div>
-                                                        <div class="col-md-3 col-lg-3 col-sm-3">
-                                                            <div style="text-align: center; font-size: 18px">Numero Certificado</div>
-                                                            <input class="form-control input-lg m-bot15" type="text" id="certificado">
-                                                        </div>
-                                                        <div class="col-md-3 col-lg-3 col-sm-3">
-                                                            <div style="text-align: center; font-size: 18px">Empresa</div>
-                                                            <input class="form-control input-lg m-bot15" type="text" id="empresa">
-                                                        </div>
-                                                        <div class="col-md-3 col-lg-3 col-sm-3">
-                                                            <div style="text-align: center; font-size: 18px">Fecha vencimiento</div>
-                                                            <input type="text" class="form-control datepicker" id="fechavencimiento"  data-format="yyyy-mm-dd " autocomplete="off" >
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-6 col-lg-6 col-sm-6">
-                                                            <div style="text-align: center; font-size: 18px">Maquina</div>
-                                                            <select class="form-control input-lg m-bot15" id="idmaquina">
-                                                                <option selected="">Seleccione la maquina</option>
-                                                                <?php foreach ($maquina as $v) { ?>
-                                                                    <?php if ($v->activo == 1 && ($v->conf_idtipo_prueba <> 5 && $v->conf_idtipo_prueba <> 20 && $v->conf_idtipo_prueba <> 8 && $v->conf_idtipo_prueba <> 16 && $v->conf_idtipo_prueba <> 17 && $v->conf_idtipo_prueba <> 19 && $v->conf_idtipo_prueba <> 21 && $v->conf_idtipo_prueba <> 22)) { ?>
-                                                                        <option value="<?= $v->nombre . "-" . $v->marca . "-" . $v->serie_maquina . "-" . $v->serie_banco ?>"><?= $v->nombre . "-" . $v->marca . "-" . $v->serie_maquina . "-" . $v->serie_banco ?></option>
-                                                                    <?php } ?>
-                                                                <?php } ?>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-md-3 col-lg-3 col-sm-3">
-                                                            <div style="text-align:  center">
-                                                                <button type="button" class="btn btn-success" style="margin-top: 22px;" onclick="metrologiaC()">Guardar</button>
-
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3 col-lg-3 col-sm-3">
-                                                            <div style="text-align:  center">
-                                                                <button type="button" class="btn btn-warning" style="margin-top: 22px;" onclick="verMetrologia()">Ver registros</button>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <br>
-                                                    <div id="mesajeError" style="color: red; font-size: 18px "></div>
-                                                    <br>
-                                                    <div id="div-Metrologia" style="display: none">
-                                                        <div class="table">
-                                                            <table class="table" id="table-metrologia" >
-                                                                <thead id="head-metrologia">
-
-                                                                </thead>
-                                                                <tbody id="body-metrologia">
-
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <br>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </section>
-
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <!-- MAIN CONTENT AREA ENDS -->
-            </section>
-    </section>
-</section>
-<div class="modal fade bd-example-modal-sm" id="updateMetrologia"   role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color: #383085;">
-                <h5 class="modal-title" id="exampleModalLabel" style="color: white">Actualizar datos</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body ">
-                <div class="form-group">
-                    <input type="hidden" id="idconf_maquina">
-                    <label for="recipient-name" class="col-form-label" ><b>Tipo</b></label>
-                    <input type="text" class="form-control" id="tipom" disabled>
-                    <label for="recipient-name" class="col-form-label"><b>Certificado</b></label>
-                    <input type="text" class="form-control" id="certificadom">
-                    <label for="recipient-name" class="col-form-label"><b>Empresa</b></label>
-                    <input type="text" class="form-control" id="empresam">
-                    <label for="recipient-name" class="col-form-label" ><b>Maquina</b></label>
-                    <input type="text" class="form-control" id="maquinam" disabled>
-                    <label for="recipient-name" class="col-form-label"><b>Fecha registro</b></label>
-                    <!--<input type="text" class="form-control" id="fecharegistrom" >-->
-                    <input type="text" class="form-control datepicker" id="fecharegistrom"  data-format="yyyy-mm-dd "  >
-                    <input type="hidden" id="idmetrologia">
-                    <label for="recipient-name" class="col-form-label"><b>Estado</b></label>
-                    <select class="browser-default custom-select" id="estadom">
-
-                    </select>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal">Close</button>
-                <button class="btn btn-primary" onclick="updateMetrologia()">Actualizar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- END CONTENT -->
-
-
-
-<?php $this->load->view('./footer'); ?>
-<script type="text/javascript">
-    var text = new XMLHttpRequest();
-    text.open("GET", "<?php echo base_url(); ?>/system/dominio.dat", false);
-    text.send(null);
-    var dominio = text.responseText;
-    console.log()
-
-    function metrologiaC() {
-        $("#mesajeError").html("");
-        var tipo = $('#tipo option:selected').attr("value");
-        var certificado = $("#certificado").val();
-        var empresa = $("#empresa").val();
-        var fechavencimiento = $("#fechavencimiento").val();
-        var maquina = $('#idmaquina option:selected').attr("value");
-        var mesaje = "";
-        var valid = true;
-
-        if (tipo == "" || tipo == null) {
-            mesaje = mesaje + "Seleccione el tipo.<br>";
-            valid = false;
-        }
-        if (certificado == "" || certificado == null) {
-            mesaje = mesaje + "Ingrese el certificado.<br>";
-            valid = false;
-        }
-        if (empresa == "" || empresa == null) {
-            mesaje = mesaje + "Ingrese el empresa.<br>";
-            valid = false;
-        }
-        if (fechavencimiento == "" || fechavencimiento == null) {
-            mesaje = mesaje + "Ingrese la fecha de vencimiento.<br>";
-            valid = false;
-        }
-        if (maquina == "" || maquina == null) {
-            mesaje = mesaje + "Seleccione la maquina.<br>";
-            valid = false;
-        }
-        if (!valid) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Campos obligatorios.',
-                html: '<div style="font-size: 15 px">' + mesaje + '</div>',
-//                footer: '<a href="">Why do I have this issue?</a>'
-            })
-        } else {
-
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/reportes/adicionales/Cadicionales/getMetrologia',
-                data: {tipo: tipo,
-                    certificado: certificado,
-                    empresa: empresa,
-                    fechavencimiento: fechavencimiento,
-                    maquina: maquina
-                },
-                type: 'POST',
-                mimeType: 'json',
-                success: function (rta) {
-                    if (rta == 1) {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'Registro guardado',
-                            showConfirmButton: true,
-                            timer: 2000
-                        })
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    $("#mesajeError").html(jqXHR.responseText);
-                    console.log(jqXHR.responseText);
-                }
-            });
-        }
-    }
-
-    function verMetrologia() {
-        $("#mesajeError").html("");
-        $.ajax({
-            url: 'http://' + dominio + '/cda/index.php/Cadicionales/selMetrologia',
-            type: 'GET',
-            mimeType: 'json',
-            success: function (data) {
-                $("#body-metrologia").html("")
-                var html = "<tr><th style='font-size: 13px; text-align: center;'>Tipo</th>\n\
-                                <th style='font-size: 13px; text-align: center;'>Maquina</th>\n\
-                                <th style='font-size: 13px; text-align: center;'>Certificado</th>\n\
-                                <th style='font-size: 13px; text-align: center;'>Empresa</th>\n\
-                                <th style='font-size: 13px; text-align: center;'>Fecha vencimiento</th>\n\
-                                <th style='font-size: 13px; text-align: center;'>Opciones</th>\n\
-                            </tr>";
-                $("#head-metrologia").html(html);
-                document.getElementById("div-Metrologia").style.display = '';
-                $('html, body').animate({
-                    scrollTop: $("#div-Metrologia").offset().top
-                }, 900);
-                $.each(data, function (i, data) {
-                    //dato++;
-//                    $('#div-info-statspruebas').html('Numero de registros: ' + dato);
-                    if (data.tipo == 0) {
-                        var tipo = 'Calibración';
-                    } else {
-                        var tipo = 'Verificación';
-                    }
-                    var body = "<tr>";
-                    body += "<td style='font-size: 12px; text-align: center;'>" + tipo + "</td>";
-                    body += "<td style='font-size: 12px; text-align: center;'>" + data.maquina + "</td>";
-                    body += "<td style='font-size: 12px; text-align: center;'>" + data.certificado + "</td>";
-                    body += "<td style='font-size: 12px; text-align: center;'>" + data.empresa + "</td>";
-                    body += "<td style='font-size: 12px; text-align: center;'>" + data.fechacertificado + "</td>";
-                    body += '<td style="font-size: 12px; text-align: center;"><div class="btn-group btn-group-justified"><a type="button" class="btn btn-info" style="color: whitesmoke" data-toggle="modal" data-target="#updateMetrologia" onclick="updateData(\'' + data.idmetrologia + '\',\'' + tipo + '\',\'' + data.certificado + '\',\'' + data.empresa + '\',\'' + data.maquina + '\',\'' + data.fechacertificado + '\',\'' + data.estado + '\')">Ver</a><a type="button" class="btn btn-danger" style="color: whitesmoke" onclick="deleteData(' + data.idmetrologia + ')">Eliminar</a></div>';
-                    body += "</tr>";
-                    $("#table-metrologia tbody").append(body);
-                });
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                $("#mesajeError").html(jqXHR.responseText);
-            }
-        });
-    }
-
-    updateData = function (idmetrologia, tipo, certificado, empresa, maquina, fechacertificado, estado) {
-        $("#idmetrologia").val(idmetrologia);
-        $("#tipom").val(tipo);
-        $("#certificadom").val(certificado);
-        $("#empresam").val(empresa);
-        $("#maquinam").val(maquina);
-        $("#fecharegistrom").val(fechacertificado);
-        if (estado == 0) {
-            $('#estadom').append("<option value='0'>Desactivado</option>");
-            $('#estadom').append("<option value='1'>Activado</option>");
-        } else {
-            $('#estadom').append("<option value='1'>Activado</option>");
-            $('#estadom').append("<option value='0'>Desactivado</option>");
-        }
-    }
-
-    function updateMetrologia() {
-        $("#mesajeError").html("");
-        $.ajax({
-            url: '<?php echo base_url(); ?>index.php/oficina/reportes/adicionales/Cadicionales/updateMetrologia',
-            type: 'POST',
-            mimeType: 'json',
-            data: {idmetrologia: $("#idmetrologia").val(),
-                tipo: $("#tipom").val(),
-                certificado: $("#certificadom").val(),
-                empresa: $("#empresam").val(),
-                maquina: $("#maquinam").val(),
-                fechavencimiento: $("#fecharegistrom").val(),
-            },
-            success: function (data) {
-                if (data == 1) {
-                    $("#closeModal").click();
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Registro actualizado.',
-                        showConfirmButton: true,
-                        timer: 2000
-                    })
-                    verMetrologia();
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                $("#mesajeError").html(jqXHR.responseText);
-            }
-        });
-    }
-
-    function deleteData(idmetrologia) {
-        $("#mesajeError").html("");
-        Swal.fire({
-            title: '¿Eliminar registro?',
-            text: "El registro sera eliminado del sistema y no se podra recuperar.",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, eliminar!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                delet(idmetrologia)
-
-
-            }
-
-        })
-
-        var delet = function (idmetrologia) {
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/reportes/adicionales/Cadicionales/deleteMetrologia',
-                type: 'POST',
-                mimeType: 'json',
-                data: {idmetrologia: idmetrologia},
-                success: function (data) {
-                    verMetrologia();
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Registro eliminado.',
-                        showConfirmButton: true,
-                        timer: 2000
-                    })
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    $("#mesajeError").html(jqXHR.responseText);
-                }
-            });
-
-        }
-
-    }
-</script>
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+l/aTV9K=

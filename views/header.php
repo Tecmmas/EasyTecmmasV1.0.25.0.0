@@ -1,393 +1,151 @@
-
-<!DOCTYPE html>
-<html class=" ">
-    <head>
-        <!-- 
-         * @Package: Complete Admin - Responsive Theme
-         * @Subpackage: Bootstrap
-         * @Version: BS4-1.0
-         * This file is part of Complete Admin Theme.
-        -->
-        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-        <meta charset="utf-8" />
-        <title><?php echo $this->config->item('titulo'); ?></title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <meta content="" name="description" />
-        <meta content="" name="author" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-        <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png" type="image/x-icon" />    <!-- Favicon -->
-        <link rel="apple-touch-icon-precomposed" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-57-precomposed.png">	<!-- For iPhone -->
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-114-precomposed.png">    <!-- For iPhone 4 Retina display -->
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-72-precomposed.png">    <!-- For iPad -->
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-144-precomposed.png">    <!-- For iPad Retina display -->
-
-        <!--<script src="<?php echo base_url(); ?>application/libraries/sesion.js"  type="text/javascript"></script>-->
-
-
-
-        <!-- CORE CSS FRAMEWORK - START -->
-        <link href="<?php echo base_url(); ?>assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/> 
-        <link href="<?php echo base_url(); ?>assets/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/css/animate.min.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" type="text/css"/>
-        <!-- CORE CSS FRAMEWORK - END -->
-
-        <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - START --> 
-
-        <link href="<?php echo base_url(); ?>assets/plugins/jquery-ui/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/jvectormap/jquery-jvectormap-2.0.1.css" rel="stylesheet" type="text/css" media="screen"/>
-
-        <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - END --> 
-
-
-        <!-- CORE CSS TEMPLATE - START -->
-        <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/css/tecmmas.css" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url(); ?>assets/css/responsive.css" rel="stylesheet" type="text/css"/>
-        <!-- CORE CSS TEMPLATE - END -->
-
-
-        <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - START --> 
-
-
-        <link href="<?php echo base_url(); ?>assets/plugins/datatables/css/jquery.dataTables.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/datatables/css/datatables.min.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.min.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" type="text/css" media="screen"/>
-
-        <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - END --> 
-
-        <link href="<?php echo base_url(); ?>assets/plugins/daterangepicker/css/daterangepicker-bs3.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/datepicker/css/datepicker.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/multi-select/css/multi-select.css" rel="stylesheet" type="text/css" media="screen"/>
-
-
-
-        <link href="<?php echo base_url(); ?>assets/plugins/messenger/css/messenger.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/messenger/css/messenger-theme-future.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/plugins/messenger/css/messenger-theme-flat.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url(); ?>assets/css/tecmmas.css" rel="stylesheet" type="text/css"/>
-    </head>
-    <!-- END HEAD -->
-
-
-    
-
-    <!-- BEGIN BODY -->
-    <body class=" "><!-- START TOPBAR -->
-        <div class='page-topbar '>
-            <div class='logo-area'>
-
-            </div>
-            <div class='quick-area'>
-                <div class='float-left'>
-                    <ul class="info-menu left-links list-inline list-unstyled">
-                        <li class="sidebar-toggle-wrap list-inline-item">
-                            <a href="#" data-toggle="sidebar" class="sidebar_toggle">
-                                <i class="fa fa-bars"></i>
-                            </a>
-                        </li>
-                        <li class="message-toggle-wrapper list-inline-item">
-                            <ul class="dropdown-menu messages animated fadeIn">
-                                <li class="list dropdown-item">
-                                    <ul class="dropdown-menu-list list-unstyled ps-scrollbar"></ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <div class='float-right'>
-                    <ul class="info-menu right-links list-inline list-unstyled">
-                        <li class="profile list-inline-item">
-                            <!--                            <a href="#" data-toggle="dropdown" class="toggle">
-                                                            <img src="<?php echo base_url(); ?>assets/images/profile/<?php echo $this->session->userdata('usuario') ?>.png" alt="user-image" class="rounded-circle img-inline">
-                                                            <span><?php echo $this->session->userdata('nombre') ?> <i class="fa fa-angle-down"></i></span>
-                                                        </a>
-                                                        <ul class="dropdown-menu profile animated fadeIn">
-                            
-                                                            <li class="dropdown-item">
-                                                                <a href="#profile">
-                                                                    <i class="fa fa-user"></i>
-                                                                    Perfil
-                                                                </a>
-                                                            </li>
-                            
-                                                            <li class="last dropdown-item">
-                                                                <a href="<?php echo base_url(); ?>index.php/clogin">
-                                                                    <i class="fa fa-lock"></i>
-                                                                    Cerrar Sesión
-                                                                </a>
-                                                            </li>
-                                                        </ul>-->
-                        </li>
-
-                    </ul>			
-                </div>		
-            </div>
-
-        </div>
-        <!-- END TOPBAR -->
-        <!-- START CONTAINER -->
-        <div class="page-container row-fluid container-fluid">
-
-            <!-- SIDEBAR - START -->
-
-            <div class="page-sidebar fixedscroll">
-
-                <!-- MAIN MENU - START -->
-                <div class="page-sidebar-wrapper" id="main-menu-wrapper"> 
-
-                    <!-- USER INFO - START -->
-                    <div class="profile-info row">
-
-                        <div class="profile-image col-4">
-                            <a href="ui-profile.html">
-<!--                                <img alt="" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $this->session->userdata('usuario') ?>.png" class="img-fluid rounded-circle">-->
-                                <img alt="" src="<?php echo base_url(); ?>assets/images/profile/user.png" class="img-fluid rounded-circle">
-                            </a>
-                        </div>
-
-                        <div class="profile-details col-8">
-
-                            <h3>
-                                <a href="ui-profile.html"><?php echo $this->session->userdata('nombre') ?></a>
-<!--                                <a href="ui-profile.html"><?php echo $this->session->userdata('nombre') ?></a>-->
-
-                                <!-- Available statuses: online, idle, busy, away and offline -->
-                                <span class="profile-status online"></span>
-                            </h3>
-
-                            <!--<p class="profile-title">Operario</p>-->
-
-                        </div>
-
-                    </div>
-                    <!-- USER INFO - END -->
-                    <ul class='wraplist'>	
-                        <li class='menusection'>Menú principal</li>
-                        <?php if ($this->session->userdata('idperfil') !== "2") { ?>
-
-                            <li id="li_pal" class=""> 
-                                <a href="<?php echo base_url(); ?>index.php/oficina/CPrincipal">
-                                    <i class="fa fa-home"></i>
-                                    <span class="title">Inicio</span>
-                                </a>
-                            </li>
-                            <li id="li_pal" class=""> 
-                                <a href="<?php echo base_url(); ?>index.php/oficina/usuarios/Cusuarios">
-                                    <i class="fa fa-user"></i>
-                                    <span class="title">Usuarios</span>
-                                </a>
-                            </li>
-                            <li id="li_nte" class=""> 
-                                <a href="<?php echo base_url(); ?>index.php/oficina/cliente/Ccliente">
-                                    <i class="fa fa-user"></i>
-                                    <span class="title">Clientes</span>
-                                </a>
-                            </li>
-                            <li id="li_ulo" class=""> 
-                                <a href="<?php echo base_url(); ?>index.php/oficina/vehiculo/Cvehiculo">
-                                    <i class="fa fa-car"></i>
-                                    <span class="title">Vehiculos</span>
-                                </a>
-                            </li>
-                            <li id="li_bas" class=""> 
-                                <a href="<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas">
-                                    <i class="fa fa-road"></i>
-                                    <span class="title">Pruebas</span>
-                                </a>
-                            </li>
-                            <li id="li_ion" class=""> 
-                                <a href="<?php echo base_url(); ?>index.php/oficina/CGestion">
-                                    <i class="fa fa-eye"></i>
-                                    <span class="title">Visor y gestion</span>
-                                </a>
-                            </li>
-                        <?php } ?>
-                        <li class='menusection'>Informes y formatos</li>
-
-                        <?php if ($this->session->userdata('idperfil') !== "2") { ?>
-                            <li class=''> 
-                                <a href='javascript:;'>
-                                    <i class='fa fa-file-text'></i>
-                                    <span class='title'>Informes</span>
-                                    <span class='arrow '></span>
-                                </a>
-                                <ul class='sub-menu' >
-                                    <li id="li_sta" class=""> 
-                                        <a href="<?php echo base_url(); ?>index.php/oficina/informes/CFur">
-                                            <i class="fa fa-file-text"></i>
-                                            <span class="title">Formato uniforme</span>
-                                        </a>
-                                    </li>
-                                    <li id="li_sta" class=""> 
-                                        <a href="<?php echo base_url(); ?>index.php/oficina/informes/CPrerevision">
-                                            <i class="fa fa-file-text"></i>
-                                            <span class="title">Prerevision</span>
-                                        </a>
-                                    </li>
-                                <?php }if ($this->session->userdata('idperfil') !== "2" && $this->session->userdata('idperfil') !== "4") { ?>
-                                    <li id="li_sta" class=""> 
-                                        <a href="<?php echo base_url(); ?>index.php/oficina/informes/Catestiguamiento">
-                                            <i class="fa fa-file-text"></i>
-                                            <span class="title">Atestiguamiento</span>
-                                        </a>
-                                    </li>
-
-                                    <li id="li_con" class=""> 
-                                        <a href="<?php echo base_url(); ?>index.php/oficina/reportes/Cambientales">
-                                            <i class="fa fa-file-text"></i>
-                                            <span class="title">Ambientales</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <a href='javascript:;'>
-                                    <i class='fa fa-file-text'></i>
-                                    <span class='title'>Formatos</span>
-                                    <span class='arrow '></span>
-                                </a>
-                                <ul class='sub-menu' >
-                                    <li id="li_sta" class=""> 
-                                        <a href="<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/registroentrada" target="_blank">
-                                            <i class="fa fa-edit"></i>
-                                            <span class="title">Registro entrada</span>
-                                        </a>
-                                    </li>
-                                    <li id="li_sta" class=""> 
-                                        <a href="<?php echo base_url(); ?>index.php/oficina/reportes/pruebas/Cpruebas/tiempoPruebas" target="_blank">
-                                            <i class="fa fa-clock-o"></i>
-                                            <span class="title">Tiempo pruebas</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            <li id="li_cerrar_sesion" class="" > 
-                                <a href="<?php echo base_url(); ?>index.php/oficina/reportes/auditorias/Cauditorias">
-                                    <i class="fa fa-bar-chart"></i>
-                                    <span class="title">Auditoria Pruebas</span>
-                                </a>
-                            </li>
-                            </li>
-
-
-                            <li class='menusection'>Modulos adicionales</li>
-                            <li class=''> 
-                                <a href='javascript:;'>
-                                    <i class='fa fa-hand-o-right'></i>
-                                    <span class='title'>Registros</span>
-                                    <span class='arrow '></span>
-                                </a>
-                                <ul class='sub-menu' >
-                                    <li id="li_sta" class=""> 
-                                        <a href="<?php echo base_url(); ?>index.php/oficina/reportes/adicionales/Cadicionales">
-                                            <i class="fa fa-file-text"></i>
-                                            <span class="title">Metrologia</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <?php if ($this->session->userdata('actualizaciones') == '1') { ?>
-
-                                <li id="li_cerrar_sesion" class="" > 
-                                    <a href="<?php echo base_url(); ?>index.php/oficina/descargas/Cdescargas">
-                                        <i class="fa fa-download"></i>
-                                        <span class="title">Descarga de actualización</span>
-                                    </a>
-                                </li>
-                                <?php
-                            }
-                            if ($this->session->userdata('backup') == '1') {
-                                ?>
-
-                                <li id="li_cerrar_sesion" class="" > 
-                                    <a href="<?php echo base_url(); ?>index.php/oficina/backup/Cbackup">
-                                        <i class="fa fa-cloud"></i>
-                                        <span class="title">Generar backup</span>
-                                    </a>
-                                </li>
-
-
-                                <?php
-                            }
-                            if ($this->session->userdata('agop') == '1') {
-                                ?>
-
-                                <li id="li_cerrar_sesion" class="" > 
-                                    <a href="<?php echo base_url(); ?>index.php/oficina/reportes/stats/Cstats/agop">
-                                        <i class="fa fa-refresh"></i>
-                                        <span class="title">Iniciar AG/OP</span>
-                                    </a>
-                                </li>
-                            <?php } ?>
-
-                            <li class='menusection'>Base de datos</li>
-                            <li id="li_cerrar_sesion" class="" > 
-                                <a href="<?php echo base_url(); ?>index.php/oficina/reportes/db/Cdb">
-                                    <i class="fa fa-database"></i>
-                                    <span class="title">Optimizar base de datos</span>
-                                </a>
-                            </li>
-
-
-                        <?php } ?>
-
-                    </ul>
-                    <ul>
-                        <li class='menusection'>Cierre de sesión</li>
-                        <li id="li_cerrar_sesion" class="" > 
-                            <a  onclick="cerrarSesion()">
-                                <i class="fa fa-power-off"></i>
-                                <span class="title">Cerrar Sesión</span>
-                            </a>
-<!--                            <a  href="<?php echo base_url(); ?>index.php">
-                                <i class="fa fa-power-off"></i>
-                                <span class="title">Cerrar Sesión</span>
-                            </a>-->
-                        </li>
-                    </ul>
-
-                </div>
-                <!-- MAIN MENU - END -->
-            </div>
-            <style type="text/css">
-                td {
-                    text-align: center;
-                    vertical-align: middle
-                }
-                th {
-                    text-align: center;
-                    vertical-align: middle
-                }
-                tr {
-                    text-align: center;
-                    vertical-align: middle
-                }
-            </style>
-            <script type="text/javascript">
-                var IdUsuario = '<?php echo $this->session->userdata('IdUsuario'); ?>';
-
-                window.onload = function () {
-                    localStorage.setItem('IdUsuario', IdUsuario);
-                    var sPath = window.location.pathname;
-                    var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
-                    $('#li_' + sPage.substring(sPage.length - 3)).addClass('open');
-                    ocultarComponente('btnTerminar');
-                };
-
-
-                function mostrarComponente(componente) {
-                    $('#' + componente).css('visibility', 'visible');
-                    $('#' + componente).css('position', 'relative');
-                }
-
-                function ocultarComponente(componente) {
-                    $('#' + componente).css('visibility', 'hidden');
-                    $('#' + componente).css('position', 'absolute');
-                }
-            </script>
-
-
-
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+hUy=

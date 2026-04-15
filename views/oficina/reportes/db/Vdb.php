@@ -1,132 +1,41 @@
-<?php $this->load->view('./header'); ?>
-
-
-<section id="main-content" class=" ">
-    <section class="wrapper main-wrapper row">
-        <!--        <div class='col-12'>
-                    <div class="page-title">
-                    </div>
-                </div>
-                <div class="clearfix">
-        
-                </div>-->
-        <!-- MAIN CONTENT AREA STARTS -->
-        <div class="col-xl-12">
-
-            <section class="box ">
-                <div class="content-body">    
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-12">
-                            <section class="box ">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <h4>Optimización base de datos</h4>
-                                    <div class="row">
-
-                                        <div class="col-md-9 col-lg-9 col-sm-9">
-                                            <div style="text-align: center; font-size: 18px"><b>Tenga en cuenta</b></div>
-                                            <br>
-                                            1. Debe detener operación, por cuestiones de seguridad de la información.<br>
-                                            2. Después de iniciado el proceso no se puede parar.<br>
-                                            3. El proceso demora según el peso de la base de datos.<br>
-                                            4. Al finalizar se mostrará el resultado.<br>
-                                            <br>
-                                        </div>
-
-                                        <div class="col-md-3 col-lg-3 col-sm-3">
-                                            <button type="button" id="btn-optimizar"  class="btn btn-primary"   style="margin-top: 80px">Optimizar</button>
-                                        </div>
-
-                                    </div>
-
-
-
-                                </div>
-                                
-                            </section>
-
-                        </div>
-                    </div>
-                </div>
-                <div id="mesajeOp"></div>
-                <div class="content-body">    
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-12">
-                            <div id="div-op" style="display: none">
-                                <div class="table">
-                                    <table class="table" id="table-op" >
-                                        <thead id="head-op">
-
-                                        </thead>
-                                        <tbody id="body-op">
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <!-- MAIN CONTENT AREA ENDS -->
-            </section>
-    </section>
-</section>
-
-
-<!-- END CONTENT -->
-
-
-
-<?php $this->load->view('./footer'); ?>
-<script type="text/javascript">
-
-
-    $("#btn-optimizar").click(function () {
-        $("#mesajeOp").html("<div style='color: green; text-aling: center; margin-left: 22px'>Ejecutado por favor espere.</div>");
-        $.ajax({
-            url: '<?php echo base_url(); ?>index.php/oficina/reportes/db/Cdb/ejcutarOp',
-            type: 'POST',
-            mimeType: 'json',
-            success: function (data) {
-                console.log(data)
-                $("#body-op").html("")
-                var html = "<tr><th style='font-size: 13px; text-align: center;'>Tabla</th>\n\
-                                <th style='font-size: 13px; text-align: center;'>Operacion</th>\n\
-                                <th style='font-size: 13px; text-align: center;'>Estado</th>\n\
-                                <th style='font-size: 13px; text-align: center;'>Respuesta</th>\n\
-                            </tr>";
-                $("#head-op").html(html);
-                document.getElementById("div-op").style.display = '';
-                $('html, body').animate({
-                    scrollTop: $("#div-op").offset().top
-                }, 900);
-                var iterator = Object.keys(data);
-                var d = 0;
-                $.each(data, function (i, data) {
-                    var body = "<tr>";
-                    for (var e = 0; e < 1; e++) {
-                        body += "<td style='font-size: 12px; text-align: center;'>" + iterator[d] + "</td>";
-                        d++;
-                    }
-                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Op + "</td>";
-                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Msg_type + "</td>";
-                    body += "<td style='font-size: 12px; text-align: center;'>" + data.Msg_text + "</td>";
-                    body += "</tr>";
-                    $("#table-op tbody").append(body);
-                });
-                $("#mesajeOp").html("<div style='color: green; text-aling: center; margin-left: 22px'>Operación finaliza con exito.</div>");
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                $("#mesajeError").html("<label style='color: red'>Error: " + jqXHR.responseText + "</label>");
-            }
-        });
-    })
-
-
-
-
-
-
-</script>
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
+4W==

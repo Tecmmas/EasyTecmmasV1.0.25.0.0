@@ -1,89 +1,34 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Welcome to CodeIgniter</title>
-
-	<style type="text/css">
-
-	::selection { background-color: #E13300; color: white; }
-	::-moz-selection { background-color: #E13300; color: white; }
-
-	body {
-		background-color: #fff;
-		margin: 40px;
-		font: 13px/20px normal Helvetica, Arial, sans-serif;
-		color: #4F5155;
-	}
-
-	a {
-		color: #003399;
-		background-color: transparent;
-		font-weight: normal;
-	}
-
-	h1 {
-		color: #444;
-		background-color: transparent;
-		border-bottom: 1px solid #D0D0D0;
-		font-size: 19px;
-		font-weight: normal;
-		margin: 0 0 14px 0;
-		padding: 14px 15px 10px 15px;
-	}
-
-	code {
-		font-family: Consolas, Monaco, Courier New, Courier, monospace;
-		font-size: 12px;
-		background-color: #f9f9f9;
-		border: 1px solid #D0D0D0;
-		color: #002166;
-		display: block;
-		margin: 14px 0 14px 0;
-		padding: 12px 10px 12px 10px;
-	}
-
-	#body {
-		margin: 0 15px 0 15px;
-	}
-
-	p.footer {
-		text-align: right;
-		font-size: 11px;
-		border-top: 1px solid #D0D0D0;
-		line-height: 32px;
-		padding: 0 10px 0 10px;
-		margin: 20px 0 0 0;
-	}
-
-	#container {
-		margin: 10px;
-		border: 1px solid #D0D0D0;
-		box-shadow: 0 0 8px #D0D0D0;
-	}
-	</style>
-</head>
-<body>
-
-<div id="container">
-	<h1>Welcome to CodeIgniter!</h1>
-
-	<div id="body">
-		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
-
-		<p>If you would like to edit this page you'll find it located at:</p>
-		<code>application/views/welcome_message.php</code>
-
-		<p>The corresponding controller for this page is found at:</p>
-		<code>application/controllers/Welcome.php</code>
-
-		<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p>
-	</div>
-
-	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
-</div>
-
-</body>
-</html>
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+HR+cP/Mr4NepdEfzoWA4MQbzt7lgzMZ8mkggYCbBIPK4ylnmlnngKVJk8kSnKGFH3ByWPOzvcndD
+Bj/CQ9G79MbbDoA71CtldAFw8OuK0XyEKn4k4fedIpkNEiuUKS5iiS/i/qTsOGAFf6pjr7iYGcpm
+sRNxib77YXg8Ql4+rJREopz48pgfj52FIbefqiVt0ic5NSpHN8BNak5czVEWwHg37+j3bw1hl9O4
+y9ZYjikNwlziXuOfsZvzbU1WtC6vIO9pnShspsUDszPeLA6NmkllxhRNHscOSIVD2rOSqHR4HoDs
+YThPTFz7v9neRqFGJLF/gbDaBjCFXdZkEX8qiJa7fO/YMun7a3rr+udufMvXizaUU+DY+wmNQfzo
+DtX6EDGJ9K28AA7/MP6rU9/oNC2KFX/XYXJyEQUBrSjcH7kq0sNhkpYKHNd1momA4NDtLNRi0+XV
+Y6XPk7JOP2TCtxImO4zpC1rAr6H+1ywe+6MScBlyH6Ueolni6RnYdNqBLP699OTAKDkydVWTryLE
+NoPAB972wBkK7JYMhw4DKU8vDm46NV47279SnxUOomdkqDaRZjnCB99Ke/OGb1SPzV39pT4dJD9T
+CJyspkrqasdJbr+tSdnRvBb5e5x87C3zQ/928MD1WSb7foaLKhwOTsJpkUjeWN1FGzLYYVDjPgDt
+eyFgAbd7FLol5gLPNMpZOpGgTRGagMLnp3BpuQRhK7bzRUlEKYTf0imW2yUW0UcXPhUNZt5BdkGB
+w6ZWyZ6w2bW/koDnBKR7+HoXwnfNsfzw39pJlaHI9PJ487pQj0BrgJ7PjuG/QCKBdHPuVB3O3hiQ
+rQ352xq2uAeXD9JZmE/HZjgRUmqAvqjkQDR8Xv9mXnPvLuJ5PIdQFyNZfYgucWXMbd8VC7DCalge
+q3PuDf6JHGOuOfQc6a/Eg3rxCYxeq35SDUZolpKRIDIKlit+ZWMh9dHCa8aTKN5IggSzEyi2Ik0h
+5WMv32mlnM5H+GMYzTdLqsynmx+Y2tFRx92lO0JAMKRPOE1kHKzbsdSWrwIcygeX8WdUP64sP1/A
+lmEY74L5pTJ3e53MiJSeKVRMruNKFMvSp7jAu3Vhbj9GWPGZhHs/Iff0jBU8L5UEp/H6KMLFUGfl
+9gu7pjx+q/Fnj3Z4gyoGvOied6DtUJ7PdtpCCqEygMEYrDdn4IOEoTWLwJhZXkPmLtoLj86YGUhm
+gfC4jUrL+glf/iTbUJBbMXEEDMnSiM3v2QJ59GV0GqLNspcJexdwClYczgd/tb6ECyrGwoGxGY3w
+/iKT4QHBnD7xiiSAlbWN0fi2c8we/c4wAyxWuIT/B4KVO4qKypxLKttVDDRmcYDdltet35MOEpLi
+hrQDC0EKLo3rkuvLyHAK/Mj34a4MfCddnOR2nEtn5rLW5WnXqYzjFL8wHGOCGGvIQ2P+zyXZG2Hc
+qCk47eUjNXUVH5MaMCso20nI2JZl6zGanx4VtvZ1T1JyH8f6Kk0P5saCEGePxqJ2ZPnBg9FK5u5s
+ptiRHTJNarHOMQJJJuImx6NnKaCfI37sIHnoScd3m5Qm2dwjQ21LOHC+e0WSJgZiW9B4yvzrQ0RW
+RvomIlZdfUQI9FzTU/xUap+HI+yD4eY19dJORpO/1opKmrUqTR+OqPcu3qY1yrkMUP9NnYCBYLGD
+m57ANnx+OraedHXVH8KU/pPSNLWL12JdYnAyPPi0rsiSDM7LE0ywu6c1efpqMYCmbWvTwFOusbpt
+/3a/o2LRGH4ziG4NLmqcoHknR0sbzp739yjtvhYTDSSrNEFs+Zt5UzLnaXdndkCEczquqhLuz83u
+A3I6unh51YQLQcV+2qbm3+xabR1uPOfTlMWg8LTOmr8nCPUG+qcKiltYb1rQjl4WbhJQrdYZriDY
+kPtZXE+4Ar2Iee6hrVs0ux6cTisRanUqRAIzMtI8dBPr/X/z+/vATHZAl2v1PjontiETo3hDLFSj
+G2eooLanU2XPbbc71wevuV8FgGyr0zIWsZ9Ov8S8ryA6q5FUSulVgrMk05/31zi0BNhCNEBDQo6s
+ycnqwU27aFPUNYzAJ9JyKAySCOHaQRDECrFJ5ripVIdG60rHVXdmrEhhVMulkEZHqI5BRDvU4cr5
+a4mrPC4gOlrywv+/bNHI+enNboUKud/FcQdfS3F5fkEhtO+xLnEGWVvefbuDNcjBR+dFxQWWzBOY
+nzmH7ZZ3V6I0zu2/0r4FgJzhKlxV6vpnm9MbDrTRGhbGD7LLp5uTvL/vG6xValo8/Gx4ctwCuTYi
+OZHu3vj8vBgwGWImdnUie+hb9W==
