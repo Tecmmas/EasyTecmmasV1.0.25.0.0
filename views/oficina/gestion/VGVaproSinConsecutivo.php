@@ -1,317 +1,1549 @@
-<?php //004fb
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-9hYLEYVL
+<!DOCTYPE html>
+<html class=" ">
+
+<head>
+
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8" />
+    <title>VEHICULO APROBADO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png" type="image/x-icon" /> <!-- Favicon -->
+    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-57-precomposed.png"> <!-- For iPhone -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-114-precomposed.png"> <!-- For iPhone 4 Retina display -->
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-72-precomposed.png"> <!-- For iPad -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-144-precomposed.png"> <!-- For iPad Retina display -->
+
+    <!-- CORE CSS FRAMEWORK - START -->
+    <link href="<?php echo base_url(); ?>assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/css/animate.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/plugins/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" type="text/css" />
+    <!-- CORE CSS FRAMEWORK - END -->
+
+    <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - START -->
+
+
+    <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - END -->
+
+
+    <!-- CORE CSS TEMPLATE - START -->
+    <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/css/responsive.css" rel="stylesheet" type="text/css" />
+    <!-- CORE CSS TEMPLATE - END -->
+    <!-- CORE CSS TEMPLATE - END -->
+
+</head>
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="login_page" style="background: white">
+
+    <div class="col-xl-12">
+        <section class="box ">
+            <div class="content-body" style="background: green">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-12">
+                        <section class="box ">
+                            <header class="panel_header">
+                                <h2 class="title float-left">Vehiculo aprobado sin consecutivo</h2>
+                            </header>
+                            <div class="content-body">
+                                <input id="idhojapruebas" value="<?php echo $dato; ?>" type="hidden" />
+                                <br>
+                                <table class="table table-bordered" style="text-align: center">
+                                    <thead>
+                                        <tr>
+                                            <th>Id control</th>
+                                            <th>Placa</th>
+                                            <th>Ocasión</th>
+                                            <th>FUR</th>
+                                            <th>Tamaño hoja</th>
+                                            <th>Medio</th>
+                                            <th>Consecutivo RUNT</th>
+                                            <?php echo ($cargaCertificado) ? '<th>Certificado</th>' : ''; ?>
+                                            <th>Enviar a SICOV</th>
+                                            <th>LOG SICOV</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <?php
+                                                echo $idhojapruebas;
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                echo $vehiculo->placa;
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                echo $ocacion;
+                                                ?>
+                                            </td>
+
+                                            <form action="<?php echo base_url(); ?>index.php/oficina/fur/CFUR" method="post" style="width: 100px;text-align: center">
+                                                <td>
+                                                    <button name="dato" class="btn btn-accent btn-block" value="<?php echo $dato; ?>" type="submit" formtarget="_blank" style="border-radius: 40px 40px 40px 40px;font-size: 14px;background-color: #393185">📄 Ver</button>
+                                                </td>
+                                                <td>
+                                                    <select name="tamano" class="form-control input-lg m-bot15">
+                                                        <option value="oficio" selected>Oficio</option>
+                                                        <option value="carta">Carta</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select name="medio" id="medioSelect" class="form-control input-lg m-bot15" onchange="guardarMedio()">
+                                                        <option value="0" selected>Impreso</option>
+                                                        <option value="1">Digital</option>
+                                                    </select>
+                                                </td>
+                                            </form>
+                                            <td>
+                                                <input id="consecutivoRunt" type="number" class="form-control" onchange="guardarConsecutivo(this)">
+                                                <label id="mensaje" style="background: white;
+                                                   width: 100%;
+                                                   text-align: center;
+                                                   font-weight: bold;
+                                                   font-size: 15px;display: none;position: absolute;
+                                                   padding: 5px;color: salmon">Este campo es obligatorio</label>
+                                            </td>
+                                            <?php echo ($cargaCertificado) ? '<td><input type="button" class="btn btn-info btn-block" id="btncargarcertificado" style="border-radius: 40px 40px 40px 40px;font-size: 20px;" value="💾 Guardar"/>
+																		     <input type="file" id="fileCertificado" accept=".pdf" style="display:none;" /></td>' : ''; ?>
+                                            <td>
+                                                <input type="button" class="btn btn-success btn-block" id="btnenviarsicov" style="border-radius: 40px 40px 40px 40px;font-size: 20px;" value="✉️ Enviar" data-toggle='modal' data-target='#confirmacionEnvio' <?php echo ($cargaCertificado) ? 'disabled' : ''; ?> />
+                                            </td>
+                                            <td>
+                                                <input class="btn btn-success btn-block" onclick='verlogsicov("<?= $vehiculo->numero_placa; ?>" )'
+                                                    style="border-radius: 40px 40px 40px 40px;font-size: 20px; width: 150px"
+                                                    value="Ver" />
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <?php echo ($cargaCertificado) ? '<p><strong>Nota: </strong> Para poder enviar el concecutivo RUNT al sicov debe descargar el certificado en pdf y guardarlo en el directorio local.</p>' : ''; ?>
+                                <div style="text-align: center">
+                                    <input class="btn btn-warning btn-block" id="btnenviarfirmado" style="border-radius: 40px 40px 40px 40px;font-size: 20px;width: 300px" value="🚫 Anular este envío" data-toggle='modal' data-target='#confirmacionAnulacion' /><br>
+                                </div>
+                                <form action="<?php echo base_url(); ?>index.php/oficina/CGestion" method="post">
+                                    <input name="button" class="btn btn-accent btn-block" style="width: 100px;background: #393185" type="submit" value="Atras" />
+                                </form>
+                            </div>
+                            <img src="<?php echo base_url(); ?>assets/images/logo.png" />
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal" id="confirmacionEnvio" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirmación de envío</h4>
+                </div>
+                <div class="modal-body" style="background: whitesmoke">
+                    <label id="mensajeSicov" style="background: white;
+                               width: 100%;
+                               text-align: center;
+                               font-weight: bold;
+                               font-size: 15px;
+                               padding: 5px;border: solid gray 2px;
+                               border-radius:  15px 15px 15px 15px;color: black">¿ESTÁ SEGURO(A) DE REALIZAR EL ENVÍO A SICOV</label>
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">NO</button>
+                    <button id="btnAsignar" class="btn btn-success" type="button" onclick="enviarASICOV()">SI</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="confirmacionAnulacion" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog animated bounceInDown">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirmación de anulación</h4>
+                </div>
+                <div class="modal-body" style="background: whitesmoke">
+                    <label id="mensajeSicov1" style="background: white;
+                               width: 100%;
+                               text-align: center;
+                               font-weight: bold;
+                               font-size: 15px;
+                               padding: 5px;border: solid gray 2px;
+                               border-radius:  15px 15px 15px 15px;color: black"><strong style="color: salmon">ADVERTENCIA</strong> <br><br>Esta acción enviará la placa a la sección de APROBADOS SIN FIRMAR, se recomienda revisar si este FUR a sido firmado en el SICOV antes de confirmar esta acción. <br><br> ¿DESEA ENVIAR LA PLACA A "APROBADOS SIN FIRMAR"?</label>
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">NO</button>
+                    <button id="btnAsignar1" class="btn btn-success" type="button" onclick="enviarAnulacion()">SI</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal SICOV Compacto y Sencillo -->
+    <div class="modal fade" id="sicovModal" tabindex="-1" role="dialog" aria-labelledby="sicovModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document" style="max-width: 90%;">
+            <div class="modal-content">
+                <div class="modal-header" style="background: #f8f9fa; border-bottom: 2px solid #dee2e6; padding: 8px 12px;">
+                    <h5 class="modal-title" id="sicovModalLabel" style="font-size: 14px; font-weight: bold;">
+                        EVENTOS SICOV - Placa: <span id="placaActual" style="color: #007bff;"></span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size: 20px;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="padding: 10px;">
+                    <div id="eventosSICOV">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <td style="width: 50%; vertical-align: top; padding: 5px;">
+                                    <div style="background: #fff; border: 1px solid #ddd;">
+                                        <div style="background: #f8f9fa; padding: 6px 10px; border-bottom: 1px solid #ddd; font-weight: bold; font-size: 12px;">
+                                            EVENTOS DE PIN
+                                        </div>
+                                        <div style="overflow: auto; height: 300px;">
+                                            <table class="table table-bordered" style="margin: 0; font-size: 11px; width: 100%;">
+                                                <thead style="background: #f8f9fa;">
+                                                    <tr>
+                                                        <th style="width: 45px; padding: 4px;">Ver</th>
+                                                        <th style="padding: 4px;">Placa</th>
+                                                        <th style="width: 50px; padding: 4px;">Oc.</th>
+                                                        <th style="width: 85px; padding: 4px;">Fecha</th>
+                                                        <th style="padding: 4px;">Evento</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="eventosPIN">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td style="width: 50%; vertical-align: top; padding: 5px;">
+                                    <div style="background: #fff; border: 1px solid #ddd;">
+                                        <div style="background: #f8f9fa; padding: 6px 10px; border-bottom: 1px solid #ddd; font-weight: bold; font-size: 12px;">
+                                            EVENTOS DE FUR
+                                        </div>
+                                        <div style="overflow: auto; height: 300px;">
+                                            <table class="table table-bordered" style="margin: 0; font-size: 11px; width: 100%;">
+                                                <thead style="background: #f8f9fa;">
+                                                    <tr>
+                                                        <th style="width: 45px; padding: 4px;">Ver</th>
+                                                        <th style="padding: 4px;">Placa</th>
+                                                        <th style="width: 50px; padding: 4px;">Oc.</th>
+                                                        <th style="width: 85px; padding: 4px;">Fecha</th>
+                                                        <th style="padding: 4px;">Evento</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="eventosFUR">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%; vertical-align: top; padding: 5px;">
+                                    <div style="background: #fff; border: 1px solid #ddd;">
+                                        <div style="background: #f8f9fa; padding: 6px 10px; border-bottom: 1px solid #ddd; font-weight: bold; font-size: 12px;">
+                                            EVENTOS DE RUNT
+                                        </div>
+                                        <div style="overflow: auto; height: 300px;">
+                                            <table class="table table-bordered" style="margin: 0; font-size: 11px; width: 100%;">
+                                                <thead style="background: #f8f9fa;">
+                                                    <tr>
+                                                        <th style="width: 45px; padding: 4px;">Ver</th>
+                                                        <th style="padding: 4px;">Placa</th>
+                                                        <th style="width: 50px; padding: 4px;">Oc.</th>
+                                                        <th style="width: 85px; padding: 4px;">Fecha</th>
+                                                        <th style="padding: 4px;">Evento</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="eventosRUNT">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td style="width: 50%; vertical-align: top; padding: 5px;">
+                                    <div style="background: #fff; border: 1px solid #ddd;">
+                                        <div style="background: #f8f9fa; padding: 6px 10px; border-bottom: 1px solid #ddd; font-weight: bold; font-size: 12px;">
+                                            EVENTOS DE PRUEBAS
+                                        </div>
+                                        <div style="overflow: auto; height: 300px;">
+                                            <table class="table table-bordered" style="margin: 0; font-size: 11px; width: 100%;">
+                                                <thead style="background: #f8f9fa;">
+                                                    <tr>
+                                                        <th style="width: 45px; padding: 4px;">Ver</th>
+                                                        <th style="padding: 4px;">Placa</th>
+                                                        <th style="width: 85px; padding: 4px;">Fecha</th>
+                                                        <th style="padding: 4px;">Evento</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="eventosPruebas">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer" style="padding: 6px 10px; background: #f8f9fa; border-top: 1px solid #dee2e6;">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal" style="font-size: 12px; padding: 4px 12px;">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para detalle de eventos (si no existe) -->
+    <div class="modal fade" id="detalleModal" tabindex="-1" role="dialog" aria-labelledby="detalleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detalleModalLabel">Detalle del Evento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="detalleEventoContent">
+                    <!-- Contenido del detalle -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MAIN CONTENT AREA ENDS -->
+    <!-- LOAD FILES AT PAGE END FOR FASTER LOADING -->
+
+
+    <!-- CORE JS FRAMEWORK - START -->
+    <script src="<?php echo base_url(); ?>assets/js/jquery-1.11.2.min.js" type="text/javascript"></script>
+    <script src="<?php echo base_url(); ?>assets/js/jquery.easing.min.js" type="text/javascript"></script>
+    <script src="<?php echo base_url(); ?>assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="<?php echo base_url(); ?>assets/plugins/pace/pace.min.js" type="text/javascript"></script>
+    <script src="<?php echo base_url(); ?>assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js" type="text/javascript"></script>
+    <script src="<?php echo base_url(); ?>assets/plugins/viewport/viewportchecker.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        window.jQuery || document.write('<script src="<?php echo base_url(); ?>assets/js/jquery-1.11.2.min.js"><\/script>');
+    </script>
+    <!-- CORE JS FRAMEWORK - END -->
+
+
+    <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
+
+    <script src="<?php echo base_url(); ?>assets/plugins/inputmask/min/jquery.inputmask.bundle.min.js" type="text/javascript"></script>
+    <script src="<?php echo base_url(); ?>assets/plugins/autonumeric/autoNumeric-min.js" type="text/javascript"></script>
+    <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
+
+
+    <!-- CORE TEMPLATE JS - START -->
+    <script src="<?php echo base_url(); ?>assets/js/scripts.js" type="text/javascript"></script>
+    <script src="<?php echo base_url(); ?>application/libraries/sesion.js" type="text/javascript"></script>
+    <!-- END CORE TEMPLATE JS - END -->
+    <script type="text/javascript">
+        var placa = "<?php
+                        echo $placa;
+                        ?>";
+        var ocasion = "<?php
+                        echo $ocacion;
+                        ?>";
+        var ipCAR = "<?php
+                        echo $ipCAR;
+                        ?>";
+        var informeWebCornare = "<?php
+                                    echo $informeWebCornare;
+                                    ?>";
+        var ipLocal = '<?php
+                        echo base_url();
+                        ?>';
+        var informeWebBogota = '<?php
+                                echo $this->session->userdata('informeWebBogota');
+                                ?>';
+        var dominio = "";
+
+        document.addEventListener('DOMContentLoaded', cargarMedioGuardado);
+
+        function verlogsicov(placa) {
+            // Mostrar la placa en el modal
+            document.getElementById('placaActual').innerHTML = placa;
+
+            // Abrir el modal
+            $('#sicovModal').modal('show');
+
+            // Mostrar loading mientras se cargan los datos
+            mostrarLoading();
+
+            // Cargar los eventos
+            $.ajax({
+                url: '<?php echo base_url(); ?>index.php/oficina/CGestion/cargarSICOV',
+                type: 'post',
+                data: {
+                    placa: placa
+                }, // Enviar la placa al servidor si es necesario
+                success: function(rta) {
+                    console.log('Respuesta del servidor:', rta); // Para depuración
+                    try {
+                        var eventos = JSON.parse(rta);
+                        cargarEventosSicov('eventosPIN', eventos.sicovEventos, 'p', placa);
+                        cargarEventosSicov('eventosFUR', eventos.sicovEventos, 'f', placa);
+                        cargarEventosSicov('eventosRUNT', eventos.sicovEventos, 'r', placa);
+                        cargarEventosPruebas(eventos.sicovEventos, 'e', placa);
+                        ocultarLoading();
+                    } catch (e) {
+                        console.error('Error al parsear JSON:', e);
+                        mostrarError('Error al cargar los datos del SICOV');
+                        ocultarLoading();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error en la petición:', error);
+                    mostrarError('Error de conexión al cargar los datos');
+                    ocultarLoading();
+                }
+            });
+        }
+
+        // Función para mostrar loading
+        function mostrarLoading() {
+            $('#sicovModal .modal-body').append('<div id="loadingOverlay" style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.8); z-index:9999; display:flex; justify-content:center; align-items:center;"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span style="margin-left:10px;">Cargando eventos...</span></div>');
+        }
+
+        // Función para ocultar loading
+        function ocultarLoading() {
+            $('#loadingOverlay').remove();
+        }
+
+        // Función para mostrar error
+        function mostrarError(mensaje) {
+            alert(mensaje);
+        }
+
+
+
+        var cargarEventosSicov = function(contenedor, iterador, tipo, placa) {
+            var contenido = '';
+            document.getElementById(contenedor).innerHTML = '';
+            if (iterador.length !== 0) {
+                iterador.forEach(function(dat) {
+                    if (dat.tipo === tipo) {
+                        var msj = dat.respuesta.split('|');
+                        var color = "#ccffcc";
+                        if (msj[3] === 'error')
+                            color = "#ffcccc";
+                        var ocasion = "1ra";
+                        if (dat[2] === '2')
+                            ocasion = "2da";
+                        contenido += '<tr style="background: ' + color + '">\n\
+                            <td><button name="dato" value ="' + dat.respuesta.replace(/"/g, '&quot;') + '" onclick="verDetalleEvento(this)" type="button" style="border-radius: 40px 40px 40px 40px;font-size: 14px" data-toggle="modal" data-target="#detalleModal">Ver</button></td>\n\
+                            <td>' + dat.idelemento + '</td>\n\
+                            <td>' + ocasion + '</td>\n\
+                            <td>' + dat.fecha + '</td>\n\
+                            <td>' + (msj[0] || 'Sin descripción') + '</td>\n\
+                          </tr>';
+                    }
+                });
+            } else {
+                contenido = '<tr><td colspan="5" style="text-align: center;">No hay eventos disponibles</td></tr>';
+            }
+            document.getElementById(contenedor).innerHTML = contenido;
+        };
+
+        // Actualizar también cargarEventosPruebas
+        var cargarEventosPruebas = function(iterador, tipo, placa) {
+            var contenido = '';
+            document.getElementById('eventosPruebas').innerHTML = '';
+            if (iterador.length !== 0) {
+                iterador.forEach(function(dat) {
+                    if (dat.tipo === tipo) {
+                        var msj = dat.respuesta.split('|');
+                        var color = "#ccffcc";
+                        if (msj[3] === 'error')
+                            color = "#ffcccc";
+                        var ocasion = "1ra";
+                        if (dat[2] === '2')
+                            ocasion = "2da";
+                        contenido += '<tr style="background: ' + color + '">\n\
+                            <td><button name="dato" value ="' + dat.respuesta.replace(/"/g, '&quot;') + '" onclick="verDetalleEvento(this)" type="button" style="border-radius: 40px 40px 40px 40px;font-size: 14px" data-toggle="modal" data-target="#detalleModal">Ver</button></td>\n\
+                            <td>' + dat.idelemento + '</td>\n\
+                            <td>' + dat.fecha + '</td>\n\
+                            <td>' + (msj[0] || 'Sin descripción') + '</td>\n\
+                          </tr>';
+
+                    }
+                });
+            } else {
+                contenido = '<tr><td colspan="4" style="text-align: center;">No hay eventos de pruebas</td></tr>';
+            }
+            document.getElementById('eventosPruebas').innerHTML = contenido;
+        };
+
+        // Función para ver detalle del evento
+        function verDetalleEvento(boton) {
+            var valor = boton.value;
+            var detalles = valor.split('|');
+            
+            var contenido = '<div class="card">\n\
+                        <div class="card-body">\n\
+                            <h5 class="card-title">Detalles del Evento</h5>\n\
+                            <p><strong>Descripción:</strong> ' + (detalles[0] || 'N/A') + '</p>\n\
+                            <p><strong>Información adicional:</strong> ' + (detalles[4] || 'N/A') + '</p>\n\
+                            <p><strong>Código:</strong> ' + (detalles[2] || 'N/A') + '</p>\n\
+                            <p><strong>Tipo:</strong> ' + (detalles[3] || 'N/A') + '</p>\n\
+                        </div>\n\
+                    </div>';
+            document.getElementById('detalleEventoContent').innerHTML = contenido;
+        }
+
+
+        function guardarMedio() {
+            const select = document.getElementById('medioSelect');
+            const valorSeleccionado = select.value;
+
+            // Guardar en localStorage
+            localStorage.setItem('medioPreferido', valorSeleccionado);
+
+            console.log('Medio guardado:', valorSeleccionado);
+        }
+
+        function cargarMedioGuardado() {
+            const medioGuardado = localStorage.getItem('medioPreferido');
+
+            if (medioGuardado !== null) {
+                const select = document.getElementById('medioSelect');
+
+                // Establecer el valor guardado
+                select.value = medioGuardado;
+
+                console.log('Medio cargado desde localStorage:', medioGuardado);
+            }
+        }
+
+        var guardarCertificado = function() {
+            var consecutivoRunt = $('#consecutivoRunt').val();
+            if (consecutivoRunt.trim() === '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Debe ingresar el consecutivo RUNT antes de guardar el certificado.'
+                });
+                return;
+            }
+
+            // Mostrar selector de ruta
+            Swal.fire({
+                title: '¿Dónde desea guardar el certificado?',
+                html: `
+                <div style="margin: 10px 0;">
+                    <input type="text" id="rutaGuardado" class="form-control"
+                           placeholder="Ejemplo: C:/Certificados/"
+                           value="${localStorage.getItem('rutaGuardadoCertificado') || 'uploads/certificados/'}"
+                           style="margin-bottom: 10px;">
+                    <small class="text-muted">Especifique la ruta donde guardar el certificado</small>
+                </div>
+            `,
+                showCancelButton: true,
+                confirmButtonText: 'Continuar',
+                cancelButtonText: 'Cancelar',
+                preConfirm: () => {
+                    const ruta = document.getElementById('rutaGuardado').value;
+                    if (!ruta.trim()) {
+                        Swal.showValidationMessage('Debe especificar una ruta');
+                        return false;
+                    }
+                    return ruta;
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.setItem('rutaGuardadoCertificado', result.value);
+                    $('#fileCertificado').click();
+                }
+            });
+        };
+
+        $(document).on('change', '#fileCertificado', function() {
+            var archivo = this.files[0];
+
+            if (!archivo) {
+                return;
+            }
+
+            // Validar que sea PDF
+            if (archivo.type !== 'application/pdf') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Solo se permiten archivos PDF.'
+                });
+                $(this).val(''); // Limpiar input
+                return;
+            }
+
+            // Validar tamaño (ejemplo: máximo 5MB)
+            if (archivo.size > 5 * 1024 * 1024) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'El archivo no debe superar los 5MB.'
+                });
+                $(this).val(''); // Limpiar input
+                return;
+            }
+
+            subirCertificado(archivo);
+        });
+
+        var subirCertificado = function(archivo) {
+            var rutaSeleccionada = localStorage.getItem('rutaGuardadoCertificado') || 'uploads/certificados/';
+
+            var formData = new FormData();
+            formData.append('certificado', archivo);
+            formData.append('consecutivoRunt', $('#consecutivoRunt').val());
+            formData.append('placa', placa);
+            formData.append('idhojapruebas', "<?php echo $idhojapruebas; ?>");
+            formData.append('rutaDestino', rutaSeleccionada);
+
+            // Mostrar loading
+            Swal.fire({
+                title: 'Validando certificado...',
+                text: 'Por favor espere mientras verificamos la información',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            $.ajax({
+                url: '<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/subirCertificado',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    Swal.close();
+
+                    // Verificar si la respuesta es un string y parsearlo
+                    if (typeof response === 'string') {
+                        try {
+                            response = JSON.parse(response);
+                        } catch (e) {
+                            console.error('Error parsing response:', e);
+                            response = {
+                                success: false,
+                                message: 'Error en la respuesta del servidor'
+                            };
+                        }
+                    }
+
+                    if (response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Éxito',
+                            text: response.message,
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            // Limpiar el input de archivo
+                            $('#fileCertificado').val('');
+                            // Habilitar el botón de envío a SICOV si todo está correcto
+                            $('#btnenviarsicov').prop('disabled', false);
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error de validación',
+                            text: response.message || 'Error al validar el certificado.',
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            // Limpiar el input para que pueda seleccionar otro archivo
+                            $('#fileCertificado').val('');
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    Swal.close();
+                    console.error('AJAX Error:', error);
+                    console.error('Status:', status);
+                    console.error('Response:', xhr.responseText);
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error de conexión',
+                        text: 'Error en la conexión: ' + error + '. Verifique la consola para más detalles.'
+                    });
+                }
+            });
+        };
+
+        $(document).ready(function() {
+            if (informeWebBogota == '1') {
+                getTokenBogota();
+            }
+
+            var data = {
+                desdeVisor: 'car',
+                dato: $('#idhojapruebas').val(),
+                IdUsuario: '1'
+            };
+            //                                                            console.log(data);
+            $.ajax({
+                url: '<?php echo base_url(); ?>index.php/oficina/fur/CFUR',
+                type: 'post',
+                data: data,
+                mimeType: 'json',
+                success: function(rta) {
+                    console.log(rta);
+                    for (var c = 0; c < rta.length; c++) {
+                        //                                            if (rta[c].basic) {
+                        //                                                envioBasicCAr(rta[c].basic, rta[c].idprueba)
+                        //                                            }
+                        if ((rta[c].cadena !== "" || rta[c].cadena !== null) && (rta[c].idprueba !== "" || rta[c].idprueba !== null)) {
+                            inforCAr(rta[c].cadena, rta[c].idprueba);
+                        }
+                    }
+                },
+                error(rta) {
+                    console.log(rta);
+                }
+            });
+            var text = new XMLHttpRequest();
+            text.open("GET", ipLocal + "system/dominio.dat", false);
+            text.send(null);
+            dominio = text.responseText;
+
+            //                                    saveSerCornare();
+            $('#btncargarcertificado').on('click', function() {
+                guardarCertificado();
+            });
+        });
+
+
+
+
+        var getTokenBogota = function() {
+            $.ajax({
+                url: '<?php echo base_url(); ?>index.php/Cindex/getTokenBogota',
+                type: 'post',
+                mimeType: 'json',
+                success: function(data) {
+                    // if (localStorage.getItem("tokenBogota") === null || localStorage.getItem("tokenBogota") === undefined) {
+                    localStorage.setItem("tokenBogota", data['access_token']);
+                    // }
+
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR.responseText)
+                }
+            });
+        }
+
+        function inforCAr(rta, idprueba) {
+            $.ajax({
+                type: "POST",
+                url: "http://" + ipCAR + "/cdapp/rest/final/medicionfinal",
+                headers: {
+                    "Authorization": "b56c19aa217e36a6c182be3ce6fab1851c32a6860f74a312f2cf6d230f6c1573",
+                    "Content-Type": "application/json"
+                },
+
+                data: rta,
+                success: function(rta) {
+                    console.log(rta)
+                    if (rta.resp == "OK") {
+                        var estado = 1;
+                        var tipo = 'Envio car exitoso.';
+                        guardarTabla(estado, tipo, idprueba);
+                    } else {
+                        var estado = 0;
+                        var tipo = 'Envio car fallido.';
+                        guardarTabla(estado, tipo, idprueba);
+                    }
+                },
+                errors: function(rta) {
+                    console.log(rta);
+                }
+            });
+        }
+
+        function guardarTabla(estado, tipo, idprueba) {
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url(); ?>index.php/oficina/fur/CFUR/saveControl",
+                data: {
+                    estado: estado,
+                    tipo: tipo,
+                    idprueba: idprueba
+                },
+                success: function(rta) {
+                    console.log(rta);
+                },
+                errors: function(rta) {
+                    console.log(rta);
+                }
+            });
+        }
+        var guardarConsecutivo = function(e) {
+
+            var idht = $('#idhojapruebas').val().split('-');
+            var data = {
+                idhojapruebas: idht[0],
+                consecutivorunt: e.value,
+                reinspeccion: idht[1]
+            };
+            $.ajax({
+                url: '<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/guardarConsecutivoAprobado',
+                type: 'post',
+                data: data,
+                async: false,
+                success: function(rta) {
+                    //                                                                    console.log(rta);
+                }
+            });
+        };
+
+        var enviarAnulacion = function() {
+            var idht = $('#idhojapruebas').val().split('-');
+            var data = {
+                idhojapruebas: $('#idhojapruebas').val(),
+                placa: placa,
+                ocasion: ocasion,
+                reinspeccion: idht[1]
+            };
+            $.ajax({
+                url: '<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/CGVaproEnvioAnulacion',
+                type: 'post',
+                data: data,
+                async: false,
+                success: function() {
+                    window.location.replace("<?php echo base_url(); ?>index.php/oficina/CGestion");
+                }
+            });
+        };
+
+        var enviarASICOV = function() {
+            // if (informeWebCornare == '1') {
+            //     getPruebasGases();
+            // }
+            // if ($('#consecutivoRunt').val() === '') {
+            //     var mensaje = document.getElementById('mensaje');
+            //     mensaje.style.display = 'block';
+            //     mensaje.style.position = 'relative';
+            //     $("#confirmacionEnvio").modal('hide');
+            // } else {
+            // var segundos = 2;
+            // var proceso = setInterval(function() {
+            document.getElementById('btnAsignar').disabled = true;
+            document.getElementById('mensajeSicov').style.color = 'black';
+            $('#mensajeSicov').text('Por favor espere. Este proceso puede tomar hasta un minuto');
+
+
+
+            // if (segundos === 0) {
+            // clearInterval(proceso);
+            var data = {
+                envioSicov: 'true',
+                dato: $('#idhojapruebas').val(),
+                envio: '2',
+                IdUsuario: '1',
+                sicovModoAlternativo: localStorage.getItem("sicovModoAlternativo"),
+                ipSicovAlternativo: localStorage.getItem("ipSicovAlternativo")
+            };
+            $.ajax({
+                url: '<?php echo base_url(); ?>index.php/oficina/fur/CFUR',
+                type: 'post',
+                data: data,
+                async: true,
+                success: function(rta) {
+                    var dat = rta.split('|');
+                    var segundos = 3;
+                    if (dat[1] === '0000' || dat[1] === '1') {
+                        if (informeWebCornare == '1' || informeWebBogota == '1') {
+                            $('#mensajeSicov').text("Mensaje de SICOV: " + dat[0] + ". Detalles en el log.");
+                            document.getElementById('mensajeSicov').style.color = 'green';
+                            var proceso = setInterval(function() {
+                                if (segundos === 0) {
+                                    clearInterval(proceso);
+                                    $("#confirmacionEnvio").modal('hide');
+                                    Swal.fire({
+                                        icon: "info",
+                                        title: "Enviando a Ministerio de Ambiente",
+                                        text: "Por favor espere mientras se realiza el envío...",
+                                        allowOutsideClick: false,
+                                        allowEscapeKey: false,
+                                        showConfirmButton: false,
+                                        didOpen: () => {
+                                            Swal.showLoading();
+                                        }
+                                    });
+                                    // Para cerrarlo después, usa: Swal.close();
+                                    getPruebasGases();
+                                }
+                                segundos--;
+                            }, 1000);
+
+                        } else {
+                            $('#mensajeSicov').text("Mensaje de SICOV: " + dat[0] + ". Detalles en el log.");
+                            document.getElementById('mensajeSicov').style.color = 'green';
+                            var proceso = setInterval(function() {
+                                if (segundos === 0) {
+                                    clearInterval(proceso);
+                                    window.location.replace("<?php echo base_url(); ?>index.php/oficina/CGestion");
+                                }
+                                segundos--;
+                            }, 1000);
+                        }
+
+
+
+                    } else {
+                        var segundos = 3;
+                        $('#mensajeSicov').text("Mensaje de SICOV: " + dat[0] + ". Detalles en el log.");
+                        document.getElementById('mensajeSicov').style.color = 'salmon';
+                        var proceso = setInterval(function() {
+                            if (segundos === 0) {
+                                clearInterval(proceso);
+                                window.location.replace("<?php echo base_url(); ?>index.php/oficina/CGestion");
+                            }
+                            segundos--;
+                        }, 1000);
+                    }
+                }
+            });
+            // }
+            // segundos--;
+            // }, 500);
+            // }
+        };
+
+        var getPruebasGases = function() {
+            var idhojapruebas = $('#idhojapruebas').val().split("-");
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo base_url(); ?>index.php/oficina/reportes/Cambientales/getPruebasGases",
+                mimeType: 'json',
+                async: true,
+                data: {
+                    idhojapruebas: idhojapruebas[0]
+                },
+                success: function(data, textStatus, jqXHR) {
+                    //  $("#confirmacionEnvio").modal('hide');
+
+
+                    if (informeWebBogota == '1') {
+                        $.each(data, function(i, data) {
+
+                            if (data !== null && data !== "") {
+                                envioinformeBogota(data.idmaquina, data.idprueba, data.tipo_vehiculo, data.idtipocombustible);
+                            } else {
+                                Swal.close();
+                                window.location.replace("<?php echo base_url(); ?>index.php/oficina/CGestion");
+                            }
+                        });
+                    } else {
+                        $.each(data, function(i, data) {
+                            if (data !== null && data !== "") {
+                                saveSerCornare(data.idmaquina, data.idprueba, data.tipo_vehiculo, data.idtipocombustible);
+                            } else {
+                                Swal.close();
+                                window.location.replace("<?php echo base_url(); ?>index.php/oficina/CGestion");
+                            }
+                        });
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    Swal.fire({
+                        icon: "error",
+                        title: "<div style='font-size:14px;'>Problemas en el envio</div>",
+                        html: "<div style='font-size:14px;'>" + jqXHR.responseText + "</div>",
+                        // footer: footer,
+                        width: "800px",
+                        confirmButtonText: "Aceptar"
+                    }).then(function(result) {
+                        if (result && result.isConfirmed) {
+                            window.location.replace("<?php echo base_url(); ?>index.php/oficina/CGestion");
+                        }
+                    });
+
+                }
+            });
+        }
+
+        var envioinformeBogota = function(idmaquina, idprueba, tipo_vehiculo, idtipocombustible) {
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo base_url(); ?>index.php/oficina/reportes/Cambientales/envioinformeBogota",
+                mimeType: 'json',
+                async: true,
+                data: {
+                    idmaquina: idmaquina,
+                    idprueba: idprueba,
+                    tipo_vehiculo: tipo_vehiculo,
+                    idtipocombustible: idtipocombustible,
+                    token: localStorage.getItem("tokenBogota")
+                },
+                success: function(data, textStatus, jqXHR) {
+                    console.log({
+                        data
+                    });
+                    Swal.close();
+                    let mensaje = "";
+                    let estado = 0;
+                    if (data == null || data == '') {
+                        Swal.fire({
+                            icon: "error",
+                            title: "<div style='font-size:14px;'>Problemas en el envio</div>",
+                            html: "<div style='font-size:14px;'>No se recibió respuesta del servidor, por favor intente nuevamente.</div>",
+                            footer: "<div style='font-size:12px; color:red'>Si el envío no se realizó con éxito, por favor diríjase a la sección de informes ambientales y envíelo nuevamente una vez haya corregido los problemas reportados por el servidor.</div>",
+                            width: "800px",
+                            confirmButtonText: "Aceptar"
+                        }).then(function(result) {
+                            if (result && result.isConfirmed) {
+                                window.location.replace("<?php echo base_url(); ?>index.php/oficina/CGestion");
+                            }
+                        });
+                        saveInfoEnvioBogota(idmaquina, idprueba, mensaje, estado);
+                        return;
+                    }
+                    if (data !== null) {
+                        if (typeof data.data.original.aErrores !== "undefined" && data.data.original.aErrores.length > 0) {
+                            // console.log(data.data.original.aErrores);
+                            if (Array.isArray(data.data.original.aErrores)) {
+                                mensaje = data.data.original.aErrores.map(function(e) {
+                                    return "<div style='font-size:12px;'>" + e + "</div>";
+                                }).join("");
+                            } else {
+                                mensaje = "<div style='font-size:12px;'>" + data.data.original.aErrores + "</div>";
+                            }
+                            footer = "<div style='font-size:12px; color:red'>Si el envío no se realizó con éxito, por favor diríjase a la sección de informes ambientales y envíelo nuevamente una vez haya corregido los problemas reportados por el servidor.</div>";
+                            estado = 0;
+
+                        } else {
+                            footer = "";
+                            mensaje = data.data.original.message
+                            estado = 1;
+                        }
+
+
+                        Swal.fire({
+                            icon: "info",
+                            title: "<div style='font-size:14px;'>" + data.data.original.name + "</div>",
+                            html: "<div style='font-size:14px;'>" + data.data.original.message + "</div><br>" + mensaje,
+                            footer: footer,
+                            width: "800px",
+                            confirmButtonText: "Aceptar"
+                        }).then(function(result) {
+                            if (result && result.isConfirmed) {
+                                window.location.replace("<?php echo base_url(); ?>index.php/oficina/CGestion");
+                            }
+                        });
+                        saveInfoEnvioBogota(idmaquina, idprueba, mensaje, estado);
+                    } else {
+                        mensaje = "No se recibió respuesta del servidor.";
+                        estado = 0;
+
+                        Swal.fire({
+                            icon: "info",
+                            html: "<div style='font-size:14px;'>Tenemos problemas para realizar el envio a la autoridad ambiental, comuniquese con soporte.</div><br>",
+                            footer: "<div style='font-size:12px; color:red'>Si el envío no se realizó con éxito, por favor diríjase a la sección de informes ambientales y envíelo nuevamente una vez haya corregido los problemas reportados por el servidor.</div>",
+                            width: "800px",
+                        }).then(function(result) {
+                            if (result && result.isConfirmed) {
+                                window.location.replace("<?php echo base_url(); ?>index.php/oficina/CGestion");
+                            }
+                        });
+                        saveInfoEnvioBogota(idmaquina, idprueba, mensaje, estado);
+                    }
+
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    Swal.close();
+                    saveInfoEnvioBogota(idmaquina, idprueba, mensaje, estado);
+                    Swal.fire({
+                        icon: "error",
+                        title: "<div style='font-size:14px;'>Problemas en el envio</div>",
+                        html: "<div style='font-size:14px;'>" + jqXHR.responseText + "</div>",
+                        // footer: footer,
+                        width: "800px",
+                        confirmButtonText: "Aceptar"
+                    }).then(function(result) {
+
+                        if (result && result.isConfirmed) {
+                            window.location.replace("<?php echo base_url(); ?>index.php/oficina/CGestion");
+                        }
+                    });
+
+                }
+            });
+        }
+
+
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        var saveSerCornare = function(idmaquina, idprueba, tipo_vehiculo, tipoCombustible) {
+            //var idhojapruebas = $('#idhojapruebas').val().split("-");
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo base_url(); ?>index.php/oficina/reportes/Cambientales/getInformeCornareWeb",
+                mimeType: 'json',
+                async: true,
+                data: {
+                    idmaquina: idmaquina,
+                    idprueba: idprueba,
+                    tipo_vehiculo: tipo_vehiculo,
+                    tipoCombustible: tipoCombustible
+                },
+                success: function(data, textStatus, jqXHR) {
+                    console.log(data)
+                    Swal.close();
+                    if (data.length !== 0) {
+                        envioInformeCornare(data, idprueba, tipo_vehiculo, tipoCombustible);
+                        //                                            envioInformeCornare(data, idprueba, tipoVehiculo);
+                    }
+
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR.responseText)
+                    saveInfoEnvioBogota(idmaquina, idprueba, 'ERROR AL ENVIAR INFORME', 0);
+
+                }
+            });
+        }
+
+        var envioInformeCornare = function(data, idprueba, tipoVehiculo, tipoCombustible) {
+            var datos = {
+                informe: data,
+                function: "saveDatos"
+            }
+            var norma = "";
+            console.log(tipoVehiculo)
+            console.log(tipoCombustible)
+            if (tipoVehiculo !== '3' && (tipoCombustible === '2' || tipoCombustible === '4' || tipoCombustible === '3')) {
+                norma = "NTC4983";
+            } else if (tipoVehiculo !== '3' && tipoCombustible === '1') {
+                norma = "NTC4231";
+            } else {
+                norma = "NTC5365";
+            }
+            idmaquina = 0;
+            fetch("http://" + dominio + "/api/index.php/" + norma, {
+                    method: "POST",
+                    body: JSON.stringify(datos),
+                    headers: {
+                        'Autorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.Ijg5NnNkYndmZTg3dmNzZGFmOTg0bmc4ZmdoMjRvMTI5MHIi.HraZ7y3eG3dGhKngzOWge-je8Y3lxZgldXjbRbcA7cA',
+                        'Content-Type': 'application/json'
+                    },
+                }, 200)
+                .then(respuesta => respuesta)
+                .then((rta) => {
+                    saveInfoEnvioBogota(idmaquina, idprueba, 'INFORME CORNARE ENVIADO', 1);
+                    // insertControl(idprueba, '1', 'Informe enviado');
+
+                })
+                .catch(error => {
+                    saveInfoEnvioBogota(idmaquina, idprueba, 'ERROR AL ENVIAR INFORME', 0);
+                    // insertControl(idprueba, '0', 'Error al enviar informe');
+                    // console.log(error);
+                    // console.log(error.message);
+
+                });
+        }
+
+        async function saveInfoEnvioBogota(idmaquina, idprueba, mensaje, estado) {
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo base_url(); ?>index.php/oficina/reportes/Cambientales/saveInfoEnvioBogota",
+                mimeType: 'json',
+                async: true,
+                data: {
+                    placa: placa,
+                    idmaquina: idmaquina,
+                    idprueba: idprueba,
+                    mensaje: mensaje,
+                    estado: estado
+                },
+                success: function(data, textStatus, jqXHR) {
+                    console.log(data);
+
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR.responseText)
+
+                }
+            });
+        }
+
+
+
+
+
+        var insertControl = function(idprueba, enviado, mensaje) {
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo base_url(); ?>index.php/oficina/reportes/Cambientales/insertControl",
+                mimeType: 'json',
+                async: true,
+                data: {
+                    idprueba: idprueba,
+                    enviado: enviado,
+                    mensaje: mensaje
+                },
+                success: function(data, textStatus, jqXHR) {
+                    console.log(data)
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR.responseText)
+
+                }
+            });
+        }
+
+
+
+        // // Función principal mejorada
+        // var enviarASICOV = async function() {
+        //     // Validación inicial
+        //     if ($('#consecutivoRunt').val() === '') {
+        //         mostrarMensajeError('El consecutivo RUNT es requerido');
+        //         $("#confirmacionEnvio").modal('hide');
+        //         return;
+        //     }
+
+        //     try {
+        //         // Preparar interfaz para el proceso
+        //         prepararInterfazParaEnvio();
+
+        //         // Espera inicial para feedback visual
+        //         await esperar(2000);
+
+        //         // Envío a SICOV
+        //         const resultadoSicov = await enviarSICOV();
+
+        //         // Procesar respuesta de SICOV
+        //         await procesarRespuestaSICOV(resultadoSicov);
+
+        //     } catch (error) {
+        //         console.error('Error en el proceso:', error);
+        //         mostrarMensajeError('Ocurrió un error inesperado en el proceso');
+        //     }
+        // };
+
+        // // Función para preparar la interfaz
+        // const prepararInterfazParaEnvio = () => {
+        //     document.getElementById('btnAsignar').disabled = true;
+        //     mostrarMensajeProcesando('Por favor espere. Este proceso puede tomar hasta un minuto');
+        // };
+
+        // // Función para enviar a SICOV
+        // const enviarSICOV = () => {
+        //     return new Promise((resolve, reject) => {
+        //         const data = {
+        //             envioSicov: 'true',
+        //             dato: $('#idhojapruebas').val(),
+        //             envio: '2',
+        //             IdUsuario: '1',
+        //             sicovModoAlternativo: localStorage.getItem("sicovModoAlternativo"),
+        //             ipSicovAlternativo: localStorage.getItem("ipSicovAlternativo")
+        //         };
+
+        //         $.ajax({
+        //             url: '<?php echo base_url(); ?>index.php/oficina/fur/CFUR',
+        //             type: 'post',
+        //             data: data,
+        //             success: function(response) {
+        //                 resolve(response);
+        //             },
+        //             error: function(xhr, status, error) {
+        //                 reject(new Error(`Error en envío SICOV: ${error}`));
+        //             }
+        //         });
+        //     });
+        // };
+
+        // // Función para procesar respuesta de SICOV
+        // const procesarRespuestaSICOV = async (respuesta) => {
+        //     const datos = respuesta.split('|');
+        //     const codigoRespuesta = datos[1];
+        //     const mensaje = datos[0];
+
+        //     if (codigoRespuesta === '0000' || codigoRespuesta === '1') {
+        //         // Éxito
+        //         mostrarMensajeExito(`Mensaje de SICOV: ${mensaje}. Detalles en el visor.`);
+
+        //         // Envío de pruebas ambientales si corresponde
+        //         if (informeWebCornare === '1' || informeWebBogota === '1') {
+        //             await procesarPruebasAmbientales();
+        //         }
+
+        //         // Espera y redirección
+        //         await esperarConContador(3000, 'Redirigiendo en');
+        //         redirigirAGestion();
+
+        //     } else {
+        //         // Error
+        //         mostrarMensajeError(`Mensaje de SICOV: ${mensaje}. Detalles en el visor.`);
+        //         await esperarConContador(3000, 'Redirigiendo en');
+        //         redirigirAGestion();
+        //     }
+        // };
+
+        // // Función para procesar pruebas ambientales
+        // const procesarPruebasAmbientales = async () => {
+        //     try {
+        //         const pruebas = await obtenerPruebasGases();
+
+        //         if (informeWebBogota === '1') {
+        //             await enviarPruebasBogota(pruebas);
+        //         } else {
+        //             await enviarPruebasCornare(pruebas);
+        //         }
+
+        //     } catch (error) {
+        //         console.error('Error procesando pruebas ambientales:', error);
+        //         mostrarMensajeAdvertencia('Hubo problemas con el envío de pruebas ambientales');
+        //     }
+        // };
+
+        // // Función mejorada para obtener pruebas
+        // const obtenerPruebasGases = () => {
+        //     return new Promise((resolve, reject) => {
+        //         const idhojapruebas = $('#idhojapruebas').val().split("-")[0];
+
+        //         $.ajax({
+        //             type: 'POST',
+        //             url: "<?php echo base_url(); ?>index.php/oficina/reportes/Cambientales/getPruebasGases",
+        //             data: {
+        //                 idhojapruebas: idhojapruebas
+        //             },
+        //             success: function(data) {
+        //                 resolve(data);
+        //             },
+        //             error: function(jqXHR, textStatus, errorThrown) {
+        //                 reject(new Error(`Error obteniendo pruebas: ${errorThrown}`));
+        //             }
+        //         });
+        //     });
+        // };
+
+        // // Función mejorada para enviar a Bogotá
+        // const enviarPruebasBogota = async (pruebas) => {
+        //     const resultados = [];
+
+        //     for (const prueba of pruebas) {
+        //         try {
+        //             const resultado = await enviarPruebaBogotaIndividual(prueba);
+        //             resultados.push(resultado);
+
+        //             // Pequeña pausa entre envíos
+        //             await esperar(500);
+
+        //         } catch (error) {
+        //             console.error(`Error enviando prueba ${prueba.idprueba}:`, error);
+        //             resultados.push({
+        //                 prueba: prueba.idprueba,
+        //                 estado: 'error',
+        //                 mensaje: error.message
+        //             });
+        //         }
+        //     }
+
+        //     mostrarResumenEnvios(resultados);
+        //     return resultados;
+        // };
+
+        // // Función para enviar prueba individual a Bogotá
+        // const enviarPruebaBogotaIndividual = (prueba) => {
+        //     return new Promise((resolve, reject) => {
+        //         $.ajax({
+        //             type: 'POST',
+        //             url: "<?php echo base_url(); ?>index.php/oficina/reportes/Cambientales/envioinformeBogota",
+        //             data: {
+        //                 idmaquina: prueba.idmaquina,
+        //                 idprueba: prueba.idprueba,
+        //                 tipo_vehiculo: prueba.tipo_vehiculo,
+        //                 idtipocombustible: prueba.idtipocombustible,
+        //                 token: localStorage.getItem("tokenBogota")
+        //             },
+        //             success: function(data) {
+        //                 procesarRespuestaBogota(data, prueba)
+        //                     .then(resolve)
+        //                     .catch(reject);
+        //             },
+        //             error: function(jqXHR, textStatus, errorThrown) {
+        //                 reject(new Error(`Error de conexión: ${errorThrown}`));
+        //             }
+        //         });
+        //     });
+        // };
+
+        // // Procesar respuesta de Bogotá
+        // const procesarRespuestaBogota = async (data, prueba) => {
+        //     let mensaje, estado, footer;
+
+        //     if (!data) {
+        //         mensaje = "No se recibió respuesta del servidor.";
+        //         estado = 0;
+        //         footer = "<div style='font-size:12px; color:red'>Comuníquese con soporte técnico.</div>";
+        //     } else if (data.data?.original?.aErrores) {
+        //         const errores = Array.isArray(data.data.original.aErrores) ?
+        //             data.data.original.aErrores :
+        //             [data.data.original.aErrores];
+
+        //         mensaje = errores.map(e => `<div style='font-size:12px;'>${e}</div>`).join("");
+        //         estado = 0;
+        //         footer = "<div style='font-size:12px; color:red'>Revise los problemas reportados antes de reintentar.</div>";
+        //     } else {
+        //         mensaje = data.data?.original?.message || "Envío exitoso";
+        //         estado = 1;
+        //         footer = "";
+        //     }
+
+        //     // Guardar información del envío
+        //     await guardarInfoEnvioBogota(prueba, mensaje, estado);
+
+        //     // Mostrar alerta al usuario
+        //     await mostrarAlertaBogota(data, mensaje, footer);
+
+        //     return {
+        //         prueba: prueba.idprueba,
+        //         estado: estado === 1 ? 'éxito' : 'error',
+        //         mensaje: mensaje
+        //     };
+        // };
+
+        // // Función mejorada para mostrar alertas de Bogotá
+        // const mostrarAlertaBogota = (data, mensaje, footer) => {
+        //     return Swal.fire({
+        //         icon: data ? "info" : "error",
+        //         title: `<div style='font-size:14px;'>${data?.data?.original?.name || 'Envío a Bogotá'}</div>`,
+        //         html: `<div style='font-size:14px;'>${data?.data?.original?.message || 'Proceso completado'}</div><br>${mensaje}`,
+        //         footer: footer,
+        //         width: "800px",
+        //     });
+        // };
+
+        // // Función mejorada para guardar información
+        // const guardarInfoEnvioBogota = (prueba, mensaje, estado) => {
+        //     return new Promise((resolve) => {
+        //         $.ajax({
+        //             type: 'POST',
+        //             url: "<?php echo base_url(); ?>index.php/oficina/reportes/Cambientales/saveInfoEnvioBogota",
+        //             data: {
+        //                 placa: placa,
+        //                 idmaquina: prueba.idmaquina,
+        //                 idprueba: prueba.idprueba,
+        //                 mensaje: mensaje,
+        //                 estado: estado
+        //             },
+        //             success: function() {
+        //                 resolve();
+        //             },
+        //             error: function() {
+        //                 // No rechazamos para no interrumpir el flujo principal
+        //                 resolve();
+        //             }
+        //         });
+        //     });
+        // };
+
+        // // Funciones de utilidad para mensajes
+        // const mostrarMensajeProcesando = (mensaje) => {
+        //     const elemento = document.getElementById('mensajeSicov');
+        //     elemento.style.color = 'black';
+        //     elemento.textContent = mensaje;
+        // };
+
+        // const mostrarMensajeExito = (mensaje) => {
+        //     const elemento = document.getElementById('mensajeSicov');
+        //     elemento.style.color = 'green';
+        //     elemento.textContent = mensaje;
+        // };
+
+        // const mostrarMensajeError = (mensaje) => {
+        //     const elemento = document.getElementById('mensajeSicov');
+        //     elemento.style.color = 'salmon';
+        //     elemento.textContent = mensaje;
+        // };
+
+        // const mostrarMensajeAdvertencia = (mensaje) => {
+        //     const elemento = document.getElementById('mensajeSicov');
+        //     elemento.style.color = 'orange';
+        //     elemento.textContent = mensaje;
+        // };
+
+        // // Funciones de utilidad para esperas
+        // const esperar = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+        // const esperarConContador = (ms, mensajeBase) => {
+        //     return new Promise(resolve => {
+        //         let segundos = ms / 1000;
+        //         const elemento = document.getElementById('mensajeSicov');
+        //         const mensajeOriginal = elemento.textContent;
+
+        //         const intervalo = setInterval(() => {
+        //             elemento.textContent = `${mensajeOriginal} (${mensajeBase} ${segundos}s)`;
+        //             segundos--;
+
+        //             if (segundos < 0) {
+        //                 clearInterval(intervalo);
+        //                 elemento.textContent = mensajeOriginal;
+        //                 resolve();
+        //             }
+        //         }, 1000);
+        //     });
+        // };
+
+        // // Función de redirección
+        // const redirigirAGestion = () => {
+        //     window.location.replace("<?php echo base_url(); ?>index.php/oficina/CGestion");
+        // };
+
+        // // Función para mostrar resumen de envíos (opcional)
+        // const mostrarResumenEnvios = (resultados) => {
+        //     const exitosos = resultados.filter(r => r.estado === 'éxito').length;
+        //     const errores = resultados.filter(r => r.estado === 'error').length;
+
+        //     if (errores > 0) {
+        //         console.log(`Resumen envíos: ${exitosos} exitosos, ${errores} con error`);
+        //     }
+        // };
+
+        // var getTokenBogota = function() {
+        //     $.ajax({
+        //         url: '<?php echo base_url(); ?>index.php/Cindex/getTokenBogota',
+        //         type: 'post',
+        //         mimeType: 'json',
+        //         success: function(data) {
+        //             if (localStorage.getItem("tokenBogota") === null || localStorage.getItem("tokenBogota") === undefined) {
+        //                 localStorage.setItem("tokenBogota", data['access_token']);
+        //             }
+
+        //         },
+        //         error: function(jqXHR, textStatus, errorThrown) {
+        //             console.log(jqXHR.responseText)
+        //         }
+        //     });
+        // }
+    </script>
+
+
+</body>
+
+</html>
