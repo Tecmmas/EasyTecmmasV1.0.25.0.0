@@ -1,120 +1,651 @@
-<?php //004fb
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-6sSGuj2VJajWfLAIHcu=
+<?php $this->load->view('./header'); ?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    .disk-info-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 15px;
+        color: white;
+        padding: 25px;
+        margin: 20px 0;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border: none;
+    }
+
+    .disk-title {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .disk-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 25px;
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+    }
+
+    .stat-label {
+        font-size: 14px;
+        opacity: 0.9;
+        margin-bottom: 5px;
+    }
+
+    .stat-value {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .progress-container {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        padding: 15px;
+        margin-top: 10px;
+    }
+
+    .progress-percent {
+        text-align: center;
+        font-size: 28px;
+        font-weight: 700;
+        margin: 15px 0;
+    }
+
+    .progress-bar-custom {
+        height: 12px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 6px;
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+    }
+
+    .progress-low {
+        background: linear-gradient(90deg, #00b09b, #96c93d);
+    }
+
+    .progress-medium {
+        background: linear-gradient(90deg, #ffa726, #ff9800);
+    }
+
+    .progress-high {
+        background: linear-gradient(90deg, #ff416c, #ff4b2b);
+    }
+
+    .progress-critical {
+        background: linear-gradient(90deg, #ff0000, #8b0000);
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.7;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-top: 10px;
+    }
+
+    .status-optimal {
+        background: #00b09b;
+    }
+
+    .status-warning {
+        background: #ff9800;
+    }
+
+    .status-critical {
+        background: #ff416c;
+    }
+
+    /* Optimizaciones de carga */
+    .loading-fast {
+        padding: 10px;
+        text-align: center;
+        background: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    .skeleton-loader {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+        border-radius: 4px;
+        height: 20px;
+        margin: 5px 0;
+    }
+
+    @keyframes loading {
+        0% {
+            background-position: 200% 0;
+        }
+
+        100% {
+            background-position: -200% 0;
+        }
+    }
+</style>
+
+<!-- START CONTENT -->
+<section id="main-content" class=" ">
+    <section class="wrapper main-wrapper row">
+        <!-- MAIN CONTENT AREA STARTS -->
+
+        <!-- NUEVA SECCIÓN PARA INFORMACIÓN DEL DISCO -->
+        <section class="box" id="sectionDisco" style="display: block">
+            <div class="content-body">
+                <div class="col-12">
+                    <div class="col-md-12">
+                        <h4><i class="fa fa-hdd-o"></i> Información del Disco</h4>
+                        <br>
+                    </div>
+                    <div class="row" id="infoDisco">
+                        <!-- Cargador optimizado -->
+                        <div class="col-md-12 col-md-offset-2">
+                            <div class="disk-info-card">
+                                <div class="disk-title">
+                                    <i class="fa fa-hdd-o"></i> Espacio en Disco
+                                </div>
+                                <div class="disk-stats">
+                                    <div class="stat-item">
+                                        <div class="skeleton-loader" style="height: 25px;"></div>
+                                        <div class="skeleton-loader" style="height: 20px; width: 80%; margin: 0 auto;"></div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="skeleton-loader" style="height: 25px;"></div>
+                                        <div class="skeleton-loader" style="height: 20px; width: 80%; margin: 0 auto;"></div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="skeleton-loader" style="height: 25px;"></div>
+                                        <div class="skeleton-loader" style="height: 20px; width: 80%; margin: 0 auto;"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-container">
+                                    <div class="skeleton-loader" style="height: 40px; width: 50%; margin: 0 auto;"></div>
+                                    <div class="skeleton-loader" style="height: 12px; margin: 15px 0;"></div>
+                                    <div class="skeleton-loader" style="height: 25px; width: 30%; margin: 0 auto;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="infoPrincipal"></div>
+
+        <input type="hidden" id="fecha" value="<?= $fecha ?>">
+        <section class="box " id="sectionMetrologia" style="display: none">
+            <div class="content-body">
+                <div class="col-12">
+                    <div class="col-md-12">
+                        <h4>METROLOGIA MAQUINAS</h4><br>
+                    </div>
+                    <div id="getMetrologia"></div>
+                </div>
+            </div>
+        </section>
+    </section>
+</section>
+<!-- END CONTENT -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<?php $this->load->view('./footer'); ?>
+
+<script type="text/javascript">
+    var ipLocal = '<?php echo base_url(); ?>';
+    var biometrico = '<?php echo $this->session->userdata('biometrico'); ?>';
+    var IdUsuario = '<?php echo $this->session->userdata('IdUsuario'); ?>';
+    var IdPerfil = '<?php echo $this->session->userdata('idperfil'); ?>';
+
+    // Cache para evitar llamadas duplicadas
+    var diskInfoCache = {
+        data: null,
+        timestamp: 0,
+        ttl: 30000 // 30 segundos
+    };
+
+    $(document).ready(function() {
+        // Ejecutar en paralelo para mayor velocidad
+        Promise.all([
+            getdatos(),
+            getDiskInfo()
+        ]).then(() => {
+            console.log('Todas las cargas completadas');
+        });
+
+        localStorage.setItem('biometrico', biometrico);
+        localStorage.setItem('IdUsuario', IdUsuario);
+        localStorage.setItem('idrol', IdPerfil);
+    });
+
+    // Función optimizada para obtener información del disco
+    function getDiskInfo() {
+        // Verificar cache primero
+        const now = Date.now();
+        if (diskInfoCache.data && (now - diskInfoCache.timestamp) < diskInfoCache.ttl) {
+            displayDiskInfo(diskInfoCache.data);
+            checkDiskAlert(diskInfoCache.data);
+            return;
+        }
+
+        // Configuración optimizada para AJAX
+        $.ajax({
+            url: ipLocal + "index.php/oficina/CPrincipal/getDiskInfo",
+            type: 'GET',
+            dataType: 'json',
+            timeout: 10000, // Timeout reducido a 10 segundos
+            cache: false, // Evitar cache del navegador
+            headers: {
+                'Cache-Control': 'no-cache',
+                'Pragma': 'no-cache'
+            },
+            beforeSend: function() {
+                // Ya tenemos el skeleton loader en el HTML
+            },
+            success: function(response) {
+                if (response && response.success) {
+                    // Actualizar cache
+                    diskInfoCache.data = response.data;
+                    diskInfoCache.timestamp = Date.now();
+
+                    displayDiskInfo(response.data);
+                    checkDiskAlert(response.data);
+                } else {
+                    displayFallbackDiskInfo();
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error al obtener información del disco:', error);
+                if (diskInfoCache.data) {
+                    // Usar datos cacheados si hay error
+                    displayDiskInfo(diskInfoCache.data);
+                    console.log('Usando datos cacheados debido a error');
+                } else {
+                    displayFallbackDiskInfo();
+                }
+            }
+        });
+    }
+
+    // Función optimizada para mostrar información del disco
+    function displayDiskInfo(diskData) {
+        const progressClass = getProgressClass(diskData.used_percent);
+        const statusClass = getStatusClass(diskData.used_percent);
+        const statusText = getStatusText(diskData.used_percent);
+
+        const html = `
+            <div class="col-md-12 col-md-offset-2">
+                <div class="disk-info-card">
+                    <div class="disk-title">
+                        <i class="fa fa-hdd-o"></i> Espacio en Disco
+                    </div>
+                    
+                    <div class="disk-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Total</div>
+                            <div class="stat-value">${diskData.total}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Usado</div>
+                            <div class="stat-value">${diskData.used}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Libre</div>
+                            <div class="stat-value">${diskData.free}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-percent">${diskData.used_percent}%</div>
+                        <div class="progress-bar-custom">
+                            <div class="progress-fill ${progressClass}" style="width: ${diskData.used_percent}%"></div>
+                        </div>
+                        <div class="status-badge ${statusClass}">${statusText}</div>
+                    </div>
+                    
+                    <div style="margin-top: 20px; font-size: 12px; opacity: 0.8; text-align: center;">
+                        <i class="fa fa-info-circle"></i> Sistema: ${diskData.file_system} | Montaje: ${diskData.mount_point}
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Usar una transición suave
+        $('#infoDisco').fadeOut(100, function() {
+            $(this).html(html).fadeIn(200);
+        });
+    }
+
+    // Función separada para verificar alertas
+    function checkDiskAlert(diskData) {
+        if (diskData.used_percent > 90) {
+            showDiskAlert(diskData);
+        }
+    }
+
+    // Función optimizada para mostrar alerta
+    function showDiskAlert(diskData) {
+        // Verificar si ya se mostró una alerta recientemente
+        const lastAlert = localStorage.getItem('lastDiskAlert');
+        const now = Date.now();
+
+        if (lastAlert && (now - parseInt(lastAlert)) < 300000) { // 5 minutos
+            return; // No mostrar alerta si ya se mostró hace menos de 5 minutos
+        }
+
+        Swal.fire({
+            icon: 'warning',
+            title: '¡Alerta de Espacio en Disco!',
+            html: `
+                <div style="text-align: left;">
+                    <p>El espacio en disco está llegando a su límite crítico:</p>
+                    <ul>
+                        <li><strong>Usado:</strong> ${diskData.used} (${diskData.used_percent}%)</li>
+                        <li><strong>Libre:</strong> ${diskData.free}</li>
+                        <li><strong>Total:</strong> ${diskData.total}</li>
+                    </ul>
+                    <p style="color: #ff6b6b; font-weight: bold;">
+                        ⚠️ Se recomienda liberar espacio inmediatamente.
+                    </p>
+                </div>
+            `,
+            confirmButtonText: 'Entendido',
+            confirmButtonColor: '#ff6b6b',
+            backdrop: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            willOpen: () => {
+                localStorage.setItem('lastDiskAlert', now.toString());
+            }
+        });
+    }
+
+    // Función de fallback optimizada
+    function displayFallbackDiskInfo() {
+        const html = `
+            <div class="col-md-12">
+                <div class="alert alert-warning" style="text-align: center;">
+                    <i class="fa fa-exclamation-triangle"></i> 
+                    No se pudo obtener información en tiempo real del disco.
+                    <button type="button" class="btn btn-xs btn-default" onclick="forceRefreshDiskInfo()" style="margin-left: 10px;">
+                        <i class="fa fa-refresh"></i> Reintentar
+                    </button>
+                </div>
+            </div>
+        `;
+        $('#infoDisco').html(html);
+    }
+
+    // Función forzar refresh (ignorar cache)
+    function forceRefreshDiskInfo() {
+        diskInfoCache.timestamp = 0; // Invalidar cache
+        getDiskInfo();
+    }
+
+    // Funciones auxiliares optimizadas (sin cambios)
+    function getProgressClass(percent) {
+        if (percent < 70) return 'progress-low';
+        if (percent < 85) return 'progress-medium';
+        if (percent < 90) return 'progress-high';
+        return 'progress-critical';
+    }
+
+    function getStatusClass(percent) {
+        if (percent < 70) return 'status-optimal';
+        if (percent < 90) return 'status-warning';
+        return 'status-critical';
+    }
+
+    function getStatusText(percent) {
+        if (percent < 70) return 'Óptimo';
+        if (percent < 90) return 'Advertencia';
+        return 'Crítico';
+    }
+
+    // Tus funciones existentes
+    var getdatos = function() {
+        return new Promise((resolve) => {
+            $.ajax({
+                url: "https://updateapp.tecmmas.com/Actualizaciones/index.php/Cdescargas/infoPrincipal",
+                type: 'get',
+                async: true, // Cambiado a true para no bloquear
+                mimeType: 'json',
+                timeout: 10000,
+                success: function(data) {
+                    $("#infoPrincipal").html(data[0].html);
+                    resolve();
+                },
+                error: function(res) {
+                    console.log(res.responseText);
+                    resolve(); // Resolver incluso en error
+                }
+            });
+        });
+    }
+
+    // --- 1. TU FUNCIÓN EXISTENTE (MODIFICADA LIGERAMENTE PARA DEVOLVER DATOS) ---
+   // --- TU FUNCIÓN EXISTENTE ---
+let informeActualizacion = function () {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "http://updateapp.tecmmas.com/Actualizaciones/index.php/Cdescargas/getActualizacionOficinaAll",
+            type: 'get',
+            async: true,
+            dataType: 'json',
+            timeout: 10000,
+            success: function (data) {
+                console.log("Datos recibidos:", data);
+                resolve(data);
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+                reject(new Error("No se pudieron obtener los datos: " + error));
+            }
+        });
+    });
+}
+
+// --- GENERAR PDF CON ESTILO SIMPLE ---
+async function generarYDescargarInformePDF() {
+    // Mostrar carga
+    $("#loadingIndicator").remove();
+    $('body').append('<div id="loadingIndicator" style="position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:black; color:white; padding:15px 25px; border-radius:8px; z-index:10000;">Generando PDF, espere...</div>');
+
+    try {
+        const actualizaciones = await informeActualizacion();
+        
+        if (!actualizaciones || actualizaciones.length === 0) {
+            throw new Error("No hay datos");
+        }
+
+        // Preparar datos
+        let htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Informe de Actualizaciones</title>
+            <style>
+                body {
+                    font-family: Arial, Helvetica, sans-serif;
+                    margin: 20px;
+                    padding: 0;
+                    line-height: 1.4;
+                }
+                .container {
+                    max-width: 100%;
+                    margin: 0 auto;
+                }
+                h1 {
+                    text-align: center;
+                    color: #2c3e50;
+                    font-size: 22px;
+                    margin-bottom: 5px;
+                }
+                .fecha {
+                    text-align: center;
+                    font-size: 12px;
+                    color: #666;
+                    margin-bottom: 20px;
+                    padding-bottom: 10px;
+                    border-bottom: 1px solid #ccc;
+                }
+                .version-item {
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                    margin-bottom: 15px;
+                    page-break-inside: avoid;
+                }
+                .version-header {
+                    background: #f5f5f5;
+                    padding: 8px 12px;
+                    border-bottom: 1px solid #ddd;
+                    font-weight: bold;
+                }
+                .version-body {
+                    padding: 12px;
+                }
+                .estado {
+                    display: inline-block;
+                    padding: 2px 8px;
+                    border-radius: 3px;
+                    font-size: 11px;
+                    font-weight: bold;
+                    margin-left: 10px;
+                }
+                .activa {
+                    background: #28a745;
+                    color: white;
+                }
+                .inactiva {
+                    background: #dc3545;
+                    color: white;
+                }
+                .fecha-item {
+                    font-size: 12px;
+                    color: #666;
+                    margin-bottom: 10px;
+                }
+                .descripcion {
+                    background: #fef9e6;
+                    padding: 10px;
+                    border-left: 3px solid #ff9800;
+                    font-size: 12px;
+                }
+                .descripcion p {
+                    margin: 5px 0;
+                }
+                .footer {
+                    text-align: center;
+                    font-size: 10px;
+                    color: #999;
+                    margin-top: 20px;
+                    padding-top: 10px;
+                    border-top: 1px solid #eee;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>Informe de Actualizaciones del Sistema</h1>
+                <div class="fecha">Generado: ${new Date().toLocaleString('es-CO')}</div>
+        `;
+
+        // Agregar cada versión
+        for (let item of actualizaciones) {
+            let version = item.file || item.version || "Sin versión";
+            let estado = item.estado === "1" ? "Activa" : "Inactiva";
+            let estadoClass = item.estado === "1" ? "activa" : "inactiva";
+            let fecha = item.fecha || "Fecha no disponible";
+            let descripcion = item.descripcion || "<p>Sin descripción</p>";
+            
+            htmlContent += `
+                <div class="version-item">
+                    <div class="version-header">
+                        ${version}
+                        <span class="estado ${estadoClass}">${estado}</span>
+                    </div>
+                    <div class="version-body">
+                        <div class="fecha-item">📅 ${fecha}</div>
+                        <div class="descripcion">
+                            ${descripcion}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        htmlContent += `
+                <div class="footer">
+                    Informe generado automáticamente
+                </div>
+            </div>
+        </body>
+        </html>
+        `;
+
+        // Crear elemento temporal y generar PDF
+        const element = document.createElement('div');
+        element.innerHTML = htmlContent;
+        element.style.backgroundColor = 'white';
+        document.body.appendChild(element);
+
+        const opt = {
+            margin: [0.5, 0.5, 0.5, 0.5],
+            filename: `Informe_Actualizaciones_${new Date().toISOString().slice(0,10)}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
+
+        await html2pdf().set(opt).from(element).save();
+        document.body.removeChild(element);
+        
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Error: " + error.message);
+    } finally {
+        $("#loadingIndicator").remove();
+    }
+}
+
+// --- BOTÓN PARA GENERAR ---
+$(document).ready(function() {
+    $("#btnGenerarPDF").remove();
+    $('body').append(`
+        <button id="btnGenerarPDF" style="position:fixed; bottom:20px; right:20px; background:#dc3545; color:white; border:none; border-radius:5px; padding:10px 20px; cursor:pointer; z-index:9999;">
+            📄 Descargar informe de actualizaciones.
+        </button>
+    `);
+    
+    $("#btnGenerarPDF").click(generarYDescargarInformePDF);
+});
+</script>
