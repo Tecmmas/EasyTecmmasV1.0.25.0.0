@@ -1,161 +1,292 @@
-<?php //004fb
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-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
-jUxwj/q=
+<?php
+
+defined('BASEPATH') OR exit('No direct script access allowed');
+header("Access-Control-Allow-Origin: *");
+
+class Clogin extends CI_Controller {
+
+    public function __construct() {
+        parent::__construct();
+        $this->load->helper('form');
+        $this->load->helper('url');
+        $this->load->helper('security');
+        $this->load->model("Musuario");
+        $this->load->model("LoginModel");
+        $this->load->model("Mutilitarios");
+        $this->load->library('Opensslencryptdecrypt');
+		//espejoDatabase();
+    }
+
+    public function index() {
+        if ($this->session->userdata('IdUsuario') == '') {
+            redirect('Cindex');
+        } 
+    }
+
+    public function ingresar() {
+        $username = $this->input->post("username");
+        $passwd = $this->input->post("passwd");
+        $rta = $this->Musuario->getUsuario($username, $passwd);
+        if ($rta->num_rows() !== 0) {
+            $usuario = $rta->result();
+            echo json_encode($usuario);
+        } else {
+            echo 'NA';
+        }
+    }
+
+    public function validar() {
+        $mac = $this->input->post('mac');
+        $encrptopenssl = New Opensslencryptdecrypt();
+        $json = $encrptopenssl->decrypt(file_get_contents('system/license.json', true));
+        $licencias = json_decode($json, true);
+        $data['mensaje'] = 'SIN REGISTRO';
+        $data['dias'] = '0';
+        $data['activo'] = '0';
+        $data['cdaactivo'] = '0';
+		//  var_dump($licencias);
+        foreach ($licencias as $i) {
+			if ($i["cdaactivo"] == "1") {
+                    $data['cdaactivo'] = "1";
+                }
+                $data['dias'] = $this->Mutilitarios->getDayDiff($i['fechafinal']);
+                if ($data['dias'] > $i['dias']) {
+                    $data['dias'] = '0';
+                }
+            if ($i["mac"] == $mac) {
+                if ($i["activo"] == "1") {
+                    $data['activo'] = "1";
+                }
+                
+                //$data['dias'] = $i['dias'];
+                break;
+            }
+        }
+		$this->LoginModel->crearTablaPerifericos();
+        $cron_audit = $this->LoginModel->validarCronAudit();
+        $data['cron_audit'] = '';
+        if ($cron_audit) {
+            $data['cron_audit'] = 'OK';
+        }
+        $autoregulado2703 = $this->LoginModel->verificar2703();
+        $data['autoregulado2703'] = '';
+        if ($autoregulado2703) {
+            $data['autoregulado2703'] = 'OK';
+        }
+        $triggers = $this->LoginModel->getTriggers();
+        $data['auditres_jz'] = '';
+        $data['auditpru_jz'] = '';
+        foreach ($triggers as $t) {
+            if ($t->Trigger == 'auditres_jz') {
+                $Q = <<<EOF
+BEGIN
+    if (OLD.valor<>NEW.valor AND DATE_FORMAT(OLD.fechaguardado, '%Y%m%d')=DATE_FORMAT(NOW(), '%Y%m%d')) OR NEW.fechaguardado<>OLD.fechaguardado then          
+      INSERT INTO cron_audit VALUES(NULL,(SELECT v.numero_placa FROM pruebas p,hojatrabajo h,vehiculos v where p.idhojapruebas=h.idhojapruebas and v.idvehiculo=h.idvehiculo and p.idprueba=OLD.idprueba limit 1),OLD.idprueba,OLD.idresultados,concat((SELECT p.idtipo_prueba FROM pruebas p where p.idprueba=OLD.idprueba limit 1),'|',OLD.valor,'|',NEW.valor),NOW(),0);
+      SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Operacion no permitida';
+    end if;
+END
+EOF;
+                $Q1 = preg_replace('/[\r\n|\n|\r]+/', '', $t->Statement);
+                $Q2 = preg_replace('/[\r\n|\n|\r]+/', '', $Q);
+                if ($Q1 == $Q2) {
+                    $data['auditres_jz'] = 'OK';
+                }
+            }
+            if ($t->Trigger == 'auditpru_jz') {
+                $Q = $this->trig_pru();
+                $Q1 = preg_replace('/[\r\n|\n|\r]+/', '', $t->Statement);
+                $Q2 = preg_replace('/[\r\n|\n|\r]+/', '', $Q);
+                if ($Q1 == $Q2) {
+                    $data['auditpru_jz'] = 'OK';
+                }
+            }
+        }
+//        echo $data['auditres_jz'];
+//        echo $data['auditpru_jz'];
+        echo json_encode($data);
+    }
+
+    private function trig_pru() {
+        $Q = <<<EOF
+BEGIN
+    SET @serial_=(SELECT valor from config_prueba where idconfig_prueba=20000+NEW.idmaquina LIMIT 1); 
+    SET @ip=(SELECT valor from config_prueba where idconfig_prueba=10000+NEW.idmaquina LIMIT 1);
+    SET @idrunt=(select valor from config_prueba where idconfig_prueba=8754 LIMIT 1);
+    SET @usuario=(SELECT CONCAT(u.nombres,' ',u.apellidos) FROM usuarios u WHERE u.idusuario=NEW.idusuario LIMIT 1);
+    SET @identificacion=(SELECT u.identificacion FROM usuarios u WHERE u.idusuario=NEW.idusuario LIMIT 1);
+    SET @placa=(SELECT v.numero_placa FROM hojatrabajo h,pruebas p,vehiculos v WHERE v.idvehiculo=h.idvehiculo AND p.idhojapruebas=h.idhojapruebas AND p.idprueba=OLD.idprueba);
+    SET @num_ejes=(SELECT v.numejes FROM hojatrabajo h,pruebas p,vehiculos v WHERE v.idvehiculo=h.idvehiculo AND p.idhojapruebas=h.idhojapruebas AND p.idprueba=OLD.idprueba);
+    SET @reinspeccion= (SELECT h.reinspeccion FROM hojatrabajo h,pruebas p,vehiculos v WHERE v.idvehiculo=h.idvehiculo AND p.idhojapruebas=h.idhojapruebas AND p.idprueba=OLD.idprueba);
+	 if((NEW.estado = 1 OR NEW.estado = 2 OR NEW.estado = 5) AND OLD.estado=0 AND DATE_FORMAT(OLD.fechainicial, '%Y%m%d')=DATE_FORMAT(NOW(), '%Y%m%d')) then
+	 	  if NEW.estado = 5 then
+		  		   SET @obs='Prueba cancelada';		  
+		  else
+		  		   SET @obs='';
+		  END if;
+		 if OLD.idtipo_prueba=1 then
+		 	INSERT INTO auditoria_sicov VALUES(NULL,OLD.idhojapruebas,@serial_,@ip,DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),1,2,862,@idrunt,
+			CONCAT('{"derBajaIntensidadValor1":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=1 AND r.observacion='baja_derecha' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","derBajaIntensidadValor2":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=2 AND r.observacion='baja_derecha' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","derBajaIntensidadValor3":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=3 AND r.observacion='baja_derecha' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","derBajaSimultaneas":"',(SELECT IFNULL((SELECT if(SUBSTRING(r.valor, 1, 1)='1','SI','NO') FROM resultados r WHERE  r.observacion='conmuLux' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","izqBajaIntensidadValor1":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=1 AND r.observacion='baja_izquierda' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","izqBajaIntensidadValor2":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=2 AND r.observacion='baja_izquierda' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","izqBajaIntensidadValor3":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=3 AND r.observacion='baja_izquierda' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","izqBajaSimultaneas":"',(SELECT IFNULL((SELECT if(SUBSTRING(r.valor, 1, 1)='1','SI','NO') FROM resultados r WHERE  r.observacion='conmuLux' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","derBajaInclinacionValor1":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=1 AND r.observacion='inclinacion_derecha' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","derBajaInclinacionValor2":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=2 AND r.observacion='inclinacion_derecha' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","derBajaInclinacionValor3":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=3 AND r.observacion='inclinacion_derecha' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","izqBajaInclinacionValor1":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=1 AND r.observacion='inclinacion_izquierda' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","izqBajaInclinacionValor2":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=2 AND r.observacion='inclinacion_izquierda' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","izqBajaInclinacionValor3":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=3 AND r.observacion='inclinacion_izquierda' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","Intensidad":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado='intensidad_total' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","derAltaIntensidadValor1":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=1 AND r.observacion='alta_derecha' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","derAltaIntensidadValor2":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=2 AND r.observacion='alta_derecha' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","derAltaIntensidadValor3":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=3 AND r.observacion='alta_derecha' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","derAltasSimultaneas":"',(SELECT IFNULL((SELECT if(SUBSTRING(r.valor, 2, 1)='1','SI','NO') FROM resultados r WHERE  r.observacion='conmuLux' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","izqAltaIntesidadValor1":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=1 AND r.observacion='alta_izquierda' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","izqAltaIntesidadValor2":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=2 AND r.observacion='alta_izquierda' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","izqAltaIntesidadValor3":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=3 AND r.observacion='alta_izquierda' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","izqAltasSimultaneas":"',(SELECT IFNULL((SELECT if(SUBSTRING(r.valor, 2, 1)='1','SI','NO') FROM resultados r WHERE  r.observacion='conmuLux' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","derExplorardorasValor1":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=1 AND r.observacion='antis_derecha' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","derExplorardorasValor2":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=2 AND r.observacion='antis_derecha' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","derExplorardorasValor3":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=3 AND r.observacion='antis_derecha' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","derExploradorasSimultaneas":"',(SELECT IFNULL((SELECT if(SUBSTRING(r.valor, 3, 1)='1','SI','NO') FROM resultados r WHERE  r.observacion='conmuLux' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","izqExplorardorasValor1":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=1 AND r.observacion='antis_izquierda' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","izqExplorardorasValor2":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=2 AND r.observacion='antis_izquierda' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","izqExplorardorasValor3":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=3 AND r.observacion='antis_izquierda' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","izqExploradorasSimultaneas":"',(SELECT IFNULL((SELECT if(SUBSTRING(r.valor, 3, 1)='1','SI','NO') FROM resultados r WHERE  r.observacion='conmuLux' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","tablaAfectada":"resultados","idRegistro":"',NEW.idprueba,'"}'),@usuario,@identificacion,@obs,@placa);
+		 end if;		 
+		 if OLD.idtipo_prueba=2 OR OLD.idtipo_prueba=3 then
+		   if OLD.idtipo_prueba=3 then
+		 		   SET @temperaturaAmbiente = (SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.observacion='temperatura_ambiente' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+		 		   SET @humedadRelativa = (SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.observacion='humedad' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+ 		 	      SET @catalizador = (SELECT  if(v.scooter=1 AND v.tipo_vehiculo<>3,'SI','NO') FROM hojatrabajo h,pruebas p,vehiculos v WHERE v.idvehiculo=h.idvehiculo AND p.idhojapruebas=h.idhojapruebas AND p.idprueba=OLD.idprueba);
+ 		 	      if @catalizador='SI' then
+     		 	      SET @temperatura = '0';
+ 		 	      ELSE
+     		 	      SET @temperatura = (SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.observacion='temperatura_aceite' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+ 		 	      END IF;
+		 	      SET @temperaturaInicial = '';
+				   SET @temperaturaFinal = '';
+	   		   SET @diametro_escape = '';
+		 		   IF (SELECT COUNT(*) FROM resultados r WHERE r.idprueba=NEW.idprueba and r.valor = 'DILUSION EXCESIVA' and r.tiporesultado = 'observaciones' LIMIT 1)>0 then
+			 		   SET @dilucion = 'true';
+	   		 	ELSE
+			 		   SET @dilucion = 'false';
+		 	      END IF;
+		 	ELSE
+		 			SET @temperaturaAmbiente = (SELECT IFNULL((SELECT valor FROM resultados r WHERE r.idconfig_prueba=200 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+		 		   SET @humedadRelativa = (SELECT IFNULL((SELECT valor FROM resultados r WHERE r.idconfig_prueba=201 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+		 		   SET @temperaturaInicialTMP = (SELECT IFNULL((SELECT valor FROM resultados r WHERE r.idconfig_prueba=224 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+		 		   SET @temperaturaFinalTMP = (SELECT IFNULL((SELECT valor FROM resultados r WHERE r.idconfig_prueba=39 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+  		 	      SET @diametro_escape = (SELECT v.diametro_escape FROM hojatrabajo h,pruebas p,vehiculos v WHERE v.idvehiculo=h.idvehiculo AND p.idhojapruebas=h.idhojapruebas AND p.idprueba=OLD.idprueba);
+  		 	      SET @temperatura = '';
+       		   SET @catalizador = '';
+      		   SET @dilucion = '';
+		 		   if @temperaturaFinalTMP < @temperaturaInicialTMP then
+		 		   	SET @temperaturaInicial = @temperaturaFinalTMP;
+		 		   	SET @temperaturaFinal = @temperaturaInicialTMP;
+		 		   ELSE
+		 		   	SET @temperaturaInicial = @temperaturaInicialTMP;
+		 		   	SET @temperaturaFinal = @temperaturaFinalTMP;
+		 	      END if;
+		 	END if;
+		 	INSERT INTO auditoria_sicov VALUES(NULL,OLD.idhojapruebas,@serial_,@ip,DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),1,1,862,@idrunt,
+			CONCAT('{"temperaturaAmbiente":"',@temperaturaAmbiente,'","rpmRalenti":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.observacion='rpm_ralenti' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","tempRalenti":"',@temperatura,'","humedadRelativa":"',@humedadRelativa,'","velocidadGobernada0":"',(SELECT IFNULL((SELECT valor - (valor % 10) FROM resultados r WHERE r.idconfig_prueba=41 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'", "velocidadGobernada1":"',(SELECT IFNULL((SELECT valor - (valor % 10) FROM resultados r WHERE r.idconfig_prueba=63 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","velocidadGobernada2":"',(SELECT IFNULL((SELECT valor - (valor % 10) FROM resultados r WHERE r.idconfig_prueba=64 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","velocidadGobernada3":"',(SELECT IFNULL((SELECT valor - (valor % 10) FROM resultados r WHERE r.idconfig_prueba=65 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","opacidad0":"',(SELECT IFNULL((SELECT valor FROM resultados r WHERE r.idconfig_prueba=34 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","opacidad1":"',(SELECT IFNULL((SELECT valor FROM resultados r WHERE r.idconfig_prueba=35 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","opacidad2":"',(SELECT IFNULL((SELECT valor FROM resultados r WHERE r.idconfig_prueba=36 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","opacidad3":"',(SELECT IFNULL((SELECT valor FROM resultados r WHERE r.idconfig_prueba=37 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","valorFinal":"',(SELECT IFNULL((SELECT valor FROM resultados r WHERE r.idconfig_prueba=61 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","temperaturaInicial":"',@temperaturaInicial,'","temperaturaFinal":"',@temperaturaFinal,'","LTOEStandar":"',@diametro_escape,'","HCRalenti":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.observacion='hc_ralenti' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","CORalenti":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.observacion='co_ralenti' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","CO2Ralenti":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.observacion='co2_ralenti' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","O2Ralenti":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.observacion='o2_ralenti' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","rpmCrucero":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.observacion='rpm_crucero' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","HCCrucero":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.observacion='hc_crucero' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","COCrucero":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.observacion='co_crucero' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","CO2Crucero":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.observacion='co2_crucero' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","O2Crucero":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.observacion='o2_crucero' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","dilucion":"',@dilucion,'","catalizador":"',@catalizador,'","temperaturaPrueba":"',@temperatura,'","tablaAfectada":"resultados","idRegistro":"',NEW.idprueba,'"}'),@usuario,@identificacion,@obs,@placa);	    
+		 end if;	    
+		 if OLD.idtipo_prueba=4 then
+		 	INSERT INTO auditoria_sicov VALUES(NULL,OLD.idhojapruebas,@serial_,@ip,DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),1,3,862,@idrunt,
+			CONCAT('{"ruidoEscape":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado='valor_ruido_motor1' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","tablaAfectada":"resultados","idRegistro":"',NEW.idprueba,'"}'),@usuario,@identificacion,@obs,@placa);
+	    end if;	 					
+		 if OLD.idtipo_prueba=6 then
+		 	INSERT INTO auditoria_sicov VALUES(NULL,OLD.idhojapruebas,@serial_,@ip,DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),1,8,862,@idrunt,
+			CONCAT('{"refComericalLLanta":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado='Rllanta' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","errorDistancia":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado='error_distancia_nuevo' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","errorTiempo":"',(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado='error_tiempo_nuevo' AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),'')),'","tablaAfectada":"resultados","idRegistro":"',NEW.idprueba,'"}'),@usuario,@identificacion,@obs,@placa);
+	    end if;	 				 	
+		 if OLD.idtipo_prueba=7 then
+		   SET @numEjes=(SELECT v.numejes FROM hojatrabajo h,pruebas p,vehiculos v WHERE v.idvehiculo=h.idvehiculo AND p.idhojapruebas=h.idhojapruebas AND p.idprueba=OLD.idprueba); 
+		   SET @eficaciaTotal=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.idconfig_prueba=151 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+		   SET @eficaciaAuxiliar=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.idconfig_prueba=152 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+		   SET @fuerzaEje1Izquierdo=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=1 AND r.idconfig_prueba=149 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+			SET @pesoEje1Izquierdo=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=1 AND r.idconfig_prueba=147 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),IFNULL((SELECT r.valor FROM resultados r,pruebas p WHERE p.idprueba=r.idprueba AND p.idhojapruebas=NEW.idhojapruebas AND p.idtipo_prueba=9 AND r.tiporesultado=1 AND r.idconfig_prueba=147 ORDER BY r.idprueba DESC LIMIT 1),'')));
+			SET @fuerzaEje1Derecho=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=1 AND r.idconfig_prueba=148 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+			SET @pesoEje1Derecho=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=1 AND r.idconfig_prueba=146 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),IFNULL((SELECT r.valor FROM resultados r,pruebas p WHERE p.idprueba=r.idprueba AND p.idhojapruebas=NEW.idhojapruebas AND p.idtipo_prueba=9 AND r.tiporesultado=1 AND r.idconfig_prueba=146 ORDER BY r.idprueba DESC LIMIT 1),'')));
+			SET @eje1Desequilibrio=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=1 AND r.idconfig_prueba=150 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+			SET @fuerzaEje2Izquierdo=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=2 AND r.idconfig_prueba=149 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+			SET @pesoEje2Izquierdo=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=2 AND r.idconfig_prueba=147 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),IFNULL((SELECT r.valor FROM resultados r,pruebas p WHERE p.idprueba=r.idprueba AND p.idhojapruebas=NEW.idhojapruebas AND p.idtipo_prueba=9 AND r.tiporesultado=2 AND r.idconfig_prueba=147 ORDER BY r.idprueba DESC LIMIT 1),'')));
+			SET @fuerzaEje2Derecho=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=2 AND r.idconfig_prueba=148 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+			SET @pesoEje2Derecho=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=2 AND r.idconfig_prueba=146 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),IFNULL((SELECT r.valor FROM resultados r,pruebas p WHERE p.idprueba=r.idprueba AND p.idhojapruebas=NEW.idhojapruebas AND p.idtipo_prueba=9 AND r.tiporesultado=2 AND r.idconfig_prueba=146 ORDER BY r.idprueba DESC LIMIT 1),'')));
+			SET @eje2Desequilibrio=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=2 AND r.idconfig_prueba=150 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+			SET @fuerzaEje3Izquierdo=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=3 AND r.idconfig_prueba=149 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+			SET @pesoEje3Izquierdo=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=3 AND r.idconfig_prueba=147 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),IFNULL((SELECT r.valor FROM resultados r,pruebas p WHERE p.idprueba=r.idprueba AND p.idhojapruebas=NEW.idhojapruebas AND p.idtipo_prueba=9 AND r.tiporesultado=3 AND r.idconfig_prueba=147 ORDER BY r.idprueba DESC LIMIT 1),'')));
+			SET @fuerzaEje3Derecho=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=3 AND r.idconfig_prueba=148 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+			SET @pesoEje3Derecho=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=3 AND r.idconfig_prueba=146 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),IFNULL((SELECT r.valor FROM resultados r,pruebas p WHERE p.idprueba=r.idprueba AND p.idhojapruebas=NEW.idhojapruebas AND p.idtipo_prueba=9 AND r.tiporesultado=3 AND r.idconfig_prueba=146 ORDER BY r.idprueba DESC LIMIT 1),'')));
+			SET @eje3Desequilibrio=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=3 AND r.idconfig_prueba=150 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+			SET @fuerzaEje4Izquierdo=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=4 AND r.idconfig_prueba=149 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+			SET @pesoEje4Izquierdo=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=4 AND r.idconfig_prueba=147 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),IFNULL((SELECT r.valor FROM resultados r,pruebas p WHERE p.idprueba=r.idprueba AND p.idhojapruebas=NEW.idhojapruebas AND p.idtipo_prueba=9 AND r.tiporesultado=4 AND r.idconfig_prueba=147 ORDER BY r.idprueba DESC LIMIT 1),'')));
+			SET @fuerzaEje4Derecho=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=4 AND r.idconfig_prueba=148 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+			SET @pesoEje4Derecho=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=4 AND r.idconfig_prueba=146 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),IFNULL((SELECT r.valor FROM resultados r,pruebas p WHERE p.idprueba=r.idprueba AND p.idhojapruebas=NEW.idhojapruebas AND p.idtipo_prueba=9 AND r.tiporesultado=4 AND r.idconfig_prueba=146 ORDER BY r.idprueba DESC LIMIT 1),'')));
+			SET @eje4Desequilibrio=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=4 AND r.idconfig_prueba=150 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+			SET @fuerzaEje5Izquierdo=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=5 AND r.idconfig_prueba=149 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+			SET @pesoEje5Izquierdo=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=5 AND r.idconfig_prueba=147 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),IFNULL((SELECT r.valor FROM resultados r,pruebas p WHERE p.idprueba=r.idprueba AND p.idhojapruebas=NEW.idhojapruebas AND p.idtipo_prueba=9 AND r.tiporesultado=5 AND r.idconfig_prueba=147 ORDER BY r.idprueba DESC LIMIT 1),'')));
+			SET @fuerzaEje5Derecho=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=5 AND r.idconfig_prueba=148 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+			SET @pesoEje5Derecho=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=5 AND r.idconfig_prueba=146 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),IFNULL((SELECT r.valor FROM resultados r,pruebas p WHERE p.idprueba=r.idprueba AND p.idhojapruebas=NEW.idhojapruebas AND p.idtipo_prueba=9 AND r.tiporesultado=5 AND r.idconfig_prueba=146 ORDER BY r.idprueba DESC LIMIT 1),'')));
+			SET @eje5Desequilibrio=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=5 AND r.idconfig_prueba=150 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+			SET @fuerzaEje6Izquierdo=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=6 AND r.idconfig_prueba=149 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+			SET @pesoEje6Izquierdo=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=6 AND r.idconfig_prueba=147 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),IFNULL((SELECT r.valor FROM resultados r,pruebas p WHERE p.idprueba=r.idprueba AND p.idhojapruebas=NEW.idhojapruebas AND p.idtipo_prueba=9 AND r.tiporesultado=6 AND r.idconfig_prueba=147 ORDER BY r.idprueba DESC LIMIT 1),'')));
+			SET @fuerzaEje6Derecho=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=6 AND r.idconfig_prueba=148 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+			SET @pesoEje6Derecho=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=6 AND r.idconfig_prueba=146 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),IFNULL((SELECT r.valor FROM resultados r,pruebas p WHERE p.idprueba=r.idprueba AND p.idhojapruebas=NEW.idhojapruebas AND p.idtipo_prueba=9 AND r.tiporesultado=6 AND r.idconfig_prueba=146 ORDER BY r.idprueba DESC LIMIT 1),'')));
+			SET @eje6Desequilibrio=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=6 AND r.idconfig_prueba=150 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+			SET @derFuerzaAuxiliar=(SELECT IFNULL((SELECT sum(r.valor) FROM resultados r WHERE r.tiporesultado>@numEjes AND r.idprueba=NEW.idprueba AND r.idconfig_prueba=148 GROUP BY r.idconfig_prueba ORDER BY 1 DESC),''));
+			SET @derFuerzaPeso=@pesoEje1Derecho + @pesoEje2Derecho + @pesoEje3Derecho + @pesoEje4Derecho + @pesoEje5Derecho + @pesoEje6Derecho;
+			SET @izqFuerzaAuxiliar=(SELECT IFNULL((SELECT sum(r.valor) FROM resultados r WHERE r.tiporesultado>@numEjes AND r.idprueba=NEW.idprueba AND r.idconfig_prueba=149 GROUP BY r.idconfig_prueba ORDER BY 1 DESC),''));
+			SET @izqFuerzaPeso=@pesoEje1Izquierdo + @pesoEje2Izquierdo + @pesoEje3Izquierdo + @pesoEje4Izquierdo + @pesoEje5Izquierdo + @pesoEje6Izquierdo;
+		 	INSERT INTO auditoria_sicov VALUES(NULL,OLD.idhojapruebas,@serial_,@ip,DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),1,4,862,@idrunt,
+			CONCAT('{"eficaciaTotal":"',@eficaciaTotal,'","eficaciaAuxiliar":"',@eficaciaAuxiliar,'","fuerzaEje1Izquierdo":"',@fuerzaEje1Izquierdo,'","pesoEje1Izquierdo":"',@pesoEje1Izquierdo,'","fuerzaEje1Derecho":"',@fuerzaEje1Derecho,'","pesoEje1Derecho":"',@pesoEje1Derecho,'","eje1Desequilibrio":"',@eje1Desequilibrio,'","fuerzaEje2Izquierdo":"',@fuerzaEje2Izquierdo,'","pesoEje2Izquierdo":"',@pesoEje2Izquierdo,'","fuerzaEje2Derecho":"',@fuerzaEje2Derecho,'","pesoEje2Derecho":"',@pesoEje2Derecho,'","eje2Desequilibrio":"',@eje2Desequilibrio,'","fuerzaEje3Izquierdo":"',@fuerzaEje3Izquierdo,'","pesoEje3Izquierdo":"',@pesoEje3Izquierdo,'","fuerzaEje3Derecho":"',@fuerzaEje3Derecho,'","pesoEje3Derecho":"',@pesoEje3Derecho,'","eje3Desequilibrio":"',@eje3Desequilibrio,'","fuerzaEje4Izquierdo":"',@fuerzaEje4Izquierdo,'","pesoEje4Izquierdo":"',@pesoEje4Izquierdo,'","fuerzaEje4Derecho":"',@fuerzaEje4Derecho,'","pesoEje4Derecho":"',@pesoEje4Derecho,'","eje4Desequilibrio":"',@eje4Desequilibrio,'","fuerzaEje5Izquierdo":"',@fuerzaEje5Izquierdo,'","pesoEje5Izquierdo":"',@pesoEje5Izquierdo,'","fuerzaEje5Derecho":"',@fuerzaEje5Derecho,'","pesoEje5Derecho":"',@pesoEje5Derecho,'","eje5Desequilibrio":"',@eje5Desequilibrio,'","fuerzaEje6Izquierdo":"',@fuerzaEje6Izquierdo,'","pesoEje6Izquierdo":"',@pesoEje6Izquierdo,'","fuerzaEje6Derecho":"',@fuerzaEje6Derecho,'","pesoEje6Derecho":"',@pesoEje6Derecho,'","eje6Desequilibrio":"',@eje6Desequilibrio,'","derFuerzaAuxiliar":"',@derFuerzaAuxiliar,'","derFuerzaPeso":"',@derFuerzaPeso,'","izqFuerzaAuxiliar":"',@izqFuerzaAuxiliar,'","izqFuerzaPeso":"',@izqFuerzaPeso,'","tablaAfectada":"resultados","idRegistro":"',NEW.idprueba,'"}'),@usuario,@identificacion,@obs,@placa);
+		end if;	 				 			 
+		if OLD.idtipo_prueba=8 then
+			SET @Observaciones=(SELECT CONCAT(IFNULL((SELECT GROUP_CONCAT(r.observacion SEPARATOR '_') FROM resultados r WHERE r.idprueba=NEW.idprueba AND r.tiporesultado='defecto' AND r.observacion<>''),''),'_',IFNULL((SELECT r.valor FROM resultados r  WHERE r.idprueba=NEW.idprueba AND r.tiporesultado='COMENTARIOSADICIONALES'),'')));
+			SET @CodigoRechazo=(SELECT IFNULL((SELECT GROUP_CONCAT(r.valor SEPARATOR '_') FROM resultados r WHERE r.idprueba=NEW.idprueba AND r.tiporesultado='defecto'),''));
+		   INSERT INTO auditoria_sicov VALUES(NULL,OLD.idhojapruebas,@serial_,@ip,DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),1,7,862,@idrunt,
+			CONCAT('{"Observaciones":"',@Observaciones,'","CodigoRechazo":"',@CodigoRechazo,'","tablaAfectada":"resultados","idRegistro":"',NEW.idprueba,'"}'),@usuario,@identificacion,'',@placa);			
+	    end if;	 				 	
+		 if OLD.idtipo_prueba=9 then
+		   SET @suspIzqEje1=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.idconfig_prueba=143 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+		   SET @suspIzqEje2=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.idconfig_prueba=145 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+		   SET @susPDerEje1=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.idconfig_prueba=142 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+         SET @susPDerEje2=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.idconfig_prueba=144 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+		   INSERT INTO auditoria_sicov VALUES(NULL,OLD.idhojapruebas,@serial_,@ip,DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),1,6,862,@idrunt,
+			CONCAT('{"suspIzqEje1":"',@suspIzqEje1,'","suspIzqEje2":"',@suspIzqEje2,'","susPDerEje1":"',@susPDerEje1,'","susPDerEje2":"',@susPDerEje2,'","tablaAfectada":"resultados","idRegistro":"',NEW.idprueba,'"}'),@usuario,@identificacion,@obs,@placa);
+	    end if;	 				 	
+		 if OLD.idtipo_prueba=10 then
+		   SET @desviacionLateraleje1=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=1 AND r.idconfig_prueba=141 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+		   SET @desviacionLateraleje2=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=2 AND r.idconfig_prueba=141 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+		   SET @desviacionLateraleje3=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=3 AND r.idconfig_prueba=141 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+         SET @desviacionLateraleje4=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=4 AND r.idconfig_prueba=141 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+         SET @desviacionLateraleje5=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=5 AND r.idconfig_prueba=141 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+         SET @desviacionLateraleje6=(SELECT IFNULL((SELECT r.valor FROM resultados r WHERE r.tiporesultado=6 AND r.idconfig_prueba=141 AND r.idprueba=NEW.idprueba ORDER BY r.idprueba DESC LIMIT 1),''));
+		   INSERT INTO auditoria_sicov VALUES(NULL,OLD.idhojapruebas,@serial_,@ip,DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),1,5,862,@idrunt,
+			CONCAT('{"desviacionLateraleje1":"',@desviacionLateraleje1,'","desviacionLateraleje2":"',@desviacionLateraleje2,'","desviacionLateraleje3":"',@desviacionLateraleje3,'","desviacionLateraleje4":"',@desviacionLateraleje4,'","desviacionLateraleje5":"',@desviacionLateraleje5,'","desviacionLateraleje6":"',@desviacionLateraleje6,'","tablaAfectada":"resultados","idRegistro":"',NEW.idprueba,'"}'),@usuario,@identificacion,@obs,@placa);
+	    end if;
+    end if;
+    
+	 if(((OLD.estado = 1 OR OLD.estado = 2 OR OLD.estado = 5) AND NEW.estado=0 AND DATE_FORMAT(OLD.fechainicial, '%Y%m%d')=DATE_FORMAT(NOW(), '%Y%m%d') AND
+	   (SELECT COUNT(*) FROM resultados WHERE idprueba=OLD.idprueba)>0) OR OLD.fechainicial<>NEW.fechainicial)  then
+		   SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Operacion no permitida';
+	 else
+	 	if NEW.estado = 0 then
+	 	 SET @obs='Prueba reasignada para repetir.';
+	    SET @serial_=(SELECT valor from config_prueba where idconfig_prueba=20000+OLD.idmaquina LIMIT 1);
+	    SET @ip=(SELECT valor from config_prueba where idconfig_prueba=10000+OLD.idmaquina LIMIT 1);
+   	 SET @usuario=(SELECT CONCAT(u.nombres,' ',u.apellidos) FROM usuarios u WHERE u.idusuario=OLD.idusuario LIMIT 1);
+	    SET @identificacion=(SELECT u.identificacion FROM usuarios u WHERE u.idusuario=OLD.idusuario LIMIT 1);
+	 	 if OLD.idtipo_prueba=1 then
+		 	INSERT INTO auditoria_sicov VALUES(NULL,OLD.idhojapruebas,@serial_,@ip,DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),3,2,862,@idrunt,
+			CONCAT('{"derBajaIntensidadValor1":"","derBajaIntensidadValor2":"","derBajaIntensidadValor3":"","derBajaSimultaneas":"","izqBajaIntensidadValor1":"","izqBajaIntensidadValor2":"","izqBajaIntensidaValor3":"","IzqBajaSimultaneas":"","derBajaInclinacionValor1":"","derBajaInclinacionValor2":"","derBajaInclinacionValor3":"","izqBajaInclinacionValor1":"","izqBajaInclinacionValor2":"","izqBajaInclinacionValor3":"","sumatoriaIntensidad":"","derAltaIntensidadValor1":"","derAltaIntensidadValor2":"","derAltaIntensidadValor3":"","derAltasSimultaneas":"","izqAltaIntesidadValor1":"","izqAltaIntesidadValor2":"","izqAltaIntesidadValor3":"","izqAltasSimultaneas":"","derExplorardorasValor1":"","derExplorardorasValor2":"","derExplorardorasValor3":"","derExploradorasSimultaneas":"","izqExplorardorasValor1":"","izqExplorardorasValor2":"","izqExplorardorasValor3":"","izqExploradorasSimultaneas":"","tablaAfectada":"resultados","idRegistro":"',NEW.idprueba,'"}'),@usuario,@identificacion,@obs,@placa);
+		 end if;
+	 	 if OLD.idtipo_prueba=2 OR OLD.idtipo_prueba=3 then
+		 	INSERT INTO auditoria_sicov VALUES(NULL,OLD.idhojapruebas,@serial_,@ip,DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),3,1,862,@idrunt,
+			CONCAT('{"temperaturaAmbiente":"","rpmRalenti":"","tempRalenti":"","humedadRelativa":"","velocidadGobernada0":"","velocidadGobernada1":"","velocidadGobernada2":"","velocidadGobernada3":"","opacidad0":"","opacidad1":"","opacidad2":"","opacidad3":"","valorFinal":"","temperaturaInicial":"","temperaturaFinal":"","LTOEStandar":"","HCRalenti":"","CORalenti":"","CO2Ralenti":"","O2Ralenti":"","rpmCrucero":"","HCCrucero":"","COCrucero":"","CO2Crucero":"","O2Crucero":"","dilucion":"","catalizador":"","temperaturaPrueba":"","tablaAfectada":"resultados","idRegistro":"',NEW.idprueba,'"}'),@usuario,@identificacion,@obs,@placa);
+		 end if;
+	 	 if OLD.idtipo_prueba=4 then
+		 	INSERT INTO auditoria_sicov VALUES(NULL,OLD.idhojapruebas,@serial_,@ip,DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),3,3,862,@idrunt,
+			CONCAT('{"ruidoEscape":"","tablaAfectada":"resultados","idRegistro":"',NEW.idprueba,'"}'),@usuario,@identificacion,@obs,@placa);
+		 end if;
+	 	 if OLD.idtipo_prueba=6 then
+		 	INSERT INTO auditoria_sicov VALUES(NULL,OLD.idhojapruebas,@serial_,@ip,DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),3,8,862,@idrunt,
+			CONCAT('{"refComericalLLanta":"","errorDistancia":"","errorTiempo":"","tablaAfectada":"resultados","idRegistro":"',NEW.idprueba,'"}'),@usuario,@identificacion,@obs,@placa);
+		 end if;
+	 	 if OLD.idtipo_prueba=7 then
+		 	INSERT INTO auditoria_sicov VALUES(NULL,OLD.idhojapruebas,@serial_,@ip,DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),3,4,862,@idrunt,
+			CONCAT('{"refComericalLLanta":"","errorDistancia":"","errorTiempo":"","tablaAfectada":"resultados","idRegistro":"',NEW.idprueba,'"}'),@usuario,@identificacion,@obs,@placa);
+		 end if;
+	 	 if OLD.idtipo_prueba=8 then
+		 	INSERT INTO auditoria_sicov VALUES(NULL,OLD.idhojapruebas,@serial_,@ip,DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),3,7,862,@idrunt,
+			CONCAT('{"Observaciones":"","CodigoRechazo":"","tablaAfectada":"resultados","idRegistro":"',NEW.idprueba,'"}'),@usuario,@identificacion,@obs,@placa);
+		 end if;
+	 	 if OLD.idtipo_prueba=9 then
+		 	INSERT INTO auditoria_sicov VALUES(NULL,OLD.idhojapruebas,@serial_,@ip,DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),3,6,862,@idrunt,
+			CONCAT('{"suspIzqEje1":"","suspIzqEje2":"","susPDerEje1":"","susPDerEje2":"","tablaAfectada":"resultados","idRegistro":"',NEW.idprueba,'"}'),@usuario,@identificacion,@obs,@placa);
+		 end if;
+	 	 if OLD.idtipo_prueba=10 then
+		 	INSERT INTO auditoria_sicov VALUES(NULL,OLD.idhojapruebas,@serial_,@ip,DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),DATE_FORMAT(NOW(), '%Y/%m/%d %H:%i:%s'),3,5,862,@idrunt,
+			CONCAT('{"desviacionLateraleje1":"","desviacionLateraleje2":"","desviacionLateraleje3":"","desviacionLateraleje4":"","desviacionLateraleje5":"","desviacionLateraleje6":"","tablaAfectada":"resultados","idRegistro":"',NEW.idprueba,'"}'),@usuario,@identificacion,@obs,@placa);
+		 end if;
+	 	END if;
+    end if;
+END
+EOF;
+        return $Q;
+    }
+
+}
