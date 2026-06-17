@@ -1,1005 +1,241 @@
-<!DOCTYPE html>
-<html class=" ">
-
-<head>
-
-    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-    <meta charset="utf-8" />
-    <title>VEHICULO EN PISTA</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta content="" name="description" />
-    <meta content="" name="author" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-    <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png" type="image/x-icon" /> <!-- Favicon -->
-    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-57-precomposed.png"> <!-- For iPhone -->
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-114-precomposed.png"> <!-- For iPhone 4 Retina display -->
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-72-precomposed.png"> <!-- For iPad -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url(); ?>assets/images/apple-touch-icon-144-precomposed.png"> <!-- For iPad Retina display -->
-
-    <!-- CORE CSS FRAMEWORK - START -->
-    <link href="<?php echo base_url(); ?>assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen" />
-    <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <!-- <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/> -->
-    <link href="<?php echo base_url(); ?>assets/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/css/animate.min.css" rel="stylesheet" type="text/css" />
-    <!-- CORE CSS FRAMEWORK - END -->
-
-    <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - START -->
-
-
-    <link href="<?php echo base_url(); ?>assets/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css" media="screen" />
-
-    <!-- HEADER SCRIPTS INCLUDED ON THIS PAGE - END -->
-
-
-    <!-- CORE CSS TEMPLATE - START -->
-    <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url(); ?>assets/css/responsive.css" rel="stylesheet" type="text/css" />
-    <!-- CORE CSS TEMPLATE - END -->
-
-</head>
-<!-- END HEAD -->
-
-<!-- BEGIN BODY -->
-
-<body class="login_page" style="background: white">
-
-    <div class="col-xl-12">
-        <section class="box ">
-            <div class="content-body" style="background: lightyellow">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-12">
-                        <section class="box ">
-                            <form action="<?php echo base_url(); ?>index.php/oficina/CGestion" method="post">
-                                <input name="button" class="btn btn-accent btn-block" style="width: 100px;background: #393185" type="submit" value="Atras" />
-                            </form>
-                            <header class="panel_header">
-                                <h2 class="title float-left">Vehiculo en pista</h2>
-                            </header>
-                            <div class="content-body">
-                                <input id="idhojapruebas" value="<?php echo $dato; ?>" type="hidden" />
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Id control</th>
-                                            <th>Placa</th>
-                                            <th>Ocasión</th>
-                                            <th>Pruebas pendientes</th>
-                                            <th>FUR</th>
-                                            <th>Tamaño Hoja</th>
-                                            <th>Medio</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <?php
-                                                echo $idhojapruebas;
-                                                ?>
-                                            </td>
-                                            <td>
-                                                <?php
-                                                echo $placaR[0]->placa;
-                                                ?>
-                                            </td>
-                                            <td>
-                                                <?php
-                                                echo $ocacion;
-                                                ?>
-                                            </td>
-                                            <td>
-                                                <?php
-                                                $pruebas = "";
-                                                foreach ($pendientes as $pp) {
-                                                    $pruebas = $pruebas . $pp->nombre . " <strong>|</strong> ";
-                                                }
-                                                echo $pruebas;
-                                                ?>
-                                            </td>
-                                            <form action="<?php echo base_url(); ?>index.php/oficina/fur/CFUR" method="post" style="width: 100px;text-align: center">
-                                                <td>
-                                                    <button name="dato" class="btn btn-accent btn-block" value="<?php echo $dato; ?>" type="submit" formtarget="_blank" style="border-radius: 40px 40px 40px 40px;font-size: 14px;background-color: #393185">Ver</button>
-                                                </td>
-                                                <td>
-                                                    <select name="tamano" class="form-control input-lg m-bot15">
-                                                        <option value="oficio" selected>Oficio</option>
-                                                        <option value="carta">Carta</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <select name="medio" id="medioSelect" class="form-control input-lg m-bot15" onchange="guardarMedio()">
-                                                        <option value="0" selected>Impreso</option>
-                                                        <option value="1">Digital</option>
-                                                    </select>
-                                                </td>
-                                            </form>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                                <div style="text-align: center">
-                                    <input class="btn btn-info btn-block" type="button" id="btnPresionInflado" style="border-radius: 40px 40px 40px 40px;font-size: 20px;width: 300px" value="⏲ Presión de inflado" data-toggle='modal' data-target='#presionLlantas' /><br>
-                                </div>
-                                <section class="box ">
-                                    <?php $this->load->view('oficina/gestion/Nav-conf-prueba'); ?>
-                                    <div id="RasignacionI">
-                                        <header class="panel_header">
-                                            <h2 class="title float-left">Reasignacion individual</h2>
-                                        </header>
-                                        <div class="content-body">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Id</th>
-                                                                <th>Estado</th>
-                                                                <th>Fecha inicial</th>
-                                                                <th>Fecha final</th>
-                                                                <th>Tipo ins</th>
-                                                                <th>Opciones</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <?php foreach ($placaR as $value): ?>
-                                                                    <td><?= $value->idhojapruebas ?></td>
-                                                                    <td><?= $value->estado ?></td>
-                                                                    <td><?= $value->fechainicial ?></td>
-                                                                    <td><?= $value->fechafinal ?></td>
-                                                                    <td><?= $value->tipoins ?></td>
-                                                                    <td>
-                                                                        <input type="hidden" name="idhojapruebas" id="idhojapruebasR" value="<?= $value->idhojapruebas ?>">
-                                                                        <input type="hidden" name="fechainicial" id="fechainicial" value="<?= $value->pfechainicial ?>">
-                                                                        <input type="hidden" name="reinspeccion" id="reinspeccion" value="<?= $value->reinspeccion ?>">
-                                                                        <input type="submit" name="consultar" id="btn-buscar-pruebas" class="btn btn-primary" style="background-color: #393185;border-radius: 40px 40px 40px 40px" value="Buscar">
-                                                                    </td>
-                                                                <?php endforeach; ?>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="content-body" id="div-pruebas" style="display: none">
-                                            <header class="panel_header">
-                                                <div style="float: left; font-size: 1.57em">Pruebas</div>
-                                                <div id="val-razon" style="color: red; text-align: center;"></div>
-                                            </header>
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <!--                                                    <div class="form-group row" >
-                                                                                                                <label  class="col-sm-4 col-form-label" style="font-weight: bold; color: black;text-align: center">Razón de la reasignación:</label>
-                                                                                                                <input type="text" class="mx-sm-4" id="razon-reasignacion">
-                                                                                                                
-                                                                                                            </div>-->
-
-                                                    <table class="table table-bordered" id="table-rea-prueba">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Id</th>
-                                                                <th>Fecha inicial</th>
-                                                                <th>Estado</th>
-                                                                <th>Fecha final</th>
-                                                                <th>Tipo prueba</th>
-                                                                <th>Opciones</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="pinEstado" style="display: none; position: absolute">
-                                        <header class="panel_header">
-                                            <h2 class="title float-left">Cambiar pin y estado</h2>
-                                        </header>
-                                        <div class="content-body">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <!--<form action="<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/updateEstadoPin" method="post">-->
-                                                    <div id="div-rest-estado"></div>
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Placa</th>
-                                                                <th>Estado</th>
-                                                                <th>Fecha inicial</th>
-                                                                <th>Tipo ins</th>
-                                                                <th>Pin</th>
-                                                                <th>Opciones</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <?php foreach ($placaR as $value): ?>
-                                                                    <td><?= $value->placa ?></td>
-                                                                    <td><label style="padding-left: 0px" id="label-estado">
-                                                                            <input type="checkbox" style="transform: scale(1.0)" class="skin-square-blue rta" id="estado"><label style="padding-left: 15px"><?= $value->estado ?></label></label>
-                                                                        <div style="display: none" id="select-estado">
-                                                                            <input type="checkbox" style="transform: scale(1.0)" class="skin-square-blue rta2" id="estado" checked="">
-                                                                            <select name="estado" id="estadoP">
-                                                                                <option></option>
-                                                                                <option value="1">Asignado</option>
-                                                                                <option value="2">Aprobado</option>
-                                                                                <option value="3">Rechazado</option>
-                                                                                <option value="4">Certificado</option>
-                                                                                <option value="5">Abortado</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td><?= $value->fechainicial ?></td>
-                                                                    <td><?= $value->tipoins ?></td>
-                                                                    <td><input type="number" id="pin" name="pin" value="<?= $value->pin ?>"></td>
-                                                                    <td>
-                                                                        <input type="hidden" name="idhojapruebasR" id="idhojapruebasR" value="<?= $value->idhojapruebas ?>">
-                                                                        <input type="submit" name="consultar" id="btn-pin-estado" class="btn btn-primary" style="background-color: #393185;border-radius: 40px 40px 40px 40px" value="Guardar">
-                                                                    </td>
-                                                                <?php endforeach; ?>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <!--</form>-->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="reconfPrueba" style="display: none; position: absolute">
-                                        <header class="panel_header">
-                                            <h2 class="title float-left">Reconfigurar vehiculos y pruebas</h2>
-                                        </header>
-                                        <div class="content-body">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div id="div-reconf-prueba"></div>
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Placa</th>
-                                                                <th>Estado</th>
-                                                                <th>Tipo vehiculo</th>
-                                                                <th>Fecha inicial</th>
-                                                                <th>Tipo ins</th>
-                                                                <th>Reconfigurar</th>
-                                                                <th>Opciones</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <?php foreach ($placaR as $value): ?>
-                                                                    <td><?= $value->placa ?></td>
-                                                                    <td><?= $value->estado ?></td>
-                                                                    <?php if ($value->tipovehiculo == 1): ?>
-                                                                        <td><?php echo 'Liviano'; ?></td>
-                                                                    <?php elseif ($value->tipovehiculo == 2): ?>
-                                                                        <td><?php echo 'Pesado'; ?></td>
-                                                                    <?php else : ?>
-                                                                        <td><?php echo 'Moto'; ?></td>
-                                                                    <?php endif; ?>
-                                                                    <td><?= $value->fechainicial ?></td>
-                                                                    <td><?= $value->tipoins ?></td>
-                                                                    <td>
-                                                                        <select name="selectrecofprueba" id="selectrecofprueba">
-                                                                            <option value="1">Asignar taxímetro</option>
-                                                                            <option value="2">Quitar taxímetro</option>
-                                                                            <option value="3">Liviano a pesado</option>
-                                                                            <option value="4">Pesado a liviano</option>
-                                                                            <option value="5">Moto a liviano</option>
-                                                                            <option value="6">Liviano a moto</option>
-                                                                            <option value="7">Pesado a moto</option>
-                                                                            <option value="8">Moto a pesado</option>
-                                                                            <option value="9">Particular a público</option>
-                                                                            <option value="10">Público a particular</option>
-                                                                            <option value="11">Gasolina a diesel</option>
-                                                                            <option value="12">Diesel a gasolina</option>
-                                                                            <option value="13">Asignar sonometro</option>
-                                                                        </select>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="hidden" id="hojapruebasR" value="<?= $value->idhojapruebas ?>">
-                                                                        <input type="hidden" name="pfechainicial" id="pfechainicialR" value="<?= $value->pfechainicial ?>">
-                                                                        <input type="hidden" name="tipovehiculo" id="tipovehiculoR" value="<?= $value->tipovehiculo ?>">
-                                                                        <input type="hidden" name="servicio" id="servicioR" value="<?= $value->servicio ?>">
-                                                                        <input type="hidden" name="combustible" id="combustibleR" value="<?= $value->combustible ?>">
-                                                                        <input type="hidden" name="placa" id="placaR" value="<?= $value->placa ?>">
-                                                                        <input type="submit" name="consultar" class="btn btn-primary" id="btn-reconf-prueba" style="background-color: #393185;border-radius: 40px 40px 40px 40px" value="Guardar">
-                                                                    </td>
-                                                                <?php endforeach; ?>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="cancelPrueba" style="display: none; position: absolute">
-                                        <header class="panel_header">
-                                            <h2 class="title float-left">Cancelación de pruebas</h2>
-                                        </header>
-                                        <div class="content-body">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div id="div-cancel-prueba"></div>
-                                                    <table class="table table-bordered" id="table-cancel">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Placa</th>
-                                                                <th>Estado</th>
-                                                                <th>Fecha inicial</th>
-                                                                <th>Tipo ins</th>
-                                                                <th>Opciones</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <?php foreach ($placaR as $value): ?>
-                                                                    <td><?= $value->placa ?></td>
-                                                                    <td><?= $value->estado ?></td>
-                                                                    <td><?= $value->fechainicial ?></td>
-                                                                    <td><?= $value->tipoins ?></td>
-                                                                    <td>
-                                                                        <input type="hidden" value="<?= $value->idhojapruebas ?>">
-                                                                        <input type="submit" name="consultar" id="btn-cancel-pruebas" class="btn btn-primary" style="background-color: #393185;border-radius: 40px 40px 40px 40px" value="Cancelar">
-                                                                    </td>
-                                                                <?php endforeach; ?>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                            </div>
-                            <img src="<?php echo base_url(); ?>assets/images/logo.png" />
-                        </section>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <div class="modal" id="presionLlantas" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog animated bounceInDown">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Presión de inflado</h4>
-                </div>
-                <div class="modal-body" style="background: whitesmoke">
-                    <div style="text-align: center">
-                        <?php
-                        echo $placaR[0]->placa;
-                        ?>
-                    </div>
-
-                    <label id="mensajeSicov"
-                        style="background: white;
-                               width: 100%;
-                               text-align: left;
-                               font-size: 15px;
-                               padding: 5px;border: solid gray 2px;
-                               border-radius:  15px 15px 15px 15px;color: black">- Ingrese los valores de presión de inflado, según la configuración inferior del vehículo.<br>- Para motos, gestione los valores en llanta derecha.<br>- Si el vehículo solo tiene una llanta en los ejes traseros, asigne el valor en el lado <strong>externo</strong>.<br>- Use el punto decimal (.)</label>
-                    <div style="text-align: center;width: 100%">
-                        <table style="width: 100%">
-                            <tr>
-                                <td>
-                                    Eje
-                                </td>
-                                <td colspan="2">
-                                    Izquierdo (psi)
-                                </td>
-                                <td colspan="2">
-                                    Derecho (psi)
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    1
-                                </td>
-                                <td colspan="2">
-                                    <input type="number" style="text-align: center;width: 70px" id="llanta-1-I-a" value="<?php echo $presion->llanta_1_I; ?>" onchange="guardarPresion(this)" />
-                                </td>
-                                <td colspan="2">
-                                    <input type="number" style="text-align: center;width: 70px" id="llanta-1-D-a" value="<?php echo $presion->llanta_1_D; ?>" onchange="guardarPresion(this)" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    2
-                                </td>
-                                <td>
-                                    <input type="number" style="text-align: center;width: 70px" id="llanta-2-IE-a" value="<?php echo $presion->llanta_2_IE; ?>" onchange="guardarPresion(this)" />
-                                </td>
-                                <td>
-                                    <input type="number" style="text-align: center;width: 70px" id="llanta-2-II-a" value="<?php echo $presion->llanta_2_II; ?>" onchange="guardarPresion(this)" />
-                                </td>
-                                <td>
-                                    <input type="number" style="text-align: center;width: 70px" id="llanta-2-DI-a" value="<?php echo $presion->llanta_2_DI; ?>" onchange="guardarPresion(this)" />
-                                </td>
-                                <td>
-                                    <input type="number" style="text-align: center;width: 70px" id="llanta-2-DE-a" value="<?php echo $presion->llanta_2_DE; ?>" onchange="guardarPresion(this)" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    3
-                                </td>
-                                <td>
-                                    <input type="number" style="text-align: center;width: 70px" id="llanta-3-IE-a" value="<?php echo $presion->llanta_3_IE; ?>" onchange="guardarPresion(this)" />
-                                </td>
-                                <td>
-                                    <input type="number" style="text-align: center;width: 70px" id="llanta-3-II-a" value="<?php echo $presion->llanta_3_II; ?>" onchange="guardarPresion(this)" />
-                                </td>
-                                <td>
-                                    <input type="number" style="text-align: center;width: 70px" id="llanta-3-DI-a" value="<?php echo $presion->llanta_3_DI; ?>" onchange="guardarPresion(this)" />
-                                </td>
-                                <td>
-                                    <input type="number" style="text-align: center;width: 70px" id="llanta-3-DE-a" value="<?php echo $presion->llanta_3_DE; ?>" onchange="guardarPresion(this)" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    4
-                                </td>
-                                <td>
-                                    <input type="number" style="text-align: center;width: 70px" id="llanta-4-IE-a" value="<?php echo $presion->llanta_4_IE; ?>" onchange="guardarPresion(this)" />
-                                </td>
-                                <td>
-                                    <input type="number" style="text-align: center;width: 70px" id="llanta-4-II-a" value="<?php echo $presion->llanta_4_II; ?>" onchange="guardarPresion(this)" />
-                                </td>
-                                <td>
-                                    <input type="number" style="text-align: center;width: 70px" id="llanta-4-DI-a" value="<?php echo $presion->llanta_4_DI; ?>" onchange="guardarPresion(this)" />
-                                </td>
-                                <td>
-                                    <input type="number" style="text-align: center;width: 70px" id="llanta-4-DE-a" value="<?php echo $presion->llanta_4_DE; ?>" onchange="guardarPresion(this)" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    5
-                                </td>
-                                <td>
-                                    <input type="number" style="text-align: center;width: 70px" id="llanta-5-IE-a" value="<?php echo $presion->llanta_5_IE; ?>" onchange="guardarPresion(this)" />
-                                </td>
-                                <td>
-                                    <input type="number" style="text-align: center;width: 70px" id="llanta-5-II-a" value="<?php echo $presion->llanta_5_II; ?>" onchange="guardarPresion(this)" />
-                                </td>
-                                <td>
-                                    <input type="number" style="text-align: center;width: 70px" id="llanta-5-DI-a" value="<?php echo $presion->llanta_5_DI; ?>" onchange="guardarPresion(this)" />
-                                </td>
-                                <td>
-                                    <input type="number" style="text-align: center;width: 70px" id="llanta-5-DE-a" value="<?php echo $presion->llanta_5_DE; ?>" onchange="guardarPresion(this)" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-
-                                </td>
-                                <td>
-                                    Externo
-                                </td>
-                                <td>
-                                    Interno
-                                </td>
-                                <td>
-                                    Interno
-                                </td>
-                                <td>
-                                    Externo
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Repuesto
-                                </td>
-                                <td colspan="2">
-                                    <input type="number" style="text-align: center;width: 70px" value="<?php echo $presion->llanta_R; ?>" id="llanta-R-a" onchange="guardarPresion(this)" />
-                                </td>
-                                <td colspan="2">
-                                    <input type="number" style="text-align: center;width: 70px" value="<?php echo $presion->llanta_R2; ?>" id="llanta-R" onchange="guardarPresion(this)" />
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button id="btnAsignar" data-dismiss="modal" class="btn btn-success" type="button">Aceptar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal" id="modal-visual" role="dialog" aria-hidden="true" style="display: none" data-backdrop="false">
-        <div class="modal-dialog animated bounceInDown">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="titulo_">Pruebas visual</h4>
-                </div>
-                <div class="modal-body">
-                    <table class="table" id="table-modal-visual">
-                        <tbody>
-                            <div id="cap-new">
-                                <label>En captador no esta asignado, si lo desea lo puede crear:</label>
-                                <label style="padding-left: 40px"><input type="checkbox" style="transform: scale(2.0)" class="skin-square-blue" id="captador">
-                                    <labe style="padding-left: 15px">Captador</labe>
-                                </label><br>
-                                <div style="color: #1D8348" id="msj-cap"></div>
-                                <hr>
-                            </div>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button data-dismiss="modal" class="btn btn-default" id="btn-close" type="button">Cerrar</button>
-                    <button class="btn btn-success" type="button" id="btn-reasig-visual">Guardar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <!-- MAIN CONTENT AREA ENDS -->
-    <!-- LOAD FILES AT PAGE END FOR FASTER LOADING -->
-
-
-    <!-- CORE JS FRAMEWORK - START -->
-    <script src="<?php echo base_url(); ?>assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/js/popper.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/js/jquery.easing.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/plugins/pace/pace.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>assets/plugins/viewport/viewportchecker.js" type="text/javascript"></script>
-    <script>
-        window.jQuery || document.write('<script src="<?php echo base_url(); ?>assets/js/jquery-1.11.2.min.js"><\/script>');
-    </script>
-    <!-- CORE JS FRAMEWORK - END -->
-
-
-    <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
-
-    <script src="<?php echo base_url(); ?>assets/plugins/icheck/icheck.min.js" type="text/javascript"></script>
-    <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
-
-
-    <!-- CORE TEMPLATE JS - START -->
-    <script src="<?php echo base_url(); ?>assets/js/scripts.js" type="text/javascript"></script>
-    <script src="<?php echo base_url(); ?>/application/libraries/package/dist/sweetalert2.all.min.js"></script>
-    <script src="<?php echo base_url(); ?>application/libraries/sesion.js" type="text/javascript"></script>
-    <!-- END CORE TEMPLATE JS - END -->
-    <script type="text/javascript">
-        var placa = "<?php
-                        echo $placaR[0]->placa;
-                        ?>";
-        var reinspeccion = "<?php
-                            echo $placaR[0]->reinspeccion;
-                            ?>";
-        var moduloPrerevision = '<?php
-                                    if (isset($moduloPrerevision)) {
-                                        echo $moduloPrerevision;
-                                    } else {
-                                        echo '0';
-                                    }
-                                    ?>';
-        $(document).ready(function() {
-
-        });
-
-        document.addEventListener('DOMContentLoaded', cargarMedioGuardado);
-
-        function guardarMedio() {
-            const select = document.getElementById('medioSelect');
-            const valorSeleccionado = select.value;
-
-            // Guardar en localStorage
-            localStorage.setItem('medioPreferido', valorSeleccionado);
-
-            console.log('Medio guardado:', valorSeleccionado);
-        }
-
-        function cargarMedioGuardado() {
-            let idrol = localStorage.getItem('idrol');
-            if(idrol !== '1'){
-                // alert(idrol)
-                document.getElementById('btncancelarprueba').style.display = 'none';
-            }
-            const medioGuardado = localStorage.getItem('medioPreferido');
-
-            if (medioGuardado !== null) {
-                const select = document.getElementById('medioSelect');
-
-                // Establecer el valor guardado
-                select.value = medioGuardado;
-
-                console.log('Medio cargado desde localStorage:', medioGuardado);
-            }
-        }
-
-        var guardarPresion = function(e) {
-            var tipo_inspeccion = "0";
-            var reins = "0";
-            if (reinspeccion === '0' || reinspeccion === '1') {
-                tipo_inspeccion = '1';
-                reins = reinspeccion;
-            } else if (reinspeccion === '4444' || reinspeccion === '44441') {
-                tipo_inspeccion = '2';
-                if (reinspeccion === '4444') {
-                    reins = '0';
-                } else {
-                    reins = '1';
-                }
-            } else {
-                reins = '0';
-                tipo_inspeccion = '3';
-            }
-            var data = {
-                numero_placa_ref: placa,
-                tipo_inspeccion: tipo_inspeccion,
-                reinspeccion: reins,
-                valor: e.value,
-                id: e.id
-            };
-            //                                                console.log(data);
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/guardarPresion',
-                type: 'post',
-                data: data,
-                success: function(rta) {}
-            });
-        };
-
-
-        //---------------------------------------INTEGRACION 20210320 BRAYAN LEON
-
-        var cargar = function() {
-            $('#razon-reasignacion').val('');
-            document.getElementById("div-pruebas").style.display = '';
-            var idhojapruebas = $('#idhojapruebasR').val();
-            var reinspeccion = $('#reinspeccion').val();
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/getPruebas',
-                type: 'post',
-                mimeType: 'json',
-                data: {
-                    idhojapruebas: idhojapruebas,
-                    reinspeccion: reinspeccion,
-                },
-                success: function(data, textStatus, jqXHR) {
-                    $('#table-rea-prueba tbody').html('');
-
-                    $.each(data, function(i, data) {
-                        if (data.estado == 'Asignado') {
-                            var asignado = "";
-                            var asignado = "<td style= 'color: gray '><strong>" + data.estado + "</strong></td>";
-                        } else if (data.estado == 'Aprobado') {
-                            var asignado = "";
-                            var asignado = "<td style= 'color: green'><strong>" + data.estado + "</strong></td>";
-                        } else {
-                            var asignado = "";
-                            var asignado = "<td style= 'color: red'><strong>" + data.estado + "</strong></td>";
-                        }
-                        var body = "<tr>";
-                        body += "<td>" + data.idprueba + "</td>";
-                        body += "<td>" + data.fechainicial + "</td>";
-                        body += asignado;
-                        body += "<td>" + data.fechafinal + "</td>";
-                        body += "<td>" + data.pruebas + "</td>";
-                        body += '<td style="text-aling: center;"><type="submit" class="btn btn-primary"  style="background-color: #393185;border-radius: 40px 40px 40px 40px"  onClick="reasignarpru(\'' + data.idtipo_prueba + '\',\'' + data.idprueba + '\',\'' + idhojapruebas + '\',\'' + data.pruebas + '\', \'' + data.prueba + '\')">Reasignar</td>';
-                        body += "</tr>";
-                        $("#table-rea-prueba tbody").append(body);
-                    });
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-
-                }
-            });
-        };
-        $('#btn-buscar-pruebas').click(function(ev) {
-            $('#val-razon').html('');
-            cargar();
-        });
-
-
-        function reasignarpru(idtipo_prueba, idprueba, idhojapruebas, pruebas, prueba) {
-            //                                                if ($('#razon-reasignacion').val().length == 0) {
-            //                                                    $('#val-razon').html('Escriba por favor la razÃ³n de la reasignaciÃ³n.');
-            //                                                    $("html, body").animate({scrollTop: "0px"});
-            //                                                } else {
-            $('#val-razon').html('');
-            var razon = $('#razon-reasignacion').val();
-            if (idtipo_prueba == 8) {
-                pruebavisual(idprueba, idhojapruebas);
-            } else {
-                pruebanormal(idprueba, idhojapruebas, pruebas, idtipo_prueba, prueba);
-            }
-            //                                                }
-        }
-
-        function pruebavisual(idprueba, idhojapruebas) {
-            localStorage.setItem("idvisual", idprueba);
-            $('#modal-visual tbody').html('');
-            $('#modal-visual').modal('show');
-            var reinspeccion = $('#reinspeccion').val();
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/getPruebasvisual',
-                type: 'post',
-                mimeType: 'json',
-                data: {
-                    idhojapruebas: idhojapruebas,
-                    reinspeccion: reinspeccion,
-                },
-                success: function(data, textStatus, jqXHR) {
-                    document.getElementById("cap-new").style.display = '';
-                    document.getElementById("captador").disabled = false;
-                    $('input[type=checkbox]').prop('checked', false);
-                    $('#msj-cap').html('');
-                    console.log(data);
-                    $.each(data, function(i, data) {
-                        if (data.idtipo_prueba == 14) {
-                            document.getElementById("cap-new").style.display = 'none';
-                        }
-                        if (data.idtipo_prueba == 21 || data.idtipo_prueba == 22) {
-                            var input = '<td><input checked type="checkbox" style="transform: scale(2.0)" data2="' + data.idtipo_prueba + '" data="' + data.idprueba + '"class="skin-square-blue idpruebas"  >'
-                        } else {
-                            var input = '<td><input type="checkbox" style="transform: scale(2.0)" data2="' + data.idtipo_prueba + '" data="' + data.idprueba + '"class="skin-square-blue idpruebas"  >'
-                        }
-                        var body = '<tr>';
-                        body += input;
-                        body += '<td style="padding-left: 3px">' + data.pruebas + '</td>';
-                        body += '</tr>';
-                        $("#table-modal-visual tbody").append(body);
-                    });
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-
-                }
-            });
-        }
-
-        $(document).on('click', '#captador', function(event) {
-            if ($(this).is(':checked')) {
-                var idhojapruebas = $('#idhojapruebasR').val();
-                var fechainicial = $('#fechainicial').val();
-                $.ajax({
-                    url: '<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/getCreateCaptador',
-                    type: 'post',
-                    mimeType: 'json',
-                    data: {
-                        idhojapruebas: idhojapruebas,
-                        fechainicial: fechainicial
-                    },
-                    success: function(data, textStatus, jqXHR) {
-                        if (data == 1) {
-                            document.getElementById("captador").disabled = true;
-                            $('#msj-cap').html('Se creo la prueba captador');
-                        }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-
-                    }
-                });
-            }
-        });
-
-        $('#btn-reasig-visual').click(function() {
-            var idhojapruebas = $('#idhojapruebasR').val();
-            var idvisual = localStorage.getItem('idvisual');
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/updateVisual',
-                type: 'post',
-                mimeType: 'json',
-                data: {
-                    idhojapruebas: idhojapruebas,
-                    idvisual: idvisual,
-                },
-                success: function(data, textStatus, jqXHR) {
-                    if (data == 1) {
-                        var i = 0;
-                        $('#table-modal-visual .idpruebas').each(function() {
-                            if ($(this).is(':checked')) {
-                                var idtipoprueba = $(this).attr('data');
-                                var idtipo_prueba = $(this).attr('data2');
-                                $.ajax({
-                                    url: '<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/updatePruebasVisual',
-                                    type: 'post',
-                                    mimeType: 'json',
-                                    data: {
-                                        idhojapruebas: idhojapruebas,
-                                        idtipoprueba: idtipoprueba,
-                                        idtipo_prueba: idtipo_prueba
-                                    },
-                                    success: function(data, textStatus, jqXHR) {
-                                        $('#btn-close').click();
-                                        $('html, body').animate({
-                                            scrollTop: $("#val-razon").offset().top
-                                        }, 900);
-                                        $('#val-razon').html('<div style="color: #1D8348; font-size: 17px; text-align: center;">La prueba visual fue asignada.</div>');
-                                        $('#razon-reasignacion').val('');
-                                        reload();
-                                    },
-                                    error: function(jqXHR, textStatus, errorThrown) {
-
-                                    }
-                                });
-                                i++;
-                            } else {
-                                $('#btn-close').click();
-                                $('html, body').animate({
-                                    scrollTop: $("#val-razon").offset().top
-                                }, 900);
-                                $('#val-razon').html('<div style="color: #1D8348; font-size: 17px; text-align: center;">La prueba visual fue asignada.</div>');
-                                $('#razon-reasignacion').val('');
-                                reload();
-                            }
-                        });
-                    };
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-
-                }
-            });
-
-        });
-
-        function pruebanormal(idprueba, idhojapruebas, pruebas, idtipo_prueba, prueba) {
-            console.log(idtipo_prueba);
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/updatePruebas',
-                type: 'post',
-                mimeType: 'json',
-                data: {
-                    idhojapruebas: idhojapruebas,
-                    idprueba: idprueba,
-                    idtipo_prueba: idtipo_prueba,
-                    prueba: prueba
-                },
-                success: function(data, textStatus, jqXHR) {
-                    $('html, body').animate({
-                        scrollTop: $("#val-razon").offset().top
-                    }, 900);
-                    $('#val-razon').html('<div style="color: #1D8348; font-size: 17px; text-align: center">La prueba ' + pruebas + ' fue asignada.</div>');
-                    $('#razon-reasignacion').val('');
-                    reload();
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-
-                }
-            });
-        }
-        $('#btn-close').click(function() {
-            document.getElementById("modal-visual").style.display = 'none';
-        });
-
-        var reload = function() {
-            var count = 0;
-            var process = setInterval(function() {
-                if (count === 0) {
-                    cargar();
-                }
-                if (count === 1)
-                    clearInterval(process);
-                count++;
-            }, 1000);
-        };
-        $(document).on('click', '#estado', function(event) {
-            if ($(this).is(':checked')) {
-                $('.rta').prop('checked', false);
-                document.getElementById("select-estado").style.display = '';
-                document.getElementById("label-estado").style.display = 'none';
-            } else {
-                $('.rta2').prop('checked', true);
-                document.getElementById("select-estado").style.display = 'none';
-                document.getElementById("label-estado").style.display = '';
-            }
-        });
-        $('#btn-pin-estado').click(function() {
-            var pin = $('#pin').val();
-            var idhojapruebasR = $('#idhojapruebasR').val();
-            var estadop = $('#estadoP option:selected').attr('value');
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/updateEstadoPin',
-                type: 'post',
-                mimeType: 'json',
-                data: {
-                    idhojapruebas: idhojapruebasR,
-                    pin: pin,
-                    estado: estadop
-                },
-                success: function(data, textStatus, jqXHR) {
-                    $('#div-rest-estado').html('<div style="color: #1D8348;font-size: 17px; text-align: center">' + data + '</div>');
-                    $('.rta').prop('checked', false);
-                    document.getElementById("select-estado").style.display = 'none';
-                    document.getElementById("label-estado").style.display = '';
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-
-                }
-            });
-        });
-        $('#btn-reconf-prueba').click(function() {
-            var selectrecofprueba = $('#selectrecofprueba option:selected').attr('value');
-            var hojapruebas = $('#hojapruebasR').val();
-            var pfechainicial = $('#pfechainicialR').val();
-            var tipovehiculo = $('#tipovehiculoR').val();
-            var servicio = $('#servicioR').val();
-            var combustible = $('#combustibleR').val();
-            var placa = $('#placaR').val();
-            //                                                console.log(selectrecofprueba, hojapruebas, pfechainicial, tipovehiculo, 'servicio:', servicio, combustible, placa);
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/reConfvehiculosPruebas',
-                type: 'post',
-                mimeType: 'json',
-                data: {
-                    idhojapruebas: hojapruebas,
-                    selectrecofprueba: selectrecofprueba,
-                    servicio: servicio,
-                    pfechainicial: pfechainicial,
-                    tipovehiculo: tipovehiculo,
-                    combustible: combustible,
-                    placa: placa
-                },
-                success: function(data, textStatus, jqXHR) {
-                    $('#div-reconf-prueba').html('<div style="color: #1D8348;font-size: 17px; text-align: center">' + data + '</div>');
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-
-                }
-            });
-        });
-        $('#btn-cancel-pruebas').click(function() {
-            var hojapruebas = $('#hojapruebasR').val();
-            var reinspeccion = $('#reinspeccion').val();
-            if (reinspeccion !== '1') {
-                $.ajax({
-                    url: '<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/cancelarPruebas',
-                    type: 'post',
-                    mimeType: 'json',
-                    data: {
-                        idhojapruebas: hojapruebas,
-                        reinspeccion: reinspeccion
-                    },
-                    success: function(data, textStatus, jqXHR) {
-                        $('#div-cancel-prueba').html('<div style="color: #1D8348; font-size: 17px; text-align: center">' + data + '</div>');
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-
-                    }
-                });
-            } else {
-                Swal.fire({
-                    icon: 'warning',
-                    html: '<div style="color: red; font-size: 22px">Esta cancelando una prueba de reinspección</div>',
-                    showCancelButton: true,
-                    confirmButtonText: `Aceptar`,
-                    cancelButtonColor: '#d33',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: '<?php echo base_url(); ?>index.php/oficina/gestion/CGPrueba/cancelarPruebas',
-                            type: 'post',
-                            mimeType: 'json',
-                            data: {
-                                idhojapruebas: hojapruebas,
-                                reinspeccion: reinspeccion
-                            },
-                            success: function(data, textStatus, jqXHR) {
-                                $('#div-cancel-prueba').html('<div style="color: #1D8348; font-size: 17px; text-align: center">' + data + '</div>');
-                            },
-                            error: function(jqXHR, textStatus, errorThrown) {
-
-                            }
-                        });
-                    }
-                })
-            }
-        });
-    </script>
-
-</body>
-
-</html>
+<?php //004fb
+if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
+?>
+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
