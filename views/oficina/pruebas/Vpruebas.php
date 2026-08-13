@@ -1282,9 +1282,9 @@
                                     if (!e.checked) {
                                         quemarPin();
                                     } else {
-										insertarPruebas();
+										// insertarPruebas();
 										// quemadoSICOV();
-                                        //consultarPinQuemado();
+                                        consultarPinQuemado();
                                     }
                                 }
                                 segundos--;
