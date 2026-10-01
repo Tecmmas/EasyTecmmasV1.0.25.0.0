@@ -204,6 +204,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="titulo_">REVISION TECNICOMECÁNICA</h4>
+                    <button type="button" class="close" id="btn-close-modal-rtm" data-dismiss="modal" aria-label="Close" style="font-size: 2rem; line-height: 1; padding: 0 10px; background: none; border: none;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body" style="background: whitesmoke">
                     <table class="table">
@@ -282,8 +285,8 @@
                            padding: 5px;border: solid gray 2px;
                            border-radius:  15px 15px 15px 15px;color: gray">ESPERANDO ASIGNACIÓN</label>
                     <br>
-                    <h5 id="titPruebas">Pruebas</h5>
-                    <table id="tabPruebas" class="table">
+                    <!-- <h5 id="titPruebas">Pruebas</h5> -->
+                    <!-- <table id="tabPruebas" class="table">
                         <tr>
 
                             <td><input type="checkbox" style="transform: scale(2.0)" id="luxometro" disabled /></td>
@@ -315,10 +318,111 @@
                             <td><input type="checkbox" style="transform: scale(2.0)" id="sonometro" disabled /></td>
                             <td style="padding-left: 10px">SONOMETRIA</td>
                         </tr>
-                    </table>
+                    </table> -->
+                    <div id="infotecnomecanica">
+                        <div class="mb-3">
+                            <h5 id="titPruebas" class="fw-bold mb-1">Pruebas</h5>
+                            <div class="alert alert-warning py-2 px-3 m-0 d-inline-block small fw-bold text-dark" role="alert" id="mensjaesicov2">
+                                <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                                <strong>Importante:</strong> Seleccione la línea de inspección y ordene las pruebas según el flujo de ejecución en pista. Este orden se registrará en SICOV y no podrá ser alterado.
+                            </div>
+                        </div>
+
+                        <!-- SELECT DE LÍNEAS DE INSPECCIÓN -->
+                        <div class="row mb-4">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="card border-0 shadow-sm bg-light">
+                                    <div class="card-body py-3">
+                                        <div class="d-flex align-items-center gap-2 mb-2">
+                                            <i class="bi bi-layout-three-columns fs-4 text-primary"></i>
+                                            <label for="lineaInspeccion" class="form-label fw-bold mb-0">
+                                                Línea de Inspección:
+                                            </label>
+                                            <span class="badge bg-primary rounded-pill ms-auto">
+                                                <i class="bi bi-check-circle-fill me-1"></i>
+                                                <?= count($lineasinspeccion ?? []) ?> disponibles
+                                            </span>
+                                        </div>
+
+                                        <select class="form-control"
+                                            id="lineaInspeccion"
+                                            name="lineaInspeccion"
+                                            required>
+                                            <option value="">-- Seleccione una línea de inspección --</option>
+                                            <?php foreach (($lineasinspeccion ?? []) as $linea): ?>
+                                                <option value="<?= $linea['nombre'] ?>">
+                                                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                    <?= $linea['nombre'] ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+
+                                        <div class="form-text text-muted small mt-2">
+                                            <i class="bi bi-info-circle me-1"></i>
+                                            Seleccione la línea de inspección que se utilizará para las pruebas en pista
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul id="listaPruebas" class="list-group" style="max-width:100%">
+                        <li class="list-group-item" data-id="luxometro" style="display:flex;align-items:center">
+                            <i class="fa fa-bars" style="cursor:move;margin-right:10px;color:#999"></i>
+                            <input type="checkbox" style="transform: scale(1.6);margin-right:10px" id="luxometro" disabled />
+                            <span>LUXÓMETRO</span>
+                        </li>
+                        <li class="list-group-item" data-id="opacidad" style="display:flex;align-items:center">
+                            <i class="fa fa-bars" style="cursor:move;margin-right:10px;color:#999"></i>
+                            <input type="checkbox" style="transform: scale(1.6);margin-right:10px" id="opacidad" disabled />
+                            <span>OPACIDAD</span>
+                        </li>
+                        <li class="list-group-item" data-id="gases" style="display:flex;align-items:center">
+                            <i class="fa fa-bars" style="cursor:move;margin-right:10px;color:#999"></i>
+                            <input type="checkbox" style="transform: scale(1.6);margin-right:10px" id="gases" disabled />
+                            <span>GASES</span>
+                        </li>
+                        <li class="list-group-item" data-id="camara" style="display:flex;align-items:center">
+                            <i class="fa fa-bars" style="cursor:move;margin-right:10px;color:#999"></i>
+                            <input type="checkbox" style="transform: scale(1.6);margin-right:10px" id="camara" disabled />
+                            <span>CÁMARA</span>
+                        </li>
+                        <li class="list-group-item" data-id="taximetro" style="display:flex;align-items:center">
+                            <i class="fa fa-bars" style="cursor:move;margin-right:10px;color:#999"></i>
+                            <input type="checkbox" style="transform: scale(1.6);margin-right:10px" id="taximetro" disabled />
+                            <span>TAXÍMETRO</span>
+                        </li>
+                        <li class="list-group-item" data-id="frenometro" style="display:flex;align-items:center">
+                            <i class="fa fa-bars" style="cursor:move;margin-right:10px;color:#999"></i>
+                            <input type="checkbox" style="transform: scale(1.6);margin-right:10px" id="frenometro" disabled />
+                            <span>FRENÓMETRO</span>
+                        </li>
+                        <li class="list-group-item" data-id="visual" style="display:flex;align-items:center">
+                            <i class="fa fa-bars" style="cursor:move;margin-right:10px;color:#999"></i>
+                            <input type="checkbox" style="transform: scale(1.6);margin-right:10px" id="visual" disabled />
+                            <span>VISUAL</span>
+                        </li>
+                        <li class="list-group-item" data-id="suspension" style="display:flex;align-items:center">
+                            <i class="fa fa-bars" style="cursor:move;margin-right:10px;color:#999"></i>
+                            <input type="checkbox" style="transform: scale(1.6);margin-right:10px" id="suspension" disabled />
+                            <span>SUSPENSIÓN</span>
+                        </li>
+                        <li class="list-group-item" data-id="alineacion" style="display:flex;align-items:center">
+                            <i class="fa fa-bars" style="cursor:move;margin-right:10px;color:#999"></i>
+                            <input type="checkbox" style="transform: scale(1.6);margin-right:10px" id="alineacion" disabled />
+                            <span>ALINEACIÓN</span>
+                        </li>
+                        <li class="list-group-item" data-id="sonometro" style="display:flex;align-items:center">
+                            <i class="fa fa-bars" style="cursor:move;margin-right:10px;color:#999"></i>
+                            <input type="checkbox" style="transform: scale(1.6);margin-right:10px" id="sonometro" disabled />
+                            <span>SONOMETRÍA</span>
+                        </li>
+                    </ul>
                 </div>
                 <div class="modal-footer">
-                    <button data-dismiss="modal" class="btn btn-default" type="button">CANCELAR</button>
+                    <button id="btn-cancelar-modal-rtm" data-dismiss="modal" class="btn btn-default"
+                        type="button">CANCELAR</button>
+                    <!-- <input type="hidden" id="tipoinspeccion"> -->
                     <button id="btnAsignar" class="btn btn-success" type="button"
                         onclick="asignarPrueba()">ASIGNAR</button>
                 </div>
@@ -353,6 +457,60 @@
     <!-- modal end -->
     <!--<script src="<?php echo base_url(); ?>assets/sesion.js"  type="text/javascript"></script>-->}
     <!--<script src="<?php echo base_url(); ?>application/libraries/sesion.js"  type="text/javascript"></script>-->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectLinea = document.getElementById('lineaInspeccion');
+            const STORAGE_KEY = 'lineaInspeccionSeleccionada';
+
+            // Recuperar línea guardada al cargar la página
+            const lineaGuardada = localStorage.getItem(STORAGE_KEY);
+            if (lineaGuardada) {
+                selectLinea.value = lineaGuardada;
+            }
+
+            // Guardar línea seleccionada cuando cambie
+            selectLinea.addEventListener('change', function() {
+                const valorSeleccionado = this.value;
+                if (valorSeleccionado) {
+                    localStorage.setItem(STORAGE_KEY, valorSeleccionado);
+                    console.log('Línea guardada:', valorSeleccionado);
+
+                    // Opcional: Mostrar mensaje de confirmación
+                    mostrarMensajeConfirmacion(valorSeleccionado);
+                } else {
+                    localStorage.removeItem(STORAGE_KEY);
+                }
+            });
+        });
+
+        // Función para mostrar mensaje de confirmación (opcional)
+        function mostrarMensajeConfirmacion(linea) {
+            const alertaExistente = document.querySelector('.alert-linea-guardada');
+            if (alertaExistente) {
+                alertaExistente.remove();
+            }
+
+            const alerta = document.createElement('div');
+            alerta.className = 'alert alert-success alert-linea-guardada py-1 px-3 mt-2 small';
+            alerta.innerHTML = `
+        <i class="bi bi-check-circle-fill me-1"></i>
+        Línea <strong>${linea}</strong> guardada correctamente
+    `;
+
+            const selectContainer = document.getElementById('lineaInspeccion').closest('.card-body') ||
+                document.getElementById('lineaInspeccion').parentElement;
+            selectContainer.appendChild(alerta);
+
+            // Ocultar después de 3 segundos
+            setTimeout(() => {
+                alerta.style.transition = 'opacity 0.5s';
+                alerta.style.opacity = '0';
+                setTimeout(() => alerta.remove(), 500);
+            }, 3000);
+        }
+    </script>
+
     <script type="text/javascript">
         var facturacion = '<?php
                             if (isset($facturacion)) {
@@ -564,6 +722,13 @@
                                 echo '1';
                             }
                             ?>';
+        var sicov2 = '<?php
+                        if (isset($sicov2)) {
+                            echo $sicov2;
+                        } else {
+                            echo '0';
+                        }
+                        ?>';
         var ipLocal = '<?php
                         echo base_url();
                         ?>';
@@ -585,24 +750,434 @@
                 localStorage.getItem("contador") == 0) {
                 localStorage.setItem("contador", 0);
             }
-            // let day = date.getDate()
-            // let month = date.getMonth() + 1
-            // let year = date.getFullYear()
+            inicializarOrdenPruebas();
 
-            // var hora = date.getHours();
-            // var min = date.getMinutes();
-            // var horaMinuto = `${hora}:${min}`;
-            // if (horaMinuto <= '07:00' && (localStorage.getItem("contador") !== null && localStorage.getItem("contador") !== 0)) {
-            //     // let fecha = "";
-            //     // if (month < 10) {
-            //     //     fecha = `${year}-0${month}-${day}`;
-            //     // } else {
-            //     //     fecha = `${year}-${month}-${day}`;
-            //     // }
-            //     // localStorage.setItem('fechaAnterior', fecha);
-            //     localStorage.setItem('contador', "0");
-            // }
+            // Asegura que el modal RTmecModal siempre pueda cerrarse,
+            // independientemente de si el plugin de modal de Bootstrap
+            // maneja o no el data-dismiss en ese momento.
+            $('#btn-close-modal-rtm, #btn-cancelar-modal-rtm').on('click', function() {
+                ocultarModalRTMec();
+            });
+
         });
+
+
+
+        // ============================================================
+        // ORDEN DE PRUEBAS (drag & drop persistente)
+        // ============================================================
+        const LS_KEY_ORDEN_PRUEBAS = 'ordenPruebasSicov';
+
+        // Orden por defecto (la primera vez que el cliente entra, o si limpia localStorage)
+        const ORDEN_PRUEBAS_DEFAULT = [
+            'luxometro', 'opacidad', 'gases', 'camara', 'taximetro',
+            'frenometro', 'visual', 'suspension', 'alineacion', 'sonometro'
+        ];
+
+        function cargarOrdenGuardado() {
+            const guardado = localStorage.getItem(LS_KEY_ORDEN_PRUEBAS);
+            if (!guardado) return ORDEN_PRUEBAS_DEFAULT;
+            try {
+                const arr = JSON.parse(guardado);
+                // Validación básica: que tenga los mismos ids que el default (por si se agrega/quita una prueba)
+                const valido = Array.isArray(arr) && ORDEN_PRUEBAS_DEFAULT.every(id => arr.includes(id));
+                return valido ? arr : ORDEN_PRUEBAS_DEFAULT;
+            } catch (e) {
+                return ORDEN_PRUEBAS_DEFAULT;
+            }
+        }
+
+        function aplicarOrdenALista(orden) {
+            const $lista = $('#listaPruebas');
+            orden.forEach(id => {
+                const $item = $lista.find(`li[data-id="${id}"]`);
+                $lista.append($item); // mover al final en el orden indicado
+            });
+        }
+
+        function inicializarOrdenPruebas() {
+            const orden = cargarOrdenGuardado();
+            aplicarOrdenALista(orden);
+            habilitarDragNativo();
+        }
+
+        function habilitarDragNativo() {
+            const lista = document.getElementById('listaPruebas');
+            let itemArrastrado = null;
+
+            lista.querySelectorAll('li').forEach(li => {
+                // el drag se activa solo tomando el ícono, para no chocar con el click del checkbox
+                const handle = li.querySelector('.fa-bars');
+                handle.style.cursor = 'move';
+
+                li.setAttribute('draggable', 'false'); // el <li> completo NO es arrastrable...
+                handle.addEventListener('mousedown', () => li.setAttribute('draggable', 'true'));
+                li.addEventListener('mouseup', () => li.setAttribute('draggable', 'false'));
+
+                li.addEventListener('dragstart', (e) => {
+                    itemArrastrado = li;
+                    e.dataTransfer.effectAllowed = 'move';
+                    li.style.opacity = '0.4';
+                });
+
+                li.addEventListener('dragend', () => {
+                    li.style.opacity = '1';
+                    li.setAttribute('draggable', 'false');
+                    guardarOrdenActual();
+                });
+
+                li.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    const bounding = li.getBoundingClientRect();
+                    const offset = e.clientY - bounding.top;
+                    if (offset > bounding.height / 2) {
+                        li.after(itemArrastrado);
+                    } else {
+                        li.before(itemArrastrado);
+                    }
+                });
+            });
+        }
+
+
+        function guardarOrdenActual() {
+            const nuevoOrden = $('#listaPruebas li').map(function() {
+                return $(this).data('id');
+            }).get();
+            localStorage.setItem(LS_KEY_ORDEN_PRUEBAS, JSON.stringify(nuevoOrden));
+        }
+
+        const tipoPruebaMap = {
+            gases: {
+                tipoPruebaId: 1,
+                nombre: "GASES"
+            },
+
+            fas: {
+                tipoPruebaId: 2,
+                nombre: "FAS"
+            },
+
+            luxometro: {
+                tipoPruebaId: 3,
+                nombre: "LUCES"
+            },
+            taximetro: {
+                tipoPruebaId: 4,
+                nombre: "TAXIMETRO"
+            },
+            sonometro: {
+                tipoPruebaId: 5,
+                nombre: "RUIDOS"
+            },
+            visual: {
+                tipoPruebaId: 6,
+                nombre: "VISUAL"
+            },
+            frenometro: {
+                tipoPruebaId: 7,
+                nombre: "FRENOS"
+            },
+            alineacion: {
+                tipoPruebaId: 8,
+                nombre: "ALINEACION"
+            },
+            suspension: {
+                tipoPruebaId: 9,
+                nombre: "SUSPENSION"
+            },
+        };
+
+
+
+
+
+
+        //sicov 2.0
+
+        function mostrarToast(icono, titulo, mensaje, tiempo = 0) {
+            if (typeof Swal !== 'undefined') {
+                Swal.close();
+                // Forzar que el toast se renderice en el body
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: tiempo,
+                    timerProgressBar: tiempo > 0,
+                    showCloseButton: true,
+                    // sin backdrop, sin target
+                    didOpen: (toast) => {
+                        Object.assign(toast.style, {
+                            marginTop: '60px',
+                            marginRight: '45px'
+                        });
+                        toast.addEventListener('mouseenter', Swal.stopTimer);
+                        toast.addEventListener('mouseleave', Swal.resumeTimer);
+                    }
+                });
+
+                Toast.fire({
+                    icon: icono,
+                    title: titulo,
+                    html: mensaje
+                });
+            } else {
+                console.log(`${icono.toUpperCase()}: ${titulo} - ${mensaje}`);
+                alert(`${titulo}: ${mensaje}`);
+            }
+        }
+
+        function mostrarLoading(mensaje = 'Procesando solicitud...') {
+            if (typeof Swal === 'undefined') {
+                console.log(`⏳ ${mensaje}`);
+                return;
+            }
+
+            Swal.close();
+
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                title: mensaje,
+                icon: 'info',
+                showConfirmButton: false,
+                showCloseButton: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                didOpen: (toast) => {
+                    Object.assign(toast.style, {
+                        marginTop: '60px',
+                        marginRight: '45px'
+                    });
+                    toast.addEventListener('mouseenter', Swal.stopTimer);
+                    toast.addEventListener('mouseleave', Swal.resumeTimer);
+                }
+            });
+        }
+
+        function cerrarLoading() {
+            if (typeof Swal !== 'undefined') {
+                Swal.close();
+            }
+        }
+
+        /**
+         * Muestra un toast de éxito
+         */
+        function mostrarExito(titulo, mensaje, tiempo = 0) {
+            mostrarToast('success', titulo, mensaje, tiempo);
+        }
+
+        /**
+         * Muestra un toast de error
+         */
+        function mostrarError(titulo, mensaje, tiempo = 0) {
+            mostrarToast('error', titulo, mensaje, tiempo);
+        }
+
+
+
+        // ============================================================
+        // 1. LOGIN SICOV V2
+        // ============================================================
+
+        const API_BASE = '<?php echo base_url(); ?>index.php/oficina/indra/Cindra';
+        async function loginSicovV2() {
+            try {
+                const response = await fetch(`${API_BASE}/loginsicov2`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({})
+                });
+
+                const data = await response.json();
+
+                if (data.success && data.data) {
+                    // Guardar token en localStorage
+                    localStorage.setItem('sicov_access_token', data.data.access_token);
+                    localStorage.setItem('sicov_refresh_token', data.data.refresh_token);
+                    localStorage.setItem('sicov_expires_in', data.data.expires_in);
+                    // mostrarExito('', 'Login sicov exitoso', 2000)
+                    console.log('✅ Login exitoso');
+                    return data;
+                } else {
+                    mostrarError('Error login sicov', data.error, 0);
+                    throw new Error(data.error || 'Error en login');
+                }
+            } catch (error) {
+                console.error('❌ Error en login:', error);
+                mostrarError('Error en login de sicov', '', 0);
+                throw error;
+            }
+        }
+
+        // ============================================================
+        // 1.1 REFRESH TOKEN
+        // ============================================================
+        async function refreshSicovToken() {
+            try {
+                const refreshToken = localStorage.getItem('sicov_refresh_token');
+
+                if (!refreshToken) {
+                    console.warn('⚠️ No hay refresh token disponible');
+                    return false;
+                }
+
+                console.log('🔄 Renovando token...');
+
+                const response = await fetch(`${API_BASE}/refresh_token`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        refresh_token: refreshToken
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success && data.data) {
+                    // Actualizar tokens en localStorage
+                    localStorage.setItem('sicov_access_token', data.data.access_token);
+                    localStorage.setItem('sicov_refresh_token', data.data.refresh_token);
+                    localStorage.setItem('sicov_expires_in', data.data.expires_in);
+                    localStorage.setItem('sicov_token_timestamp', Date.now().toString());
+
+                    console.log('✅ Token renovado exitosamente');
+                    return true;
+                } else {
+                    console.error('❌ Error al renovar token:', data);
+                    mostrarError('❌ Error al renovar token', data.error, 0);
+                    $("#btn-close-modal-rtm").click();
+                    limpiarSesionSicov();
+                    return false;
+                }
+            } catch (error) {
+                console.error('❌ Error en refresh token:', error);
+                mostrarError('error', '❌ Error en refresh token, recargue la pagina por favor' + error, 0);
+                $("#btn-close-modal-rtm").click();
+                limpiarSesionSicov();
+                return false;
+            }
+        }
+
+
+        // ============================================================
+        // 1.2 VERIFICAR Y RENOVAR TOKEN AUTOMÁTICAMENTE
+        // ============================================================
+        async function verificarTokenSicov() {
+            const accessToken = localStorage.getItem('sicov_access_token');
+            const expiresIn = localStorage.getItem('sicov_expires_in');
+            const tokenTimestamp = localStorage.getItem('sicov_token_timestamp');
+
+            if (!accessToken) {
+                console.log('🔑 No hay token, iniciando login...');
+                await loginSicovV2();
+                return true;
+            }
+
+            // Si no hay timestamp, asumir que expiró
+            if (!tokenTimestamp) {
+                // console.log('🔄 Token sin timestamp, renovando...');
+                const renovado = await refreshSicovToken();
+                return renovado;
+            }
+
+            // Calcular tiempo restante
+            const elapsed = (Date.now() - parseInt(tokenTimestamp)) / 1000; // segundos
+            const expiresInSeconds = parseInt(expiresIn) || 3600;
+            const remaining = expiresInSeconds - elapsed;
+
+            console.log(`⏱️ Tiempo restante del token: ${Math.floor(remaining / 60)} minutos`);
+
+            // Si queda menos de 5 minutos, renovar
+            if (remaining < 300) {
+                // console.log('🔄 Token próximo a expirar, renovando...');
+                const renovado = await refreshSicovToken();
+                return renovado;
+            }
+
+            return true;
+        }
+
+        // ============================================================
+        // 1.3 OBTENER TOKEN CON VERIFICACIÓN AUTOMÁTICA
+        // ============================================================
+        async function getSicovToken() {
+            mostrarLoading('Verificando token sicov por favor espere...');
+            const tokenValid = await verificarTokenSicov();
+            if (!tokenValid) {
+                await loginSicovV2();
+            }
+            cerrarLoading();
+            return localStorage.getItem('sicov_access_token');
+        }
+
+        // ============================================================
+        // 2 ONTENERINFORMACION DEL PIN
+        // ============================================================
+
+        async function obtenerInfoPin(placa) {
+            mostrarLoading('Obteniendo información del pin por favor espere...');
+            try {
+                const response = await fetch(`${API_BASE}/obtenerInfoPin`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        token: localStorage.getItem('sicov_access_token'),
+                        placa: placa
+                    })
+                });
+
+                const data = await response.json();
+                cerrarLoading();
+                if (data.success && data.data) {
+                    if (data.data.datos.pin.inspeccionId !== null && data.data.datos.pin.inspeccionId !== undefined) {
+                        localStorage.setItem("inspeccionId", data.data.datos.pin.inspeccionId)
+                    } else {
+                        mostrarError("Error", "No se encontro el id de inspeccion, recargue la pagina he intente de nuevo, de persistir comuniquese con soporte.", 0)
+                    }
+
+                    return true;
+                } else {
+                    console.error('❌ Error en obtener info pin:', data, 0);
+                    mostrarError("Respuesta sicov: " + data.error.codigoError, data.error.descripcion + "<br>" + data.mensaje, 0);
+                    $("#btn-close-modal-rtm").click();
+                    return false;
+                }
+            } catch (error) {
+                mostrarError('Error', 'No se pudo obtener la información del pin, realice el proceso de nuevo, de persistir comuniquese con soporte.', 0);
+                console.error('❌ Error en obtener info pin cathc:', error);
+                $("#btn-close-modal-rtm").click();
+                return false;
+            }
+        }
+
+
+        function limpiarSesionSicov() {
+            localStorage.removeItem('sicov_access_token');
+            localStorage.removeItem('sicov_refresh_token');
+            localStorage.removeItem('sicov_expires_in');
+            localStorage.removeItem('sicov_token_timestamp');
+            console.log('🧹 Sesión SICOV limpiada');
+        }
+
+
+
+
+
+
+
+
+
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////
         var getNumFactura = function() {
             $.ajax({
                 url: '<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/getNumFactura',
@@ -693,128 +1268,358 @@
         };
 
 
-        var asignarRTMec1ra = function(e) {
+        // var asignarRTMec1ra = async function(e) {
+        //     Swal.close();
+        //     try {
+        //         if (sicov2 == "1") {
+        //             let response = await getSicovToken()
+        //         }
+        //         // console.log("response:", response)
+        //         mostrarComponente();
+        //         // console.log('response: ', response)
+        //         if (response && response !== "" && response !== null && response !== false) {
+        //             var placa = e.title.toString().replace("A-", "");
+        //             let responsepin = await obtenerInfoPin(placa);
+        //             $('#titulo_').text("REVISION TECNICOMECANICA");
+        //             tipoTipoInspeccion = 'RTMec';
+        //             reinspeccion = '0';
+        //             idhojapruebas = '';
 
-            mostrarComponente();
-            $('#titulo_').text("REVISION TECNICOMECANICA");
-            tipoTipoInspeccion = 'RTMec';
-            reinspeccion = '0';
-            idhojapruebas = '';
-            var placa = e.title.toString().replace("A-", "");
-            var data = {
-                numero_placa: e.title
-            };
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/asignarRTMec1ra',
-                data: data,
-                type: 'post',
-                success: function(r) {
+        //             var data = {
+        //                 numero_placa: e.title
+        //             };
+        //             $.ajax({
+        //                 url: '<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/asignarRTMec1ra',
+        //                 data: data,
+        //                 type: 'post',
+        //                 success: function(r) {
 
-                    var v = JSON.parse(r);
+        //                     var v = JSON.parse(r);
 
-                    vehiculo = new Object();
-                    vehiculo = v;
-                    configurar2703();
+        //                     vehiculo = new Object();
+        //                     vehiculo = v;
+        //                     configurar2703();
 
-                    if ($('#libre-' + vehiculo.numero_placa).val() !== 'Prueba libre') {
-                        setMensaje('El vehículo con placa ' + vehiculo.numero_placa +
-                            ' se encuentra actualmente en proceso de prueba libre y no se le puede asignar un tipo de inspección diferente',
-                            '');
-                        ocultarComponente();
-                    } else {
-                        setMensaje('PRIMERA VEZ PARA ' + vehiculo.numero_placa, '');
-                        if (v.tipo_vehiculo === 'Liviano') {
-                            $('#costo').val(valorRtmecLiviano);
-                            setLiviano();
-                        } else if (v.tipo_vehiculo === 'Moto') {
-                            $('#costo').val(valorRtmecMoto);
-                            setMoto();
-                        } else {
-                            $('#costo').val(valorRtmecPesado);
-                            setPesado();
-                        }
-                        if (facturacion === '0') {
-                            document.getElementById('facturacion').style.display = 'none';
-                            document.getElementById('facturacion').style.position = 'absolute';
-                        }
-                        if (moduloPrerevision === '0') {
-                            document.getElementById('moduloPrerevision').style.display = 'none';
-                            document.getElementById('moduloPrerevision').style.position = 'absolute';
-                        }
+        //                     if ($('#libre-' + vehiculo.numero_placa).val() !== 'Prueba libre') {
+        //                         setMensaje('El vehículo con placa ' + vehiculo.numero_placa +
+        //                             ' se encuentra actualmente en proceso de prueba libre y no se le puede asignar un tipo de inspección diferente',
+        //                             '');
+        //                         ocultarComponente();
+        //                     } else {
+        //                         setMensaje('PRIMERA VEZ PARA ' + vehiculo.numero_placa, '');
+        //                         if (v.tipo_vehiculo === 'Liviano') {
+        //                             $('#costo').val(valorRtmecLiviano);
+        //                             setLiviano();
+        //                         } else if (v.tipo_vehiculo === 'Moto') {
+        //                             $('#costo').val(valorRtmecMoto);
+        //                             setMoto();
+        //                         } else {
+        //                             $('#costo').val(valorRtmecPesado);
+        //                             setPesado();
+        //                         }
+        //                         if (facturacion === '0') {
+        //                             document.getElementById('facturacion').style.display = 'none';
+        //                             document.getElementById('facturacion').style.position = 'absolute';
+        //                         }
+        //                         if (moduloPrerevision === '0') {
+        //                             document.getElementById('moduloPrerevision').style.display = 'none';
+        //                             document.getElementById('moduloPrerevision').style.position = 'absolute';
+        //                         }
 
-                        if (activoSicov === '1' && sicov === 'CI2') {} else {
-                            document.getElementById('pinQuemado').style.display = 'none';
-                            document.getElementById('pinQuemado').style.position = 'absolute';
-                            document.getElementById('pin').style.display = 'none';
-                            document.getElementById('pin').style.position = 'absolute';
-                        }
-                        if (asignarNoFactura === '1') {
-                            getNumFactura();
-                        }
-                    }
+        //                         if (activoSicov === '1' && sicov === 'CI2') {
 
+        //                         } else {
+        //                             document.getElementById('pinQuemado').style.display = 'none';
+        //                             document.getElementById('pinQuemado').style.position = 'absolute';
+        //                             document.getElementById('pin').style.display = 'none';
+        //                             document.getElementById('pin').style.position = 'absolute';
+        //                         }
+        //                         if (asignarNoFactura === '1') {
+        //                             getNumFactura();
+        //                         }
+        //                     }
+
+        //                 }
+        //             });
+        //         }
+        //     } catch (error) {
+        //         mostrarError('Error en token', 'Error al obtener el token de sicov:' + error, 0);
+        //     }
+
+        // };
+
+        function mostrarModalRTMec() {
+            var $modal = $('#RTmecModal');
+            if (typeof $modal.modal === 'function') {
+                $modal.modal('show');
+            } else {
+                // Bootstrap JS modal plugin no disponible: alternar manualmente las clases
+                $modal.addClass('show').css('display', 'block').attr('aria-modal', 'true').removeAttr(
+                    'aria-hidden');
+                $('body').addClass('modal-open');
+                if ($('.modal-backdrop').length === 0) {
+                    $('<div class="modal-backdrop fade show"></div>').appendTo('body');
                 }
-            });
+            }
+        }
+
+        function ocultarModalRTMec() {
+            var $modal = $('#RTmecModal');
+            if (typeof $modal.modal === 'function') {
+                $modal.modal('hide');
+            } else {
+                $modal.removeClass('show').css('display', 'none').attr('aria-hidden', 'true').removeAttr(
+                    'aria-modal');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+            }
+        }
+
+        var asignarRTMec1ra = async function(e) {
+            Swal.close();
+            try {
+                var response = true;
+                var responsepin = null;
+                var placa = e.title.toString().replace("A-", "");
+
+                if (sicov2 == "1" && sicov === "INDRA") {
+                    response = await getSicovToken();
+                    responsepin = await obtenerInfoPin(placa);
+                }
+
+                if (!response || response === "" || response === null || response === false) {
+                    mostrarError('Error en token', 'No se pudo validar el token de sicov, intente nuevamente.', 0);
+                    return;
+                }
+                if (sicov2 == "1" && responsepin !== true) {
+                    // El error ya fue mostrado al cliente dentro de obtenerInfoPin
+                    return;
+                }
+
+                mostrarModalRTMec();
+                mostrarComponente();
+
+                $('#titulo_').text("REVISION TECNICOMECANICA");
+                tipoTipoInspeccion = 'RTMec';
+                reinspeccion = '0';
+                idhojapruebas = '';
+
+                var data = {
+                    numero_placa: e.title
+                };
+                $.ajax({
+                    url: '<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/asignarRTMec1ra',
+                    data: data,
+                    type: 'post',
+                    success: function(r) {
+
+                        var v = JSON.parse(r);
+
+                        vehiculo = new Object();
+                        vehiculo = v;
+                        // console.log(vehiculo)
+                        configurar2703();
+
+                        if ($('#libre-' + vehiculo.numero_placa).val() !== 'Prueba libre') {
+                            setMensaje('El vehículo con placa ' + vehiculo.numero_placa +
+                                ' se encuentra actualmente en proceso de prueba libre y no se le puede asignar un tipo de inspección diferente',
+                                '');
+                            ocultarComponente();
+                        } else {
+                            setMensaje('PRIMERA VEZ PARA ' + vehiculo.numero_placa, '');
+                            if (v.tipo_vehiculo === 'Liviano') {
+                                $('#costo').val(valorRtmecLiviano);
+                                setLiviano();
+                            } else if (v.tipo_vehiculo === 'Moto') {
+                                $('#costo').val(valorRtmecMoto);
+                                setMoto();
+                            } else {
+                                $('#costo').val(valorRtmecPesado);
+                                setPesado();
+                            }
+                            if (facturacion === '0') {
+                                document.getElementById('facturacion').style.display = 'none';
+                                document.getElementById('facturacion').style.position = 'absolute';
+                            }
+                            if (moduloPrerevision === '0') {
+                                document.getElementById('moduloPrerevision').style.display = 'none';
+                                document.getElementById('moduloPrerevision').style.position = 'absolute';
+                            }
+
+                            if (activoSicov === '1' && sicov === 'CI2') {
+
+                            } else {
+                                document.getElementById('pinQuemado').style.display = 'none';
+                                document.getElementById('pinQuemado').style.position = 'absolute';
+                                document.getElementById('pin').style.display = 'none';
+                                document.getElementById('pin').style.position = 'absolute';
+                            }
+                            if (asignarNoFactura === '1') {
+                                getNumFactura();
+                            }
+                        }
+
+                    },
+                    error: function(xhr, status, error) {
+                        mostrarError('Error', 'No se pudo obtener la información del vehículo, intente nuevamente. ' + error, 0);
+                        ocultarModalRTMec();
+                    }
+                });
+            } catch (error) {
+                mostrarError('Error en token', 'Error al obtener el token de sicov:' + error, 0);
+            }
         };
         var idhojapruebas;
 
-        var asignarRTMec2da = function(placa, idhojatrabajo) {
+        // var asignarRTMec2da = async function(placa, idhojatrabajo) {
+        //     Swal.close()
+        //     try {
+        //         let respose = await getSicovToken();
+        //         if (response && response !== "" && response !== null && response !== false) {
+        //             mostrarComponente();
+        //             $('#titulo_').text("REVISION TECNICOMECANICA");
+        //             tipoTipoInspeccion = 'RTMec';
+        //             reinspeccion = '1';
+        //             idhojapruebas = idhojatrabajo;
+        //             var data = {
+        //                 numero_placa: placa,
+        //                 idhojapruebas: idhojatrabajo
+        //             };
+        //             $.ajax({
+        //                 url: '<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/asignarRTMec2da',
+        //                 data: data,
+        //                 type: 'post',
+        //                 success: function(r) {
+        //                     var dat = JSON.parse(r);
+        //                     vehiculo = new Object();
+        //                     vehiculo = dat.vehiculo;
+        //                     configurar2703();
+        //                     if ($('#libre-' + vehiculo.numero_placa).val() !== 'Prueba libre') {
+        //                         setMensaje('El vehículo con placa ' + vehiculo.numero_placa +
+        //                             ' se encuentra actualmente en proceso de prueba libre y no se le puede asignar un tipo de inspección diferente',
+        //                             '');
+        //                         ocultarComponente();
+        //                     } else {
+        //                         setMensaje('SEGUNDA VEZ PARA ' + vehiculo.numero_placa, '');
+        //                         document.getElementById('facturacion').style.display = 'none';
+        //                         document.getElementById('facturacion').style.position = 'absolute';
+        //                         if (moduloPrerevision === '0') {
+        //                             document.getElementById('moduloPrerevision').style.display = 'none';
+        //                             document.getElementById('moduloPrerevision').style.position = 'absolute';
+        //                         }
+        //                         if (activoSicov === '1' && sicov === 'CI2') {
+        //                             $('#pin_').val(dat.pruebas[0].pin);
+        //                         } else {
+        //                             document.getElementById('pinQuemado').style.display = 'none';
+        //                             document.getElementById('pinQuemado').style.position = 'absolute';
+        //                             document.getElementById('pin').style.display = 'none';
+        //                             document.getElementById('pin').style.position = 'absolute';
 
-            mostrarComponente();
-            $('#titulo_').text("REVISION TECNICOMECANICA");
-            tipoTipoInspeccion = 'RTMec';
-            reinspeccion = '1';
-            idhojapruebas = idhojatrabajo;
-            var data = {
-                numero_placa: placa,
-                idhojapruebas: idhojatrabajo
-            };
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/asignarRTMec2da',
-                data: data,
-                type: 'post',
-                success: function(r) {
-                    var dat = JSON.parse(r);
-                    vehiculo = new Object();
-                    vehiculo = dat.vehiculo;
-                    configurar2703();
-                    if ($('#libre-' + vehiculo.numero_placa).val() !== 'Prueba libre') {
-                        setMensaje('El vehículo con placa ' + vehiculo.numero_placa +
-                            ' se encuentra actualmente en proceso de prueba libre y no se le puede asignar un tipo de inspección diferente',
-                            '');
-                        ocultarComponente();
-                    } else {
-                        setMensaje('SEGUNDA VEZ PARA ' + vehiculo.numero_placa, '');
-                        document.getElementById('facturacion').style.display = 'none';
-                        document.getElementById('facturacion').style.position = 'absolute';
-                        if (moduloPrerevision === '0') {
-                            document.getElementById('moduloPrerevision').style.display = 'none';
-                            document.getElementById('moduloPrerevision').style.position = 'absolute';
-                        }
-                        if (activoSicov === '1' && sicov === 'CI2') {
-                            $('#pin_').val(dat.pruebas[0].pin);
-                        } else {
-                            document.getElementById('pinQuemado').style.display = 'none';
-                            document.getElementById('pinQuemado').style.position = 'absolute';
-                            document.getElementById('pin').style.display = 'none';
-                            document.getElementById('pin').style.position = 'absolute';
+        //                         }
+        //                         dat.pruebas[0].camara = '1';
+        //                         dat.pruebas[0].visual = '1';
+        //                         setPrueba("luxometro", dat.pruebas[0].luxometro);
+        //                         setPrueba("opacidad", dat.pruebas[0].opacidad);
+        //                         setPrueba("gases", dat.pruebas[0].gases);
+        //                         setPrueba("sonometro", dat.pruebas[0].sonometro);
+        //                         setPrueba("camara", dat.pruebas[0].camara);
+        //                         setPrueba("taximetro", dat.pruebas[0].taximetro);
+        //                         setPrueba("frenometro", dat.pruebas[0].frenometro);
+        //                         setPrueba("visual", dat.pruebas[0].visual);
+        //                         setPrueba("suspension", dat.pruebas[0].suspension);
+        //                         setPrueba("alineacion", dat.pruebas[0].alineacion);
+        //                     }
+        //                 }
+        //             });
+        //         }
+        //     } catch (error) {
+        //         mostrarError('Error en token', 'Error al obtener el token de sicov:', error, 20000);
+        //     }
 
-                        }
-                        dat.pruebas[0].camara = '1';
-                        dat.pruebas[0].visual = '1';
-                        setPrueba("luxometro", dat.pruebas[0].luxometro);
-                        setPrueba("opacidad", dat.pruebas[0].opacidad);
-                        setPrueba("gases", dat.pruebas[0].gases);
-                        setPrueba("sonometro", dat.pruebas[0].sonometro);
-                        setPrueba("camara", dat.pruebas[0].camara);
-                        setPrueba("taximetro", dat.pruebas[0].taximetro);
-                        setPrueba("frenometro", dat.pruebas[0].frenometro);
-                        setPrueba("visual", dat.pruebas[0].visual);
-                        setPrueba("suspension", dat.pruebas[0].suspension);
-                        setPrueba("alineacion", dat.pruebas[0].alineacion);
-                    }
+        // };
+
+        var asignarRTMec2da = async function(placa, idhojatrabajo) {
+            Swal.close();
+            try {
+                var response = true;
+                var responsepin = null;
+
+                if (sicov2 == "1" && sicov === "INDRA") {
+                    response = await getSicovToken();
+                    responsepin = await obtenerInfoPin(placa);
                 }
-            });
+
+                if (!response || response === "" || response === null || response === false) {
+                    mostrarError('Error en token', 'No se pudo validar el token de sicov, intente nuevamente.', 0);
+                    return;
+                }
+                if (sicov2 == "1" && responsepin !== true) {
+                    // El error ya fue mostrado al cliente dentro de obtenerInfoPin
+                    return;
+                }
+
+                mostrarModalRTMec();
+                mostrarComponente();
+                $('#titulo_').text("REVISION TECNICOMECANICA");
+                tipoTipoInspeccion = 'RTMec';
+                reinspeccion = '1';
+                idhojapruebas = idhojatrabajo;
+                var data = {
+                    numero_placa: placa,
+                    idhojapruebas: idhojatrabajo
+                };
+                $.ajax({
+                    url: '<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/asignarRTMec2da',
+                    data: data,
+                    type: 'post',
+                    success: function(r) {
+                        var dat = JSON.parse(r);
+                        vehiculo = new Object();
+                        vehiculo = dat.vehiculo;
+                        configurar2703();
+                        if ($('#libre-' + vehiculo.numero_placa).val() !== 'Prueba libre') {
+                            setMensaje('El vehículo con placa ' + vehiculo.numero_placa +
+                                ' se encuentra actualmente en proceso de prueba libre y no se le puede asignar un tipo de inspección diferente',
+                                '');
+                            ocultarComponente();
+                        } else {
+                            setMensaje('SEGUNDA VEZ PARA ' + vehiculo.numero_placa, '');
+                            document.getElementById('facturacion').style.display = 'none';
+                            document.getElementById('facturacion').style.position = 'absolute';
+                            if (moduloPrerevision === '0') {
+                                document.getElementById('moduloPrerevision').style.display = 'none';
+                                document.getElementById('moduloPrerevision').style.position = 'absolute';
+                            }
+                            if (activoSicov === '1' && sicov === 'CI2') {
+                                $('#pin_').val(dat.pruebas[0].pin);
+                            } else {
+                                document.getElementById('pinQuemado').style.display = 'none';
+                                document.getElementById('pinQuemado').style.position = 'absolute';
+                                document.getElementById('pin').style.display = 'none';
+                                document.getElementById('pin').style.position = 'absolute';
+                            }
+                            dat.pruebas[0].camara = '1';
+                            dat.pruebas[0].visual = '1';
+                            setPrueba("luxometro", dat.pruebas[0].luxometro);
+                            setPrueba("opacidad", dat.pruebas[0].opacidad);
+                            setPrueba("gases", dat.pruebas[0].gases);
+                            setPrueba("sonometro", dat.pruebas[0].sonometro);
+                            setPrueba("camara", dat.pruebas[0].camara);
+                            setPrueba("taximetro", dat.pruebas[0].taximetro);
+                            setPrueba("frenometro", dat.pruebas[0].frenometro);
+                            setPrueba("visual", dat.pruebas[0].visual);
+                            setPrueba("suspension", dat.pruebas[0].suspension);
+                            setPrueba("alineacion", dat.pruebas[0].alineacion);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        mostrarError('Error', 'No se pudo obtener la información del vehículo, intente nuevamente. ' + error, 0);
+                        ocultarModalRTMec();
+                    }
+                });
+            } catch (error) {
+                mostrarError('Error en token', 'Error al obtener el token de sicov:' + error, 0);
+            }
         };
 
 
@@ -829,6 +1634,10 @@
             document.getElementById('pin').style.position = 'relative';
             document.getElementById('moduloPrerevision').style.display = 'block';
             document.getElementById('moduloPrerevision').style.position = 'relative';
+            document.getElementById('listaPruebas').style.display = 'block';
+            document.getElementById('listaPruebas').style.position = 'relative';
+            document.getElementById('infotecnomecanica').style.display = 'block';
+            document.getElementById('infotecnomecanica').style.position = 'relative';
         };
 
         var ocultarComponente = function() {
@@ -836,8 +1645,12 @@
             //            btnAsignar.disabled = true;
             document.getElementById('titPruebas').style.display = 'none';
             document.getElementById('titPruebas').style.position = 'abosolute';
-            document.getElementById('tabPruebas').style.display = 'none';
-            document.getElementById('tabPruebas').style.position = 'abosolute';
+            document.getElementById('listaPruebas').style.display = 'none';
+            document.getElementById('listaPruebas').style.position = 'abosolute';
+            document.getElementById('infotecnomecanica').style.display = 'none';
+            document.getElementById('infotecnomecanica').style.position = 'abosolute';
+            // document.getElementById('tabPruebas').style.display = 'none';
+            // document.getElementById('tabPruebas').style.position = 'abosolute';
             document.getElementById('btnAsignar').style.display = 'none';
             document.getElementById('btnAsignar').style.position = 'abosolute';
             document.getElementById('facturacion').style.display = 'none';
@@ -895,6 +1708,8 @@
                         document.getElementById('pinQuemado').style.position = 'absolute';
                         document.getElementById('pin').style.display = 'none';
                         document.getElementById('pin').style.position = 'absolute';
+                        document.getElementById('infotecnomecanica').style.display = 'none';
+                        document.getElementById('infotecnomecanica').style.position = 'absolute';
                         if (asignarNoFactura === '1') {
                             getNumFactura();
                         }
@@ -938,6 +1753,8 @@
                         document.getElementById('pinQuemado').style.position = 'absolute';
                         document.getElementById('pin').style.display = 'none';
                         document.getElementById('pin').style.position = 'absolute';
+                        document.getElementById('infotecnomecanica').style.display = 'none';
+                        document.getElementById('infotecnomecanica').style.position = 'absolute';
                         dat.pruebas[0].camara = '1';
                         dat.pruebas[0].visual = '1';
                         setPrueba("luxometro", dat.pruebas[0].luxometro);
@@ -993,6 +1810,8 @@
                         document.getElementById('pinQuemado').style.position = 'absolute';
                         document.getElementById('pin').style.display = 'none';
                         document.getElementById('pin').style.position = 'absolute';
+                        document.getElementById('infotecnomecanica').style.display = 'none';
+                        document.getElementById('infotecnomecanica').style.position = 'absolute';
                     }
 
 
@@ -1048,13 +1867,13 @@
             checkComponente('visual', true);
             habilitarComponente('suspension', false);
             checkComponente('suspension', false);
-          //  if (vehiculo.idclase == 30) {
-           //     habilitarComponente('alineacion', false);
-           //     checkComponente('alineacion', true);
-           // } else {
-                habilitarComponente('alineacion', false);
-                checkComponente('alineacion', false);
-           // }
+            //  if (vehiculo.idclase == 30) {
+            //     habilitarComponente('alineacion', false);
+            //     checkComponente('alineacion', true);
+            // } else {
+            habilitarComponente('alineacion', false);
+            checkComponente('alineacion', false);
+            // }
 
         };
 
@@ -1209,7 +2028,7 @@
             checkComponente('alineacion', false);
         };
 
-        var asignarPrueba = function() {
+        var asignarPrueba = async function() {
             // if (ifRemolque) {
             // 		alert("Remolques y semiremolques no pueden ser inspeccionados en este módulo.");
             // 		return;
@@ -1219,6 +2038,11 @@
             btnAsignar.disabled = true;
             switch (tipoTipoInspeccion) {
                 case 'RTMec':
+
+
+
+
+
                     if (facturacion === '1' && reinspeccion === '0') {
                         if ($("#noFactura").val() === '') {
                             setMensaje('INGRESE EL NÚMERO DE FACTURA', 'salmon');
@@ -1265,6 +2089,7 @@
                         setMensaje('INGRESE EL PIN', 'salmon');
                         asignar = false;
                     }
+
                     //                    var btnAsignar = document.getElementById("btnAsignar");
                     //                    btnAsignar.disabled = true;
                     var segundos = 1;
@@ -1280,11 +2105,11 @@
                                     clearInterval(proceso);
                                     var e = document.getElementById('chkpinQuemado');
                                     if (!e.checked) {
-                                        quemarPin();
+                                        quemarPin(reinspeccion);
                                     } else {
-										// insertarPruebas();
-										// quemadoSICOV();
-                                        consultarPinQuemado();
+                                        // insertarPruebas();
+                                        // quemadoSICOV();
+                                        consultarPinQuemado(reinspeccion);
                                     }
                                 }
                                 segundos--;
@@ -1294,10 +2119,11 @@
                                 setMensaje('Por favor espere...', 'black');
                                 if (segundos === 0) {
                                     clearInterval(proceso);
-                                    if (verificarPin === "1" )
+                                    //TODO: habilitar esto
+                                    if (verificarPin === "1")
                                         verificarPinIndra();
                                     else
-                                        insertarPruebas();
+                                    insertarPruebas(reinspeccion);
                                 }
                                 segundos--;
                             }, 500);
@@ -1306,7 +2132,7 @@
                                 setMensaje('Por favor espere...', 'black');
                                 if (segundos === 0) {
                                     clearInterval(proceso);
-                                    insertarPruebas();
+                                    insertarPruebas(reinspeccion);
                                     //                                    btnAsignar.disabled = false;
                                 }
                                 segundos--;
@@ -1433,15 +2259,15 @@
             }
         };
 
-        var quemarPin = function () {
+        var quemarPin = function(reinspeccion) {
             var pin = $('#pin_').val();
             var tipo_rtm = '1';
             if (reinspeccion === '1') {
                 tipo_rtm = '2';
             }
-			const url = '<?php echo base_url(); ?>index.php/oficina/ci2/Cci2/utilizar_pin';
+            const url = '<?php echo base_url(); ?>index.php/oficina/ci2/Cci2/utilizar_pin';
             var data = {
-				tipoRtm: tipo_rtm,
+                tipoRtm: tipo_rtm,
                 pPin: pin,
                 pPlaca: vehiculo.numero_placa.toUpperCase(),
             };
@@ -1453,19 +2279,19 @@
                 dataType: 'json',
                 processData: false,
                 async: false,
-                success: function (rta) {
-					if(rta.codigo==="0000"){
-						setMensaje(rta.mensaje, 'green');
-						insertarPruebas();
-					}else{
-						setMensaje(rta.mensaje, 'red');
-					}
+                success: function(rta) {
+                    if (rta.codigo === "0000") {
+                        setMensaje(rta.mensaje, 'green');
+                        insertarPruebas(reinspeccion);
+                    } else {
+                        setMensaje(rta.mensaje, 'red');
+                    }
                 }
             });
         };
 
-		function consultarPinQuemado() {
-			const url = '<?php echo base_url(); ?>index.php/oficina/ci2/Cci2/consulta_pin';
+        function consultarPinQuemado(reinspeccion) {
+            const url = '<?php echo base_url(); ?>index.php/oficina/ci2/Cci2/consulta_pin';
             var data = {
                 pPin: $('#pin_').val(),
                 pPlaca: vehiculo.numero_placa.toUpperCase(),
@@ -1478,21 +2304,21 @@
                 dataType: 'json',
                 processData: false,
                 async: false,
-                success: function (rta) {
-					if(rta.success && rta.codigo==="2007"){
-						insertarPruebas();
-						// quemadoSICOV();
-					}else{
-						setMensaje(rta.mensaje, 'red');
-					}
+                success: function(rta) {
+                    if (rta.success && rta.codigo === "2007") {
+                        insertarPruebas(reinspeccion);
+                        // quemadoSICOV();
+                    } else {
+                        setMensaje(rta.mensaje, 'red');
+                    }
                 }
             });
-		}
-
-		
+        }
 
 
-        var verificarPinIndra = function () {
+
+
+        var verificarPinIndra = function() {
             setMensaje('POR FAVOR ESPERE....', 'black');
             //            var pin = $('#pin_').val();
             //            var tipo_rtm = '1';
@@ -1509,7 +2335,7 @@
                 // ipSicovAlternativo: ipSicovAlternativo,
                 ipSicov: ipSicov
             };
-            console.log(data);
+            // console.log(data);
             $.ajax({
                 url: '<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/verificarPIN',
                 data: data,
@@ -1546,8 +2372,15 @@
             });
         };
 
-        var insertarPruebas = function() {
+        var insertarPruebas = async function(reinspec = false) {
+            let planPruebas = [];
+            let responseplan = true;
+
             var pruebas = new Object();
+            if (reinspec == 1 || reinspec == "1")
+                reinspec = true;
+            else
+                reinspec = false;
             pruebas.luxometro = document.getElementById('luxometro').checked;
             pruebas.opacidad = document.getElementById('opacidad').checked;
             pruebas.gases = document.getElementById('gases').checked;
@@ -1616,78 +2449,138 @@
             pruebas.pin0 = $('#pin_').val();
             pruebas.idhojapruebas = idhojapruebas;
 
-            var data = {
-                pruebas: pruebas,
-                aplicares2703: document.getElementById('chkAplicaRes2703').checked,
-                autoregulado: document.getElementById('chkAutoregulado').checked,
-                numero_placa: vehiculo.numero_placa
-            };
+            /// sicov 2.0 INDRA
+            // console.log("reinspeccion", reinspeccion)
+            if ((reinspeccion == "0" || reinspeccion == "1") && sicov2 == "1") {
+                // let ordersicov = JSON.parse(localStorage.getItem('ordenPruebasSicov'));
+                // planPruebas = ordersicov
+                //     .filter(key => pruebas[key] === true && tipoPruebaMap[key])
+                //     .map((key, index) => ({
+                //         tipoPruebaId: tipoPruebaMap[key].tipoPruebaId,
+                //         nombre: tipoPruebaMap[key].nombre,
+                //         esObligatoria: true,
+                //         orden: index + 1,
+                //     }));
 
-            $.ajax({
-                url: '<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/insertarPruebas',
-                data: data,
-                type: 'post',
-                mimeType: 'json',
-                async: false,
-                success: function(rta) {
-                    console.log(rta)
-                    if (rta.cadena !== "") {
-                        envioBasicCAr(rta.cadena, rta.idhojapruebas);
-                    }
-                    var idHPr = rta.idhojapruebas;
-                    if (idHPr === "FALSE") {
-                        //                        location.reload();
-                    } else {
-                        $.ajax({
-                            url: '<?php echo base_url(); ?>index.php/Cconfiguracion/getDominio',
-                            type: 'post',
-                            success: function(dominio) {
-                                var tipo_inspeccion = "1";
-                                if (tipoTipoInspeccion === 'Preventiva') {
-                                    tipo_inspeccion = '2';
-                                } else if (tipoTipoInspeccion === 'Prueba libre') {
-                                    tipo_inspeccion = '3';
-                                }
-                                var reins = reinspeccion;
-                                if (reinspeccion === '4444' || reinspeccion === '8888') {
-                                    reins = '0';
-                                } else if (vehiculo.reinspeccion === '44441') {
-                                    reins = '1';
-                                }
+                let ordersicov = JSON.parse(localStorage.getItem('ordenPruebasSicov'));
 
-                                var data = {
-                                    placa: vehiculo.numero_placa + "-" + reins,
-                                    tipo_vehiculo: vehiculo.idtipo_vehiculo,
-                                    clase: vehiculo.idclase,
-                                    servicio: vehiculo.idservicio,
-                                    taximetro: vehiculo.taximetro,
-                                    tipo_inspeccion: tipo_inspeccion,
-                                    valor: $('#costo').val()
+                const clavesFas = ['alineacion', 'frenometro', 'suspension'];
+                const todasFas = clavesFas.every(key => pruebas[key] === true);
 
-                                };
-                                console.log(data)
+                let clavesFiltradas;
 
-                                if (parseInt(localStorage.getItem("contador")) < parseInt(
-                                        localStorage.getItem("actualizado")) && data
-                                    .tipo_inspeccion == "2") {
-                                    console.log("entra por if");
+                if (todasFas) {
+                    // Se agrupan las 3 en un solo item "fas", en la posición de la primera que aparezca en el orden
+                    let insertado = false;
+                    clavesFiltradas = ordersicov.reduce((acc, key) => {
+                        if (clavesFas.includes(key)) {
+                            if (!insertado) {
+                                acc.push('fas');
+                                insertado = true;
+                            }
+                            // las otras 2 claves FAS se omiten, ya quedaron representadas por 'fas'
+                        } else if (pruebas[key] === true && tipoPruebaMap[key]) {
+                            acc.push(key);
+                        }
+                        return acc;
+                    }, []);
+                } else {
+                    // Comportamiento original: cada prueba va individual
+                    clavesFiltradas = ordersicov.filter(key => pruebas[key] === true && tipoPruebaMap[key]);
+                }
 
-                                    //if (dominio == "cdatecmmas.tecmmas.com" && localStorage.getItem("contador") < 80 && data.tipo_inspeccion == "2") {
-                                    console.log("entras");
-                                    localStorage.setItem("contador", parseInt(localStorage
-                                        .getItem("contador")) + 1)
-                                    $.ajax({
-                                        url: "http://" + dominio +
-                                            "/cda/index.php/Cservicio/insertMercadeo",
-                                        data: data,
-                                        type: 'post',
-                                        async: false,
-                                        success: function(rta) {}
-                                    });
-                                } else {
-                                    console.log(data.tipo_inspeccion);
-                                    if (data.tipo_inspeccion !== "2") {
-                                        console.log("entra por else");
+                planPruebas = clavesFiltradas.map((key, index) => ({
+                    tipoPruebaId: tipoPruebaMap[key].tipoPruebaId,
+                    nombre: tipoPruebaMap[key].nombre,
+                    esObligatoria: true,
+                    orden: index + 1,
+                }));
+
+                const vectorpruebassicov = {
+                    inspeccionId: parseInt(localStorage.getItem("inspeccionId")),
+                    reinspeccion: reinspec,
+                    pistaId: localStorage.getItem("lineaInspeccionSeleccionada"),
+                    caracteristicas: {
+                        claseVehiculo: parseInt(vehiculo.idclase),
+                        tipoCombustible: parseInt(vehiculo.idtipocombustiblesicov),
+                        tipoServicio: parseInt(vehiculo.idtiposerviciosicov),
+                        pesoBruto: parseInt(vehiculo.peso_bruto)
+
+                    },
+                    planPruebas: planPruebas
+                }
+
+                responseplan = await planInspeccion(vectorpruebassicov);
+            } else {
+                responseplan = true;
+            }
+
+
+            if (responseplan) {
+                var data = {
+                    pruebas: pruebas,
+                    aplicares2703: document.getElementById('chkAplicaRes2703').checked,
+                    autoregulado: document.getElementById('chkAutoregulado').checked,
+                    numero_placa: vehiculo.numero_placa,
+                    inspeccionId: localStorage.getItem("inspeccionId") ?? "NA",
+                    planPruebas: planPruebas ?? []
+                };
+
+                // console.log(data);
+
+                $.ajax({
+                    url: '<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/insertarPruebas',
+                    data: data,
+                    type: 'post',
+                    mimeType: 'json',
+                    async: false,
+                    success: function(rta) {
+                        console.log(rta)
+                        if (rta.cadena !== "") {
+                            envioBasicCAr(rta.cadena, rta.idhojapruebas);
+                        }
+                        var idHPr = rta.idhojapruebas;
+                        if (idHPr === "FALSE") {
+                            //                        location.reload();
+                        } else {
+                            $.ajax({
+                                url: '<?php echo base_url(); ?>index.php/Cconfiguracion/getDominio',
+                                type: 'post',
+                                success: function(dominio) {
+                                    var tipo_inspeccion = "1";
+                                    if (tipoTipoInspeccion === 'Preventiva') {
+                                        tipo_inspeccion = '2';
+                                    } else if (tipoTipoInspeccion === 'Prueba libre') {
+                                        tipo_inspeccion = '3';
+                                    }
+                                    var reins = reinspeccion;
+                                    if (reinspeccion === '4444' || reinspeccion === '8888') {
+                                        reins = '0';
+                                    } else if (vehiculo.reinspeccion === '44441') {
+                                        reins = '1';
+                                    }
+
+                                    var data = {
+                                        placa: vehiculo.numero_placa + "-" + reins,
+                                        tipo_vehiculo: vehiculo.idtipo_vehiculo,
+                                        clase: vehiculo.idclase,
+                                        servicio: vehiculo.idservicio,
+                                        taximetro: vehiculo.taximetro,
+                                        tipo_inspeccion: tipo_inspeccion,
+                                        valor: $('#costo').val()
+
+                                    };
+                                    console.log(data)
+
+                                    if (parseInt(localStorage.getItem("contador")) < parseInt(
+                                            localStorage.getItem("actualizado")) && data
+                                        .tipo_inspeccion == "2") {
+                                        console.log("entra por if");
+
+                                        //if (dominio == "cdatecmmas.tecmmas.com" && localStorage.getItem("contador") < 80 && data.tipo_inspeccion == "2") {
+                                        console.log("entras");
+                                        localStorage.setItem("contador", parseInt(localStorage
+                                            .getItem("contador")) + 1)
                                         $.ajax({
                                             url: "http://" + dominio +
                                                 "/cda/index.php/Cservicio/insertMercadeo",
@@ -1696,113 +2589,163 @@
                                             async: false,
                                             success: function(rta) {}
                                         });
+                                    } else {
+                                        console.log(data.tipo_inspeccion);
+                                        if (data.tipo_inspeccion !== "2") {
+                                            console.log("entra por else");
+                                            $.ajax({
+                                                url: "http://" + dominio +
+                                                    "/cda/index.php/Cservicio/insertMercadeo",
+                                                data: data,
+                                                type: 'post',
+                                                async: false,
+                                                success: function(rta) {}
+                                            });
+                                        }
+
                                     }
 
-                                }
+                                    //                                console.log(salaEspera);
+                                    if (salaEspera === "1") {
+                                        var vehiculo_ = new Object();
+                                        vehiculo_.idhojapruebas = idHPr;
+                                        vehiculo_.placa = vehiculo.numero_placa;
+                                        vehiculo_.marca = vehiculo.marca;
+                                        vehiculo_.linea = vehiculo.linea;
+                                        vehiculo_.modelo = vehiculo.ano_modelo;
+                                        vehiculo_.clase = vehiculo.clase;
+                                        vehiculo_.color = vehiculo.color;
+                                        vehiculo_.servicio = vehiculo.idservicio;
+                                        vehiculo_.reinspeccion = reinspeccion;
 
-                                //                                console.log(salaEspera);
-                                if (salaEspera === "1") {
-                                    var vehiculo_ = new Object();
-                                    vehiculo_.idhojapruebas = idHPr;
-                                    vehiculo_.placa = vehiculo.numero_placa;
-                                    vehiculo_.marca = vehiculo.marca;
-                                    vehiculo_.linea = vehiculo.linea;
-                                    vehiculo_.modelo = vehiculo.ano_modelo;
-                                    vehiculo_.clase = vehiculo.clase;
-                                    vehiculo_.color = vehiculo.color;
-                                    vehiculo_.servicio = vehiculo.idservicio;
-                                    vehiculo_.reinspeccion = reinspeccion;
-
-                                    if (pruebas.luxometro)
-                                        vehiculo_.luces = "1";
-                                    else
-                                        vehiculo_.luces = "0";
-                                    if (pruebas.opacidad)
-                                        vehiculo_.opacidad = "1";
-                                    else
-                                        vehiculo_.opacidad = "0";
-                                    if (pruebas.gases)
-                                        vehiculo_.gases = "1";
-                                    else
-                                        vehiculo_.gases = "0";
-                                    if (pruebas.sonometro)
-                                        vehiculo_.sonometro = "1";
-                                    else
-                                        vehiculo_.sonometro = "0";
-                                    if (pruebas.camara)
-                                        vehiculo_.camara = "1";
-                                    else
-                                        vehiculo_.camara = "0";
-                                    if (pruebas.taximetro)
-                                        vehiculo_.taximetro = "1";
-                                    else
-                                        vehiculo_.taximetro = "0";
-                                    if (pruebas.frenometro)
-                                        vehiculo_.frenos = "1";
-                                    else
-                                        vehiculo_.frenos = "0";
-                                    if (pruebas.visual)
-                                        vehiculo_.visual = "1";
-                                    else
-                                        vehiculo_.visual = "0";
-                                    if (pruebas.suspension)
-                                        vehiculo_.suspension = "1";
-                                    else
-                                        vehiculo_.suspension = "0";
-                                    if (pruebas.alineacion)
-                                        vehiculo_.alineacion = "1";
-                                    else
-                                        vehiculo_.alineacion = "0";
-                                    vehiculo_.certificado = "0";
-                                    vehiculo_.llamar = "0";
-                                    var data_ = {
-                                        vehiculo: vehiculo_
-                                    };
-                                    //                                    $.ajax({
-                                    //                                        url: "<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/insertVisor",
-                                    //                                        data: data_,
-                                    //                                        type: 'post',
-                                    //                                        mimeType: 'json',
-                                    //                                        async: false,
-                                    //                                        success: function (data, textStatus, jqXHR) {
-                                    //
-                                    //                                        }, error: function (jqXHR, textStatus, errorThrown) {
-                                    //                                            $('#div_error').html('Error:' + jqXHR.responseText + " - " + textStatus);
-                                    //                                        }
-                                    ////                                        ,
-                                    ////                                        success: function (rta) {
-                                    ////                                        }
-                                    //                                    });
-                                    $.ajax({
-                                        url: "http://" + dominio +
-                                            "/cda/index.php/Csala/insertar",
-                                        data: data_,
-                                        type: 'post',
-                                        async: false
-                                        //                                        ,
-                                        //                                        success: function (rta) {
+                                        if (pruebas.luxometro)
+                                            vehiculo_.luces = "1";
+                                        else
+                                            vehiculo_.luces = "0";
+                                        if (pruebas.opacidad)
+                                            vehiculo_.opacidad = "1";
+                                        else
+                                            vehiculo_.opacidad = "0";
+                                        if (pruebas.gases)
+                                            vehiculo_.gases = "1";
+                                        else
+                                            vehiculo_.gases = "0";
+                                        if (pruebas.sonometro)
+                                            vehiculo_.sonometro = "1";
+                                        else
+                                            vehiculo_.sonometro = "0";
+                                        if (pruebas.camara)
+                                            vehiculo_.camara = "1";
+                                        else
+                                            vehiculo_.camara = "0";
+                                        if (pruebas.taximetro)
+                                            vehiculo_.taximetro = "1";
+                                        else
+                                            vehiculo_.taximetro = "0";
+                                        if (pruebas.frenometro)
+                                            vehiculo_.frenos = "1";
+                                        else
+                                            vehiculo_.frenos = "0";
+                                        if (pruebas.visual)
+                                            vehiculo_.visual = "1";
+                                        else
+                                            vehiculo_.visual = "0";
+                                        if (pruebas.suspension)
+                                            vehiculo_.suspension = "1";
+                                        else
+                                            vehiculo_.suspension = "0";
+                                        if (pruebas.alineacion)
+                                            vehiculo_.alineacion = "1";
+                                        else
+                                            vehiculo_.alineacion = "0";
+                                        vehiculo_.certificado = "0";
+                                        vehiculo_.llamar = "0";
+                                        var data_ = {
+                                            vehiculo: vehiculo_
+                                        };
+                                        //                                    $.ajax({
+                                        //                                        url: "<?php echo base_url(); ?>index.php/oficina/pruebas/Cpruebas/insertVisor",
+                                        //                                        data: data_,
+                                        //                                        type: 'post',
+                                        //                                        mimeType: 'json',
+                                        //                                        async: false,
+                                        //                                        success: function (data, textStatus, jqXHR) {
+                                        //
+                                        //                                        }, error: function (jqXHR, textStatus, errorThrown) {
+                                        //                                            $('#div_error').html('Error:' + jqXHR.responseText + " - " + textStatus);
                                         //                                        }
-                                    });
+                                        ////                                        ,
+                                        ////                                        success: function (rta) {
+                                        ////                                        }
+                                        //                                    });
+                                        $.ajax({
+                                            url: "http://" + dominio +
+                                                "/cda/index.php/Csala/insertar",
+                                            data: data_,
+                                            type: 'post',
+                                            async: false
+                                            //                                        ,
+                                            //                                        success: function (rta) {
+                                            //                                        }
+                                        });
 
+                                    }
                                 }
-                            }
-                        });
-                        var segundos = 2;
-                        var proceso = setInterval(function() {
-                            setMensaje('ASIGNADO EXITOSAMENTE.', 'green');
-                            if (segundos === 0) {
-                                clearInterval(proceso);
-                                location.reload();
-                            }
-                            segundos--;
-                        }, 1000);
+                            });
+                            var segundos = 2;
+                            var proceso = setInterval(function() {
+                                setMensaje('ASIGNADO EXITOSAMENTE.', 'green');
+                                if (segundos === 0) {
+                                    clearInterval(proceso);
+                                    location.reload();
+                                }
+                                segundos--;
+                            }, 1000);
+                        }
+                    },
+                    error(rta) {
+                        console.log(rta.responseText);
                     }
-                },
-                error(rta) {
-                    console.log(rta.responseText);
-                }
-            });
+                });
+            }
         };
+
+
+        async function planInspeccion(vectorplan) {
+            try {
+                const response = await fetch(`${API_BASE}/planInspeccion`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        token: localStorage.getItem('sicov_access_token'),
+                        vectorplan: vectorplan
+                    })
+                });
+
+                const data = await response.json();
+
+                // console.log(data)
+                if (data.success && data.data) {
+                    return true;
+                } else {
+                    console.error('❌ Error en obtener info pin:', data, 0);
+                    mostrarError("Respuesta sicov: " + data.error, data.error.details + "<br>" + data.validationErrors[0], 0);
+                    $("#btn-close-modal-rtm").click();
+                    return false;
+                }
+            } catch (error) {
+                mostrarError(
+                    'No se pudo completar el envío',
+                    'Ocurrió un error al procesar el plan de pruebas.<br><br>• <b>Sugerencia:</b> Compruebe que el vehículo tenga registrado el peso bruto vehicular.<br>• Si el error continúa tras reintentar, solicite asistencia a soporte técnico.',
+                    0
+                );
+                console.error('❌ Error en plan de pruebas:', error);
+                $("#btn-close-modal-rtm").click();
+                return false;
+            }
+        }
 
 
         function envioBasicCAr(basic, idprueba) {
