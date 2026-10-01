@@ -1,229 +1,317 @@
-<?php //004fb
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo("Site error: the ".(php_sapi_name()=='cli'?'ionCube':'<a href="http://www.ioncube.com">ionCube</a>')." PHP Loader needs to be installed. This is a widely used PHP extension for running ionCube protected PHP code, website security and malware blocking.\n\nPlease visit ".(php_sapi_name()=='cli'?'get-loader.ioncube.com':'<a href="http://get-loader.ioncube.com">get-loader.ioncube.com</a>')." for install assistance.\n\n");exit(199);
-?>
-HR+cPytciF28W0d7LGqbqx6HUd9hLM2XPvzMIFrHDL84gyGhnZ84zsBhRsLE06QYyqTYelE0Bvc2
-c9A0i5SZtplEMRJEyqLzcMkDU+bhdHm3FYE0F+xaPS14aEdvKM42u/GIQ9wFPue96e4UDM1Qzn6Y
-xfTxw6PIUbeLZCB0NL1m7frK/TnoQMfumcHUoDpQ3xnBvv6RwBryqI8SqN/5Y+cQJYvwzAKXhEoE
-eKJlRkDUynur78ZV82lBOFTZ96xi6rbo/IkmyuqlUYnR2Vq4YkqLhR45IXPW8chsOL3AjFEvKuzf
-Kt/gwIXRVm+Hyg4+31T9f50kEcoQazRaZyit+yJGsyMyEN81vaAxksWSKaWEeJ+zisJrVaVYGU2w
-HWAYJ4dUp2sFI15PSQoS+FUHVBvDLQq/FxQF84aV/JHcu+KgYoX6iuYg0ADuMWOmMNjuVN8MnaR9
-xGTtd8+Mo42JNDlS4btbP2J9XiJHJIaEFbE5vG5hKaOiHKF1+0Ip4Rz1/PRDnI033P4WM+J636F8
-r1fonPUadJFTb7Plx0AJNQhUyuwRJ+oP2Y5WSLkQPtsBdNzq8iVd9J/CMYyhtsBE3ka2XMhxiRAN
-DS4xvMuBGDTdDg5pT/eEGA5psZM+cueoc3BComJTRYOpIvjcHaJSfoIoa+76+qVC+mxxrByRK69O
-bF+j/VGVf/PM2Dad9FWauvQd1PMRJ9mgocZDhpY1bxgxiVjWmmSI2tB2ziK2jEj/EORVLmT+p9JG
-z139byihiX4YX8rzXh1ys/ONtDtq8TdAe6OuXpCAXiAOZ41GlCIfaD1g7UBNsb4DpFDOKjkOwjKf
-LwjnjM1doQudKICbT1dXxzWAQ1duqsle3VhyjIQk5YvAJJ+7BJqCzvtfLwQwBovMFmWrNkkoKomY
-+KxANzOKLxhOPtd66eAdNG0+UqQSPxMKwGfl5TezBawMwRcIg471zDzM2TKiSkjslfkpR+CQfVHt
-e86YUm9HVQhwNtArCPqDvwCnTOA6Pj/xWM5JW2h7qvuOOcH70xNFrNYI96bToHrWogx212RHlrQG
-YSum2aTsR9LiIv7T+k8XuC/qRT8nBn7Jwc2wg8TMVTNjlEpBvAzpVzGRdwmVb48bTWIvGJfYp/T2
-u5xD7SolnJZT9VadiUT6DpgdprvD6V/K1PjcseetPBsyQKlYf2jgnABkEYH6MdtQfGzylNMWyIon
-0/0Udm8AYxnnrGPCreRx9y0jI/+02F+DkxgS3xkevZ6STQms0nY1zQslijp7/thKXmlU0h5gXgNx
-i4u/cU9OLFzGhNs5WvcKdGSj5urf416vvlgL3SSD2To0cT8V64JlCf0FTmG+uDFXbzaneuYykZbx
-toOW/T3DR4IJy9aUzJDWi705kA3630ogdwBDJ6r4Y6gCPOL1sR9WHfBX6MrKE+HrtoQDn5kTDrDm
-HUBwyX+pNJvw+8KD3Tt9sn45JczTqmgKnJjoQTS50jlLAyKq6o7Mf8orHELX8ESBc+Fu5YS6neMk
-KsXkl+k8Z6Klp/5H/Mdr6OqiNQFUnpKaoeP0DB6Ktu8Ptu0X4O0h/DiakV+HX6nRjqiqs8kao0F2
-vJC9xfDtscsRPCZxnQIBzsc9vHDoWB1k7dQOLFR01uIxwj0MNgUiQnknu30uAP+bSbuHJ0oZqT/F
-3c0WPaWP5bsQcEimoyckFUMBSAW5SrIDAciId5v5MdKMl9wuXR0AXYaOZEz3YrGs1B4L/9gMB13d
-HRD1ZzDb3tfcycQmuUM3ZftvUNTE9YVXsoNOzf64vEX5EX6orGi3CFK9Mb3CarhcRwtQKVXONzTC
-vXBy40Z0DkGe/0JlkCcHz86m5VTqOjOjKY8+OSLZAGEmTBcXJB/E5Xjs10CxO5XcnbWXdVHFYYl1
-BDRxATlm3yXMCzzO7gfJQ8IPN2WiW1tnpqaYGG9R0PTf1/2MDkN9r/tXUANPAduA2H5A5KF4y0eg
-QocgYuEOeDeIs7LbiczvKlz7e+Noh+V4gkYCPBbzyamsuiR6q2Zio6KWEZEL0ODWQgd52Ovm7CGK
-NGkE7kd48pqOgWucsLzP4Pks4Gt3bdytHnxJvcJLB+dDfA/qAjDB/2H3dC1eo+wUkXoqO3N/07YA
-s/d68Uyu26nXah6YiuwmybWI51QQboyKUnFXxAm1WF0E4EfzG6/4eO5N9YWnNcP5ql/y3DXfS3+0
-cu0cfkZX3xhCDM97hCNGXbhfIMTvTF8e+VVpXYRc4Kg2O7xDD8+cK9DTgdHLzbssxpE8qy3eenF7
-nqDabY7j1Vc/kQF5iN/qUAhbIPWdXyUye3gt70B8gBC6MHHkh2YPBleaGxDcv0KN2tYtbmlTx9ue
-Zschs6Hk7k0dIfwKQnLX/BLRS5fx+o8qFwcpc/gZnQOAALilFTMGIu2K8pFggzUBtQcEmXGOkRAC
-71LSqKpGw6RHSNRc6n1FI5b8gKsxW7YvOOAgtX2/jgnfhDwfpIEfOZcFX3h11rtiTZfMZRXVvJEe
-I+LwwzpEad6clUna9qIjWWv+W/zeXp2DAjp2i4M64BWHYpMtisbO3ncc0ZrcjyALOX6GV4dC3uAR
-vK9JaCraS/X1Ey55QdxYIRoD2PUnf2f7M1KgSrfBeGdAiuGMgleP1EZMUQdgs9UoRo84T2GLa4Rt
-XalWSRUHkrbxWrYIs9vy8f+pknPt1NUSYisvpY+GXYi051vpmc7r/MQaQkeY/Gne7n7gp0Ej0LZr
-HfJCLpZd0jF95025zsC5KVj7FuyYn38mn0wIVX6NaKUxRz4plqGPYmwVyJ1GZLBaPNjjGwvRCvQs
-36TaDbelK/xEsLis98zluLpBv+FYyWFTKyaMK8cL6hIxmPj9V4wypm6LiZkJFTHmXuj79yVG9zM+
-LyMNxjiPNB1diYEfN6e6aIm4RSZZyxZTueaquMhreu2HENdfFsR71t4sOw8wXgrVT0dZvh52FgAL
-2BMycoWuJOfRhS0sSm/AgEoAjNpHdoUuo4JLWYEfYwujdmQ+Y9CeR1OcSc91kIugf6EdizVPpw4u
-Gw2hWPVKYcI+5GoFfXgLVbCinydVxAXLNsjWJh510gJESLav3Yc10SzJOF/eKGAzRXbPHiI93LvL
-LRf6sp8H6klbxlwpxAp63dp3t12zQAhxoXHTzbTenks7t7Ac0UgT7+u5PpFPk+4XeY4ZH+57H+Wf
-4Gq29SEgWzOwBoDrJ65F7Tb6FuqAbLthbhY5wET3l6usO2uOxWfS9Kg6T6jQw1akuaaq/YMYCtdy
-i2EBreaxJL6yS+7pagorvBIc4DZanEqWrds8VpEj1I1Xntl3ThzBptzAjgQxyeLhKXYBs/6/TNgo
-FvG+hILbd7XtAAti3QB0KFNIfUYjuIa5hLOueFT3TD8/V/idorJM1IHHjpEq0hiemMK5H52Kmqp+
-QLpaGRlY79mkYeYeJIbc/sSt3blZK4o8LROr7l74qKuDNNHgol967x4e7KsF4kZpYb8zm7tqOlwJ
-oJXjQhLC1Egyto0hc/p/VPqAoYmuSJDQoNThh5QmIJa0BVodpTh4O4OaQ2hhUEoIVfQ8HqqDPR9R
-woh+C84Eo3GTDHB+qY0JXJW1wWCTUDUGg9SMP3ckcmNzKpxXmx0gYTPSfbOvyczjWSh1IpMsualp
-oOdbnmUT+jc9Her1gRHCEcg5IkWCiCJO6XGgz8MmiO7Ex7eX1F1R2lBEBq41JKamwyQ6rRGB5oQo
-+QsmALHKNilcRL7XEfzXzZj1pct+PYGMTNQi+uL7cbAELmROaYKeQpREBM4QYSlIrrltp+QUV3Lp
-8JlUi9RrKqm29yOYpBQ1b1Qg1ru28brU9RZyJjedk5z6tU2YeCMwx9QcE2NWVGit4oXCln+T+Yiv
-hQsItQjtFzRTiLixq3S2Pkh47WHiYaX7eixy4i6h2Vw+e5kGz8ec3bdlIB+STuFwXpRJiZTTnSUd
-1k7hwJKoJn2QwrzGPLf1714epjESnm4wl2Na5lmgA2h2ucgxHZsFmI+A/MtImSHtVzYyO6SD8U7s
-Fbit+jIrTFnzrzoBMo9/vj2MK58Klzo/XtYj3ay7+DCgqtlvhIoqv26IAr0axBKUwbnLHTqKmnUZ
-6eiwqxlXxUyKCRos/zznimP/59UvvMWhRV+8i/mQknqa+7oriPombrRZym3rWeHK74BE41SVrwv5
-f4yBrZUwTr5AdczGJLb18atKaqwY2JfpY/RITc7w7svEmWXXpWMhtS33CIPlEsDBu4QZJihwHhRh
-VR9RZC/JKfSWRLpB/4eSWMviqOW3KLcoQpBlKumskRA5prpzwu/SM21krC+aKUTeC32TKP5Y+myn
-8oBTNUV2U01z6e4LaiKYTHnId8eRbdGkr5EZOzQ2eZ5Sc9pLmvNx3lSIIW2orix/J7mfNlQXmPNm
-EYrm+glRkXcwG1HcsHFdTd/G85ZV2HLkqR9ecZ5jkJI7vhUkh34nS+8WaVv8NHa4Kb+TQLTz/niA
-vkGMQ5KSoc/QuF2yvVMU35Nj+/u/9lflmH6klquwbjE+IdytCWzS80c0o/OlrAs8aomjZal1nV/q
-iTJl304CXwiHFUCKySdrovHOacl5Rxpa62bE2Czi+eWjd0Y/PONcsViGuQ3USav4pYZrObUJPqtL
-YnAllgWOqpP77A3EZFKRv4zLYIhiYVWjsWIMNKCmfeUz+/eBZropbkL1iw5PYJeaj4ApQ35Rt1kW
-yrl/mhqU35OSTYfnb/IX9v8V4gdFnJ6OyNKk7Acy8inZSB0iUQWhu2BHKeQLs1KD9/75aY9AqAgs
-NjC/tQwTM4laOzUlPlzOz07jDguU7rsSB6D4AVjP5FreowyzpQMR1coFsJB7+hdZWhxYqDDdibZ/
-lz0NsILI8BLT5muQaHPRn2VNzWCerPt4sZkf5rh1vSJNr/VnXVo3msz84WSRbDIwotDFI1kmGcyJ
-sUWCo5eH60RMsDCgLA/+y+IpUNj5zSuzd1ufTB92l9ELhXbFw6I0Y8lEzBPRpI6YrEDRPYeo2VyT
-ZobjSVsHneAOppx4knO2hV3ovx9z2g+hNIFg4lj5h7CbFnONwgXyctIyV7UNE0qoN3189uM9QCXy
-L1MkISr7nhwDI5Zoc9EFspe2DxNsU3amnKPYoK9Nb/IBeotkGlNbZ6/QKCzEJq8MVoBNWFlNzUDd
-wJlOC/+W7KvhNxxle06mfEB/q/09NTm+8VkYX6en9WLvkJH5euN3BFKrTpy5hov8hTTFgKxg9+79
-KmIQLYc8gnZxiDDfPmk4EUmXHWgKA2uPf7+cyYvu/yEE8nkhxYjdPxoIS9hIHPq0CqSVQg/91MOY
-/Z8p3fa0c2bCXp8bnory96tpeWOulVguTPzH4UvfVrRTMELzuRvF34lKLtd/WXctwOyWWfecbr/k
-LbRaZjxr9wRhBG+bKZ3SX62kzO+Q0U8UEAgn41weK2FOZIHU1+Xh4MuGXqQ3pqDLz47cOvSNgH41
-jn3HcODuLvP2kIcTlYh/YqRRNU3KdRmqt48x8+t5vS5//yApYhZd7sKG4hKcWPd9YvB3RRPAIHOo
-0V81zRkiPSFmPETF2YXJ2yx8mmar1eU8Pm/w6/ZB19tOsD0EE1SeknGS9ALXdoDZJIGFgf974u9m
-NpFbdasXVUxqLfuoPek6h2di3u0gQMd4qUgUGEo4QGT+aJUfz2jFiiitu/0HQrrHT3iJ+irgDTNS
-HlYdmtKoUN1FIeXbZHZYAqHjhPQCl6/B17EIkeqwXUy7qmBWaORAMfbS2Kh4jnxGjsGCkp3oGQPj
-vkk1FcB912qnmWndUTeYWBIaJo5y2vj/aAiAzE/4/Od54TPqtcz/BK5dDwVGMCahfwSEYT+QpScS
-8yPAUqvyTYjEismWba6M709Gp/s+tkk4OGL3eLiRJE7hWRVi3n2bVp7ABSry58/fPc45Qs4d9Fri
-q0AuFwQBAWE5ShKAqfx1iVAqU82WQZqumjU8ymbPdrL31nMIY6W07l+5hLWaFcvaNV13P07yfcLh
-ZTpCOrosfVktAaBJJUjvjOxxDeAThFiJr/20HLUyZSSUH9ZrDBePXP+bkom18Ff12tFot/j8LafU
-9Q8Zx/+oYU1yVQWRkXvTFK7Y2JULY4Pq9oC8Kb+MgF/FzXfCbfKqIeHMPd+xJJbnru3OnLyCMo5w
-8g54Z1uzXzmxXhuxy8ubHVIOt4aiatvGxo1qeeThJv6biEIh2//Fzso3u9lPycgCexZMbN2fua9n
-fWxEBn0/PEq7th2BcCQXKXy13+j+WOAREynu7TBcUikHXCf2Uf06CE9B8xttqo2zJ1YNMhcN1Dzn
-fML/2AEgTacXo0C++GquZRhqvGBjEOQH7ajw/wYk7ZqQvhOK0LQimYgqXPsWNe1P84ZQX4sTRfJs
-KOKcxfCLQNrYFfbxt85nszjS9SGK43D+GlZgg5EhkKFQ1cBYnx+xlecKGxwpTcPC2CIknBdBb+iZ
-bUvU7qh1g+kMD0TShQ3xfikzTrnRNkzdfIluunD6KwfyyhhEk1q3tQk1ErKkJj9wglTRWh94Kmfz
-e0NkD/ZTWzvGr/iY5+/hoXWFjRcUU/cJ07tFgZAqbajTuMhzW1L3NRflFtWQ0E2VAYW33z8WpdK7
-bKZ0mEHs7YS64Kiapf2Gd2q9Yyd+cghhuPJBH0S72J2IRiKUBnjvCbaUBx6+qmeKy7Qe4yXhG3zR
-/E5HVWs7//ajqJgX8unbYeTlRQcR0vCwLBVGwrO+ucSo1mmjnDVFMOzJciEWnxIE96QLGOtgwFEG
-cjQO880FBMRx/WQKRKnOyu8CuKElge4c7Dbrj05If5zVFi5FDz9Y5Y3yoNJEHjdLXa76B0GkaFmd
-9phffXUi+AsnP4AyVXqEu3jZOmWBqbZtLaZPIj029A3876zA8YKdqHh/nDhitCo9a3ywkG4wkwbI
-nI3JXseNuJa+dAP3VIhsmzQp9SYN/F9prPG4GbVQRa7nsjP6lfTNH4AZSCNdoOVaLefC0hYhXbxe
-AIpiMdFyQaOsM1gtugPpszZbSxsFSWGGpffBG3uHs9C5rBsza6F1XJ7j4OdDhZGI+f6U7qpWhzqg
-TUDkZ40e8GgW1U75bFwqU8LaMquFZ+GvEDvRlHFr8h5VO4jPsFFtlLYZdEYl+WDY81xEl/jIwsdU
-Js7kshxdejuG7T4B/P6FtG/8mcNQUPkkh6h3PzBpgGXzSKFWcsaAM/bCxECrQ6R2qwlsWbnJULex
-D87Kxi1mx0jbInudC1RjHuTMl2m6Zqedo4qULKBE2T7RSkqUa9Sjw3SrhjmXgLqqjylNBOibz2qS
-iCv/leCdgocem/zzEroqEmrHY5rXzrd1/42a292iDiUlF/6dXJRr2knChbi3scUSgS5zNlZYwkVN
-Z8YVZDuxrLYnRnmw+m5wrW6M1s1UmsxYWaBQ4D1kQB726Mr9Fd12MA4dBAl+iqjfCAosxkNtLL2d
-7yFuGJF3HLKYdFVPbLIEvv7pvltIPL0c4SO6qT+TptEAIjtBsrWSqXcBm+0LcMQ4bWcG7jJJsy1x
-IfrJL05H0Nt02kA1svaOtBmZMspOpz37d+CR3zqxE9PqEcy0PwB2O3UK01fAM59NlGYjNHiwbcTQ
-VVmiU5n8FpDjWZqp/qdjXcuBMn/PEcnTfHnbYDGwhLXGMl0riVxEDhLE7+5Yptgg1ajkFmjH1AfZ
-HEeZXsGkIHRH7HotRJLDy78sQWEAVN2cJEvWZYISTf1ZghukVO3CGsbNdX8XdoIzym18wn7pXKFu
-ZA5mE5XFaYGhquDf3V7bK/yfIx1VeKL4j3wEvKNftgNeDeBQKT36kEqfSnvlVrz8zGzjOS8vYfA5
-tS9PvEshbOu8/t9x9TpB+ntw4XTdk1HWVlHlre2Xb+eNG9d9163nKFWbq1fOxCtMcT/huf61CmMC
-m8AA9REiJ6I81sxku/+Ahdlloa7/JUzUYnm/zOm6nDZM6XYO/oVoimsaUFQVsE4exfdad2jetPGD
-65K10v5SC7ozlR+9IOn96yO+Ci+DT80qA8t3/lQLMkZKxudA8NcG/LQt/7psZYco1HkBNOlnEPaR
-MmjsB07+hh1YTDKL8AOMvKP3bh6yBXoKxQQFc3YrB4L+unoXDXuluaonSARqaV8H5omjliV226QO
-VwboHV5a0sCQqtNsycy2rSok3RIqNkY/Q4KFlwMfOfVkOc2wwjYvjKE8gNEF112x9qRikUPe+P7w
-hzTXy6ibvNNUV/BTAvQDjlhwxpwi7XqZ0f6Kf7jEjQMkwwU3z0Zz2kNdX4mVJtcs7n7YqFjjRCrR
-MzMUJJBpWWe7Ffzo7mzJKQNyi/ZYKXbLZAEc6wAVGcG4Ms5ZkeHLJZvyuB7Uf1Hlr9ZwvZ8s9dxm
-1FDIbvqlzuoEyX90dhuURKYimfaduGo5olwyGX7bkBIWihOm9ng5pSqTHevYouvII9aniD+Xj7ij
-RX/0TxJJHXNhVR2+g16cv6zjWfHtoCf8mmxmSGASrzSowaJGRjHcaWWXKDClGycJYm3IAjdxzcKk
-sScQBa/ewr/p+pYrK0SLrR4tDvftMFMXP/4cg+ctwfOlbq18UYBI0MDu1mRalDo3PEzO/4pNXvHU
-bDa26N3vcRAFwhNV7Cpl4O+UatFPXzNKs0NjxtonvzLPMY+SSq857QW+15CSBHbhMq9kFlPI2QZ8
-+1qZfuQ27vaeoyuBT3W3JEqCe60+hEsvn4yHcixia5Fvb5GQt5Lo82lwQ9ymK4M2SSOU44Ij1GD/
-EuuQJIvrCvhPV9afUNM3KyIoMkz3RWRHmv8tz0k3/6J4QsWxBv4Bg9oN66I5mdnyGV8CTd2dFjEN
-nK+nUts6nM2FGFuxLDL9hSA1imedTR9JUImcU8qe2IP8uVuRrGT404PuMLNmTDLiLs4PbivHybim
-7f6sbl4/QD4VVc/mMckRdQAPv3OkozMoDoYI1e/W67ybAfWsPVgh8aBh9uBW41bXcOEFLr7Ibvr+
-KTgVuvBdDlxjx6PVlreDZBR23EWBneS0IdaUNLV0g45H2b5xHFySQcKLtpAfzuYa+4hJ6O9H7Zs6
-oSuklFj3O+jJLFdRjei107G7zYEJNP+N3kcDP9QJrCw5fvAfGCjtz0NGzVc1ofGFFWg6ZIsVKryK
-By1MUr5BE9cxQy0hiCVQRnD2avuzeqN2gOdArqSF+T4HPVos0sZqpCA268h84nSiW5da5jV1dUzJ
-Dm7t+GXpWlZ+wy1vg4PZLGcxBIChtuR37G3VNa9AwNvxvgqci96IoSlrQgWwKvBWy6CG8us5abd4
-GWWCSlZlEIN2qOij6QiGnlSoCRAvzmDtYHy2waVwXkaMCm2PIYWfxvCZPLWfE/szoQk4O9Ttu0Uj
-+Q5Ahx39hMed128rRTvwNcmD+JPL1hza+P+RQhBUVy9Q0rSRuS+DFXQmuhTLTX4R111POIvnpf6L
-nwuieLaAUy+DsnPxqzrYRq2iXR17YgBecnp9L9FcDRprYrrIcik5BwIP0oGjMcUyqKH1SU7zRwCK
-pCGiUFwqf+HMyrs0+XDw73CtFMxy8vExD79wFzl/9kjdQpvLeog7Bk6xLaOxRLxQc9/R+cbYVvce
-pxRzwEInoeLDB+o+R/+RXFiD7aSYZ8LUbIroUQQmQehRuA+4cj2WL0MqcoeWCeSqJXaAE3EFMIig
-7DD97a+MwJlJ3YsmaYUCkMOlZg4p0OHo/qJNDpVh0zhbujTRXDHYL0AKbztfmg4fDmPX9xrwwaGg
-PD2MNu7kjIC9AHvDynAwhGSzObT7Td1iFJh2cgxK9hamvSacjOaUejwTZGJHd0cTfGWTaWuiQx0/
-Fmi50IAwCIWu2xapuXp6QdkalwCMiQUBFoWioqv5rb6T8BqQFOo0G65LYjJw+fgQ5RWp3oCKAgtr
-JUmKbBvAyTXoRkDIyl3Kg9LGHGWZVHKRhsDkXpbwC/azScgkpCMvef18d7x9lGX9Tvb8J91xHPev
-M0j1C4jw7qghkHJPMktFtsE1R2PiiIDhdAWf1XCUlnfBK/wQ+dL8py50YDjV7ww+DQ1CqWgCnlkK
-+AbgJj6SfSaXtUkj21eK2FGn9vY6dDTakAwQlO5paCP6qUamQU+vU99HTTmA2YhulbGc5ocKB90I
-41bGcui8PLEn3BQKFy5+SBvq4r+OngG1CGHGMNFfHiNqkH+Ol7WaHvf+4Y1jXIrzAdD3YhHayOWq
-AsqFWAEX6tuu9dBLcUNSN4r6RS0ZqeYAlaeSVwLyrTnpev6XW7anXWKkBV8HyrSgfZOZSQhotOfa
-ObKYsk731cRMoIG/ZjAAIjDfvUA/S9fqqGdmzi8cDV0BQjZUe3C6nMLiegya2E2U+dB0sr/hySSl
-fkH9rJGd5+ZpRKcrigPASoVhx6VODpqsTL2dNTzjJDFC8AvVr487IoYBLJ5XCwwag9BjElAAoD2n
-t2mx6DWA1XHiGoaFazL8BAw8z/hZ4FoUqo0WZTpZ+mNFfPnzkVuxCn0iUaDPc8OHiIELQeuKEdIj
-M6Xoqcv1WAhoE4uIArc6CBUxgtkkPIDUqHQHE1z1wjjO9ZCCNzHg6DHNVYLPrwWv+SfjvONSvsSx
-D6MbriIL04PW8osVbt6p8W+F6cBxrFdX5TCqFhvkZzJwByFQRKS9m4pOoS69IuFT31oXwys8VEYV
-KXk3G2Src/RpUOHjWEQYZBbzAzaF8+a9iGKXWG59MBc92Mte6FmGOrb9tBojp1QNHogWH5F546gg
-5lZG91aP/r42WT9b1/j8dTUYXoqS7MQejN2WhX6lcbat2Zgp+XiWhXjSWI2cck6KX0uiyDI+KXYl
-4FXr/wr7K5u28ye3o2PH30FhdKbp5pD50nOgPMmhGoRAQ8UbS0oO3DtAbAHP+D0i0bJmP7A+UWhb
-+q4vSoGcogZxbn+3t5n5MfQoocCu/ebHnKWGxyAERpL+KaxD8VHuMl2+WqIMY+1F4bEfxg0iuGkA
-6iqaz0v3YRt9/ER2OBfhO5NMwbpD64CoMdunvX/L2wFmSCXkfgwmLY7o9M43gB4iTHzDj95M6eDW
-Nj+lm0G4AruVPOgoQIUts2UCgtuAjOFUB2lp874MMDadom18GPZkccaByeSQ89Z3SYLfCm56vsIh
-oDvzKb7qBmbuxmMVKy69jL69uidnUpEosstUlRMcPNrbg1HocSI54wUCqiWG0LEs2/6AWBEcjyVR
-q4P8QyYdbE2TwOLps0wWokmSewpwtEgd1mRH8reLZIvxiqUqaqyh70bgvNVal/bw0HbUyzNbCFNc
-yTXV3zPMDCjEY1aXi1c3NrvnXbyT2w9Z9Z3Z2MisZJsjdI1YOODafODhEf9CDGLPbWcYEkHisaAR
-WoZC/I99bW8hc5itH10n9jHzevSnJQDHN5LTGU6ASNDy2AiGpHImhmdfXyid8Jh42Z8ttmmJyNGi
-zCR5QkR+JJsVpq1pZGDd2IFKI6HKXe1fsDiem60bX26u4FTesd9sLe6bSUaXQqDO6LhEskCO18tF
-Tnq8NogWvZjX5hwvmWxcJaiXYhnvBjo/0Kwvb0I4Uj0NIAwjnkgpLBlZRw/FjXdPOLJzEE/7u2lr
-Or6CfWpEcydatS4mY2jR1Kc9OfVniA4pra+gMvcEeuTxFWyMkbxbv66ibAz9TAEbNpZwFJV4L9K6
-rf5JoFnSFrb/qlhOquniwLM22XjrpnX1s9DP7FSlBCzGl1cNXROdJSMrfalpVT8or28FGcwg73iq
-ku+eecN+hsQzNVRx4Xg7IwYY+BuGrTxFlmTyN8gXimlFqa8ubJ1w/Yi6ITxK/szSYJ400xzvVWr7
-JpjnbtdUcr4py99LXREJJfAZsJR6x6JuRlqCaoKPA5kguX6K/D57zufpjVKXBko/LpC1J8znbLk+
-Es0Ww1d8pVs4Ccye4MkDwHzGiRQUvh5bjLSE95svbg+qZniLMcwbr9t/h+ilAMsX+JKEL5eCmmFt
-esc3CqRoU9Wvg5VI2/aI9yGvobMjQFGpTBhj3Mkl0F/Mq3Kf2XVQFQQVnW4mimLVXLDu7VdA+IV+
-yc50kudsWH/bgkVJl/tT1zU/Bi62T18zyShYFO6FM3y+n3CfWSurDI68EfO7wqL4b0zUNEsZnpZT
-FOzlT56ofZcvbydhIyHAxADrYwxJBl7XoUwckirt3/pMmDYa7PqZK0Gp/MTRE8ESifLL7kZef1CH
-9Cgm8jkAQQihLgYi9iLQY/Dwjb9kpc5zv5E2Y9NZMOWFjb4UPPVZLrBE3lybutKHBj4f3KljZ7IF
-1TcLpwzmeCAmQiNIGCG5z6LXNIVq9TOWCnWK7D3XOaRlurZ0ghce0TYMi78EQQw2Gsd/eViCoM1p
-VDUyIwYIINfwk8KpjK/X3b+sbeOsK2oadKOxCEeMgesH7wKuQpdKDgciI5qwKgvk+sfLDLoeDfja
-PFTXb//pcSABafgf/TQrauFM3PipUZ2OZg9aGFScFV7M+9fN+JslrrqePm7P5pJ2f69xMT2ZryIY
-HgDl17pshq0zgKGf6U9Ox1Glt7rUVWQdkKzEGSyGwsocts79mujaUjoUR5gulhiusrT9NX8dUd3O
-/lajjKHL3S3+VEQrDFm6rgxOI25zf77V73PN6vSK+cprgxobtMni84HvIVKE387PQiEDAAE/E5Q2
-UaMO7KjQOtOa4aWHcnhNbWvUYXR1YEpbyKqUsTYmi0RdobkRtERDdZRHo5OJLvNef7vSkgWmfKZZ
-da/Y57lhD/73xP8/7ybx3zvW/ET0Ga7EgwAmfYGDkKSqyjpDnAevqBudnAyhKJuOGRoHkXEPwHpr
-qTQtozC5mJ9AfEeQK9GYer1/3lJGfxoRc3jD4WgERwBPWlLtLoetPDN9RGdbzM3WZAmjsc4EEo2x
-A4FanoqfMI0DxbLiJNSsL/cTR7Qd0w1QOp4XM74mIGLQTsYv+ryLExgZtEzMLqWw9KLClCGVk7oW
-q/28W3N6fqKqwh935uAV5n+yZ0ZD8Am8Fc2U9gyx5CZg6KLgWRmmu6E+MytIPcXFMjRlUzcItarB
-M1FQyhdmQtoJJSmFtOS6MX4Kx9dCLvVwUwXo691Ahd0lUeB+tf11q6WfKfEruvO+DE9B394MmWdl
-nafj18OgIA18DLXXGYIOI3FR9/15v6tWQfTScu3gpLvzgzwxhXZEP0zCGl+0TaeUl7mfO+vSKOp9
-2JKiCmRPfhdUxkAqn9nssgulWLu9BtDOpG+3j2TI1qTrfEN81tqY6IymiQB3kzeafCfzyd4cgQsh
-15v5ozYRpSGsHoiUHq+/LRkuVfBU326zZEwPz3XymACLEdzbAlM5cmxBo2n2+L6Nyx6jAX+YRD3u
-qBbsVkwPLEmCPuXvr39NN2SZfHt9rGz5ZqaZYxTtY1v1B5jVzI8zKJTbRJDJ+Nz0mDVtGgP1DHYQ
-CJHrIbR1qHy7XpY0zoZAe5x9VrX6o2ixA1Utz4E8jE5fniGgSmOACxtAd5CJwtmPHKfJ0aSJBDHe
-fhcdvrIB2liIm+2RQFEXi+1/5YwNOP2crH+ziQeBrbJ3cfOdPP625zL73JRUEwa0MBJ3A0424oCM
-7SLUnbGVpABCJngpSPBzj4s2lnkx09VOQ2jeOHd7J3jgRnjvlf4AndM8Smb8wc5xqwITgNPfzEth
-/64AVcNR1mG4tXIVM4NkdiBAbke8MyafslCP/TnfHy85Ret8pn7fDpbxX4cUq1M4aPdCiFR32moY
-SI3T/Vj9Ey/99L2w82x9i3iIBC4ROA9MyvMYxluhwEgtWHXf9KdfeMiodiDV6TJ7hEMpD+zddz0X
-91Oag1itb0xJ153FvaetTx1wUyoL1h/eHAYNQd7uP/rYRl0dqPj+LI+J+KfG9I6Om5QumuZ1Q0J8
-s4vkwFvJL67Tiw+4am9UTzWXGfHDbQ9780nl5Iko3Xp/dQGku4BuK80DNj50OHb8Y6Of4+QtrZtL
-9KldzhaVlzlrRtpC8HXC+iFVjPPDIVPxO8m6h4LtS+nAn/A0UIYpJcp0okIudGa+BoCdtFKPz9zP
-41JV5+c7vA6oo9kShb4iVq5HA0+SUNbXpwrdDQOtwXtbSC4AvJvATcMIgK58mZSqp+Yc0mMlwwwU
-6D9ZzisSWVzyGZgZowfRNY2sxKXLNcy8G4zgdByWsF4gH9yKP39V7yobTQCaP5hNeQUGepaKRgKM
-AZA83N1TbzvWBQpWcLF0P/DQYh/ER+wrwo+IIZZnvnAR0goCphUdvCcRd3Sd5ew3WwFuV/DNOoA/
-DXt9SMgE5A6U4tPg1Ni3dI/p8+5iyCuxmV7Oi6xABbC9WznZyWpqs6iIOZZAu5sJr86qCVdp47e5
-rzCKq9bvpIAmfiSwK1dh0QyFKAc6ObEHdNLRw0cjiVM8Dg44X/ON1gUuYOdHYRo1cJ961V4HaPuc
-b3QtVrxKlr7j088nO1yGzQcti7nNGR9+BDWxexbdb2uUvYuHdc4lmHe/zj6Yfcx5mmKm02mK0bc7
-gj3rPyQxncAFQILZQV3ykW4cEhzQKaBjGME3aLNFNg9EhsZspTGxiNFaf01Pq+ZFB4Gr+wCvdHqR
-VwuTm+ZjgQUByXFaCoY08a1Ai897C/x6hqNFb7tswF1zIPjc/r8m3j8ANM7Pp3yDNFxrLOemVY59
-W1ZUiIhITZXMWyVnBC6qn30olJPkP+zeUP1e40siVltzgokeoUVRJD3ttHLVq8K4b91gooN5pAX0
-9hs0Q+dJa71fO0iQIkI10U2BDV63tKqcyruqp9nGz5Te2dCQAFR8Cco0rJyuMMa3/Wwd2xOgGmA1
-wDAuvhkhQorvu0Ffs+B1LOngORRg3r4fd2DTi42xcYiTrkMS2aMozEnG4w9qr8anv+s7pJVXrFVv
-XtbIpQFbbojNy9KaUFZAoiEzE/1GQ+nF9UXdv+Wqe4bCAHKstbIctyo9Vh1dDkyJuoBcNIOK6NNE
-vmyEZBD+9cEk/5cu1Ez6howvR1lEtVoZlljtCtGeWgM3uOhzcTWTTsuGoYJsK9EPn67sDG8CmY3b
-D42u0f996vGnbgk23fpq8RjblHZcSJ9Opu4G7DUwnjWDVEo5LKi+UDvj+MDBma9NU4sLC5cx/rXi
-Qlh5qSyM/u4Er4S7mfr6elQE48uN/8ZGPbcD3xthybZmzZ18fhwgKWqZyGi+DjramaoZryanM4dS
-lE6u3xt1elB4Yu/oWy9YK0za2/B0DF+BtKQ8KUNDqi18Xkm6zwQGynrtTY6HXiK1rVNgV4vEu3OP
-4hvLGmbk4A5Sr+IYWtb4uW6OBiO8/vSTcdrvNmQWAeFfguMCvipSJiosnxgZbwqEV5t2keoErhzR
-cPTxWwUMDBycOwUWv186Al03drXSUV+4J6UlJzbU4OghoJaEnXFrzORLwaJnTNfwgPTuAcUi5xQf
-mbXGGlHEG4sOqHFs+gFeLE+74Phx+KFh52piAbi5XdXWUnBbaOcIqgIUeJLkHnspAcAaoh1VjChC
-u34E+w5AT1ZwHf0Ua0/lSjL6rOzjnnmIbBvhRGfb4LufAaV+yOuYQFlc0+LY5Z7IzjNmxHlgW5qf
-h8+8gDh/vHUide1wm7HZeGIE8nmorp8V0+R+AF9eR1QM+zJIzZy9aZEiU7bHTb1vxmJ9aHtPRa/+
-KvPsHrC4IdfcOdH2FgGiaRpuLxUZ3zUb4W0BOi2fTRTHrBdqisNxX98f/dxzxOIbuXSOXkxALNIP
-0QqQQQVqDCbZLsDisMoZvHR4hpwgDciGvL28VgacWhrUVRSq/Ww9Hb4xBM4Tg2tm53LwtsxqtGII
-i/whhYdC3FpCoXktpagejL20kR8LpYMxgIVPR5uGnmvByv2r+OcLOLptGlCgSSwCwcbjBC/XW989
-LHr8u/yWEaFxew48gt7MObwj5gcwCuE4YRnUcmjDyAWIGRxKuPgCLMqmGY1EafDyWQwhuPhQEGXl
-MDLzk+3q3HFwyUGXnHeB6eovFiBn/Zbknn5kyZSqppW2wHkh9ZNTOb1daIp5DKR/Cd1iKSajgZGr
-9JTKM12OOPlZ5fpmsTjg98mziIYtASBEgUf7zANJPQwO3/tKblMW7pdN4tlkzZTs3Mgjo2cTAFO7
-wzuipTkxc7PU74dQ7eZ55P/SNN4v3bYVcBVGcOVZnnebr0YhuKttwXgidiX9EsXGuMEa1A0XKyA+
-GPHiQgwyw06J27/ysUpw+adkxsEFyzEl1YdPANYiJmj8hYDLScwZHkxf0Olsmd51k7hDijCqxvep
-ySVP8guuNZuuEUmxuHBsprW1eofcdJek8F1faMsOiMs2mWpM5JyspS7W3e8kI23pT8dXPQVBGNCp
-6qHFkgdjlj6CNR+RZ9Q78peaHFzVMc5R7XgxSvpGtvWLNWdoCohx+EnHUG1S0vs0o0tjn4KE9BsH
-xgFwDGDzx3AM8JCaybwJzyNss3EaLdsBVLCgAQV1NjoRy1rLuRqOigrKctIkEQbZ1l2qZcB7hyHn
-4sq3LuLUCUYwoYtGDm7a4JGzADRtyr5igEIu/DWNVnd43tyD/0ZxX5flL/wpEevnhYKT0z4dgI43
-JGABJE8cQKJWuB8IG6kXBtZHWPULeCZbiAelCM9YqRDSEtJ+EsgYm8wL/2QttKJQlde+e5YhSDl1
-rheH64bO3QUaGx9ogJEure3YkumBvbmh831eWr+uuOw+y02Xsx5F06fKbRfNJW0utMAnwzZwRcv1
-5djMprA/Tcl+CGy+0jvjeFCe8h3pA7x9G57BC2JK4FLSqiXwD8zK18HEgQ4t3LT8LSK6Xfjis1P0
-L5Iwg+whWOtSpO1h8XcvsRZQUDgvkSYUuuYgIfzPrbSuQ3NRNP6QODMX3g2VHflLTr2/LONWbnkh
-xoRBia9FCg9DwuluyekxYZZeUemh/QMGsD6lO6L9E8uJGSzOrVB4DAAFa3k4omXBZL5WyxRhxieI
-y3+uAU7ac4tz/1fFGZZn0VkmuF34Z12QbBbcLhLB9NAXNL/6Bq6Thv6qc0PJ8R2GginftSxCN60P
-Tn1osQyEUIQNjEEKK6SOg/40H+AQCsrYVNs8s0M78y/lHSTNMLUrzlv3giyDjPP/RbLlNwaoq58X
-+Ku6kyrP8NyJd8h4dM5nQ2tkaRgXLHlg8Wqc2t4ddK0WrBcQodKo1r0DkBvYqnUd+TORu7EBZ6a2
-XpOlohaBP7Y/BNu0Xm==
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
+header("Access-Control-Allow-Origin: *");
+ini_set('memory_limit', '-1');
+
+set_time_limit(300);
+
+class Cgestion extends CI_Controller
+{
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->helper('form');
+        $this->load->helper('form');
+        $this->load->helper('url');
+        $this->load->helper('security');
+        $this->load->model("oficina/MGestion");
+        $this->load->model("dominio/Mconfig_prueba");
+        $this->load->model("dominio/MEventosindra");
+        $this->load->model("dominio/Mvehiculo");
+        $this->load->model("dominio/Mresultado");
+        $this->load->library('encryption');
+        $this->load->library('Opensslencryptdecrypt');
+        espejoDatabase();
+    }
+
+    public $sistemaOperativo = "";
+    public function index()
+    {
+        if ($this->session->userdata('IdUsuario') == '' || $this->session->userdata('IdUsuario') == '1024') {
+            redirect('Cindex');
+        }
+        $encrptopenssl = new Opensslencryptdecrypt();
+        $json = $encrptopenssl->decrypt(file_get_contents('system/oficina.json', true), true);
+        $ofc = json_decode($json, true);
+        foreach ($ofc as $d) {
+            $data[$d['nombre']] = $d['valor'];
+        }
+
+        $estadoSicovAlternativo = $this->Mconfig_prueba->getSicovAlternativoState();
+        $data['sicovModoAlternativo'] = $estadoSicovAlternativo['activo'];
+        $data['ipSicovAlternativo'] = $estadoSicovAlternativo['url'];
+        $data['ipSicov2'] = $this->Mconfig_prueba->getSicov2Url();
+
+        $this->load->view('oficina/VGestion', $data);
+    }
+
+    public function cargarVehiculos()
+    {
+        $data['vEnPista'] = $this->MGestion->getVehiculosEnPista();
+        $data['vRechSinFirmar'] = $this->MGestion->getVehiculosRechazados();
+        $data['vAproSinFirmar'] = $this->MGestion->getVehiculosAprobados();
+        $data['vRechSinConsecutivo'] = $this->MGestion->getRechazadoSinCosecutivo();
+        $data['vFinalizado'] = $this->MGestion->getVehiculoTerminado();
+        $data['vAproSinConsecutivo'] = $this->MGestion->getAprobadoSinCosecutivo();
+        echo json_encode($data);
+    }
+
+    public function migracionPrerevision()
+    {
+        $this->MGestion->migracionPrerevision();
+    }
+
+    public function cargarSICOV()
+    {
+        //        $sicov = $this->setConf();
+        //        var_dump($sicov);
+        $data['sicovEventos'] = $this->MEventosindra->getAllHoy($this->input->post("placa"));
+        echo json_encode($data);
+    }
+
+    public function enviarEventosIndra()
+    {
+        $sicov["ipSicov"] = $this->input->post("ipSicov");
+        $estadoSicovAlternativo = $this->Mconfig_prueba->getSicovAlternativoState();
+        $sicov["sicovModoAlternativo"] = $estadoSicovAlternativo['activo'];
+        $sicov["ipSicovAlternativo"] = $estadoSicovAlternativo['url'];
+        $sicov["idCdaRUNT"] = $this->input->post("idCdaRUNT");
+        $eventos = $this->MEventosindra->getEventos0();
+        if ($eventos) {
+            //            $e = $eventos[0];
+            //            echo var_dump($e);
+            foreach ($eventos as $e) {
+                $this->enviar($sicov, $e);
+                //                break;
+            }
+        }
+    }
+
+    public function getEstadoSicovAlternativo()
+    {
+        $estado = $this->Mconfig_prueba->getSicovAlternativoState();
+        $version = md5($estado['activo'] . '|' . $estado['url']);
+
+        echo json_encode(array(
+            'success' => true,
+            'estado' => $estado,
+            'version' => $version
+        ));
+    }
+
+    public function setEstadoSicovAlternativo()
+    {
+        $activo = $this->input->post('activo');
+        $url = trim(strval($this->input->post('url')));
+
+        if (strval($activo) === '1' && $url === '') {
+            echo json_encode(array(
+                'success' => false,
+                'mensaje' => 'Debe ingresar la URL del direccionamiento alternativo'
+            ));
+            return;
+        }
+
+        if ($url !== '' && !$this->isValidSicovUrl($url)) {
+            echo json_encode(array(
+                'success' => false,
+                'mensaje' => 'La URL debe estar en formato host, host:puerto o https://host/ruta'
+            ));
+            return;
+        }
+
+        $estado = $this->Mconfig_prueba->setSicovAlternativoState($activo, $url);
+        $version = md5($estado['activo'] . '|' . $estado['url']);
+
+        echo json_encode(array(
+            'success' => true,
+            'estado' => $estado,
+            'version' => $version
+        ));
+    }
+
+    public function setIpSicov2()
+    {
+        $url = trim(strval($this->input->post('url')));
+
+        if ($url !== '' && !$this->isValidSicovUrl($url)) {
+            echo json_encode(array(
+                'success' => false,
+                'mensaje' => 'La URL debe estar en formato host, host:puerto o https://host/ruta'
+            ));
+            return;
+        }
+
+        echo json_encode(array(
+            'success' => true,
+            'url' => $this->Mconfig_prueba->setSicov2Url($this->normalizarSicov2Url($url))
+        ));
+    }
+
+    public function consultarAuditoria()
+    {
+        echo json_encode($this->MGestion->getAuditoria());
+    }
+
+    public function consultarPlacaSalaE()
+    {
+        echo json_encode($this->MGestion->getPlacaSalaE());
+    }
+
+    private function enviar($sicov, $ev)
+    {
+
+        $url = 'http://' . $sicov["ipSicov"] . '/sicov.asmx?WSDL';
+        $datos_conexion = explode(":", $sicov["ipSicov"]);
+        if ($sicov["sicovModoAlternativo"] == '1') {
+            $ep = $this->sicovEndpoint($sicov["ipSicovAlternativo"], '/sicov.asmx?WSDL');
+            $url            = $ep['url'];
+            $datos_conexion = [$ep['host'], $ep['port']];
+        }
+        $host = $datos_conexion[0];
+        if (count($datos_conexion) > 1) {
+            $port = $datos_conexion[1];
+        } else {
+            $port = 80;
+        }
+        $waitTimeoutInSeconds = 2;
+        error_reporting(0);
+        if ($fp = fsockopen($host, $port, $errCode, $errStr, $waitTimeoutInSeconds)) {
+            file_put_contents('encdes/salidaEVENTO.txt', "");
+            file_put_contents('encdes/entradaEVENTO.txt', "");
+            $client = new SoapClient($url);
+            $msg = '';
+            $datos_ = explode("|", $ev->cadena);
+            $encrptopenssl = new Opensslencryptdecrypt();
+            if (count($datos_) == 1) {
+                $ev->cadena = $encrptopenssl->desencrypt_RIJNDAEL($ev->cadena);
+                $datos_ = explode("|", $ev->cadena);
+            }
+            $cad = $datos_[0] . '|' . $datos_[1] . '|' . $datos_[2] . '|' . $datos_[3] . '|' . $datos_[4] . '|' . $datos_[5] . '||' . $sicov['idCdaRUNT'];
+            if ($datos_[2] !== 'Ruidos') {
+                $this->sistemaOperativo = sistemaoperativo();
+                if ($this->sistemaOperativo == null || $this->sistemaOperativo == "") {
+                    $key = "v239pShjXXXXXXXXXXXXXXXXXXXXXXXX";
+                    $iv = "sicovcontacindra";
+                    $eve = mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $key, $cad, MCRYPT_MODE_CBC, $iv);
+                    $eve = base64_encode($eve);
+                } else {
+                    $cad = str_replace(" ", "_", $cad);
+                    $url = 'http://localhost:8093/enc/enc.php' . '?cad=' . $cad;
+                    $eve = file_get_contents($url);
+                }
+                $evento = array(
+                    'cadena' => $eve
+                );
+                // var_dump(  mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $key, base64_decode($eve), MCRYPT_MODE_CBC, $iv));
+
+                $respuesta = $client->EnviarEventosSicov($evento);
+                $respuesta = $respuesta->EnviarEventosSicovResult;
+                if ($respuesta->codRespuesta == '1') {
+                    $data['enviado'] = "1";
+                    $estado = 'exito';
+                    $msg = 'Operación Exitosa';
+                } else {
+                    $data['enviado'] = "2";
+                    $msg = 'Operación Fallida';
+                    $estado = 'error';
+                }
+                $data['ideventosindra'] = $ev->ideventosindra;
+                $data['respuesta'] = $msg . '|' . $respuesta->codRespuesta . '|evento|' . $estado . '|' . $respuesta->msjRespuesta;
+                $this->MEventosindra->update($data);
+            } else {
+                $data['enviado'] = "8";
+                $data['ideventosindra'] = $ev->ideventosindra;
+                $data['respuesta'] = "NA";
+                $this->MEventosindra->update($data);
+            }
+        }
+        if ($fp) {
+            fclose($fp);
+        }
+    }
+
+    private function formato_texto($cadena)
+    {
+        $no_permitidas = array("Ñ", "ñ", "á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "ñ", "À", "Ã", "Ì", "Ò", "Ù", "Ã™", "Ã ", "Ã¨", "Ã¬", "Ã²", "Ã¹", "ç", "Ç", "Ã¢", "ê", "Ã®", "Ã´", "Ã»", "Ã‚", "ÃŠ", "ÃŽ", "Ã”", "Ã›", "ü", "Ã¶", "Ã–", "Ã¯", "Ã¤", "«", "Ò", "Ã", "Ã„", "Ã‹", "'", "");
+        $permitidas = array("N", "n", "a", "e", "i", "o", "u", "A", "E", "I", "O", "U", "n", "N", "A", "E", "I", "O", "U", "a", "e", "i", "o", "u", "c", "C", "a", "e", "i", "o", "u", "A", "E", "I", "O", "U", "u", "o", "O", "i", "a", "e", "U", "I", "A", "E", "", "");
+        $texto = str_replace($no_permitidas, $permitidas, $cadena);
+        return $texto;
+    }
+
+    /**
+     * Resuelve el direccionamiento de SICOV: acepta host, host:puerto o URL completa.
+     * Retorna ['url' => WSDL, 'host' => host para fsockopen, 'port' => puerto].
+     */
+    private function sicovEndpoint($valor, $rutaPorDefecto)
+    {
+        $valor = trim(strval($valor));
+
+        if (preg_match('#^https?://#i', $valor)) {
+            $p     = parse_url($valor);
+            $https = strtolower($p['scheme']) === 'https';
+            $host  = $p['host'] ?? '';
+            $port  = $p['port'] ?? ($https ? 443 : 80);
+            $url   = $p['scheme'] . '://' . $host . (isset($p['port']) ? ':' . $p['port'] : '') . ($p['path'] ?? '');
+            $url  .= isset($p['query']) ? '?' . $p['query'] : '?WSDL';
+
+            return ['url' => $url, 'host' => ($https ? 'ssl://' : '') . $host, 'port' => $port];
+        }
+
+        $datos = explode(':', $valor);
+
+        return [
+            'url'  => 'http://' . $valor . $rutaPorDefecto,
+            'host' => $datos[0],
+            'port' => count($datos) > 1 ? $datos[1] : 80,
+        ];
+    }
+
+    /**
+     * Si el usuario digita una URL completa para SICOV 2.0 se guarda ya lista como base de la API
+     * (esquema://host[:puerto] + /api); con host o host:puerto se guarda tal cual.
+     */
+    private function normalizarSicov2Url($url)
+    {
+        if (!preg_match('#^https?://#i', $url)) {
+            return $url;
+        }
+        $p      = parse_url($url);
+        $origen = $p['scheme'] . '://' . $p['host'] . (isset($p['port']) ? ':' . $p['port'] : '');
+        $path   = rtrim($p['path'] ?? '', '/');
+
+        return $origen . (stripos($path, '/api') === 0 ? $path : '/api');
+    }
+
+    private function isValidSicovUrl($url)
+    {
+        // host, host:puerto o URL completa (http://host[:puerto]/ruta)
+        return preg_match('/^[a-zA-Z0-9.-]+(?::[0-9]{1,5})?$/', $url) === 1
+            || preg_match('#^https?://[a-zA-Z0-9.-]+(?::[0-9]{1,5})?(?:/[a-zA-Z0-9._~/%-]*)?(?:\?[a-zA-Z0-9._~=&%-]*)?$#i', $url) === 1;
+    }
+
+    public function getResultadoGases()
+    {
+        $idprueba = $this->input->post("idprueba");
+        $rta = $this->Mresultado->getxIdprueba($idprueba);
+        echo json_encode($rta->result());
+    }
+
+    public function ranTh()
+    {
+        $this->MGestion->ranTh();
+    }
+
+    public function ranTh1()
+    {
+        $idm = $this->input->post("idm");
+        $this->MGestion->ranTh1($idm);
+    }
+
+    //    public function actualizarSalaE(){
+    //        $dominio = $this->input->post('dominio');
+    //        
+    //    }
+}
